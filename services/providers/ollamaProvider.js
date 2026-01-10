@@ -71,21 +71,42 @@ const MAX_HISTORY_LENGTH = 10;
  * 
  * @returns {Promise<boolean>} - true nếu Ollama đang chạy, false nếu không
  */
+/**
+ * HÀM KIỂM TRA OLLAMA CÓ SẴN SÀNG KHÔNG
+ * -----------------------------------------
+ * Mục đích: Kiểm tra xem Ollama server có đang chạy trên máy không
+ * Cải tiến: Sử dụng TCP Socket thay vì HTTP request để kiểm tra nhanh và chính xác hơn
+ * 
+ * @returns {Promise<boolean>} - true nếu Ollama đang chạy, false nếu không
+ */
 async function checkAvailable() {
     return new Promise((resolve) => {
-        const http = require('http');
-        const req = http.get('http://127.0.0.1:8080/health', { timeout: 10000 }, (res) => {
-            resolve(res.statusCode === 200);
+        const net = require('net');
+        const url = new URL(CONFIG.baseUrl);
+        const port = url.port || 8080;
+        const host = url.hostname || '127.0.0.1';
+
+        const socket = new net.Socket();
+        socket.setTimeout(3000); // 3 giây timeout (nhanh hơn HTTP)
+
+        socket.on('connect', () => {
+            socket.destroy();
+            resolve(true); // Kết nối thành công -> AI đang chạy
         });
-        req.on('error', (error) => {
-            console.log('[Qwen AI] Not available:', error.message);
+
+        socket.on('timeout', () => {
+            socket.destroy();
+            console.log('[Qwen AI] Check timeout (TCP)');
             resolve(false);
         });
-        req.on('timeout', () => {
-            req.destroy();
-            console.log('[Qwen AI] Not available: timeout');
+
+        socket.on('error', (err) => {
+            socket.destroy();
+            // console.log('[Qwen AI] Not available (TCP):', err.message);
             resolve(false);
         });
+
+        socket.connect(port, host);
     });
 }
 
