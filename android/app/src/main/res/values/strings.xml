@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ESchoolAI</string>
+    <string name="title_activity_main">ESchoolAI</string>
+    <string name="package_name">com.eschool.ai</string>
+    <string name="custom_url_scheme">com.eschool.ai</string>
+</resources>

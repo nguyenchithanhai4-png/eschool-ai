@@ -1,7 +1,8 @@
 // ==========================================
-// TEACHER DASHBOARD CONTROLLER
+// TEACHER DASHBOARD CONTROLLER - v2.1
 // Handles all logic for teacher-dashboard.html
 // ==========================================
+console.log('Teacher Dashboard v2.1 loaded - Ready');
 
 // Global Variables
 let cvReady = false;
@@ -107,6 +108,10 @@ function showView(viewId, navItem) {
     // Auto-load profile data when switching to profile view
     if (viewId === 'profile') {
         loadTeacherProfileView();
+    }
+    // Auto-load SoDauBai classes
+    if (viewId === 'sodaubai' && typeof loadTeacherSoDauBaiClasses === 'function') {
+        loadTeacherSoDauBaiClasses();
     }
 
     // Close sidebar on mobile
@@ -1170,30 +1175,52 @@ function switchAnswerInputMode(mode) {
     document.getElementById(`ans-mode-${mode}`).classList.remove('d-none');
 }
 
-function regenerateAIAnswerGrid() {
-    const numQEl = document.getElementById('ai-num-questions');
-    if (!numQEl) return;
-    const numQ = parseInt(numQEl.value) || 40;
-    const numOpts = parseInt(document.getElementById('ai-num-options').value) || 4;
-    const opts = ['A', 'B', 'C', 'D', 'E', 'F'].slice(0, numOpts);
+// Switch between P1/P2/P3 answer key tabs
+function switchKeyTab(tabId) {
+    // Remove active from all tabs
+    document.querySelectorAll('#ansKeyTabs .nav-link').forEach(el => el.classList.remove('active'));
+    // Hide all tab content
+    document.querySelectorAll('[id^="ai-key-p"]').forEach(el => el.classList.add('d-none'));
 
-    const grid = document.getElementById('ai-answer-grid');
+    // Activate selected tab
+    const tabBtn = document.getElementById(`tab-${tabId}`);
+    if (tabBtn) tabBtn.classList.add('active');
+
+    // Show selected content
+    const tabContent = document.getElementById(`ai-key-${tabId}`);
+    if (tabContent) tabContent.classList.remove('d-none');
+}
+
+
+
+function regenerateAIAnswerGrid() {
+    // Generate all 3 parts
+    generateP1Grid();
+    generateP2Grid();
+    generateP3Grid();
+    updateAnswerCount();
+}
+
+// P1: 40 câu trắc nghiệm ABCD
+function generateP1Grid() {
+    const grid = document.getElementById('ai-key-p1');
+    if (!grid) return;
     grid.innerHTML = '';
 
-    for (let q = 1; q <= numQ; q++) {
+    for (let q = 1; q <= 40; q++) {
         const row = document.createElement('div');
-        row.className = 'd-flex align-items-center gap-1';
+        row.className = 'd-flex align-items-center gap-1 mb-1';
         row.innerHTML = `<span class="text-white-50 small" style="width: 28px;">${q}.</span>`;
 
-        opts.forEach(opt => {
+        ['A', 'B', 'C', 'D'].forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'btn btn-sm btn-outline-secondary px-2 py-0 ai-ans-btn';
             btn.style.minWidth = '28px';
             btn.dataset.q = q;
+            btn.dataset.part = 'p1';
             btn.dataset.ans = opt;
             btn.innerText = opt;
             btn.onclick = () => selectAnswer(q, opt, btn);
-
             if (aiAnswerKey[q] === opt) {
                 btn.classList.remove('btn-outline-secondary');
                 btn.classList.add('btn-warning');
@@ -1202,8 +1229,101 @@ function regenerateAIAnswerGrid() {
         });
         grid.appendChild(row);
     }
+}
+
+// P2: 4 câu lớn, mỗi câu 4 ý (a,b,c,d) - Đúng/Sai
+let aiAnswerKeyP2 = {}; // {1: {a: 'Đ', b: 'S', c: 'Đ', d: 'S'}, ...}
+
+function generateP2Grid() {
+    const grid = document.getElementById('ai-key-p2');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    for (let q = 1; q <= 4; q++) {
+        const card = document.createElement('div');
+        card.className = 'mb-3 p-2 rounded';
+        card.style.background = 'rgba(255,255,255,0.05)';
+
+        let html = `<div class="fw-bold text-warning mb-2" style="font-size: 0.8rem;">Câu ${q}</div>`;
+        html += `<div class="d-flex flex-wrap gap-2">`;
+
+        ['a', 'b', 'c', 'd'].forEach(sub => {
+            const currentAns = aiAnswerKeyP2[q] ? aiAnswerKeyP2[q][sub] : null;
+            const isD = currentAns === 'Đ';
+            const isS = currentAns === 'S';
+
+            html += `
+                <div class="d-flex align-items-center gap-1">
+                    <span class="text-white-50" style="font-size: 0.75rem; width: 16px;">${sub})</span>
+                    <button class="btn btn-sm ${isD ? 'btn-success' : 'btn-outline-success'} px-2 py-0 p2-btn" 
+                            data-q="${q}" data-sub="${sub}" data-ans="Đ"
+                            onclick="selectP2Answer(${q}, '${sub}', 'Đ', this)"
+                            style="font-size: 0.7rem;">Đ</button>
+                    <button class="btn btn-sm ${isS ? 'btn-danger' : 'btn-outline-danger'} px-2 py-0 p2-btn" 
+                            data-q="${q}" data-sub="${sub}" data-ans="S"
+                            onclick="selectP2Answer(${q}, '${sub}', 'S', this)"
+                            style="font-size: 0.7rem;">S</button>
+                </div>
+            `;
+        });
+        html += `</div>`;
+        card.innerHTML = html;
+        grid.appendChild(card);
+    }
+}
+
+
+function selectP2Answer(q, sub, ans, btn) {
+    // Clear other buttons in same question-sub
+    document.querySelectorAll(`.p2-btn[data-q="${q}"][data-sub="${sub}"]`).forEach(b => {
+        b.classList.remove('btn-success', 'btn-danger');
+        b.classList.add(b.dataset.ans === 'Đ' ? 'btn-outline-success' : 'btn-outline-danger');
+    });
+
+    // Activate selected
+    btn.classList.remove('btn-outline-success', 'btn-outline-danger');
+    btn.classList.add(ans === 'Đ' ? 'btn-success' : 'btn-danger');
+
+    // Save
+    if (!aiAnswerKeyP2[q]) aiAnswerKeyP2[q] = {};
+    aiAnswerKeyP2[q][sub] = ans;
     updateAnswerCount();
 }
+
+// P3: 6 câu điền số (0-9)
+let aiAnswerKeyP3 = {}; // {1: '5', 2: '12', ...}
+
+function generateP3Grid() {
+    const grid = document.getElementById('ai-key-p3');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    for (let q = 1; q <= 6; q++) {
+        const val = aiAnswerKeyP3[q] || '';
+        const row = document.createElement('div');
+        row.className = 'd-flex align-items-center gap-2 mb-2';
+        row.innerHTML = `
+            <span class="text-white-50 small" style="width: 50px;">Câu ${q}:</span>
+            <input type="text" 
+                   class="form-control form-control-sm input-glass text-center p3-input" 
+                   data-q="${q}"
+                   placeholder="Đáp án" 
+                   value="${val}"
+                   style="width: 80px; font-size: 0.85rem;"
+                   oninput="updateP3Answer(${q}, this.value)">
+        `;
+        grid.appendChild(row);
+    }
+}
+
+
+function updateP3Answer(q, value) {
+    aiAnswerKeyP3[q] = value;
+    updateAnswerCount();
+}
+
+
+
 
 function selectAnswer(q, ans, btn) {
     document.querySelectorAll(`.ai-ans-btn[data-q="${q}"]`).forEach(b => {
@@ -1217,20 +1337,46 @@ function selectAnswer(q, ans, btn) {
 }
 
 function updateAnswerCount() {
-    const count = Object.keys(aiAnswerKey).length;
+    // Count P1
+    let count = Object.keys(aiAnswerKey).length;
+
+    // Count P2 (4 câu x 4 ý = max 16)
+    Object.values(aiAnswerKeyP2).forEach(q => {
+        count += Object.keys(q).length;
+    });
+
+    // Count P3 (6 câu)
+    count += Object.keys(aiAnswerKeyP3).filter(k => aiAnswerKeyP3[k]).length;
+
     const countEl = document.getElementById('ai-answer-count');
     if (countEl) countEl.innerText = `${count} câu`;
     updateGradeButtonState();
 }
 
 function clearAllAnswers() {
+    // Clear P1
     aiAnswerKey = {};
     document.querySelectorAll('.ai-ans-btn').forEach(btn => {
         btn.classList.remove('btn-warning');
         btn.classList.add('btn-outline-secondary');
     });
+
+    // Clear P2
+    aiAnswerKeyP2 = {};
+    document.querySelectorAll('.p2-btn').forEach(btn => {
+        btn.classList.remove('btn-success', 'btn-danger');
+        btn.classList.add(btn.dataset.ans === 'Đ' ? 'btn-outline-success' : 'btn-outline-danger');
+    });
+
+    // Clear P3
+    aiAnswerKeyP3 = {};
+    document.querySelectorAll('.p3-input').forEach(input => {
+        input.value = '';
+    });
+
     updateAnswerCount();
     toast.info('Đã xóa tất cả đáp án!');
+
 }
 
 function importAnswerFile(input) {
@@ -1270,8 +1416,14 @@ function applyAnswers(answers) {
         if (ans === 'E') maxOption = Math.max(maxOption, 5);
         if (ans === 'F') maxOption = Math.max(maxOption, 6);
     });
-    document.getElementById('ai-num-options').value = maxOption.toString();
-    document.getElementById('ai-num-questions').value = answers.length;
+
+    // Safely update config if elements exist (old UI vs new UI compat)
+    const optsEl = document.getElementById('ai-num-options');
+    if (optsEl) optsEl.value = maxOption.toString();
+
+    const quesEl = document.getElementById('ai-num-questions');
+    if (quesEl) quesEl.value = answers.length;
+
     regenerateAIAnswerGrid();
     setTimeout(() => {
         answers.forEach((ans, idx) => {
@@ -1280,6 +1432,7 @@ function applyAnswers(answers) {
         });
     }, 50);
 }
+
 
 async function previewAnswerKeyImage(input) {
     if (input.files && input.files[0]) {
@@ -1303,7 +1456,7 @@ async function previewAnswerKeyImage(input) {
 // OMR / OCR Logic
 async function performOCRScan(imageSrc) {
     // Check Config
-    const numQ = parseInt(document.getElementById('ai-num-questions')?.value) || 20;
+    const numQ = parseInt(document.getElementById('ai-num-questions')?.value) || 40;
     const numOpt = document.getElementById('ai-num-options')?.value >= 5 ? 5 : 4;
 
     // Create dummy key for API (needed for scoring, but here we just want detection)
@@ -1321,7 +1474,7 @@ async function performOCRScan(imageSrc) {
     formData.append('num_questions', numQ);
     formData.append('num_options', numOpt);
 
-    toast.info(`Đang xử lý... vui lòng đợi.`);
+    toast.info(`Đang quét ảnh và nhận dạng đáp án...`);
 
     try {
         const res = await fetch('/api/grade-omr', {
@@ -1336,48 +1489,95 @@ async function performOCRScan(imageSrc) {
 
         const result = await res.json();
 
-        if (result.success && result.detected_answers) {
-            // Backend returns map {1: 'A', 2: 'B', ...}
-            // Frontend expects array ['A', 'B', ...]
+        if (result.success) {
+            // YOLOv8 returns: phan_1: ['A', 'B', 'C', ...], phan_2: ['Đ', 'S', ...], phan_3: [...]
+            // These are arrays, not objects!
 
-            // Auto-detect number of questions from keys
-            const keys = Object.keys(result.detected_answers).map(k => parseInt(k));
-            const maxQ = Math.max(...keys, 0);
+            let totalDetected = 0;
+            const allAnswers = [];
 
-            if (maxQ > 0 && document.getElementById('ai-num-questions')) {
-                document.getElementById('ai-num-questions').value = maxQ;
-                // Trigger change event or manually call setup
-                startAIAnswerSetup(); // Re-generates grid
+            // Process Phần 1 - Trắc nghiệm (up to 40 câu)
+            if (result.phan_1 && Array.isArray(result.phan_1)) {
+                result.phan_1.forEach(ans => {
+                    allAnswers.push(ans || '?');
+                });
+                totalDetected += result.phan_1.length;
+                toast.success(`Phần 1: Nhận diện ${result.phan_1.length} câu trắc nghiệm`);
             }
 
-            if (maxQ > 0) {
-                toast.success(`Đã nhận diện thành công!`);
+            // Process Phần 2 - Đúng/Sai
+            if (result.phan_2 && Array.isArray(result.phan_2)) {
+                // Assuming flattened array of 16 items (4 questions * 4 subs)
+                result.phan_2.forEach((ans, idx) => {
+                    if (ans === 'Đ' || ans === 'S') {
+                        const q = Math.floor(idx / 4) + 1;
+                        const sub = ['a', 'b', 'c', 'd'][idx % 4];
+                        if (q <= 4 && sub) {
+                            if (!aiAnswerKeyP2[q]) aiAnswerKeyP2[q] = {};
+                            aiAnswerKeyP2[q][sub] = ans;
+                        }
+                    }
+                });
+                totalDetected += result.phan_2.length;
+                console.log('[YOLOv8] Phần 2:', result.phan_2);
+            }
+
+            // Process Phần 3 - Điền
+            if (result.phan_3 && Array.isArray(result.phan_3)) {
+                result.phan_3.forEach((val, idx) => {
+                    // Assuming array index roughly maps to question 1..6
+                    if (val && val !== 'X') {
+                        aiAnswerKeyP3[idx + 1] = val;
+                    }
+                });
+                totalDetected += result.phan_3.length;
+                console.log('[YOLOv8] Phần 3:', result.phan_3);
+            }
+
+            // Log SBD và Mã đề nếu có
+            if (result.sbd) console.log('[YOLOv8] SBD:', result.sbd);
+            if (result.ma_de) console.log('[YOLOv8] Mã đề:', result.ma_de);
+
+            if (totalDetected > 0) {
+                toast.success(`Đã nhận diện thành công ${totalDetected} đáp án!`);
+
+                // Update specific counts and UI
+                updateAnswerCount();
+
+                // Regenerate grid to show P2/P3 answers immediately
+                regenerateAIAnswerGrid();
+
+                // If P1 answers detected, use applyAnswers to update P1 UI (clicks)
+                if (allAnswers.length > 0) {
+                    ocrDetectedAnswers = allAnswers;
+                    setTimeout(() => {
+                        applyAnswers(allAnswers);
+                        switchAnswerInputMode('manual');
+                    }, 100);
+                } else {
+                    switchAnswerInputMode('manual');
+                }
             } else {
-                toast.warning(`Không tìm thấy đáp án nào?`);
+                toast.warning('YOLOv8 không tìm thấy đáp án nào trong ảnh!');
             }
 
-            const answers = [];
-            // Re-map to array 0-indexed
-            for (let i = 1; i <= maxQ; i++) {
-                answers.push(result.detected_answers[i] || '?');
+            // Show debug image if available
+            if (result.debug_image) {
+                console.log('[YOLOv8] Debug image:', result.debug_image);
             }
-
-            ocrDetectedAnswers = answers;
-            // Delay slightly to allow grid to regenerate
-            setTimeout(() => {
-                applyAnswers(answers);
-                switchAnswerInputMode('manual');
-            }, 100);
 
         } else {
-            toast.warning('Không nhận diện được: ' + (result.error || 'Unknown'));
+            toast.warning('YOLOv8 lỗi: ' + (result.message || result.error || 'Không xác định'));
         }
 
+
+
     } catch (e) {
-        console.error(e);
-        toast.error(`Lỗi: ${e.message}`);
+        console.error('[OCR] Error:', e);
+        toast.error(`Lỗi quét ảnh: ${e.message}`);
     }
 }
+
 
 function analyzeOMRImage(canvas, ctx) {
     // Feature disabled
@@ -1939,13 +2139,25 @@ function renderSentNotifications() {
 }
 
 function renderDashboardNotifications() {
-    const container = document.querySelector('#view-dashboard .glass-card:has(h5:contains("Thông Báo Mới")), #view-dashboard .glass-card');
-    // Find the notification section in dashboard more reliably
-    const notifSection = document.querySelectorAll('#view-dashboard .glass-card')[2]; // Third card usually
-    if (!notifSection) return;
+    // Fix: :contains is not a valid CSS selector and causes SyntaxError
+    let notifSection = null;
+    const cards = document.querySelectorAll('#view-dashboard .glass-card');
+    cards.forEach(card => {
+        const h5 = card.querySelector('h5');
+        if (h5 && (h5.textContent.includes('Thông Báo') || h5.textContent.includes('Hoạt Động'))) {
+            notifSection = card;
+        }
+    });
+
+    // Fallback to 3rd card if not found by text
+    if (!notifSection && cards.length > 2) notifSection = cards[2];
+
+    const container = notifSection;
+    if (!notifSection) return; // Fix: Add safety check
 
     const notifBody = notifSection.querySelector('.d-flex.flex-column.gap-3');
     if (!notifBody) return;
+
 
     // Combine system notifications with sent notifications
     const allNotifs = [

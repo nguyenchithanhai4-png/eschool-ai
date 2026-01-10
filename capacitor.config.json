@@ -3,7 +3,8 @@
   "appName": "ESchoolAI",
   "webDir": "public",
   "server": {
-    "androidScheme": "http",
+    "url": "https://eschool-ai.onrender.com",
+    "androidScheme": "https",
     "cleartext": true,
     "allowNavigation": [
       "*"

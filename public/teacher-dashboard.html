@@ -120,6 +120,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
+
     <!-- ============================================
          OPENCV.JS - Thư viện xử lý ảnh
          Dùng cho tính năng chấm OMR (Optical Mark Recognition)
@@ -3950,23 +3951,12 @@
             checkTeacherSchoolAccess();
         });
 
-        // Load SoDauBai classes when view is shown
-        // Load SoDauBai classes when view is shown
-        // Fix: Use window property assignment to avoid hoisting-related recursion
-        (function () {
-            const originalShowView = window.showView;
-            window.showView = function (viewName, element) {
-                if (typeof originalShowView === 'function') {
-                    originalShowView(viewName, element);
-                }
-                if (viewName === 'sodaubai') {
-                    loadTeacherSoDauBaiClasses();
-                }
-            };
-        })();
     </script>
     <!-- UI Helpers -->
     <script src="js/ui-helpers.js"></script>
+
+    <!-- MAIN CONTROLLER (Run last to ensure deps ready) -->
+    <script src="js/teacher-dashboard.js?v=2"></script>
 </body>
 
 </html>

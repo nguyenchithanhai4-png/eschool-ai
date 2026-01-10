@@ -22,9 +22,9 @@
     "outputPath": "dist"
   },
   "dependencies": {
-    "@capacitor/android": "^8.0.0",
-    "@capacitor/cli": "^8.0.0",
-    "@capacitor/core": "^8.0.0",
+    "@capacitor/android": "^6.2.1",
+    "@capacitor/cli": "^6.2.1",
+    "@capacitor/core": "^6.2.1",
     "@google/generative-ai": "^0.24.1",
     "accepts": "^2.0.0",
     "append-field": "^1.0.0",
