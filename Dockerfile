@@ -29,7 +29,7 @@ RUN npm ci --only=production
 
 # Copy Python requirements and install
 COPY ChamThiTuDong/requirements.txt ./ChamThiTuDong/
-RUN pip3 install --no-cache-dir -r ChamThiTuDong/requirements.txt
+RUN pip3 install --no-cache-dir -r ChamThiTuDong/requirements.txt --break-system-packages
 
 # Copy the rest of the application
 COPY . .
