@@ -1,0 +1,73 @@
+{
+    "students": [
+        {
+            "username": "hocsinh1",
+            "fullname": "Nguyễn Văn An",
+            "class": "12A1",
+            "stats": {
+                "gpa": 8.5,
+                "gpaDiff": 0.2,
+                "tasks_completed": 3,
+                "tasks_total": 5,
+                "self_study_hours": 12
+            },
+            "recent_grades": [
+                {
+                    "subject": "Toán Học",
+                    "type": "15 Phút",
+                    "score": 9.0,
+                    "date": "12/12/2024",
+                    "status": "Giỏi"
+                },
+                {
+                    "subject": "Ngữ Văn",
+                    "type": "Giữa Kỳ",
+                    "score": 8.2,
+                    "date": "10/12/2024",
+                    "status": "Khá Tốt"
+                },
+                {
+                    "subject": "Vật Lý",
+                    "type": "Miệng",
+                    "score": 7.5,
+                    "date": "09/12/2024",
+                    "status": "Khá"
+                },
+                {
+                    "subject": "Hóa Học",
+                    "type": "1 Tiết",
+                    "score": 8.8,
+                    "date": "08/12/2024",
+                    "status": "Giỏi"
+                },
+                {
+                    "subject": "Tiếng Anh",
+                    "type": "Miệng",
+                    "score": 9.5,
+                    "date": "07/12/2024",
+                    "status": "Xuất Sắc"
+                }
+            ],
+            "notifications": [
+                {
+                    "tag": "QUAN TRỌNG",
+                    "title": "Lịch thi Học Kỳ 1",
+                    "content": "Các bạn xem lịch thi chi tiết tại mục Luyện Thi...",
+                    "type": "warning"
+                },
+                {
+                    "tag": "HOẠT ĐỘNG",
+                    "title": "Cuộc thi AI Challenge",
+                    "content": "Đăng ký tham gia trước ngày 20/12.",
+                    "type": "info"
+                },
+                {
+                    "tag": "HỌC PHÍ",
+                    "title": "Thông báo đóng học phí",
+                    "content": "Hạn chót đóng học phí tháng 12 là ngày 15/12.",
+                    "type": "danger"
+                }
+            ]
+        }
+    ]
+}

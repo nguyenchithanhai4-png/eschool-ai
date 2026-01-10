@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Đang xử lý đăng nhập...</title>
+    <script>
+        // === AUTO REMOVE .html EXTENSION ===
+        (function () {
+            if (window.location.pathname.endsWith('.html')) {
+                const cleanUrl = window.location.pathname.slice(0, -5) + window.location.search + window.location.hash;
+                window.history.replaceState(null, '', cleanUrl);
+            }
+        })();
+
+        function pop(message) {
+            const overlay = document.createElement("div");
+            overlay.style.cssText = "position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(5px);";
+
+            const popup = document.createElement("div");
+            popup.style.cssText = "background:rgba(30,30,50,0.95);padding:30px;border-radius:20px;max-width:400px;text-align:center;border:1px solid rgba(255,255,255,0.1);color:white;box-shadow:0 10px 30px rgba(0,0,0,0.5);font-family:sans-serif;";
+            popup.innerHTML = `
+                <div style="font-size: 1.8rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 15px; background: linear-gradient(to right, #fff, #a855f7, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(168, 85, 247, 0.3);">
+                    <i class="fa-solid fa-atom me-2"></i>E-School AI
+                </div>
+                <p style="margin-bottom:20px;opacity:0.9;font-size:1.1rem;">${message}</p>
+                <button onclick="this.parentElement.parentElement.remove(); window.location.href='/login'" style="background:linear-gradient(135deg,#6366f1,#a855f7);border:none;color:white;padding:10px 30px;border-radius:50px;cursor:pointer;font-weight:bold;box-shadow:0 4px 15px rgba(99,102,241,0.4);">OK</button>
+            `;
+
+            overlay.appendChild(popup);
+            document.body.appendChild(overlay);
+        }
+
+        // Kiểm tra đăng nhập từ social login
+        fetch("/api/auth/user")
+            .then(response => response.json())
+            .then(user => {
+                if (user) {
+                    localStorage.setItem("isLoggedIn", "true");
+                    localStorage.setItem("user", JSON.stringify(user));
+                    window.location.href = "/";
+                } else {
+                    pop("Đăng nhập thất bại. Vui lòng thử lại.");
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                window.location.href = "/login";
+            });
+    </script>
+</head>
+
+<body>
+    <div
+        style="display:flex;justify-content:center;align-items:center;height:100vh;background:#0f0c29;color:#fff;font-family:sans-serif">
+        <div style="text-align:center">
+            <h2><i class="fa-solid fa-circle-notch fa-spin"></i> Đang đăng nhập...</h2>
+            <p>Vui lòng chờ trong giây lát.</p>
+        </div>
+    </div>
+</body>
+
+</html>

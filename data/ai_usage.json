@@ -1,0 +1,46 @@
+{
+  "student": {
+    "date": "2026-01-02",
+    "count": 1
+  },
+  "admin": {
+    "date": "2025-12-25",
+    "count": 2
+  },
+  "nguyenchithanh7102009@gmail.com": {
+    "date": "2025-12-26",
+    "count": 10
+  },
+  "nguyenchithanh710200449@gmail.com": {
+    "date": "2025-12-27",
+    "count": 15
+  },
+  "flashcard-game": {
+    "date": "2026-01-08",
+    "count": 3
+  },
+  "nguyenchithanh47102009@gmail.com": {
+    "date": "2025-12-30",
+    "count": 2
+  },
+  "nguyenvana@gmail.com": {
+    "date": "2025-12-31",
+    "count": 3
+  },
+  "teststudent940": {
+    "date": "2026-01-02",
+    "count": 15
+  },
+  "anonymous": {
+    "date": "2026-01-02",
+    "count": 1
+  },
+  "translate": {
+    "date": "2026-01-02",
+    "count": 2
+  },
+  "teststudent": {
+    "date": "2026-01-10",
+    "count": 18
+  }
+}

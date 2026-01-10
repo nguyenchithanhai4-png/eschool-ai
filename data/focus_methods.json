@@ -1,0 +1,1203 @@
+[
+    {
+        "id": 1,
+        "title": "Pomodoro Technique",
+        "category": "Time Management",
+        "duration": "25-5",
+        "goals": [
+            "focus",
+            "productivity"
+        ],
+        "desc": "Học 25 phút, nghỉ 5 phút. Sau 4 pomodoro, nghỉ dài 15-30 phút.",
+        "steps": "1. Chọn task\n2. Đặt timer 25 phút\n3. Tập trung tuyệt đối\n4. Nghỉ 5 phút\n5. Lặp lại"
+    },
+    {
+        "id": 2,
+        "title": "Active Recall",
+        "category": "Memory",
+        "duration": "any",
+        "goals": [
+            "memorize",
+            "exam"
+        ],
+        "desc": "Tự kiểm tra kiến thức thay vì đọc lại thụ động.",
+        "steps": "1. Đọc tài liệu\n2. Gấp sách lại\n3. Viết/nói lại những gì nhớ\n4. Kiểm tra lại tài liệu"
+    },
+    {
+        "id": 3,
+        "title": "Spaced Repetition",
+        "category": "Memory",
+        "duration": "varies",
+        "goals": [
+            "memorize",
+            "long-term"
+        ],
+        "desc": "Ôn tập theo chu kỳ tăng dần: 1 ngày, 3 ngày, 1 tuần, 2 tuần...",
+        "steps": "1. Học lần đầu\n2. Ôn sau 1 ngày\n3. Ôn sau 3 ngày\n4. Ôn sau 1 tuần\n5. Ôn sau 2 tuần"
+    },
+    {
+        "id": 4,
+        "title": "Feynman Technique",
+        "category": "Understanding",
+        "duration": "30-60",
+        "goals": [
+            "understand",
+            "creative"
+        ],
+        "desc": "Giảng lại kiến thức như cho trẻ em nghe.",
+        "steps": "1. Chọn chủ đề\n2. Giải thích đơn giản\n3. Tìm lỗ hổng\n4. Đơn giản hóa thêm"
+    },
+    {
+        "id": 5,
+        "title": "Mind Mapping",
+        "category": "Organization",
+        "duration": "30-45",
+        "goals": [
+            "understand",
+            "creative",
+            "organize"
+        ],
+        "desc": "Vẽ sơ đồ tư duy với keyword trung tâm và nhánh.",
+        "steps": "1. Viết chủ đề giữa trang\n2. Vẽ các nhánh chính\n3. Thêm nhánh phụ\n4. Sử dụng màu sắc & hình ảnh"
+    },
+    {
+        "id": 6,
+        "title": "Cornell Notes",
+        "category": "Note-taking",
+        "duration": "any",
+        "goals": [
+            "organize",
+            "exam"
+        ],
+        "desc": "Chia trang thành 3 phần: Notes, Cues, Summary.",
+        "steps": "1. Chia trang thành 3 phần\n2. Ghi chép ở phần chính\n3. Viết keywords ở cột trái\n4. Tóm tắt ở cuối trang"
+    },
+    {
+        "id": 7,
+        "title": "SQ3R Method",
+        "category": "Reading",
+        "duration": "45-60",
+        "goals": [
+            "understand",
+            "reading"
+        ],
+        "desc": "Survey, Question, Read, Recite, Review.",
+        "steps": "1. Survey: Lướt qua\n2. Question: Đặt câu hỏi\n3. Read: Đọc kỹ\n4. Recite: Nhắc lại\n5. Review: Ôn tập"
+    },
+    {
+        "id": 8,
+        "title": "Leitner System",
+        "category": "Flashcards",
+        "duration": "15-30",
+        "goals": [
+            "memorize",
+            "vocabulary"
+        ],
+        "desc": "Hệ thống hộp flashcard với tần suất ôn khác nhau.",
+        "steps": "1. Tạo flashcards\n2. Đưa vào Hộp 1\n3. Trả lời đúng → chuyển hộp cao\n4. Sai → về Hộp 1"
+    },
+    {
+        "id": 9,
+        "title": "Interleaving",
+        "category": "Practice",
+        "duration": "any",
+        "goals": [
+            "exam",
+            "skills"
+        ],
+        "desc": "Xen kẽ nhiều chủ đề/kỹ năng trong một buổi học.",
+        "steps": "1. Chọn 3-4 chủ đề\n2. Học chủ đề A 15 phút\n3. Chuyển sang B\n4. Xen kẽ liên tục"
+    },
+    {
+        "id": 10,
+        "title": "Elaborative Interrogation",
+        "category": "Understanding",
+        "duration": "any",
+        "goals": [
+            "understand",
+            "critical"
+        ],
+        "desc": "Liên tục hỏi TẠI SAO và TẠI SAO để hiểu sâu.",
+        "steps": "1. Đọc thông tin\n2. Hỏi: Tại sao đúng?\n3. Hỏi: Làm sao biết?\n4. Kết nối với kiến thức cũ"
+    },
+    {
+        "id": 11,
+        "title": "52-17 Method",
+        "category": "Time Management",
+        "duration": "52-17",
+        "goals": [
+            "focus",
+            "productivity"
+        ],
+        "desc": "Làm việc 52 phút, nghỉ 17 phút.",
+        "steps": "1. Làm việc 52 phút\n2. Nghỉ hoàn toàn 17 phút\n3. Không check điện thoại khi làm\n4. Lặp lại"
+    },
+    {
+        "id": 12,
+        "title": "90-Minute Blocks",
+        "category": "Time Management",
+        "duration": "90",
+        "goals": [
+            "deep-work",
+            "creative"
+        ],
+        "desc": "Làm việc theo chu kỳ sinh học 90 phút.",
+        "steps": "1. Làm việc 90 phút\n2. Nghỉ 20-30 phút\n3. Phù hợp cho công việc sáng tạo"
+    },
+    {
+        "id": 13,
+        "title": "Two-Minute Rule",
+        "category": "Productivity",
+        "duration": "2",
+        "goals": [
+            "productivity",
+            "organize"
+        ],
+        "desc": "Nếu task mất < 2 phút, làm ngay.",
+        "steps": "1. Nhìn task list\n2. Task < 2 phút? Làm ngay\n3. Task > 2 phút? Lên lịch"
+    },
+    {
+        "id": 14,
+        "title": "Eat That Frog",
+        "category": "Productivity",
+        "duration": "any",
+        "goals": [
+            "productivity",
+            "difficult"
+        ],
+        "desc": "Làm việc khó nhất đầu tiên.",
+        "steps": "1. Xác định 'con ếch' lớn nhất\n2. Làm đầu tiên mỗi sáng\n3. Không trì hoãn"
+    },
+    {
+        "id": 15,
+        "title": "Time Blocking",
+        "category": "Time Management",
+        "duration": "varies",
+        "goals": [
+            "organize",
+            "productivity"
+        ],
+        "desc": "Chia ngày thành các khối thời gian cố định.",
+        "steps": "1. Liệt kê tất cả tasks\n2. Ước lượng thời gian\n3. Đặt vào lịch\n4. Bám sát lịch"
+    },
+    {
+        "id": 16,
+        "title": "Pareto Principle (80/20)",
+        "category": "Strategy",
+        "duration": "any",
+        "goals": [
+            "productivity",
+            "focus"
+        ],
+        "desc": "20% nỗ lực tạo 80% kết quả.",
+        "steps": "1. Xác định 20% quan trọng\n2. Tập trung vào đó\n3. Giảm thiểu 80% còn lại"
+    },
+    {
+        "id": 17,
+        "title": "GTD - Getting Things Done",
+        "category": "Organization",
+        "duration": "any",
+        "goals": [
+            "organize",
+            "productivity"
+        ],
+        "desc": "Capture, Clarify, Organize, Reflect, Engage.",
+        "steps": "1. Thu thập mọi thứ vào inbox\n2. Xử lý từng item\n3. Tổ chức vào hệ thống\n4. Review hàng tuần"
+    },
+    {
+        "id": 18,
+        "title": "Chunking",
+        "category": "Memory",
+        "duration": "any",
+        "goals": [
+            "memorize",
+            "organize"
+        ],
+        "desc": "Gom thông tin thành nhóm nhỏ dễ nhớ.",
+        "steps": "1. Nhìn thông tin lớn\n2. Chia thành chunks 3-5 items\n3. Học từng chunk\n4. Kết nối các chunks"
+    },
+    {
+        "id": 19,
+        "title": "Method of Loci",
+        "category": "Memory",
+        "duration": "any",
+        "goals": [
+            "memorize",
+            "creative"
+        ],
+        "desc": "Gắn thông tin với các vị trí quen thuộc.",
+        "steps": "1. Chọn lộ trình quen\n2. Đặt thông tin ở mỗi điểm\n3. Đi qua lộ trình để nhớ"
+    },
+    {
+        "id": 20,
+        "title": "Mnemonic Devices",
+        "category": "Memory",
+        "duration": "any",
+        "goals": [
+            "memorize",
+            "vocabulary"
+        ],
+        "desc": "Sử dụng từ viết tắt, vần, câu chuyện để nhớ.",
+        "steps": "1. Tìm pattern trong thông tin\n2. Tạo từ viết tắt hoặc câu\n3. Liên kết với hình ảnh vui"
+    },
+    {
+        "id": 21,
+        "title": "Teaching Others",
+        "category": "Understanding",
+        "duration": "30-60",
+        "goals": [
+            "understand",
+            "mastery"
+        ],
+        "desc": "Dạy lại cho người khác để hiểu sâu hơn.",
+        "steps": "1. Học chủ đề\n2. Chuẩn bị bài giảng\n3. Dạy người khác\n4. Trả lời câu hỏi của họ"
+    },
+    {
+        "id": 22,
+        "title": "Dual Coding",
+        "category": "Learning",
+        "duration": "any",
+        "goals": [
+            "memorize",
+            "understand"
+        ],
+        "desc": "Kết hợp text và hình ảnh để học.",
+        "steps": "1. Đọc nội dung\n2. Vẽ diagram/hình ảnh\n3. Liên kết text với hình\n4. Ôn cả hai dạng"
+    },
+    {
+        "id": 23,
+        "title": "Self-Testing",
+        "category": "Exam Prep",
+        "duration": "any",
+        "goals": [
+            "exam",
+            "memorize"
+        ],
+        "desc": "Tự làm đề kiểm tra thường xuyên.",
+        "steps": "1. Học xong một phần\n2. Tự đặt câu hỏi\n3. Trả lời không nhìn tài liệu\n4. Kiểm tra đáp án"
+    },
+    {
+        "id": 24,
+        "title": "Backward Planning",
+        "category": "Planning",
+        "duration": "any",
+        "goals": [
+            "organize",
+            "goals"
+        ],
+        "desc": "Lên kế hoạch từ deadline ngược về hiện tại.",
+        "steps": "1. Xác định deadline\n2. Liệt kê milestones\n3. Tính ngược thời gian\n4. Đặt deadline cho từng bước"
+    },
+    {
+        "id": 25,
+        "title": "Focus Music",
+        "category": "Environment",
+        "duration": "any",
+        "goals": [
+            "focus",
+            "productivity"
+        ],
+        "desc": "Sử dụng nhạc không lời để tập trung.",
+        "steps": "1. Chọn nhạc không lời\n2. Lofi, classical, ambient\n3. Giữ volume vừa phải\n4. Dùng tai nghe"
+    },
+    {
+        "id": 26,
+        "title": "White Noise",
+        "category": "Environment",
+        "duration": "any",
+        "goals": [
+            "focus",
+            "relax"
+        ],
+        "desc": "Sử dụng tiếng ồn trắng để chặn tiếng động.",
+        "steps": "1. Mở app white noise\n2. Chọn: mưa, biển, fan\n3. Điều chỉnh volume\n4. Kết hợp với tai nghe"
+    },
+    {
+        "id": 27,
+        "title": "Deep Work Sessions",
+        "category": "Focus",
+        "duration": "60-120",
+        "goals": [
+            "deep-work",
+            "creative"
+        ],
+        "desc": "Làm việc không gián đoạn trong thời gian dài.",
+        "steps": "1. Tắt thông báo\n2. Đặt timer 60-120 phút\n3. Một task duy nhất\n4. Không nghỉ giữa chừng"
+    },
+    {
+        "id": 28,
+        "title": "Morning Pages",
+        "category": "Creative",
+        "duration": "30",
+        "goals": [
+            "creative",
+            "clarity"
+        ],
+        "desc": "Viết 3 trang tay mỗi sáng để làm trong đầu.",
+        "steps": "1. Thức dậy\n2. Viết 3 trang tay\n3. Viết mọi thứ nghĩ\n4. Không đọc lại"
+    },
+    {
+        "id": 29,
+        "title": "Journaling",
+        "category": "Reflection",
+        "duration": "10-20",
+        "goals": [
+            "clarity",
+            "goals"
+        ],
+        "desc": "Ghi chép suy nghĩ và tiến độ hàng ngày.",
+        "steps": "1. Mỗi tối hoặc sáng\n2. Ghi 3 điều đã làm\n3. Ghi 3 điều học được\n4. Ghi kế hoạch ngày mai"
+    },
+    {
+        "id": 30,
+        "title": "Gratitude Practice",
+        "category": "Mindset",
+        "duration": "5",
+        "goals": [
+            "motivation",
+            "mental-health"
+        ],
+        "desc": "Ghi 3 điều biết ơn mỗi ngày.",
+        "steps": "1. Mỗi sáng hoặc tối\n2. Viết 3 điều biết ơn\n3. Suy nghĩ về lý do\n4. Cảm nhận cảm xúc"
+    },
+    {
+        "id": 31,
+        "title": "Visualization",
+        "category": "Motivation",
+        "duration": "5-10",
+        "goals": [
+            "motivation",
+            "goals"
+        ],
+        "desc": "Hình dung bản thân đạt mục tiêu.",
+        "steps": "1. Nhắm mắt\n2. Hình dung đạt mục tiêu\n3. Cảm nhận cảm xúc thành công\n4. Mở mắt, hành động"
+    },
+    {
+        "id": 32,
+        "title": "Affirmations",
+        "category": "Mindset",
+        "duration": "5",
+        "goals": [
+            "motivation",
+            "confidence"
+        ],
+        "desc": "Nói những câu tích cực về bản thân.",
+        "steps": "1. Viết 5 affirmations\n2. Đọc to mỗi sáng\n3. Nói với niềm tin\n4. Lặp lại hàng ngày"
+    },
+    {
+        "id": 33,
+        "title": "Brain Dump",
+        "category": "Organization",
+        "duration": "10-15",
+        "goals": [
+            "organize",
+            "clarity"
+        ],
+        "desc": "Viết ra tất cả mọi thứ trong đầu.",
+        "steps": "1. Lấy giấy trắng\n2. Viết mọi thứ nghĩ\n3. Không cần thứ tự\n4. Sau đó tổ chức lại"
+    },
+    {
+        "id": 34,
+        "title": "Eisenhower Matrix",
+        "category": "Priority",
+        "duration": "10",
+        "goals": [
+            "organize",
+            "productivity"
+        ],
+        "desc": "Phân loại task theo Urgent/Important.",
+        "steps": "1. Vẽ ma trận 2x2\n2. Urgent+Important: Làm ngay\n3. Not Urgent+Important: Lên lịch\n4. Urgent+Not Important: Ủy thác"
+    },
+    {
+        "id": 35,
+        "title": "SMART Goals",
+        "category": "Goals",
+        "duration": "15",
+        "goals": [
+            "goals",
+            "clarity"
+        ],
+        "desc": "Đặt mục tiêu Specific, Measurable, Achievable, Relevant, Time-bound.",
+        "steps": "1. Cụ thể hóa mục tiêu\n2. Đo lường được\n3. Khả thi\n4. Liên quan\n5. Có deadline"
+    },
+    {
+        "id": 36,
+        "title": "Habit Stacking",
+        "category": "Habits",
+        "duration": "any",
+        "goals": [
+            "habits",
+            "productivity"
+        ],
+        "desc": "Gắn thói quen mới vào thói quen cũ.",
+        "steps": "1. Xác định thói quen cũ\n2. Thêm thói quen mới sau đó\n3. SAU KHI [cũ], TÔI SẼ [mới]"
+    },
+    {
+        "id": 37,
+        "title": "1-3-5 Rule",
+        "category": "Planning",
+        "duration": "5",
+        "goals": [
+            "organize",
+            "productivity"
+        ],
+        "desc": "Mỗi ngày: 1 task lớn, 3 vừa, 5 nhỏ.",
+        "steps": "1. Chọn 1 task quan trọng\n2. Chọn 3 task vừa\n3. Chọn 5 task nhỏ\n4. Hoàn thành theo thứ tự"
+    },
+    {
+        "id": 38,
+        "title": "Weekly Review",
+        "category": "Review",
+        "duration": "30-60",
+        "goals": [
+            "organize",
+            "goals"
+        ],
+        "desc": "Review và lên kế hoạch hàng tuần.",
+        "steps": "1. Review tuần qua\n2. Đánh giá tiến độ\n3. Lên kế hoạch tuần tới\n4. Điều chỉnh nếu cần"
+    },
+    {
+        "id": 39,
+        "title": "Energy Management",
+        "category": "Wellness",
+        "duration": "any",
+        "goals": [
+            "productivity",
+            "health"
+        ],
+        "desc": "Làm việc theo mức năng lượng trong ngày.",
+        "steps": "1. Theo dõi năng lượng\n2. Task khó = lúc energy cao\n3. Task dễ = lúc energy thấp"
+    },
+    {
+        "id": 40,
+        "title": "Digital Detox",
+        "category": "Focus",
+        "duration": "60+",
+        "goals": [
+            "focus",
+            "mental-health"
+        ],
+        "desc": "Tắt thiết bị điện tử trong thời gian học.",
+        "steps": "1. Tắt điện thoại\n2. Đăng xuất mạng xã hội\n3. Dùng app block\n4. Chỉ dùng khi cần thiết"
+    },
+    {
+        "id": 41,
+        "title": "Rubber Duck Debugging",
+        "category": "Problem-solving",
+        "duration": "any",
+        "goals": [
+            "understand",
+            "coding"
+        ],
+        "desc": "Giải thích vấn đề cho vật vô tri để tìm lỗi.",
+        "steps": "1. Lấy 'con vịt' (hoặc vật gì đó)\n2. Giải thích từng bước\n3. Thường tự tìm ra lỗi"
+    },
+    {
+        "id": 42,
+        "title": "PQ4R Method",
+        "category": "Reading",
+        "duration": "45-60",
+        "goals": [
+            "reading",
+            "exam"
+        ],
+        "desc": "Preview, Question, Read, Reflect, Recite, Review.",
+        "steps": "1. Preview: Lướt qua\n2. Question: Đặt câu hỏi\n3. Read: Đọc kỹ\n4. Reflect: Suy ngẫm\n5. Recite: Nhắc lại\n6. Review: Ôn"
+    },
+    {
+        "id": 43,
+        "title": "Speed Reading",
+        "category": "Reading",
+        "duration": "any",
+        "goals": [
+            "reading",
+            "productivity"
+        ],
+        "desc": "Đọc nhanh bằng cách bỏ qua subvocalization.",
+        "steps": "1. Dùng ngón tay/bút dẫn\n2. Đọc cụm từ, không từng từ\n3. Bỏ đọc thầm\n4. Tăng tốc dần"
+    },
+    {
+        "id": 44,
+        "title": "Skimming & Scanning",
+        "category": "Reading",
+        "duration": "5-15",
+        "goals": [
+            "reading",
+            "research"
+        ],
+        "desc": "Đọc lướt để tìm thông tin cần thiết.",
+        "steps": "1. Skimming: Đọc tiêu đề, đầu đoạn\n2. Scanning: Tìm keyword\n3. Đọc kỹ phần quan trọng"
+    },
+    {
+        "id": 45,
+        "title": "Close Reading",
+        "category": "Reading",
+        "duration": "30-60",
+        "goals": [
+            "understand",
+            "literature"
+        ],
+        "desc": "Đọc chậm, phân tích từng chi tiết.",
+        "steps": "1. Đọc chậm từng câu\n2. Đánh dấu/ghi chú\n3. Phân tích ngôn ngữ\n4. Đặt câu hỏi"
+    },
+    {
+        "id": 46,
+        "title": "The 5 Whys",
+        "category": "Problem-solving",
+        "duration": "10-15",
+        "goals": [
+            "understand",
+            "critical"
+        ],
+        "desc": "Hỏi TẠI SAO 5 lần để tìm nguyên nhân gốc.",
+        "steps": "1. Xác định vấn đề\n2. Hỏi: Tại sao?\n3. Với câu trả lời, hỏi tiếp: Tại sao?\n4. Lặp lại 5 lần"
+    },
+    {
+        "id": 47,
+        "title": "First Principles Thinking",
+        "category": "Problem-solving",
+        "duration": "30+",
+        "goals": [
+            "creative",
+            "understand"
+        ],
+        "desc": "Phân tích vấn đề từ những nguyên lý cơ bản nhất.",
+        "steps": "1. Xác định giả định\n2. Phá vỡ thành phần cơ bản\n3. Xây dựng lại từ đầu"
+    },
+    {
+        "id": 48,
+        "title": "Lateral Thinking",
+        "category": "Creative",
+        "duration": "any",
+        "goals": [
+            "creative",
+            "problem-solving"
+        ],
+        "desc": "Suy nghĩ ngang thay vì logic tuyến tính.",
+        "steps": "1. Xem vấn đề từ góc khác\n2. Đặt câu hỏi 'What if?'\n3. Kết hợp ý tưởng ngẫu nhiên"
+    },
+    {
+        "id": 49,
+        "title": "SCAMPER",
+        "category": "Creative",
+        "duration": "30",
+        "goals": [
+            "creative",
+            "innovation"
+        ],
+        "desc": "Substitute, Combine, Adapt, Modify, Put to other uses, Eliminate, Reverse.",
+        "steps": "1. Chọn sản phẩm/ý tưởng\n2. Áp dụng từng chữ SCAMPER\n3. Ghi lại ý tưởng mới"
+    },
+    {
+        "id": 50,
+        "title": "Brainstorming",
+        "category": "Creative",
+        "duration": "15-30",
+        "goals": [
+            "creative",
+            "ideas"
+        ],
+        "desc": "Tạo ra nhiều ý tưởng nhất có thể.",
+        "steps": "1. Đặt vấn đề rõ ràng\n2. Viết mọi ý tưởng\n3. Không phán xét\n4. Số lượng > chất lượng"
+    },
+    {
+        "id": 51,
+        "title": "6 Thinking Hats",
+        "category": "Decision",
+        "duration": "30-45",
+        "goals": [
+            "critical",
+            "decision"
+        ],
+        "desc": "Nhìn vấn đề từ 6 góc độ khác nhau.",
+        "steps": "1. White: Facts\n2. Red: Emotions\n3. Black: Risks\n4. Yellow: Benefits\n5. Green: Creative\n6. Blue: Process"
+    },
+    {
+        "id": 52,
+        "title": "Pros and Cons List",
+        "category": "Decision",
+        "duration": "10-15",
+        "goals": [
+            "decision",
+            "clarity"
+        ],
+        "desc": "Liệt kê ưu và nhược điểm.",
+        "steps": "1. Chia trang làm 2\n2. Liệt kê Pros\n3. Liệt kê Cons\n4. So sánh và quyết định"
+    },
+    {
+        "id": 53,
+        "title": "Decision Matrix",
+        "category": "Decision",
+        "duration": "20-30",
+        "goals": [
+            "decision",
+            "organize"
+        ],
+        "desc": "Cho điểm các options theo tiêu chí.",
+        "steps": "1. Liệt kê options\n2. Liệt kê tiêu chí\n3. Cho điểm từng option\n4. Tổng điểm để chọn"
+    },
+    {
+        "id": 54,
+        "title": "Accountability Partner",
+        "category": "Motivation",
+        "duration": "any",
+        "goals": [
+            "motivation",
+            "accountability"
+        ],
+        "desc": "Có người đồng hành để theo dõi tiến độ.",
+        "steps": "1. Tìm partner cùng mục tiêu\n2. Check-in hàng tuần\n3. Chia sẻ tiến độ\n4. Động viên lẫn nhau"
+    },
+    {
+        "id": 55,
+        "title": "Reward System",
+        "category": "Motivation",
+        "duration": "any",
+        "goals": [
+            "motivation",
+            "habits"
+        ],
+        "desc": "Tự thưởng khi hoàn thành task.",
+        "steps": "1. Đặt milestones\n2. Xác định phần thưởng\n3. Hoàn thành → Nhận thưởng\n4. Không gian lận!"
+    },
+    {
+        "id": 56,
+        "title": "Streak Tracking",
+        "category": "Habits",
+        "duration": "any",
+        "goals": [
+            "habits",
+            "motivation"
+        ],
+        "desc": "Theo dõi chuỗi ngày làm liên tục.",
+        "steps": "1. Chọn habit\n2. Đánh dấu mỗi ngày làm\n3. Duy trì streak\n4. Đừng để mất!"
+    },
+    {
+        "id": 57,
+        "title": "Environment Design",
+        "category": "Environment",
+        "duration": "any",
+        "goals": [
+            "habits",
+            "productivity"
+        ],
+        "desc": "Thiết kế môi trường hỗ trợ thói quen.",
+        "steps": "1. Để vật cần dùng ở nơi thấy\n2. Cất đi thứ gây xao nhãng\n3. Tối ưu không gian học"
+    },
+    {
+        "id": 58,
+        "title": "Timeboxing",
+        "category": "Time Management",
+        "duration": "any",
+        "goals": [
+            "focus",
+            "productivity"
+        ],
+        "desc": "Giới hạn thời gian cho mỗi task.",
+        "steps": "1. Ước lượng thời gian cần\n2. Đặt timer\n3. Dừng khi hết giờ\n4. Đánh giá và điều chỉnh"
+    },
+    {
+        "id": 59,
+        "title": "Batching",
+        "category": "Productivity",
+        "duration": "any",
+        "goals": [
+            "productivity",
+            "organize"
+        ],
+        "desc": "Gom các task tương tự làm cùng lúc.",
+        "steps": "1. Nhóm tasks giống nhau\n2. Làm cùng một lúc\n3. VD: trả lời email 2 lần/ngày"
+    },
+    {
+        "id": 60,
+        "title": "Single-Tasking",
+        "category": "Focus",
+        "duration": "any",
+        "goals": [
+            "focus",
+            "quality"
+        ],
+        "desc": "Chỉ làm MỘT việc tại một thời điểm.",
+        "steps": "1. Chọn task\n2. Đóng mọi thứ khác\n3. Tập trung 100%\n4. Hoàn thành rồi mới chuyển"
+    },
+    {
+        "id": 61,
+        "title": "Microlearning",
+        "category": "Learning",
+        "duration": "5-15",
+        "goals": [
+            "busy",
+            "vocabulary"
+        ],
+        "desc": "Học trong khoảng thời gian ngắn.",
+        "steps": "1. Chia nội dung nhỏ\n2. Học 5-15 phút\n3. Học nhiều lần trong ngày"
+    },
+    {
+        "id": 62,
+        "title": "Project-Based Learning",
+        "category": "Learning",
+        "duration": "varies",
+        "goals": [
+            "practical",
+            "skills"
+        ],
+        "desc": "Học thông qua làm dự án thực tế.",
+        "steps": "1. Chọn dự án thực tế\n2. Học những gì cần\n3. Áp dụng ngay\n4. Hoàn thành dự án"
+    },
+    {
+        "id": 63,
+        "title": "Problem-Based Learning",
+        "category": "Learning",
+        "duration": "varies",
+        "goals": [
+            "critical",
+            "practical"
+        ],
+        "desc": "Học thông qua giải quyết vấn đề.",
+        "steps": "1. Bắt đầu với vấn đề\n2. Tìm hiểu để giải quyết\n3. Áp dụng kiến thức\n4. Phản ánh kết quả"
+    },
+    {
+        "id": 64,
+        "title": "Case Study Method",
+        "category": "Learning",
+        "duration": "60+",
+        "goals": [
+            "practical",
+            "decision"
+        ],
+        "desc": "Học từ case study thực tế.",
+        "steps": "1. Đọc case study\n2. Phân tích tình huống\n3. Đề xuất giải pháp\n4. So sánh với kết quả thực"
+    },
+    {
+        "id": 65,
+        "title": "Simulation Learning",
+        "category": "Practice",
+        "duration": "varies",
+        "goals": [
+            "practical",
+            "skills"
+        ],
+        "desc": "Học bằng mô phỏng tình huống.",
+        "steps": "1. Tạo tình huống giả\n2. Thực hành trong đó\n3. Nhận feedback\n4. Cải thiện"
+    },
+    {
+        "id": 66,
+        "title": "Role Playing",
+        "category": "Practice",
+        "duration": "30-60",
+        "goals": [
+            "communication",
+            "practical"
+        ],
+        "desc": "Đóng vai để luyện tập kỹ năng.",
+        "steps": "1. Chọn tình huống\n2. Phân vai\n3. Thực hành\n4. Feedback"
+    },
+    {
+        "id": 67,
+        "title": "Deliberate Practice",
+        "category": "Mastery",
+        "duration": "60+",
+        "goals": [
+            "mastery",
+            "skills"
+        ],
+        "desc": "Luyện tập có chủ đích với feedback.",
+        "steps": "1. Xác định điểm yếu\n2. Tập trung vào đó\n3. Nhận feedback ngay\n4. Lặp lại đến khi thành thạo"
+    },
+    {
+        "id": 68,
+        "title": "Flow State",
+        "category": "Focus",
+        "duration": "90+",
+        "goals": [
+            "deep-work",
+            "creative"
+        ],
+        "desc": "Đạt trạng thái tập trung tối đa.",
+        "steps": "1. Chọn task vừa sức\n2. Mục tiêu rõ ràng\n3. Loại bỏ xao nhãng\n4. Để bản thân 'chìm' vào công việc"
+    },
+    {
+        "id": 69,
+        "title": "Ultradian Rhythm",
+        "category": "Wellness",
+        "duration": "90-120",
+        "goals": [
+            "productivity",
+            "health"
+        ],
+        "desc": "Làm việc theo nhịp sinh học 90-120 phút.",
+        "steps": "1. Làm việc 90 phút\n2. Nghỉ 20 phút\n3. Đồng bộ với cơ thể"
+    },
+    {
+        "id": 70,
+        "title": "Power Nap",
+        "category": "Wellness",
+        "duration": "20",
+        "goals": [
+            "energy",
+            "productivity"
+        ],
+        "desc": "Ngủ ngắn 20 phút để nạp năng lượng.",
+        "steps": "1. Đặt báo thức 20 phút\n2. Nằm ở nơi yên tĩnh\n3. Thức dậy và hoạt động"
+    },
+    {
+        "id": 71,
+        "title": "Exercise Breaks",
+        "category": "Wellness",
+        "duration": "5-10",
+        "goals": [
+            "energy",
+            "health"
+        ],
+        "desc": "Vận động ngắn giữa các phiên học.",
+        "steps": "1. Mỗi 25-50 phút\n2. Đứng dậy\n3. Stretching hoặc đi bộ\n4. Quay lại học"
+    },
+    {
+        "id": 72,
+        "title": "Meditation",
+        "category": "Mindfulness",
+        "duration": "10-20",
+        "goals": [
+            "focus",
+            "mental-health"
+        ],
+        "desc": "Thiền để tăng tập trung và giảm stress.",
+        "steps": "1. Ngồi yên\n2. Tập trung vào hơi thở\n3. Khi tâm lang thang, quay lại\n4. Duy trì 10-20 phút"
+    },
+    {
+        "id": 73,
+        "title": "Breathing Exercises",
+        "category": "Wellness",
+        "duration": "5",
+        "goals": [
+            "focus",
+            "relax"
+        ],
+        "desc": "Bài tập thở để thư giãn và tập trung.",
+        "steps": "1. 4-7-8: Hít 4s, giữ 7s, thở 8s\n2. Box breathing: 4-4-4-4\n3. Lặp lại 5-10 lần"
+    },
+    {
+        "id": 74,
+        "title": "Study Groups",
+        "category": "Social",
+        "duration": "60-120",
+        "goals": [
+            "understand",
+            "motivation"
+        ],
+        "desc": "Học nhóm để trao đổi và động viên.",
+        "steps": "1. Lập nhóm 3-5 người\n2. Thảo luận nội dung\n3. Giải thích cho nhau\n4. Quiz lẫn nhau"
+    },
+    {
+        "id": 75,
+        "title": "Peer Teaching",
+        "category": "Social",
+        "duration": "30-60",
+        "goals": [
+            "understand",
+            "mastery"
+        ],
+        "desc": "Dạy bạn cùng lớp những gì bạn biết.",
+        "steps": "1. Chọn người học\n2. Chuẩn bị bài giảng\n3. Dạy và trả lời câu hỏi"
+    },
+    {
+        "id": 76,
+        "title": "Office Hours",
+        "category": "Resources",
+        "duration": "any",
+        "goals": [
+            "understand",
+            "help"
+        ],
+        "desc": "Tận dụng giờ hỗ trợ của giáo viên.",
+        "steps": "1. Chuẩn bị câu hỏi\n2. Đến đúng giờ\n3. Hỏi cụ thể\n4. Ghi chép lại"
+    },
+    {
+        "id": 77,
+        "title": "Online Courses",
+        "category": "Resources",
+        "duration": "varies",
+        "goals": [
+            "skills",
+            "self-study"
+        ],
+        "desc": "Học từ khóa học online.",
+        "steps": "1. Chọn khóa học uy tín\n2. Lên lịch học đều đặn\n3. Làm bài tập\n4. Hoàn thành khóa học"
+    },
+    {
+        "id": 78,
+        "title": "Flashcard Apps",
+        "category": "Tools",
+        "duration": "10-15",
+        "goals": [
+            "memorize",
+            "vocabulary"
+        ],
+        "desc": "Sử dụng app flashcard như Anki.",
+        "steps": "1. Tải app (Anki, Quizlet)\n2. Tạo cards\n3. Học hàng ngày\n4. Theo dõi tiến độ"
+    },
+    {
+        "id": 79,
+        "title": "Note-Taking Apps",
+        "category": "Tools",
+        "duration": "any",
+        "goals": [
+            "organize",
+            "notes"
+        ],
+        "desc": "Sử dụng app ghi chú số.",
+        "steps": "1. Chọn app (Notion, Obsidian)\n2. Tổ chức theo hệ thống\n3. Link các notes\n4. Review thường xuyên"
+    },
+    {
+        "id": 80,
+        "title": "To-Do Apps",
+        "category": "Tools",
+        "duration": "5-10",
+        "goals": [
+            "organize",
+            "productivity"
+        ],
+        "desc": "Sử dụng app quản lý task.",
+        "steps": "1. Chọn app (Todoist, Tick)\n2. Thêm tasks\n3. Đặt priorities\n4. Check off khi xong"
+    },
+    {
+        "id": 81,
+        "title": "Spaced Repetition Apps",
+        "category": "Tools",
+        "duration": "15-30",
+        "goals": [
+            "memorize",
+            "long-term"
+        ],
+        "desc": "App tự động lên lịch ôn tập.",
+        "steps": "1. Tải Anki hoặc RemNote\n2. Tạo cards\n3. Học theo lịch app\n4. Không bỏ ngày"
+    },
+    {
+        "id": 82,
+        "title": "Focus Timer Apps",
+        "category": "Tools",
+        "duration": "25+",
+        "goals": [
+            "focus",
+            "productivity"
+        ],
+        "desc": "App đếm giờ tập trung.",
+        "steps": "1. Tải Forest, Tide, etc\n2. Đặt timer\n3. Không dùng điện thoại\n4. 'Trồng cây' hoàn thành"
+    },
+    {
+        "id": 83,
+        "title": "Blocking Apps",
+        "category": "Tools",
+        "duration": "any",
+        "goals": [
+            "focus",
+            "discipline"
+        ],
+        "desc": "App chặn web/app gây xao nhãng.",
+        "steps": "1. Tải Cold Turkey, Freedom\n2. Thêm sites cần chặn\n3. Đặt schedule\n4. Không có cách bypass"
+    },
+    {
+        "id": 84,
+        "title": "Audio Learning",
+        "category": "Multimodal",
+        "duration": "varies",
+        "goals": [
+            "busy",
+            "listening"
+        ],
+        "desc": "Nghe podcast, audiobook khi di chuyển.",
+        "steps": "1. Tải podcast/audiobook\n2. Nghe khi commute\n3. Tăng tốc độ nếu cần\n4. Ghi chú sau"
+    },
+    {
+        "id": 85,
+        "title": "Video Learning",
+        "category": "Multimodal",
+        "duration": "varies",
+        "goals": [
+            "visual",
+            "understand"
+        ],
+        "desc": "Học qua video YouTube, courses.",
+        "steps": "1. Chọn video chất lượng\n2. Tăng tốc độ 1.25-1.5x\n3. Ghi chú quan trọng\n4. Pause để suy nghĩ"
+    },
+    {
+        "id": 86,
+        "title": "Handwriting",
+        "category": "Notes",
+        "duration": "any",
+        "goals": [
+            "memorize",
+            "understand"
+        ],
+        "desc": "Viết tay thay vì đánh máy.",
+        "steps": "1. Ghi chép bằng tay\n2. Dùng màu sắc\n3. Vẽ diagram\n4. Chậm hơn nhưng nhớ lâu hơn"
+    },
+    {
+        "id": 87,
+        "title": "Color Coding",
+        "category": "Organization",
+        "duration": "any",
+        "goals": [
+            "organize",
+            "visual"
+        ],
+        "desc": "Sử dụng màu sắc để phân loại.",
+        "steps": "1. Chọn hệ thống màu\n2. VD: Đỏ = quan trọng\n3. Áp dụng nhất quán"
+    },
+    {
+        "id": 88,
+        "title": "Highlighting",
+        "category": "Reading",
+        "duration": "any",
+        "goals": [
+            "reading",
+            "organize"
+        ],
+        "desc": "Highlight những điểm quan trọng.",
+        "steps": "1. Đọc lần 1 không highlight\n2. Đọc lần 2, highlight chọn lọc\n3. < 20% nội dung\n4. Ôn phần highlight"
+    },
+    {
+        "id": 89,
+        "title": "Sketchnoting",
+        "category": "Notes",
+        "duration": "any",
+        "goals": [
+            "creative",
+            "notes"
+        ],
+        "desc": "Kết hợp vẽ và ghi chép.",
+        "steps": "1. Dùng hình ảnh + text\n2. Vẽ icons, arrows\n3. Layout thoải mái\n4. Sáng tạo!"
+    },
+    {
+        "id": 90,
+        "title": "Summary Writing",
+        "category": "Review",
+        "duration": "15-30",
+        "goals": [
+            "understand",
+            "exam"
+        ],
+        "desc": "Viết tóm tắt sau mỗi bài học.",
+        "steps": "1. Học xong bài\n2. Không nhìn tài liệu\n3. Viết tóm tắt\n4. Kiểm tra lại"
+    },
+    {
+        "id": 91,
+        "title": "Mock Exams",
+        "category": "Exam Prep",
+        "duration": "60-180",
+        "goals": [
+            "exam",
+            "practice"
+        ],
+        "desc": "Làm đề thi thử trong điều kiện thật.",
+        "steps": "1. Tìm đề mẫu\n2. Đặt timer như thi thật\n3. Không nhìn đáp án\n4. Chấm và review"
+    },
+    {
+        "id": 92,
+        "title": "Error Analysis",
+        "category": "Improvement",
+        "duration": "15-30",
+        "goals": [
+            "exam",
+            "improvement"
+        ],
+        "desc": "Phân tích lỗi sai để không lặp lại.",
+        "steps": "1. Xem lại bài làm\n2. Liệt kê lỗi sai\n3. Tìm nguyên nhân\n4. Luyện lại phần đó"
+    },
+    {
+        "id": 93,
+        "title": "Formulas Sheet",
+        "category": "Exam Prep",
+        "duration": "30-60",
+        "goals": [
+            "exam",
+            "reference"
+        ],
+        "desc": "Tạo bảng tóm tắt công thức.",
+        "steps": "1. Liệt kê công thức\n2. Tổ chức theo chủ đề\n3. Viết đẹp, rõ ràng\n4. Ôn thường xuyên"
+    },
+    {
+        "id": 94,
+        "title": "Concept Maps",
+        "category": "Organization",
+        "duration": "30-45",
+        "goals": [
+            "understand",
+            "organize"
+        ],
+        "desc": "Vẽ mối quan hệ giữa các khái niệm.",
+        "steps": "1. Viết khái niệm chính\n2. Thêm khái niệm liên quan\n3. Vẽ arrows nối\n4. Ghi label mối quan hệ"
+    },
+    {
+        "id": 95,
+        "title": "Comparison Tables",
+        "category": "Analysis",
+        "duration": "20-30",
+        "goals": [
+            "understand",
+            "organize"
+        ],
+        "desc": "So sánh các khái niệm bằng bảng.",
+        "steps": "1. Liệt kê items cần so sánh\n2. Xác định tiêu chí\n3. Điền bảng\n4. Rút ra kết luận"
+    },
+    {
+        "id": 96,
+        "title": "Timeline Creation",
+        "category": "History",
+        "duration": "30-45",
+        "goals": [
+            "organize",
+            "history"
+        ],
+        "desc": "Vẽ timeline cho các sự kiện.",
+        "steps": "1. Vẽ đường thẳng\n2. Đánh dấu mốc thời gian\n3. Thêm sự kiện\n4. Kết nối nguyên nhân-kết quả"
+    },
+    {
+        "id": 97,
+        "title": "Story Method",
+        "category": "Memory",
+        "duration": "any",
+        "goals": [
+            "memorize",
+            "creative"
+        ],
+        "desc": "Tạo câu chuyện từ thông tin cần nhớ.",
+        "steps": "1. Lấy các điểm cần nhớ\n2. Tạo câu chuyện kết nối\n3. Càng vô lý càng nhớ\n4. Kể lại để ôn"
+    },
+    {
+        "id": 98,
+        "title": "Acronym Creation",
+        "category": "Memory",
+        "duration": "any",
+        "goals": [
+            "memorize",
+            "vocabulary"
+        ],
+        "desc": "Tạo từ viết tắt để nhớ danh sách.",
+        "steps": "1. Lấy chữ cái đầu\n2. Tạo từ có nghĩa\n3. VD: HOMES = Great Lakes"
+    },
+    {
+        "id": 99,
+        "title": "Number-Shape System",
+        "category": "Memory",
+        "duration": "any",
+        "goals": [
+            "memorize",
+            "numbers"
+        ],
+        "desc": "Gắn số với hình dạng để nhớ.",
+        "steps": "1. 1 = cây nến\n2. 2 = thiên nga\n3. Liên kết với thông tin"
+    },
+    {
+        "id": 100,
+        "title": "20-Minute Rule",
+        "category": "Consistency",
+        "duration": "20",
+        "goals": [
+            "habits",
+            "consistency"
+        ],
+        "desc": "Cam kết làm ít nhất 20 phút mỗi ngày.",
+        "steps": "1. Chọn skill/môn học\n2. Cam kết 20 phút/ngày\n3. Không bỏ ngày nào\n4. 20 phút = dễ bắt đầu"
+    }
+]

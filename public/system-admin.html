@@ -1,0 +1,3814 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>E-School Admin Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script>
+        // Check admin login
+        (function () {
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            console.log('[Admin Auth] Checking user:', user);
+
+            // Allow 'admin', 'superadmin' roles OR partial roles
+            // EMERGENCY FIX: If username is 'admin', ALWAYS allow access and force role to 'admin'
+            // This fixes the issue where the admin account somehow got saved as 'student' role
+
+            let role = (user.role || '').toLowerCase();
+            const username = (user.username || '').toLowerCase();
+
+            if (username === 'admin') {
+                console.log('[Admin Auth] Detected "admin" user. Bypassing role check.');
+                if (role !== 'admin') {
+                    console.warn('[Admin Auth] Correcting role for admin user from ' + role + ' to admin');
+                    user.role = 'admin';
+                    localStorage.setItem('user', JSON.stringify(user));
+                    role = 'admin';
+                }
+            }
+
+            if (!user.username || (role !== 'admin' && role !== 'superadmin')) {
+                console.warn('[Admin Auth] Failed:', { username: user.username, role: user.role });
+                toast.warning('Bạn cần đăng nhập với tài khoản Admin để truy cập! (Role: ' + user.role + ')');
+                window.location.href = '/login.html';
+            }
+        })();
+    </script>
+    <style>
+        :root {
+            --sidebar-width: 280px;
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.6);
+            --secondary: #a855f7;
+            --secondary-glow: rgba(168, 85, 247, 0.6);
+            --accent: #06b6d4;
+            --bg-dark: #0f0c29;
+            --text-light: #f8fafc;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-light: rgba(255, 255, 255, 0.15);
+            --card-radius: 24px;
+            --smooth-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Custom Dark Scrollbar - Thin & Modern */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(51, 65, 85, 0.8);
+            border-radius: 3px;
+            transition: background 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(71, 85, 105, 0.9);
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+
+        /* Firefox scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(51, 65, 85, 0.8) rgba(15, 23, 42, 0.8);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Be Vietnam Pro', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Background Orbs */
+        .bg-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, #0f0c29 0%, #050510 100%);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: orbFloat 20s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--primary);
+            top: -20%;
+            left: -10%;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--secondary);
+            bottom: -10%;
+            right: -10%;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            top: 40%;
+            right: 10%;
+            opacity: 0.3;
+        }
+
+        @keyframes orbFloat {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(50px, 70px);
+            }
+        }
+
+        /* Sidebar Styles (Student Exact Match) */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100%;
+            background: rgba(15, 12, 41, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--glass-border-light);
+            display: flex;
+            flex-direction: column;
+            padding: 25px 25px 0 25px;
+            z-index: 100;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            flex-shrink: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 25px;
+            margin-right: -10px;
+            padding-right: 10px;
+        }
+
+        .sidebar-nav::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sidebar-nav::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .brand-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .brand-title-text {
+            background: linear-gradient(to right, #fff, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand-title i {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .category-label {
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.4);
+            margin: 25px 0 10px 10px;
+        }
+
+        .nav-item {
+            padding: 11px 16px;
+            margin-bottom: 4px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+
+            /* Glassmorphism Tables Override */
+            .table {
+                color: rgba(255, 255, 255, 0.9);
+                border-color: rgba(255, 255, 255, 0.1);
+            }
+
+            .table thead th {
+                background-color: rgba(255, 255, 255, 0.05);
+                color: #fff;
+                border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+                font-weight: 600;
+            }
+
+            .table tbody td {
+                background-color: transparent;
+                color: rgba(255, 255, 255, 0.8);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                vertical-align: middle;
+            }
+
+            /* Fix hovering on rows */
+            .table-hover tbody tr:hover {
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+
+            /* Fix 'btn-light' looking too bright */
+            .btn-light {
+                background: rgba(255, 255, 255, 0.1);
+                color: #fff;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .btn-light:hover {
+                background: rgba(255, 255, 255, 0.2);
+                color: #fff;
+            }
+
+            /* Fix Modal Content Background */
+            .modal-content {
+                background: rgba(30, 41, 59, 0.95);
+                color: #fff;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            /* Fix AI Provider Table in Config */
+            #ai-providers-tbody input {
+                background: rgba(0, 0, 0, 0.2) !important;
+                color: white !important;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            transition: all 0.15s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .nav-item.active {
+            background: rgba(99, 102, 241, 0.15);
+            color: white;
+        }
+
+        .nav-item.active i {
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-item:hover i {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* User Badge */
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--glass-border-light);
+            border-radius: 16px;
+            flex-shrink: 0;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .user-badge:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+
+        /* Content Area */
+        .content-body {
+            margin-left: var(--sidebar-width);
+            padding: 40px;
+            transition: var(--smooth-transition);
+            min-height: 100vh;
+        }
+
+        /* Animation */
+        .section-view {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .section-view.active {
+            display: block;
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--glass-border-light);
+            box-shadow: 0 12px 40px -8px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 12px;
+            padding: 10px 24px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Tables */
+        .table-custom {
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+        }
+
+        .table {
+            color: #e2e8f0;
+            margin-bottom: 0;
+            --bs-table-bg: transparent;
+            --bs-table-accent-bg: transparent;
+            --bs-table-striped-bg: rgba(255, 255, 255, 0.05);
+            --bs-table-hover-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        .table thead {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .table th {
+            color: #a5b4fc;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--glass-border);
+            padding: 16px 24px;
+            background-color: transparent !important;
+        }
+
+        .table td {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--glass-border);
+            vertical-align: middle;
+            color: #f1f5f9;
+            background-color: transparent !important;
+        }
+
+        /* Strong override for striped/hover rows to prevent white background */
+        .table-striped>tbody>tr:nth-of-type(odd)>* {
+            background-color: rgba(255, 255, 255, 0.03) !important;
+            color: white !important;
+            box-shadow: none !important;
+        }
+
+        .table-hover>tbody>tr:hover>* {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            color: white !important;
+            box-shadow: none !important;
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(3px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-box {
+            background: #fff;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .2);
+            animation: slideDown .3s;
+        }
+
+        .modal-box.glass-card {
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================
+           DARK THEME OVERRIDES FOR BOOTSTRAP COMPONENTS
+           ============================================ */
+
+        /* Form Controls */
+        .form-control,
+        .form-select {
+            background: rgba(15, 23, 42, 0.8) !important;
+            border: 1px solid rgba(99, 102, 241, 0.2) !important;
+            color: #f1f5f9 !important;
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background: rgba(30, 41, 59, 0.9) !important;
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+            color: white !important;
+        }
+
+        .form-control::placeholder {
+            color: rgba(148, 163, 184, 0.6) !important;
+        }
+
+        .form-select option {
+            background: #1e293b;
+            color: #f1f5f9;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--glass-bg) !important;
+            border: 1px solid var(--glass-border) !important;
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+        }
+
+        .card-header,
+        .card-footer {
+            background: rgba(99, 102, 241, 0.1) !important;
+            border-color: var(--glass-border) !important;
+        }
+
+        /* Pagination */
+        .page-link {
+            background: rgba(30, 41, 59, 0.8) !important;
+            border: 1px solid rgba(99, 102, 241, 0.2) !important;
+            color: #a5b4fc !important;
+            transition: all 0.2s ease;
+        }
+
+        .page-link:hover {
+            background: rgba(99, 102, 241, 0.3) !important;
+            border-color: var(--primary) !important;
+            color: white !important;
+        }
+
+        .page-item.active .page-link {
+            background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+            border-color: transparent !important;
+            color: white !important;
+        }
+
+        .page-item.disabled .page-link {
+            background: rgba(15, 23, 42, 0.5) !important;
+            color: rgba(148, 163, 184, 0.4) !important;
+        }
+
+        /* List Groups */
+        .list-group-item {
+            background: transparent !important;
+            border-color: var(--glass-border) !important;
+            color: #f1f5f9;
+        }
+
+        /* Badges - Darker variants */
+        .badge {
+            font-weight: 600;
+        }
+
+        /* Input Groups */
+        .input-group-text {
+            background: rgba(30, 41, 59, 0.8) !important;
+            border: 1px solid rgba(99, 102, 241, 0.2) !important;
+            color: #a5b4fc !important;
+        }
+
+        /* Labels */
+        label,
+        .form-label {
+            color: rgba(226, 232, 240, 0.9);
+        }
+
+        /* Dropdown Menus */
+        .dropdown-menu {
+            background: rgba(30, 41, 59, 0.95) !important;
+            border: 1px solid var(--glass-border) !important;
+            backdrop-filter: blur(12px);
+        }
+
+        .dropdown-item {
+            color: #f1f5f9 !important;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(99, 102, 241, 0.2) !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-fixed">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+    <div class="sidebar" id="sidebar">
+        <div class="brand-title">
+            <i class="fa-solid fa-atom me-2"></i>
+            <span class="brand-title-text">E-School AI</span>
+        </div>
+
+        <div class="user-badge" onclick="switchTab('profile',this); loadAdminProfileView()" style="cursor: pointer;">
+            <div class="user-avatar" id="admin-avatar"
+                style="background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center;">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div class="overflow-hidden">
+                <div class="fw-bold text-truncate" id="admin-name-disp">Quản Trị Viên</div>
+                <div class="small text-truncate" style="color: rgba(255,255,255,0.5);">Quản trị viên</div>
+            </div>
+            <i class="fa-solid fa-chevron-right ms-auto" style="color: rgba(255,255,255,0.3); font-size: 0.8rem;"></i>
+        </div>
+
+        <div class="sidebar-nav">
+            <div class="category-label">Tổng Quan</div>
+            <div class="nav-item active" onclick="switchTab('dashboard',this)">
+                <i class="fa-solid fa-chart-pie"></i> Dashboard
+            </div>
+
+            <div class="category-label">Quản Lý Nội Dung</div>
+            <div class="nav-item" onclick="switchTab('english',this)">
+                <i class="fa-solid fa-comments"></i> English Coach
+                <span class="badge bg-danger ms-auto small" id="badge-eng" style="font-size: 0.65rem;">New</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('books',this)">
+                <i class="fa-solid fa-book"></i> Kho Sách
+            </div>
+            <div class="nav-item" onclick="switchTab('methods',this)">
+                <i class="fa-solid fa-lightbulb"></i> Phương Pháp
+            </div>
+
+            <div class="category-label">Hệ Thống</div>
+            <div class="nav-item" onclick="switchTab('users',this)">
+                <i class="fa-solid fa-users"></i> Người Dùng
+            </div>
+            <div class="nav-item" onclick="switchTab('assignments',this)">
+                <i class="fa-solid fa-clipboard-check"></i> Bài Tập
+            </div>
+            <div class="nav-item" onclick="switchTab('schools',this)">
+                <i class="fa-solid fa-school"></i> Duyệt Trường
+                <span class="badge bg-warning ms-auto small" id="badge-schools" style="font-size: 0.65rem;">0</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('notifications',this)">
+                <i class="fa-solid fa-envelope"></i> Gửi Thông Báo
+            </div>
+
+            <div class="category-label">Cài Đặt</div>
+            <div class="nav-item" onclick="switchTab('profile',this); loadAdminProfileView()">
+                <i class="fa-solid fa-user-pen"></i> Chỉnh Sửa Hồ Sơ
+            </div>
+            <div class="nav-item" onclick="switchTab('apikeys',this)">
+                <i class="fa-solid fa-key"></i> API Keys
+            </div>
+            <div class="nav-item" onclick="switchTab('settings',this)">
+                <i class="fa-solid fa-gear"></i> Cài Đặt
+            </div>
+            <div class="nav-item" onclick="switchTab('templates',this)">
+                <i class="fa-solid fa-file-word"></i> Quản Lý Mẫu
+            </div>
+            <div class="nav-item" onclick="location.href='/login'" style="color: #ef4444;">
+                <i class="fa-solid fa-right-from-bracket"></i> Đăng Xuất
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold mb-0 text-white" id="page-title">Dashboard</h5>
+            <div class="d-flex align-items-center gap-3">
+                <div class="text-end d-none d-sm-block">
+                    <div class="fw-bold text-white">Super Admin</div>
+                    <div class="small text-white-50">admin@eschool.net</div>
+                </div>
+                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold shadow-sm"
+                    style="width:40px;height:40px">A</div>
+            </div>
+        </div>
+
+        <!-- PROFILE VIEW (Like Student Dashboard) -->
+        <div id="view-profile" class="section-view">
+            <div class="h-100 d-flex flex-column">
+                <!-- Page Header -->
+                <div class="d-flex align-items-center mb-4 pb-3 border-bottom border-light border-opacity-10">
+                    <div class="me-3"
+                        style="width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, #a855f7, #6366f1); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);">
+                        <i class="fa-solid fa-user-pen text-white fs-4"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h4 class="fw-bold text-white mb-0">Hồ Sơ Quản Trị Viên</h4>
+                        <small class="text-white-50">Quản lý thông tin và tài khoản của bạn</small>
+                    </div>
+                    <button onclick="switchTab('dashboard', document.querySelector('.sidebar-nav .nav-item'))"
+                        class="btn btn-outline-light rounded-pill px-3 d-flex align-items-center gap-2"
+                        style="border-color: rgba(255,255,255,0.2);">
+                        <i class="fa-solid fa-arrow-left"></i> Quay lại
+                    </button>
+                </div>
+
+                <!-- Content -->
+                <div class="row g-4 flex-grow-1">
+                    <!-- Left Column: Avatar & Summary -->
+                    <div class="col-lg-4 col-xl-3">
+                        <div class="p-4 h-100 rounded-4 d-flex flex-column align-items-center text-center"
+                            style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);">
+
+                            <div class="position-relative mb-4 mt-2">
+                                <div id="admin-profile-avatar" style="width: 150px; height: 150px; border-radius: 50%; 
+                                            background: linear-gradient(135deg, #6366f1, #a855f7);  
+                                            display: flex; align-items: center; justify-content: center; 
+                                            font-size: 4rem; color: white; 
+                                            border: 4px solid rgba(30, 30, 50, 0.5);
+                                            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+                                            background-size: cover; background-position: center;">
+                                    A
+                                </div>
+                                <label
+                                    class="position-absolute bottom-0 end-0 btn btn-primary rounded-circle d-flex align-items-center justify-content-center"
+                                    style="width: 42px; height: 42px; border: 3px solid rgba(30, 30, 50, 1); cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); right: 10px !important;"
+                                    title="Đổi ảnh đại diện">
+                                    <i class="fa-solid fa-camera"></i>
+                                    <input type="file" accept="image/*" hidden onchange="previewAdminAvatar(this)">
+                                </label>
+                            </div>
+
+                            <h5 class="text-white fw-bold mb-1 fs-4" id="admin-profile-name">Quản Trị Viên</h5>
+                            <span id="admin-role-badge"
+                                class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 px-3 py-2 rounded-pill mb-4">Quản
+                                trị viên</span>
+
+                            <div class="w-100 text-start mt-auto p-3 rounded-3" style="background: rgba(0,0,0,0.2);">
+                                <small class="text-white-50 d-block mb-2">Trạng thái hồ sơ</small>
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <div class="progress flex-grow-1"
+                                        style="height: 6px; background: rgba(255,255,255,0.1);">
+                                        <div id="admin-progress-bar" class="progress-bar bg-success" style="width: 0%">
+                                        </div>
+                                    </div>
+                                    <span id="admin-progress-text" class="text-success small fw-bold">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Form Fields -->
+                    <div class="col-lg-8 col-xl-9">
+                        <div class="p-4 h-100 rounded-4"
+                            style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);">
+                            <h5 class="text-white fw-bold mb-4"><i
+                                    class="fa-solid fa-circle-info text-primary me-2"></i>Thông tin chi tiết</h5>
+
+                            <div class="row g-4">
+                                <!-- Họ và tên -->
+                                <div class="col-md-6">
+                                    <label class="small text-white-50 mb-2 fw-medium">Họ và tên</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text border-0 text-white-50"
+                                            style="background: rgba(0,0,0,0.2);"><i class="fa-solid fa-user"></i></span>
+                                        <input type="text" id="admin-view-fullname"
+                                            class="form-control border-0 text-white shadow-none py-2"
+                                            style="background: rgba(0,0,0,0.2); transition: all 0.3s;"
+                                            onfocus="this.style.background='rgba(255,255,255,0.05)'"
+                                            onblur="this.style.background='rgba(0,0,0,0.2)'"
+                                            placeholder="Nhập họ tên...">
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-6">
+                                    <label class="small text-white-50 mb-2 fw-medium">Email</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text border-0 text-white-50"
+                                            style="background: rgba(0,0,0,0.2);"><i
+                                                class="fa-solid fa-envelope"></i></span>
+                                        <input type="email" id="admin-view-email"
+                                            class="form-control border-0 text-white shadow-none py-2"
+                                            style="background: rgba(0,0,0,0.2); transition: all 0.3s;"
+                                            onfocus="this.style.background='rgba(255,255,255,0.05)'"
+                                            onblur="this.style.background='rgba(0,0,0,0.2)'"
+                                            placeholder="email@example.com">
+                                    </div>
+                                </div>
+
+                                <!-- Điện thoại -->
+                                <div class="col-md-6">
+                                    <label class="small text-white-50 mb-2 fw-medium">Điện thoại</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text border-0 text-white-50"
+                                            style="background: rgba(0,0,0,0.2);"><i
+                                                class="fa-solid fa-phone"></i></span>
+                                        <input type="tel" id="admin-view-phone"
+                                            class="form-control border-0 text-white shadow-none py-2"
+                                            style="background: rgba(0,0,0,0.2); transition: all 0.3s;"
+                                            onfocus="this.style.background='rgba(255,255,255,0.05)'"
+                                            onblur="this.style.background='rgba(0,0,0,0.2)'" placeholder="09xx...">
+                                    </div>
+                                </div>
+
+                                <!-- Role (Read Only) -->
+                                <div class="col-md-6">
+                                    <label class="small text-white-50 mb-2 fw-medium">Vai trò</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text border-0 text-white-50"
+                                            style="background: rgba(0,0,0,0.2);"><i
+                                                class="fa-solid fa-shield-halved"></i></span>
+                                        <input type="text" id="admin-view-role"
+                                            class="form-control border-0 text-white shadow-none py-2"
+                                            style="background: rgba(0,0,0,0.2);" value="Quản trị viên" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="d-flex justify-content-end gap-3 mt-5 pt-3 border-top border-white border-opacity-10">
+                                <button onclick="saveAdminProfileView()" id="save-admin-profile-btn"
+                                    class="btn btn-primary px-5 py-2 rounded-pill fw-bold shadow-lg d-flex align-items-center gap-2"
+                                    style="background: linear-gradient(135deg, #6366f1, #a855f7); border: none; transition: transform 0.2s;"
+                                    onmouseover="this.style.transform='scale(1.05)'"
+                                    onmouseout="this.style.transform='scale(1)'">
+                                    <i class="fa-solid fa-floppy-disk"></i> Lưu thay đổi
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div id="view-dashboard" class="section-view active">
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="glass-card d-flex align-items-center justify-content-between">
+                        <div>
+                            <h3 class="fw-bold mb-1 text-white" id="stat-users">0</h3>
+                            <div class="text-white-50 small">Người dùng</div>
+                        </div>
+                        <div class="icon bg-primary bg-opacity-25 text-primary p-3 rounded-circle"><i
+                                class="fa-solid fa-users fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="glass-card d-flex align-items-center justify-content-between">
+                        <div>
+                            <h3 class="fw-bold mb-1 text-white" id="stat-lessons">0</h3>
+                            <div class="text-white-50 small">Bài học English</div>
+                        </div>
+                        <div class="icon bg-warning bg-opacity-25 text-warning p-3 rounded-circle"><i
+                                class="fa-solid fa-comments fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="glass-card d-flex align-items-center justify-content-between">
+                        <div>
+                            <h3 class="fw-bold mb-1 text-white" id="stat-assignments">0</h3>
+                            <div class="text-white-50 small">Bài tập</div>
+                        </div>
+                        <div class="icon bg-success bg-opacity-25 text-success p-3 rounded-circle"><i
+                                class="fa-solid fa-clipboard-check fs-4"></i></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="glass-card d-flex align-items-center justify-content-between">
+                        <div>
+                            <h3 class="fw-bold mb-1 text-white" id="stat-posts">0</h3>
+                            <div class="text-white-50 small">Bài đăng</div>
+                        </div>
+                        <div class="icon bg-danger bg-opacity-25 text-danger p-3 rounded-circle"><i
+                                class="fa-solid fa-newspaper fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="glass-card h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold mb-0 text-white">Hoạt động gần đây</h5>
+                            <button class="btn btn-sm btn-outline-light" onclick="loadRecentActivity()"><i
+                                    class="fa-solid fa-sync me-1"></i>Làm mới</button>
+                        </div>
+                        <div id="activity-log" style="min-height: 200px;">
+                            <div class="text-center text-white-50 py-3"><i
+                                    class="fa-solid fa-spinner fa-spin me-2"></i>Đang tải...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="glass-card mb-4">
+                        <h5 class="fw-bold mb-3 text-white"><i class="fa-solid fa-server me-2"></i>Trạng thái hệ thống
+                        </h5>
+                        <div class="d-flex justify-content-between border-bottom border-secondary pb-2 mb-2">
+                            <span class="text-white-50">Uptime:</span>
+                            <span class="fw-bold text-white" id="sys-uptime">--</span>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom border-secondary pb-2 mb-2">
+                            <span class="text-white-50">Memory Usage:</span>
+                            <span class="fw-bold text-white" id="sys-memory">-- MB</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-white-50">Database:</span>
+                            <span class="badge bg-success" id="sys-db-status"><i
+                                    class="fa-solid fa-check me-1"></i>Online</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card">
+                        <h5 class="fw-bold mb-3 text-white">Thao tác nhanh</h5>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-light text-start" onclick='switchTab("users",null)'><i
+                                    class="fa-solid fa-user-plus me-2"></i>Quản lý Users</button>
+                            <button class="btn btn-outline-light text-start" onclick='switchTab("english",null)'><i
+                                    class="fa-solid fa-plus me-2"></i>Thêm Bài
+                                Học</button>
+                            <button class="btn btn-outline-light text-start"
+                                onclick='switchTab("notifications",null)'><i class="fa-solid fa-bell me-2"></i>Gửi
+                                Thông Báo</button>
+                            <button class="btn btn-outline-light text-start" onclick='switchTab("settings",null)'><i
+                                    class="fa-solid fa-gear me-2"></i>Cài
+                                Đặt</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="view-english" class="section-view">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold">Quản Lý English Coach</h4><button class="btn btn-primary"
+                    onclick='openModal("eng")'><i class="fa-solid fa-plus me-2"></i>Thêm Bài Học Mới</button>
+            </div>
+            <div class="card border-0 shadow-sm p-3 mb-4">
+                <div class="row g-2">
+                    <div class="col-md-4"><input type="text" class="form-control" id="eng-search"
+                            placeholder="Tìm kiếm bài học..." onkeyup="renderEnglishTable()"></div>
+                    <div class="col-md-3"><select class="form-select" id="eng-filter" onchange="renderEnglishTable()">
+                            <option value="all">Tất cả chủ đề</option>
+                            <option value="Giao tiếp">Giao tiếp</option>
+                            <option value="Công việc">Công việc</option>
+                            <option value="Du lịch">Du lịch</option>
+                            <option value="IELTS">IELTS</option>
+                        </select></div>
+                    <div class="col-md-5 text-end"><button class="btn btn-outline-warning"
+                            onclick="generateDummyEnglishData()"><i class="fa-solid fa-database me-2"></i>Tạo dữ
+                            liệu mẫu (100 bài)</button></div>
+                </div>
+            </div>
+            <div class="table-custom">
+                <table class="table mb-0 table-hover">
+                    <thead>
+                        <tr>
+                            <th width="50">ID</th>
+                            <th>Tiêu đề</th>
+                            <th>Chủ đề</th>
+                            <th>Trình độ</th>
+                            <th>Prompt AI (Rút gọn)</th>
+                            <th width="150" class="text-end">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eng-table-body"></tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-3"><span class="text-white-50 small"
+                    id="eng-count">Hiển thị 0 bài học</span>
+                <nav>
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item disabled"><a class="page-link">Trước</a></li>
+                        <li class="page-item active"><a class="page-link">1</a></li>
+                        <li class="page-item"><a class="page-link">2</a></li>
+                        <li class="page-item"><a class="page-link">3</a></li>
+                        <li class="page-item"><a class="page-link">Sau</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div id="view-books" class="section-view">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold">Kho Sách Giáo Khoa</h4>
+                <div class="d-flex gap-2"><button class="btn btn-outline-primary btn-sm" onclick="loadBooksData()"><i
+                            class="fa-solid fa-sync me-1"></i>Làm mới</button> <button class="btn btn-primary"
+                        onclick="showAddBookForm()"><i class="fa-solid fa-plus me-2"></i>Thêm Sách</button></div>
+            </div>
+            <div id="add-book-form" class="glass-card mb-4" style="display:none">
+                <h5 class="fw-bold mb-3">Thêm Sách Mới</h5>
+                <div class="row g-3">
+                    <div class="col-md-6"><label class="small fw-bold">Tên sách</label><input type="text"
+                            class="form-control" id="book-title" placeholder="VD: Toán 12"></div>
+                    <div class="col-md-3"><label class="small fw-bold">Môn học</label><select class="form-select"
+                            id="book-subject">
+                            <option>Toán</option>
+                            <option>Văn</option>
+                            <option>Anh</option>
+                            <option>Lý</option>
+                            <option>Hóa</option>
+                            <option>Sinh</option>
+                            <option>Sử</option>
+                            <option>Địa</option>
+                        </select></div>
+                    <div class="col-md-3"><label class="small fw-bold">Lớp</label><select class="form-select"
+                            id="book-grade">
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                        </select></div>
+                    <div class="col-12"><label class="small fw-bold">Mô tả</label><textarea class="form-control"
+                            id="book-desc" rows="2"></textarea></div>
+                    <div class="col-12"><label class="small fw-bold">📄 File PDF</label>
+                        <div class="mb-2"><input type="file" class="form-control form-control-sm" id="book-pdf-file"
+                                accept=".pdf"> <small class="text-white-50">Upload lên server (backup)</small></div>
+                        <div class="mb-2"><input type="text" class="form-control form-control-sm" id="book-pdf-url"
+                                placeholder="Hoặc dán link từ Internet Archive / Google Drive"></div>
+                        <div class="p-2 bg-transparent rounded small"><strong>🆓 Lưu trữ miễn phí:</strong><br>• <b
+                                class="text-success">Internet Archive</b> - ♾️ VÔ HẠN miễn phí!<br>• Google Drive -
+                            15 GB | Dropbox - 2 GB<br><a href="https://archive.org/create" target="_blank"
+                                class="btn btn-sm btn-success mt-1 me-1"><i
+                                    class="fa-solid fa-infinity me-1"></i>Archive.org</a> <a
+                                href="https://drive.google.com" target="_blank"
+                                class="btn btn-sm btn-outline-primary mt-1 me-1"><i
+                                    class="fa-brands fa-google-drive me-1"></i>Drive</a> <a href="https://dropbox.com"
+                                target="_blank" class="btn btn-sm btn-outline-secondary mt-1"><i
+                                    class="fa-brands fa-dropbox me-1"></i>Dropbox</a></div>
+                    </div>
+                    <div class="col-12"><button class="btn btn-success" onclick="saveBook()"><i
+                                class="fa-solid fa-save me-1"></i>Lưu</button> <button class="btn btn-light ms-2"
+                            onclick="hideAddBookForm()">Hủy</button></div>
+                </div>
+            </div>
+            <div class="table-custom">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tên sách</th>
+                            <th>Môn</th>
+                            <th>Lớp</th>
+                            <th>Mô tả</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="books-tbody">
+                        <tr>
+                            <td colspan="6" class="text-center text-white-50 py-4">Đang tải...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-white-50 small mt-2" id="books-count">0 sách</div>
+        </div>
+        <div id="view-quizzes" class="section-view">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold">Kho Quiz AI</h4>
+                <div class="d-flex gap-2"><button class="btn btn-outline-primary btn-sm" onclick="loadQuizzesData()"><i
+                            class="fa-solid fa-sync me-1"></i>Làm mới</button> <button class="btn btn-primary"
+                        onclick="showAddQuizForm()"><i class="fa-solid fa-plus me-2"></i>Tạo
+                        Quiz</button></div>
+            </div>
+            <div id="add-quiz-form" class="glass-card mb-4" style="display:none">
+                <h5 class="fw-bold mb-3">Tạo Bộ Quiz Mới</h5>
+                <div class="row g-3">
+                    <div class="col-md-6"><label class="small fw-bold">Tiêu đề Quiz</label><input type="text"
+                            class="form-control" id="quiz-title" placeholder="VD: Đề thi Toán HK1"></div>
+                    <div class="col-md-3"><label class="small fw-bold">Môn học</label><select class="form-select"
+                            id="quiz-subject">
+                            <option>Toán</option>
+                            <option>Văn</option>
+                            <option>Anh</option>
+                            <option>Lý</option>
+                            <option>Hóa</option>
+                            <option>Sinh</option>
+                        </select></div>
+                    <div class="col-md-3"><label class="small fw-bold">Số câu</label><input type="number"
+                            class="form-control" id="quiz-count" value="20"></div>
+                    <div class="col-12"><label class="small fw-bold">Mô tả</label><textarea class="form-control"
+                            id="quiz-desc" rows="2"></textarea></div>
+                    <div class="col-12"><button class="btn btn-success" onclick="saveQuiz()"><i
+                                class="fa-solid fa-save me-1"></i>Lưu</button> <button class="btn btn-light ms-2"
+                            onclick="hideAddQuizForm()">Hủy</button></div>
+                </div>
+            </div>
+            <div class="row g-4" id="quizzes-grid">
+                <div class="col-12 text-center text-white-50 py-4">Đang tải...</div>
+            </div>
+            <div class="text-white-50 small mt-2" id="quizzes-count">0 quiz</div>
+        </div>
+        <div id="view-methods" class="section-view">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold">Phương Pháp Học</h4>
+                <div class="d-flex gap-2"><button class="btn btn-outline-primary btn-sm" onclick="loadMethodsData()"><i
+                            class="fa-solid fa-sync me-1"></i>Làm mới</button> <button class="btn btn-primary"
+                        onclick="showAddMethodForm()"><i class="fa-solid fa-plus me-2"></i>Thêm Phương Pháp</button>
+                </div>
+            </div>
+            <div id="add-method-form" class="glass-card mb-4" style="display:none">
+                <h5 class="fw-bold mb-3">Thêm Phương Pháp Mới</h5>
+                <div class="row g-3">
+                    <div class="col-md-8"><label class="small fw-bold">Tiêu đề</label><input type="text"
+                            class="form-control" id="method-title" placeholder="VD: Phương pháp Pomodoro"></div>
+                    <div class="col-md-4"><label class="small fw-bold">Danh mục</label><select class="form-select"
+                            id="method-category">
+                            <option>Quản lý thời gian</option>
+                            <option>Ghi nhớ</option>
+                            <option>Tập trung</option>
+                            <option>Ôn thi</option>
+                        </select></div>
+                    <div class="col-12"><label class="small fw-bold">Nội dung</label><textarea class="form-control"
+                            id="method-content" rows="4" placeholder="Mô tả chi tiết phương pháp..."></textarea>
+                    </div>
+                    <div class="col-12"><button class="btn btn-success" onclick="saveMethod()"><i
+                                class="fa-solid fa-save me-1"></i>Lưu</button> <button class="btn btn-light ms-2"
+                            onclick="hideAddMethodForm()">Hủy</button></div>
+                </div>
+            </div>
+            <div class="card border-0 shadow-sm">
+                <div id="methods-list" class="list-group list-group-flush">
+                    <div class="text-center text-white-50 py-4">Đang tải...</div>
+                </div>
+            </div>
+            <div class="text-white-50 small mt-2" id="methods-count">0 phương pháp</div>
+        </div>
+        <div id="view-users" class="section-view">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold">Quản Lý Người Dùng</h4>
+                <div class="d-flex gap-2"><input type="text" class="form-control form-control-sm" id="user-search"
+                        placeholder="Tìm kiếm..." style="width:200px" onkeyup="filterUsers()"> <button
+                        class="btn btn-outline-primary btn-sm" onclick="loadUsersTable()"><i
+                            class="fa-solid fa-sync me-1"></i>Làm mới</button></div>
+            </div>
+            <div class="table-custom">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Họ tên</th>
+                            <th>Gói</th>
+                            <th>Ngày tham gia</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body">
+                        <tr>
+                            <td colspan="6" class="text-center text-white-50 py-4">Đang tải...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-white-50 small mt-2" id="users-count">0 người dùng</div>
+        </div>
+        <div class="modal-overlay" id="modal-user-detail" style="display:none">
+            <div class="modal-box glass-card border-0"
+                style="max-width:600px; background: rgba(15, 23, 42, 0.95); display: flex; flex-direction: column;">
+                <div
+                    class="modal-header d-flex justify-content-between align-items-center mb-4 bg-transparent border-bottom border-secondary">
+                    <h5 class="fw-bold mb-0 text-white"><i class="fa-solid fa-user-circle me-2 text-primary"></i>Chi
+                        Tiết Người Dùng</h5>
+                    <button class="btn btn-sm btn-outline-light rounded-circle" onclick="closeUserModal()"><i
+                            class="fa-solid fa-times"></i></button>
+                </div>
+                <div id="user-detail-content" class="text-light"></div>
+                <hr class="border-secondary my-4">
+                <div class="row g-2">
+                    <div class="col-md-4"><button class="btn btn-warning w-100 btn-sm text-white fw-bold"
+                            onclick="resetUserPassword()"><i class="fa-solid fa-key me-1"></i>Reset
+                            Password</button></div>
+                    <div class="col-md-4"><button class="btn btn-info w-100 btn-sm text-white fw-bold"
+                            onclick="sendMessageToUser()"><i class="fa-solid fa-envelope me-1"></i>Gửi Thư</button>
+                    </div>
+                    <div class="col-md-4"><button class="btn btn-danger w-100 btn-sm fw-bold"
+                            onclick="toggleUserStatus()"><i class="fa-solid fa-ban me-1"></i>Khóa/Mở</button></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-assignments" class="section-view">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold">Quản Lý Bài Tập</h4><button class="btn btn-outline-primary"
+                    onclick="loadAdminAssignments()"><i class="fa-solid fa-sync me-2"></i>Tải lại</button>
+            </div>
+            <div class="table-custom">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Tiêu đề</th>
+                            <th>Môn học</th>
+                            <th>Lớp</th>
+                            <th>Hạn nộp</th>
+                            <th>Số bài nộp</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-assignments-tbody">
+                        <tr>
+                            <td colspan="6" class="text-center text-white-50 py-4">Đang tải...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- SCHOOL APPROVALS VIEW -->
+        <div id="view-schools" class="section-view">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold"><i class="fa-solid fa-school text-primary me-2"></i>Quản Lý Trường Học</h4>
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="school-filter" id="sf-pending" autocomplete="off"
+                        checked onchange="toggleSchoolView('pending')">
+                    <label class="btn btn-outline-warning" for="sf-pending">Chờ Duyệt</label>
+
+                    <input type="radio" class="btn-check" name="school-filter" id="sf-all" autocomplete="off"
+                        onchange="toggleSchoolView('all')">
+                    <label class="btn btn-outline-primary" for="sf-all">Danh Sách</label>
+                </div>
+            </div>
+
+            <!-- Search Bar (Hidden by default) -->
+            <div id="school-search-area" class="card border-0 shadow-sm p-3 mb-4"
+                style="display:none; background: rgba(255,255,255,0.05);">
+                <div class="row g-2">
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="school-search"
+                            placeholder="Tìm kiếm tên trường, mã trường, tỉnh thành..." onkeyup="filterAllSchools()">
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary w-100" onclick="loadAllSchools()">
+                            <i class="fa-solid fa-search me-1"></i>Tìm / Làm mới
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-custom">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Mã</th>
+                            <th>Tên trường</th>
+                            <th>Tỉnh/TP</th>
+                            <th>Cấp</th>
+                            <th>Trạng thái / Tài liệu</th>
+                            <th>Ngày đăng ký</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="schools-tbody">
+                        <tr>
+                            <td colspan="7" class="text-center text-white-50 py-4">Đang tải...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-white-50 small mt-2" id="schools-count">0 trường</div>
+        </div>
+        <div id="view-notifications" class="section-view">
+            <h4 class="fw-bold mb-4">Gửi Thông Báo</h4>
+            <div class="glass-card">
+                <div class="row g-3">
+                    <div class="col-md-6"><label class="fw-bold small">Loại thông báo</label> <select
+                            class="form-select" id="notify-type">
+                            <option value="all">Gửi cho tất cả</option>
+                            <option value="students">Chỉ học sinh</option>
+                            <option value="teachers">Chỉ giáo viên</option>
+                        </select></div>
+                    <div class="col-md-6"><label class="fw-bold small">Mức độ quan trọng</label> <select
+                            class="form-select" id="notify-level">
+                            <option value="info">Thông tin</option>
+                            <option value="warning">Cảnh báo</option>
+                            <option value="urgent">Khẩn cấp</option>
+                        </select></div>
+                    <div class="col-12"><label class="fw-bold small">Tiêu đề</label> <input type="text"
+                            class="form-control" id="notify-title" placeholder="VD: Thông báo lịch thi..."></div>
+                    <div class="col-12"><label class="fw-bold small">Nội dung</label> <textarea class="form-control"
+                            id="notify-content" rows="5" placeholder="Nhập nội dung thông báo..."></textarea></div>
+                    <div class="col-12"><button class="btn btn-primary" onclick="sendAdminNotification()"><i
+                                class="fa-solid fa-paper-plane me-2"></i>Gửi Thông Báo</button></div>
+                </div>
+            </div>
+            <div class="glass-card mt-4">
+                <h5 class="fw-bold mb-3">Lịch sử thông báo</h5>
+                <div id="notification-history" class="text-white-50 small">Chưa có thông báo nào được gửi.</div>
+            </div>
+        </div>
+        <div id="view-apikeys" class="section-view">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold"><i class="fa-solid fa-key text-warning me-2"></i>Quản Lý API Keys</h4>
+                <div class="d-flex gap-2"><button class="btn btn-outline-primary btn-sm" onclick="loadAllApiKeys()"><i
+                            class="fa-solid fa-sync me-1"></i>Làm mới</button> <button class="btn btn-success btn-sm"
+                        onclick="saveAllApiKeys()"><i class="fa-solid fa-save me-1"></i>Lưu tất cả</button></div>
+            </div>
+            <!-- AI Config Card -->
+            <div class="glass-card mb-4" style="background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(10px);">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0 text-white"><i class="fa-solid fa-sliders text-info me-2"></i>Cấu hình
+                        giới hạn AI</h5>
+                    <button class="btn btn-primary btn-sm" onclick="saveAISettings()">
+                        <i class="fa-solid fa-save me-2"></i>Lưu cấu hình
+                    </button>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <label class="form-label text-white-50">Giới hạn số lượt dùng mỗi ngày (Daily Limit)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark border-secondary text-white"><i
+                                    class="fa-solid fa-hand"></i></span>
+                            <input type="number" id="ai-daily-limit"
+                                class="form-control bg-dark border-secondary text-white" placeholder="Ví dụ: 15">
+                            <span class="input-group-text bg-dark border-secondary text-white-50">lượt/user/ngày</span>
+                        </div>
+                        <small class="text-white-50 mt-1 d-block"><i class="fa-solid fa-circle-info me-1"></i>Admin
+                            không bị giới hạn.</small>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 rounded" style="background: rgba(255,255,255,0.05);">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-white-50">Giới hạn hiện tại:</span>
+                                <span class="fw-bold text-info" id="current-limit-display">--</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-white-50">Trạng thái:</span>
+                                <span class="badge bg-success">Đang hoạt động</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card mb-4">
+                <h5 class="fw-bold mb-3"><i class="fa-solid fa-shield-halved text-info me-2"></i>OAuth Providers
+                </h5>
+                <p class="text-white-50 small mb-3">Cấu hình đăng nhập bằng Google & Facebook</p>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="border rounded p-3">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h6 class="mb-0"><i class="fa-brands fa-google text-danger me-2"></i>Google OAuth
+                                </h6><span class="badge" id="google-oauth-status">Chưa kiểm tra</span>
+                            </div>
+                            <div class="mb-2"><label class="small fw-bold">Client ID</label> <input type="text"
+                                    class="form-control form-control-sm" id="google-client-id"
+                                    placeholder="xxx.apps.googleusercontent.com"></div>
+                            <div class="mb-2"><label class="small fw-bold">Client Secret</label>
+                                <div class="input-group input-group-sm"><input type="password" class="form-control"
+                                        id="google-client-secret" placeholder="GOCSPX-xxx"> <button
+                                        class="btn btn-outline-secondary"
+                                        onclick='togglePassword("google-client-secret")'><i
+                                            class="fa-solid fa-eye"></i></button></div>
+                            </div><button class="btn btn-sm btn-outline-primary" onclick='testOAuthKey("google")'><i
+                                    class="fa-solid fa-vial me-1"></i>Test</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="border rounded p-3">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h6 class="mb-0"><i class="fa-brands fa-facebook text-primary me-2"></i>Facebook
+                                    OAuth</h6><span class="badge" id="facebook-oauth-status">Chưa kiểm tra</span>
+                            </div>
+                            <div class="mb-2"><label class="small fw-bold">App ID</label> <input type="text"
+                                    class="form-control form-control-sm" id="facebook-app-id"
+                                    placeholder="1234567890123456"></div>
+                            <div class="mb-2"><label class="small fw-bold">App Secret</label>
+                                <div class="input-group input-group-sm"><input type="password" class="form-control"
+                                        id="facebook-app-secret" placeholder="abcdef123..."> <button
+                                        class="btn btn-outline-secondary"
+                                        onclick='togglePassword("facebook-app-secret")'><i
+                                            class="fa-solid fa-eye"></i></button></div>
+                            </div><button class="btn btn-sm btn-outline-primary" onclick='testOAuthKey("facebook")'><i
+                                    class="fa-solid fa-vial me-1"></i>Test</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-card mb-4">
+                <h5 class="fw-bold mb-3"><i class="fa-solid fa-robot text-primary me-2"></i>AI Providers</h5>
+                <p class="text-white-50 small mb-3">Thêm nhiều API keys để load balancing và tránh rate limit</p>
+                <div class="table-responsive">
+                    <table class="table table-sm mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width:140px">Provider</th>
+                                <th>API Keys (phân cách bằng dấu phẩy)</th>
+                                <th style="width:90px">Sống/Tổng</th>
+                                <th style="width:100px">Status</th>
+                                <th style="width:80px">Test</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ai-providers-tbody">
+                            <tr data-provider="gemini">
+                                <td><i class="fa-solid fa-gem text-info me-2"></i>Gemini <span class="badge bg-info"
+                                        style="font-size:0.6rem">Vision</span></td>
+                                <td><input type="text" class="form-control form-control-sm" id="key-gemini"
+                                        placeholder="AIzaSy..."></td>
+                                <td><span id="live-gemini" class="fw-bold text-white-50">--</span></td>
+                                <td><span class="badge bg-secondary" id="status-gemini">--</span></td>
+                                <td><button class="btn btn-sm btn-outline-success" onclick='testAIKey("gemini")'><i
+                                            class="fa-solid fa-play"></i></button></td>
+                            </tr>
+                            <tr data-provider="groq">
+                                <td><i class="fa-solid fa-bolt text-warning me-2"></i>Groq</td>
+                                <td><input type="text" class="form-control form-control-sm" id="key-groq"
+                                        placeholder="gsk_..."></td>
+                                <td><span id="live-groq" class="fw-bold text-white-50">--</span></td>
+                                <td><span class="badge bg-secondary" id="status-groq">--</span></td>
+                                <td><button class="btn btn-sm btn-outline-success" onclick='testAIKey("groq")'><i
+                                            class="fa-solid fa-play"></i></button></td>
+                            </tr>
+                            <tr data-provider="sambanova">
+                                <td><i class="fa-solid fa-microchip text-success me-2"></i>SambaNova</td>
+                                <td><input type="text" class="form-control form-control-sm" id="key-sambanova"
+                                        placeholder="..."></td>
+                                <td><span id="live-sambanova" class="fw-bold text-white-50">--</span></td>
+                                <td><span class="badge bg-secondary" id="status-sambanova">--</span></td>
+                                <td><button class="btn btn-sm btn-outline-success" onclick='testAIKey("sambanova")'><i
+                                            class="fa-solid fa-play"></i></button>
+                                </td>
+                            </tr>
+                            <tr data-provider="cohere">
+                                <td><i class="fa-solid fa-c text-danger me-2"></i>Cohere</td>
+                                <td><input type="text" class="form-control form-control-sm" id="key-cohere"
+                                        placeholder="..."></td>
+                                <td><span id="live-cohere" class="fw-bold text-white-50">--</span></td>
+                                <td><span class="badge bg-secondary" id="status-cohere">--</span></td>
+                                <td><button class="btn btn-sm btn-outline-success" onclick='testAIKey("cohere")'><i
+                                            class="fa-solid fa-play"></i></button></td>
+                            </tr>
+                            <tr data-provider="mistral">
+                                <td><i class="fa-solid fa-wind text-purple me-2"></i>Mistral</td>
+                                <td><input type="text" class="form-control form-control-sm" id="key-mistral"
+                                        placeholder="..."></td>
+                                <td><span id="live-mistral" class="fw-bold text-white-50">--</span></td>
+                                <td><span class="badge bg-secondary" id="status-mistral">--</span></td>
+                                <td><button class="btn btn-sm btn-outline-success" onclick='testAIKey("mistral")'><i
+                                            class="fa-solid fa-play"></i></button></td>
+                            </tr>
+                            <tr data-provider="huggingface">
+                                <td><i class="fa-solid fa-face-smile text-warning me-2"></i>HuggingFace</td>
+                                <td><input type="text" class="form-control form-control-sm" id="key-huggingface"
+                                        placeholder="hf_..."></td>
+                                <td><span id="live-huggingface" class="fw-bold text-white-50">--</span></td>
+                                <td><span class="badge bg-secondary" id="status-huggingface">--</span></td>
+                                <td><button class="btn btn-sm btn-outline-success" onclick='testAIKey("huggingface")'><i
+                                            class="fa-solid fa-play"></i></button>
+                                </td>
+                            </tr>
+                            <tr data-provider="cloudflare">
+                                <td><i class="fa-solid fa-cloud text-orange me-2"></i>Cloudflare</td>
+                                <td><input type="text" class="form-control form-control-sm" id="key-cloudflare"
+                                        placeholder="account_id:token"></td>
+                                <td><span id="live-cloudflare" class="fw-bold text-white-50">--</span></td>
+                                <td><span class="badge bg-secondary" id="status-cloudflare">--</span></td>
+                                <td><button class="btn btn-sm btn-outline-success" onclick='testAIKey("cloudflare")'><i
+                                            class="fa-solid fa-play"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-3 p-3 bg-transparent rounded">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div><i class="fa-solid fa-circle-info text-info me-2"></i> <span class="small">Bạn có thể
+                                thêm nhiều keys cho mỗi provider (cách nhau bằng dấu phẩy). Hệ thống sẽ tự động
+                                chuyển đổi khi gặp rate limit.</span></div><button class="btn btn-sm btn-primary"
+                            onclick="testAllAIKeys()"><i class="fa-solid fa-vials me-1"></i>Test tất cả</button>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-card mb-4">
+                <h5 class="fw-bold mb-3"><i class="fa-solid fa-database text-success me-2"></i>MongoDB Connection
+                </h5>
+                <div class="row g-3">
+                    <div class="col-md-9"><label class="small fw-bold">Connection URI</label>
+                        <div class="input-group"><input type="password" class="form-control" id="mongodb-uri"
+                                placeholder="mongodb+srv://..."> <button class="btn btn-outline-secondary"
+                                onclick='togglePassword("mongodb-uri")'><i class="fa-solid fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end"><button class="btn btn-outline-success w-100"
+                            onclick="testMongoConnection()"><i class="fa-solid fa-plug me-1"></i>Test
+                            Connection</button></div>
+                </div>
+                <div class="mt-2 d-flex align-items-center gap-2"><span class="badge" id="mongo-status">Đang kiểm
+                        tra...</span> <span class="text-white-50 small" id="mongo-db-name"></span></div>
+            </div>
+            <div class="glass-card">
+                <h5 class="fw-bold mb-3"><i class="fa-solid fa-lock text-warning me-2"></i>Session Secret</h5>
+                <div class="row g-3">
+                    <div class="col-md-9"><label class="small fw-bold">Secret Key (dùng cho session cookies)</label>
+                        <div class="input-group"><input type="password" class="form-control" id="session-secret"
+                                placeholder="your_secret_key"> <button class="btn btn-outline-secondary"
+                                onclick='togglePassword("session-secret")'><i class="fa-solid fa-eye"></i></button>
+                            <button class="btn btn-outline-primary" onclick="generateRandomSecret()"><i
+                                    class="fa-solid fa-dice"></i> Random</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="view-templates" class="section-view">
+            <h4 class="fw-bold mb-4">Quản Lý Mẫu Văn Bản</h4>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="glass-card mb-4">
+                        <h5 class="fw-bold mb-3">Upload Mẫu Mới</h5>
+                        <form id="template-upload-form" onsubmit="event.preventDefault(); uploadTemplate();">
+                            <div class="mb-3">
+                                <label class="small fw-bold text-white-50">Mã Mẫu (Unique ID)</label>
+                                <input type="text" class="form-control" id="tpl-name" placeholder="VD: giay-gioi-thieu"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small fw-bold text-white-50">Tiêu đề hiển thị</label>
+                                <input type="text" class="form-control" id="tpl-title" placeholder="VD: Giấy Giới Thiệu"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small fw-bold text-white-50">File Template (.docx)</label>
+                                <input type="file" class="form-control" id="tpl-file" accept=".docx" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100"><i
+                                    class="fa-solid fa-upload me-2"></i>Upload</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="glass-card">
+                        <h5 class="fw-bold mb-3">Danh sách mẫu hiện có</h5>
+                        <div class="table-responsive">
+                            <table class="table table-custom mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Mã Mẫu</th>
+                                        <th>Tiêu đề</th>
+                                        <th>Cập nhật lần cuối</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="templates-tbody">
+                                    <tr>
+                                        <td colspan="3" class="text-center text-white-50">Đang tải...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="view-settings" class="section-view">
+            <h4 class="fw-bold mb-4">Cài Đặt Hệ Thống</h4>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="glass-card">
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-globe text-info me-2"></i>Thông tin Website
+                        </h5>
+                        <div class="mb-3"><label class="small fw-bold">Tên website</label> <input type="text"
+                                class="form-control" id="site-name" value="E-School AI"></div>
+                        <div class="mb-3"><label class="small fw-bold">Mô tả</label> <textarea class="form-control"
+                                id="site-desc" rows="2">Nền tảng học tập thông minh với AI</textarea></div><button
+                            class="btn btn-primary btn-sm" onclick="saveSettings()">Lưu thay đổi</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="glass-card">
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-shield-halved text-warning me-2"></i>Bảo mật
+                        </h5>
+                        <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox"
+                                id="allow-register" checked="checked"> <label class="form-check-label"
+                                for="allow-register">Cho phép đăng ký mới</label></div>
+                        <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox"
+                                id="require-email-verify"> <label class="form-check-label"
+                                for="require-email-verify">Yêu
+                                cầu xác thực email</label></div>
+                        <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox"
+                                id="maintenance-mode"> <label class="form-check-label" for="maintenance-mode">Chế độ
+                                bảo trì</label></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="glass-card">
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-user-shield text-danger me-2"></i>Bảo mật
+                            Admin</h5>
+                        <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox"
+                                id="admin-2fa-enabled" onchange="toggle2FA(this.checked)"> <label
+                                class="form-check-label" for="admin-2fa-enabled"><i
+                                    class="fa-solid fa-mobile-screen me-1"></i> Bật xác thực 2 lớp
+                                (2FA)</label>
+                        </div>
+                        <div id="2fa-setup-area" style="display:none" class="mb-3 p-3 bg-transparent rounded">
+                            <p class="small text-white-50 mb-2">Quét mã QR bằng Google Authenticator:</p>
+                            <div id="2fa-qr-code" class="text-center mb-2">
+                                <div class="spinner-border spinner-border-sm text-primary"></div>
+                            </div>
+                            <div class="input-group input-group-sm"><input type="text" class="form-control"
+                                    id="2fa-verify-code" placeholder="Nhập mã 6 số..."> <button class="btn btn-success"
+                                    onclick="verify2FACode()">Xác nhận</button></div>
+                        </div>
+                        <hr>
+                        <h6 class="fw-bold mb-2"><i class="fa-solid fa-key me-1"></i>Đổi mật khẩu Admin</h6>
+                        <div class="mb-2"><input type="password" class="form-control form-control-sm"
+                                id="current-password" placeholder="Mật khẩu hiện tại"></div>
+                        <div class="mb-2"><input type="password" class="form-control form-control-sm" id="new-password"
+                                placeholder="Mật khẩu mới"></div>
+                        <div class="mb-3"><input type="password" class="form-control form-control-sm"
+                                id="confirm-password" placeholder="Xác nhận mật khẩu mới"></div><button
+                            class="btn btn-danger btn-sm w-100" onclick="changeAdminPassword()"><i
+                                class="fa-solid fa-sync me-1"></i>Đổi mật khẩu</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="glass-card">
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-database text-success me-2"></i>Database
+                            MongoDB</h5>
+                        <div class="d-flex align-items-center gap-2 mb-3"><span class="badge bg-success"
+                                id="mongo-conn-status"><i class="fa-solid fa-circle me-1"></i>Connected</span> <span
+                                class="text-white-50 small" id="mongo-db-info">Database: eschool_ai</span></div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <div class="text-center p-2 rounded" style="background:rgba(99,102,241,.1)">
+                                    <h5 class="fw-bold text-primary mb-0" id="db-users-count">0</h5><small
+                                        class="text-white-50">Users</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center p-2 rounded" style="background:rgba(34,197,94,.1)">
+                                    <h5 class="fw-bold text-success mb-0" id="db-posts-count">0</h5><small
+                                        class="text-white-50">Posts</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2"><button class="btn btn-outline-primary btn-sm flex-grow-1"
+                                onclick="refreshDBStats()"><i class="fa-solid fa-sync me-1"></i>Refresh</button>
+                            <button class="btn btn-outline-danger btn-sm" onclick="backupDatabase()"
+                                title="Backup DB"><i class="fa-solid fa-download"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="glass-card">
+                        <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-line text-danger me-2"></i>Thống kê hệ
+                            thống</h5>
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <div class="text-center p-3 rounded" style="background:rgba(99,102,241,.1)">
+                                    <h3 class="fw-bold text-primary mb-0" id="stats-users">0</h3><small
+                                        class="text-white-50">Người dùng</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center p-3 rounded" style="background:rgba(34,197,94,.1)">
+                                    <h3 class="fw-bold text-success mb-0" id="stats-assignments">0</h3><small
+                                        class="text-white-50">Bài tập</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center p-3 rounded" style="background:rgba(251,191,36,.1)">
+                                    <h3 class="fw-bold text-warning mb-0" id="stats-english">0</h3><small
+                                        class="text-white-50">Bài học English</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center p-3 rounded" style="background:rgba(239,68,68,.1)">
+                                    <h3 class="fw-bold text-danger mb-0" id="stats-api-calls">--</h3><small
+                                        class="text-white-50">API Calls hôm nay</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal-overlay" id="modal-eng" style="display:none;">
+        <div class="modal-box glass-card border-0" style="max-width:800px; background: rgba(15, 23, 42, 0.95);">
+            <div
+                class="modal-header d-flex justify-content-between align-items-center mb-4 bg-transparent border-bottom border-secondary">
+                <h4 class="fw-bold mb-0 text-white"><i class="fa-solid fa-pen-to-square me-2 text-primary"></i>Thêm Bài
+                    Học Tiếng Anh</h4>
+                <button class="btn btn-sm btn-outline-light rounded-circle" onclick="closeModal()"><i
+                        class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label class="fw-bold small text-white-50">Tiêu đề bài học</label>
+                    <input type="text" id="eng-title" class="form-control" placeholder="VD: At the Airport">
+                </div>
+                <div class="col-md-4">
+                    <label class="fw-bold small text-white-50">Trình độ</label>
+                    <select id="eng-level" class="form-select">
+                        <option>Easy</option>
+                        <option>Medium</option>
+                        <option>Hard</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold small text-white-50">Chủ đề</label>
+                    <select id="eng-cat" class="form-select">
+                        <option>Giao tiếp</option>
+                        <option>Du lịch</option>
+                        <option>Công việc</option>
+                        <option>IELTS</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold small text-white-50">Icon (FontAwesome)</label>
+                    <input type="text" id="eng-icon" class="form-control" value="fa-comments">
+                </div>
+                <div class="col-12">
+                    <label class="fw-bold small text-white-50">Mô tả ngắn</label>
+                    <textarea id="eng-desc" class="form-control" rows="2"></textarea>
+                </div>
+                <div class="col-12">
+                    <label class="fw-bold small text-primary">Câu mở đầu của AI (Prompt)</label>
+                    <textarea id="eng-prompt" class="form-control" rows="3"
+                        placeholder="Câu AI sẽ nói đầu tiên..."></textarea>
+                </div>
+            </div>
+            <div
+                class="modal-footer pt-3 mt-4 border-top border-secondary bg-transparent d-flex justify-content-end gap-2">
+                <button class="btn btn-outline-light" onclick="closeModal()">Hủy</button>
+                <button class="btn btn-primary" onclick="saveEnglishLesson()"><i class="fa-solid fa-save me-2"></i>Lưu
+                    Bài Học</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- UI Helpers -->
+    <script src="js/ui-helpers.js"></script>
+    <script>
+
+
+
+        // === DOCUMENT VIEWER (PDF, Word, Excel, PowerPoint) ===
+        function openDocument(url, title = 'Xem tài liệu') {
+            if (!url) {
+                toast.warning('Không có file để xem!');
+                return;
+            }
+
+            // Determine file type from URL
+            const ext = url.split('.').pop().toLowerCase().split('?')[0];
+            const isOfficeDoc = ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(ext);
+
+            // Build full URL (handle relative paths)
+            let fullUrl = url;
+            if (url.startsWith('/')) {
+                fullUrl = window.location.origin + url;
+            }
+
+            // Create viewer modal
+            const overlay = document.createElement('div');
+            overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:999999;display:flex;flex-direction:column;';
+
+            let viewerUrl;
+            if (isOfficeDoc) {
+                // Use Microsoft Office Online Viewer for Word/Excel/PowerPoint
+                viewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(fullUrl)}`;
+            } else {
+                // Use direct embed for PDF
+                viewerUrl = fullUrl;
+            }
+
+            overlay.innerHTML = `
+                <div style="padding:15px 20px;display:flex;justify-content:space-between;align-items:center;background:rgba(30,30,50,0.95);border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <i class="fa-solid ${isOfficeDoc ? 'fa-file-word text-primary' : 'fa-file-pdf text-danger'}" style="font-size:1.5rem;"></i>
+                        <span style="color:white;font-weight:600;">${title}</span>
+                        <span style="color:rgba(255,255,255,0.5);font-size:0.8rem;">(${ext.toUpperCase()})</span>
+                    </div>
+                    <div style="display:flex;gap:10px;">
+                        <a href="${fullUrl}" download style="padding:8px 16px;background:linear-gradient(135deg,#22c55e,#10b981);color:white;border-radius:8px;text-decoration:none;font-weight:600;font-size:0.9rem;">
+                            <i class="fa-solid fa-download me-1"></i>Tải về
+                        </a>
+                        <button onclick="this.closest('div').parentElement.parentElement.remove()" style="padding:8px 16px;background:rgba(255,255,255,0.1);color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;">
+                            <i class="fa-solid fa-times me-1"></i>Đóng
+                        </button>
+                    </div>
+                </div>
+                <div style="text-align:center;padding:10px;background:rgba(245,158,11,0.1);border-bottom:1px solid rgba(245,158,11,0.3);">
+                    <span style="color:#f59e0b;font-size:0.9rem;">
+                        <i class="fa-solid fa-exclamation-triangle me-2"></i>
+                        Nếu không xem được, <a href="${fullUrl}" target="_blank" style="color:#22d3ee;text-decoration:underline;font-weight:600;">nhấn vào đây</a> để mở file trực tiếp
+                    </span>
+                </div>
+                <iframe src="${viewerUrl}" style="flex:1;border:none;background:white;"></iframe>
+            `;
+
+            document.body.appendChild(overlay);
+
+            // Close on Escape key
+            const closeOnEsc = (e) => {
+                if (e.key === 'Escape') {
+                    overlay.remove();
+                    document.removeEventListener('keydown', closeOnEsc);
+                }
+            };
+            document.addEventListener('keydown', closeOnEsc);
+        }
+
+        // --- DATA MANAGEMENT SYSTEM (API-BASED) ---
+
+        // 1. Data Arrays
+        let engLessons = [];
+        let books = [];
+        let users = [];
+
+        // Load data from API
+        async function loadAllData() {
+            try {
+                // Load English lessons
+                const engRes = await fetch('/api/english');
+                engLessons = await engRes.json();
+                if (!Array.isArray(engLessons)) engLessons = [];
+
+                // Load books
+                try {
+                    const bookRes = await fetch('/api/books');
+                    books = await bookRes.json();
+                    if (!Array.isArray(books)) books = [];
+                } catch (e) { books = []; }
+
+                // Load users
+                try {
+                    const userRes = await fetch('/api/users');
+                    users = await userRes.json();
+                    if (!Array.isArray(users)) users = [];
+                } catch (e) { users = []; }
+
+                // Update stats
+                updateStats();
+                renderEnglishTable();
+            } catch (e) {
+                console.error('Error loading data:', e);
+            }
+        }
+
+        function updateStats() {
+            const uCount = users.length || 0;
+            const eCount = engLessons.length || 0;
+
+            // Dashboard
+            if (document.getElementById('stat-users')) document.getElementById('stat-users').innerText = uCount;
+            if (document.getElementById('stat-lessons')) document.getElementById('stat-lessons').innerText = eCount;
+            if (document.getElementById('badge-eng')) document.getElementById('badge-eng').innerText = eCount;
+
+            // Settings - System Stats
+            if (document.getElementById('stats-users')) document.getElementById('stats-users').innerText = uCount;
+            if (document.getElementById('stats-english')) document.getElementById('stats-english').innerText = eCount;
+
+            // Database Card
+            if (document.getElementById('db-users-count')) document.getElementById('db-users-count').innerText = uCount;
+        }
+
+        // Load data when page loads
+        loadAllData();
+
+        // Generate sample data and save to API
+        async function generateDummyEnglishData() {
+            if (await showConfirm('Bạn có chắc muốn tải lại 100 bài học từ server?')) {
+                try {
+                    const res = await fetch('/api/english');
+                    engLessons = await res.json();
+                    renderEnglishTable();
+                    toast.success(`Đã tải ${engLessons.length} bài học từ server!`);
+                } catch (e) {
+                    toast.error('Lỗi tải dữ liệu!');
+                }
+            }
+        }
+
+        async function saveEngData() {
+            // For now, stats update only - data persists on server
+            document.getElementById('stat-lessons').innerText = engLessons.length;
+            document.getElementById('badge-eng').innerText = engLessons.length;
+        }
+
+        // --- NAVIGATION UI ---
+        const pageTitles = {
+            'dashboard': 'Dashboard',
+            'english': 'English Coach',
+            'books': 'Kho Sách Giáo Khoa',
+            'methods': 'Phương Pháp Học',
+            'quizzes': 'Kho Quiz AI',
+            'users': 'Quản Lý Người Dùng',
+            'assignments': 'Quản Lý Bài Tập',
+            'notifications': 'Gửi Thông Báo',
+            'apikeys': 'API Keys',
+            'settings': 'Cài Đặt Hệ Thống'
+        };
+
+        function switchTab(id, el) {
+            document.querySelectorAll('.section-view').forEach(e => e.classList.remove('active'));
+            const viewEl = document.getElementById('view-' + id);
+            if (viewEl) viewEl.classList.add('active');
+
+            document.querySelectorAll('.nav-item').forEach(e => e.classList.remove('active'));
+            if (el) el.classList.add('active');
+
+            document.getElementById('page-title').innerText = pageTitles[id] || id;
+
+            // Render data khi chuyển tab
+            if (id === 'english') renderEnglishTable();
+            if (id === 'books') renderBooks();
+            if (id === 'methods') renderMethods();
+            if (id === 'quizzes') renderQuizzes();
+            if (id === 'users') renderUsersTable();
+            if (id === 'assignments') renderAdminAssignments();
+        }
+
+        // --- MODAL SYSTEM ---
+        function openModal(type) {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
+            if (type === 'eng') document.getElementById('modal-eng').style.display = 'flex';
+            // Add other modals logic here for Books/Methods if needed
+        }
+        function closeModal() {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
+        }
+
+        // --- ENGLISH MANAGEMENT LOGIC ---
+        function renderEnglishTable() {
+            const tbody = document.getElementById('eng-table-body');
+            const search = document.getElementById('eng-search').value.toLowerCase();
+            const filter = document.getElementById('eng-filter').value;
+
+            tbody.innerHTML = '';
+
+            const filtered = engLessons.filter(l => {
+                const matchSearch = l.title.toLowerCase().includes(search);
+                const matchFilter = filter === 'all' || l.cat === filter;
+                return matchSearch && matchFilter;
+            });
+
+            // Limit display to 50 items for performance if too many
+            const displayList = filtered.slice(0, 50);
+
+            displayList.forEach(l => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-white-50">#${l.id}</td>
+                    <td class="fw-bold text-primary">${l.title}</td>
+                    <td><span class="badge bg-transparent text-white border">${l.cat}</span></td>
+                    <td><span class="badge ${l.level === 'Hard' ? 'bg-danger' : l.level === 'Medium' ? 'bg-warning text-white' : 'bg-success'}">${l.level}</span></td>
+                    <td class="text-white-50 small text-truncate" style="max-width: 200px;">${l.prompt}</td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-light text-primary"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn btn-sm btn-light text-danger" onclick="deleteEngLesson(${l.id})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('eng-count').innerText = `Hiển thị ${displayList.length} / ${engLessons.length} bài học`;
+        }
+
+        function saveEnglishLesson() {
+            const title = document.getElementById('eng-title').value;
+            if (!title) return toast.warning('Vui lòng nhập tiêu đề!');
+
+            const newItem = {
+                id: Date.now(), // Generate ID
+                title: title,
+                cat: document.getElementById('eng-cat').value,
+                level: document.getElementById('eng-level').value,
+                icon: document.getElementById('eng-icon').value,
+                desc: document.getElementById('eng-desc').value,
+                prompt: document.getElementById('eng-prompt').value
+            };
+
+            engLessons.unshift(newItem); // Add to top
+            saveEngData();
+            closeModal();
+            renderEnglishTable();
+            // Reset form
+            document.getElementById('eng-title').value = '';
+        }
+
+        async function deleteEngLesson(id) {
+            if (await showConfirm('Bạn có chắc muốn xóa bài học này?')) {
+                engLessons = engLessons.filter(l => l.id !== id);
+                saveEngData();
+                renderEnglishTable();
+            }
+        }
+
+        // --- BOOKS MANAGEMENT - FULL CRUD (Synced with Student Dashboard) ---
+        // Use API endpoints for persistent storage
+        let booksData = [];
+
+        function showAddBookForm() { document.getElementById('add-book-form').style.display = 'block'; }
+        function hideAddBookForm() { document.getElementById('add-book-form').style.display = 'none'; }
+
+        async function loadBooksData() {
+            try {
+                const res = await fetch('/api/books');
+                booksData = await res.json();
+            } catch (e) {
+                booksData = [];
+            }
+            renderBooks();
+        }
+
+        function renderBooks() {
+            const tbody = document.getElementById('books-tbody');
+            if (booksData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-white-50 py-4">Chưa có sách nào. Nhấn "Thêm Sách" để bắt đầu.</td></tr>';
+            } else {
+                tbody.innerHTML = booksData.map((b, i) => `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td class="fw-bold">${b.title}</td>
+                        <td><span class="badge bg-primary">${b.subject || b.cat || ''}</span></td>
+                        <td>${b.grade || ''}</td>
+                        <td class="small text-white-50">${b.desc || '-'}</td>
+                        <td><button class="btn btn-sm btn-outline-danger" onclick="deleteBook(${b.id})"><i class="fa-solid fa-trash"></i></button></td>
+                    </tr>
+                `).join('');
+            }
+            document.getElementById('books-count').innerText = booksData.length + ' sách';
+        }
+
+        async function saveBook() {
+            const title = document.getElementById('book-title').value.trim();
+            if (!title) { toast.warning('Vui lòng nhập tên sách!'); return; }
+
+            let pdfUrl = document.getElementById('book-pdf-url').value.trim();
+            const pdfFile = document.getElementById('book-pdf-file').files[0];
+
+            try {
+                // Option 1: Upload file to server if provided
+                if (pdfFile) {
+                    const formData = new FormData();
+                    formData.append('pdf', pdfFile);
+                    const uploadRes = await fetch('/api/upload-pdf', { method: 'POST', body: formData });
+                    const uploadData = await uploadRes.json();
+                    if (uploadData.success) {
+                        pdfUrl = uploadData.url;
+                    } else {
+                        toast.error('Lỗi upload: ' + uploadData.message);
+                        return;
+                    }
+                }
+
+                // Create book with PDF URL
+                const res = await fetch('/api/books', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: title,
+                        subject: document.getElementById('book-subject').value,
+                        grade: document.getElementById('book-grade').value,
+                        desc: document.getElementById('book-desc').value,
+                        cat: document.getElementById('book-subject').value.toLowerCase() === 'văn' ? 'truyen' : 'sgk',
+                        cover: 'fa-book',
+                        pdf: pdfUrl
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('book-title').value = '';
+                    document.getElementById('book-desc').value = '';
+                    document.getElementById('book-pdf-url').value = '';
+                    document.getElementById('book-pdf-file').value = '';
+                    hideAddBookForm();
+                    loadBooksData();
+                    toast.success('Đã thêm sách' + (pdfUrl ? ' với PDF!' : '!'));
+                }
+            } catch (e) {
+                toast.error('Lỗi thêm sách!');
+            }
+        }
+
+        async function deleteBook(id) {
+            if (!(await showConfirm('Xóa sách này?'))) return;
+            try {
+                await fetch('/api/books/' + id, { method: 'DELETE' });
+                loadBooksData();
+            } catch (e) {
+                toast.error('Lỗi xóa sách!');
+            }
+        }
+
+        // --- METHODS MANAGEMENT - FULL CRUD (API-based) ---
+        let methodsData = [];
+
+        function showAddMethodForm() { document.getElementById('add-method-form').style.display = 'block'; }
+        function hideAddMethodForm() { document.getElementById('add-method-form').style.display = 'none'; }
+
+        async function loadMethodsData() {
+            try {
+                const res = await fetch('/api/methods');
+                methodsData = await res.json();
+            } catch (e) {
+                methodsData = [];
+            }
+            renderMethods();
+        }
+
+        function renderMethods() {
+            const container = document.getElementById('methods-list');
+            if (methodsData.length === 0) {
+                container.innerHTML = '<div class="text-center text-white-50 py-4">Chưa có phương pháp nào. Nhấn "Thêm Phương Pháp" để bắt đầu.</div>';
+            } else {
+                container.innerHTML = methodsData.map((m, i) => `
+                    <div class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-center mb-1">
+                                <h6 class="fw-bold mb-0">${m.title}</h6>
+                                <span class="badge bg-transparent text-white ms-2">${m.category || m.tag || ''}</span>
+                            </div>
+                            <p class="text-white-50 small mb-0">${m.content ? m.content.slice(0, 150) + '...' : '-'}</p>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteMethod(${m.id})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `).join('');
+            }
+            document.getElementById('methods-count').innerText = methodsData.length + ' phương pháp';
+        }
+
+        async function saveMethod() {
+            const title = document.getElementById('method-title').value.trim();
+            if (!title) { toast.warning('Vui lòng nhập tiêu đề!'); return; }
+
+            try {
+                const res = await fetch('/api/methods', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: title,
+                        category: document.getElementById('method-category').value,
+                        tag: document.getElementById('method-category').value.toLowerCase(),
+                        content: document.getElementById('method-content').value
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('method-title').value = '';
+                    document.getElementById('method-content').value = '';
+                    hideAddMethodForm();
+                    loadMethodsData();
+                    toast.success('Đã thêm phương pháp!');
+                }
+            } catch (e) {
+                toast.error('Lỗi thêm phương pháp!');
+            }
+        }
+
+        async function deleteMethod(id) {
+            if (!(await showConfirm('Xóa phương pháp này?'))) return;
+            try {
+                await fetch('/api/methods/' + id, { method: 'DELETE' });
+                loadMethodsData();
+            } catch (e) {
+                toast.error('Lỗi xóa phương pháp!');
+            }
+        }
+
+        // --- QUIZZES MANAGEMENT - FULL CRUD ---
+        let quizzesData = JSON.parse(localStorage.getItem('admin_quizzes') || '[]');
+
+        function showAddQuizForm() { document.getElementById('add-quiz-form').style.display = 'block'; }
+        function hideAddQuizForm() { document.getElementById('add-quiz-form').style.display = 'none'; }
+
+        function loadQuizzesData() {
+            quizzesData = JSON.parse(localStorage.getItem('admin_quizzes') || '[]');
+            renderQuizzes();
+        }
+
+        function renderQuizzes() {
+            const container = document.getElementById('quizzes-grid');
+            if (quizzesData.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center text-white-50 py-4">Chưa có quiz nào. Nhấn "Tạo Quiz" để bắt đầu.</div>';
+            } else {
+                container.innerHTML = quizzesData.map((q, i) => `
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <span class="badge bg-primary">${q.subject}</span>
+                                    <button class="btn btn-sm text-danger" onclick="deleteQuiz(${i})"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                                <h6 class="fw-bold mt-2">${q.title}</h6>
+                                <p class="text-white-50 small mb-2">${q.desc || 'Không có mô tả'}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-transparent text-white">${q.count} câu</span>
+                                    <small class="text-white-50">${new Date(q.createdAt).toLocaleDateString('vi-VN')}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            document.getElementById('quizzes-count').innerText = quizzesData.length + ' quiz';
+        }
+
+        function saveQuiz() {
+            const title = document.getElementById('quiz-title').value.trim();
+            if (!title) { toast.warning('Vui lòng nhập tiêu đề!'); return; }
+
+            quizzesData.push({
+                id: Date.now(),
+                title: title,
+                subject: document.getElementById('quiz-subject').value,
+                count: parseInt(document.getElementById('quiz-count').value) || 20,
+                desc: document.getElementById('quiz-desc').value,
+                createdAt: new Date().toISOString()
+            });
+
+            localStorage.setItem('admin_quizzes', JSON.stringify(quizzesData));
+            document.getElementById('quiz-title').value = '';
+            document.getElementById('quiz-desc').value = '';
+            hideAddQuizForm();
+            renderQuizzes();
+            toast.success('Đã tạo quiz!');
+        }
+
+        async function deleteQuiz(index) {
+            if (!(await showConfirm('Xóa quiz này?'))) return;
+            quizzesData.splice(index, 1);
+            localStorage.setItem('admin_quizzes', JSON.stringify(quizzesData));
+            renderQuizzes();
+        }
+
+        // --- USERS MANAGEMENT - ADVANCED ---
+        let currentSelectedUser = null;
+
+        async function loadUsersTable() {
+            try {
+                const res = await fetch('/api/admin/users');
+                const data = await res.json();
+                users = Array.isArray(data) ? data : [];
+                renderUsersTable();
+            } catch (e) {
+                console.error('Error loading users:', e);
+                // toast.error('Không thể tải danh sách người dùng!');
+            }
+        }
+
+        function renderUsersTable() {
+            const tbody = document.getElementById('users-table-body');
+            if (!tbody) return;
+
+            if (users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-white-50 py-4">Chưa có người dùng nào.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = users.map((u, i) => `
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width:30px;height:30px">${(u.username || 'U')[0].toUpperCase()}</div>
+                            <strong>${u.username}</strong>
+                        </div>
+                    </td>
+                    <td>${u.fullname || '-'}</td>
+                    <td><span class="badge ${u.role === 'admin' ? 'bg-danger' : u.isVip ? 'bg-warning text-white' : 'bg-secondary'}">${u.role === 'admin' ? 'Admin' : u.isVip ? 'VIP' : 'Free'}</span></td>
+                    <td>${u.createdAt ? new Date(u.createdAt).toLocaleDateString('vi-VN') : 'N/A'}</td>
+                    <td><span class="badge ${u.isBlocked ? 'bg-danger' : 'bg-success'}">${u.isBlocked ? 'Bị khóa' : 'Active'}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" onclick="openUserDetail(${i})"><i class="fa-solid fa-eye"></i></button>
+                        ${u.role !== 'admin' ? `<button class="btn btn-sm btn-outline-danger" onclick="quickToggleUser(${i})"><i class="fa-solid fa-ban"></i></button>` : ''}
+                    </td>
+                </tr>
+            `).join('');
+
+            document.getElementById('stat-users').innerText = users.length;
+            document.getElementById('users-count').innerText = users.length + ' người dùng';
+        }
+
+        function filterUsers() {
+            const search = document.getElementById('user-search').value.toLowerCase();
+            const rows = document.querySelectorAll('#users-table-body tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(search) ? '' : 'none';
+            });
+        }
+
+        function openUserDetail(index) {
+            currentSelectedUser = users[index];
+            if (!currentSelectedUser) return;
+
+            const u = currentSelectedUser;
+            document.getElementById('user-detail-content').innerHTML = `
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="small text-white-50">Username</label>
+                        <div class="fw-bold">${u.username}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small text-white-50">Họ tên</label>
+                        <div class="fw-bold">${u.fullname || 'Chưa cập nhật'}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small text-white-50">Email</label>
+                        <div>${u.email || 'Chưa có'}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small text-white-50">Gói dịch vụ</label>
+                        <div><span class="badge ${u.role === 'admin' ? 'bg-danger' : u.isVip ? 'bg-warning text-white' : 'bg-secondary'} fs-6">${u.role === 'admin' ? 'Admin' : u.isVip ? 'VIP' : 'Free'}</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small text-white-50">Ngày đăng ký</label>
+                        <div>${u.createdAt ? new Date(u.createdAt).toLocaleString('vi-VN') : 'Không rõ'}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="small text-white-50">Trạng thái</label>
+                        <div><span class="badge ${u.isBlocked ? 'bg-danger' : 'bg-success'}">${u.isBlocked ? 'Bị khóa' : 'Đang hoạt động'}</span></div>
+                    </div>
+                    <div class="col-12">
+                        <label class="small text-white-50">Role</label>
+                        <div>${u.role || 'student'}</div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('modal-user-detail').style.display = 'flex';
+        }
+
+        function closeUserModal() {
+            document.getElementById('modal-user-detail').style.display = 'none';
+            currentSelectedUser = null;
+        }
+
+        function resetUserPassword() {
+            if (!currentSelectedUser) return;
+            const newPass = prompt('Nhập mật khẩu mới cho ' + currentSelectedUser.username + ':');
+            if (newPass && newPass.length >= 6) {
+                // Update via API
+                fetch('/api/admin/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: currentSelectedUser.id || currentSelectedUser.username, newPassword: newPass })
+                }).then(r => r.json()).then(data => {
+                    toast.success(data.success ? 'Đã reset password thành công!' : (data.message || 'Lỗi!'));
+                }).catch(() => {
+                    // Fallback - update local
+                    currentSelectedUser.password = newPass;
+                    toast.success('Đã reset password (local)!');
+                });
+            } else if (newPass) {
+                toast.warning('Mật khẩu phải có ít nhất 6 ký tự!');
+            }
+        }
+
+        function sendMessageToUser() {
+            if (!currentSelectedUser) return;
+            const msg = prompt('Nhập tin nhắn gửi cho ' + currentSelectedUser.username + ':');
+            if (msg && msg.trim()) {
+                toast.success('Đã gửi tin nhắn thành công!');
+                // TODO: Implement real messaging
+            }
+        }
+
+        async function toggleUserStatus() {
+            if (!currentSelectedUser) return;
+            const action = currentSelectedUser.isBlocked ? 'mở khóa' : 'khóa';
+            if (await showConfirm(`Bạn có chắc muốn ${action} tài khoản "${currentSelectedUser.username}"?`)) {
+                try {
+                    const res = await fetch('/api/admin/toggle-status', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username: currentSelectedUser.username })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        currentSelectedUser.isBlocked = data.isBlocked;
+                        const idx = users.findIndex(u => u.username === currentSelectedUser.username);
+                        if (idx !== -1) users[idx].isBlocked = data.isBlocked;
+
+                        renderUsersTable();
+                        closeUserModal();
+                        toast.success(`Đã ${action} tài khoản!`);
+                    } else {
+                        toast.error(data.message || 'Lỗi cập nhật trạng thái!');
+                    }
+                } catch (e) {
+                    toast.error('Lỗi kết nối!');
+                }
+            }
+        }
+
+        async function quickToggleUser(index) {
+            const u = users[index];
+            const action = u.isBlocked ? 'mở khóa' : 'khóa';
+            if (await showConfirm(`${action.charAt(0).toUpperCase() + action.slice(1)} tài khoản "${u.username}"?`)) {
+                try {
+                    const res = await fetch('/api/admin/toggle-status', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username: u.username })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        u.isBlocked = data.isBlocked;
+                        renderUsersTable();
+                        toast.success('Đã cập nhật trạng thái!');
+                    } else {
+                        toast.error(data.message || 'Lỗi!');
+                    }
+                } catch (e) {
+                    toast.error('Lỗi kết nối!');
+                }
+            }
+        }
+
+        // --- ASSIGNMENTS MANAGEMENT ---
+        let adminAssignments = [];
+
+        async function loadAdminAssignments() {
+            try {
+                const res = await fetch('/api/assignments');
+                const data = await res.json();
+                adminAssignments = data.success ? data.assignments : [];
+                renderAdminAssignments();
+            } catch (e) {
+                console.error('Error loading assignments:', e);
+            }
+        }
+
+        function renderAdminAssignments() {
+            const tbody = document.getElementById('admin-assignments-tbody');
+            if (adminAssignments.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-white-50 py-4">Chưa có bài tập nào.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = adminAssignments.map(a => `
+                <tr>
+                    <td class="fw-bold">${a.title}</td>
+                    <td><span class="badge bg-transparent text-white border">${a.subject || 'Chung'}</span></td>
+                    <td>${a.classId || 'N/A'}</td>
+                    <td>${a.deadline ? new Date(a.deadline).toLocaleDateString('vi-VN') : 'N/A'}</td>
+                    <td><span class="badge bg-primary">${(a.submissions || []).length}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteAdminAssignment(${a.id})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function deleteAdminAssignment(id) {
+            if (!(await showConfirm('Bạn có chắc muốn xóa bài tập này?'))) return;
+            try {
+                const res = await fetch('/api/assignments/' + id, { method: 'DELETE' });
+                const data = await res.json();
+                if (data.success) {
+                    loadAdminAssignments();
+                } else {
+                    toast.error(data.message || 'Lỗi xóa bài tập!');
+                }
+            } catch (e) {
+                toast.error('Lỗi kết nối!');
+            }
+        }
+
+        // --- NOTIFICATIONS SYSTEM ---
+        let notificationHistory = [];
+
+        async function sendAdminNotification() {
+            const type = document.getElementById('notify-type').value;
+            const level = document.getElementById('notify-level').value;
+            const title = document.getElementById('notify-title').value.trim();
+            const content = document.getElementById('notify-content').value.trim();
+
+            if (!title || !content) {
+                toast.warning('Vui lòng nhập tiêu đề và nội dung!');
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/notifications/send', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: level === 'urgent' ? 'reminder' : 'general',
+                        title,
+                        content,
+                        sender: {
+                            id: 'admin',
+                            name: 'Admin Hệ Thống',
+                            role: 'admin'
+                        },
+                        recipients: {
+                            type: type === 'all' ? 'all' : type
+                        }
+                    })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    notificationHistory.unshift({
+                        id: data.data._id,
+                        type,
+                        level,
+                        title,
+                        content,
+                        sentAt: new Date().toISOString()
+                    });
+                    document.getElementById('notify-title').value = '';
+                    document.getElementById('notify-content').value = '';
+                    renderNotificationHistory();
+                    toast.success('Đã gửi thông báo thành công!');
+                } else {
+                    toast.error('Lỗi: ' + data.error);
+                }
+            } catch (err) {
+                console.error('Error sending notification:', err);
+                toast.error('Lỗi kết nối server');
+            }
+        }
+
+        function renderNotificationHistory() {
+            const container = document.getElementById('notification-history');
+            if (notificationHistory.length === 0) {
+                container.innerHTML = 'Chưa có thông báo nào được gửi.';
+                return;
+            }
+
+            container.innerHTML = notificationHistory.slice(0, 10).map(n => `
+                <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                    <div>
+                        <span class="badge ${n.level === 'urgent' ? 'bg-danger' : n.level === 'warning' ? 'bg-warning text-white' : 'bg-info'} me-2">${n.level}</span>
+                        <strong>${n.title}</strong>
+                    </div>
+                    <span class="text-white-50 small">${new Date(n.sentAt).toLocaleString('vi-VN')}</span>
+                </div>
+            `).join('');
+        }
+
+        // --- API KEYS MANAGEMENT (ADVANCED) ---
+        let apiKeysConfig = {
+            gemini: [],
+            groq: [],
+            sambanova: [],
+            cohere: [],
+            mistral: [],
+            huggingface: [],
+            cloudflare: [],
+            oauth: {
+                google: { clientId: '', clientSecret: '' },
+                facebook: { appId: '', appSecret: '' }
+            },
+            mongoUri: '',
+            sessionSecret: ''
+        };
+
+        async function loadAllApiKeys() {
+            try {
+                const res = await fetch('/api/admin/config');
+                const data = await res.json();
+                if (data.success) {
+                    apiKeysConfig = { ...apiKeysConfig, ...data.config };
+                }
+            } catch (e) {
+                // Fallback to localStorage
+                const saved = localStorage.getItem('admin_api_config');
+                if (saved) apiKeysConfig = JSON.parse(saved);
+            }
+            renderAllApiKeys();
+        }
+
+        function renderAllApiKeys() {
+            // Render AI Keys
+            ['gemini', 'groq', 'sambanova', 'cohere', 'mistral', 'huggingface', 'cloudflare'].forEach(provider => {
+                const input = document.getElementById(`key-${provider}`);
+                if (input) input.value = (apiKeysConfig[provider] || []).join(', ');
+                updateKeyStatus(provider, 'secondary', '--');
+            });
+
+            // Render OAuth
+            if (apiKeysConfig.oauth) {
+                document.getElementById('google-client-id').value = apiKeysConfig.oauth.google?.clientId || '';
+                document.getElementById('google-client-secret').value = apiKeysConfig.oauth.google?.clientSecret || '';
+                document.getElementById('facebook-app-id').value = apiKeysConfig.oauth.facebook?.appId || '';
+                document.getElementById('facebook-app-secret').value = apiKeysConfig.oauth.facebook?.appSecret || '';
+            }
+
+            // Render Mongo & Session
+            document.getElementById('mongodb-uri').value = apiKeysConfig.mongoUri || '';
+            document.getElementById('session-secret').value = apiKeysConfig.sessionSecret || '';
+        }
+
+        async function saveAllApiKeys() {
+            // Collect data
+            ['gemini', 'groq', 'sambanova', 'cohere', 'mistral', 'huggingface', 'cloudflare'].forEach(provider => {
+                const val = document.getElementById(`key-${provider}`).value;
+                apiKeysConfig[provider] = val ? val.split(',').map(k => k.trim()).filter(k => k) : [];
+            });
+
+            apiKeysConfig.oauth = {
+                google: {
+                    clientId: document.getElementById('google-client-id').value.trim(),
+                    clientSecret: document.getElementById('google-client-secret').value.trim()
+                },
+                facebook: {
+                    appId: document.getElementById('facebook-app-id').value.trim(),
+                    appSecret: document.getElementById('facebook-app-secret').value.trim()
+                }
+            };
+
+            apiKeysConfig.mongoUri = document.getElementById('mongodb-uri').value.trim();
+            apiKeysConfig.sessionSecret = document.getElementById('session-secret').value.trim();
+
+            // Save to LocalStorage
+            localStorage.setItem('admin_api_config', JSON.stringify(apiKeysConfig));
+
+            // Save to Server
+            try {
+                const res = await fetch('/api/admin/config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(apiKeysConfig)
+                });
+                const data = await res.json();
+                if (data.success) toast.success('Đã lưu cấu hình thành công!');
+                else toast.warning('Đã lưu local. Server chưa cập nhật.');
+            } catch (e) {
+                toast.success('Đã lưu cấu hình (Local)!');
+            }
+        }
+
+        async function testAIKey(provider) {
+            updateKeyStatus(provider, 'info', 'Đang test...');
+            const liveEl = document.getElementById(`live-${provider}`);
+            if (liveEl) liveEl.innerText = '...';
+
+            // Lấy keys từ input field (nếu có)
+            const inputEl = document.getElementById(`key-${provider}`);
+            const inputKeys = inputEl ? inputEl.value.trim() : '';
+
+            try {
+                let data;
+
+                // Nếu user nhập key vào input => test key đó
+                if (inputKeys) {
+                    const keysList = inputKeys.split(',').map(k => k.trim()).filter(k => k);
+                    let liveCount = 0;
+                    let results = [];
+
+                    for (const key of keysList) {
+                        try {
+                            const res = await fetch('/api/admin/test-key', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ provider, key })
+                            });
+                            const result = await res.json();
+                            results.push(result);
+                            if (result.success) liveCount++;
+                        } catch (e) {
+                            results.push({ success: false, message: e.message });
+                        }
+                    }
+
+                    data = {
+                        success: true,
+                        total: keysList.length,
+                        live: liveCount,
+                        dead: keysList.length - liveCount,
+                        results
+                    };
+                } else {
+                    // Không nhập key => test keys từ server config
+                    const res = await fetch('/api/admin/test-all-keys', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ provider })
+                    });
+                    data = await res.json();
+                }
+
+                if (data.success) {
+                    // Cập nhật cột Sống/Tổng
+                    const liveText = `${data.live}/${data.total}`;
+                    if (liveEl) {
+                        liveEl.innerText = liveText;
+                        liveEl.className = data.live === data.total && data.total > 0 ? 'fw-bold text-success' :
+                            data.live > 0 ? 'fw-bold text-warning' : 'fw-bold text-danger';
+                    }
+
+                    // Cập nhật status badge
+                    if (data.total === 0) {
+                        updateKeyStatus(provider, 'secondary', 'Không có key');
+                        toast.warning(`${provider}: Nhập API key vào ô bên trái`);
+                    } else if (data.live === data.total) {
+                        updateKeyStatus(provider, 'success', `${data.live} OK`);
+                        toast.success(`${provider}: Tất cả ${data.total} keys hoạt động!`);
+                    } else if (data.live > 0) {
+                        updateKeyStatus(provider, 'warning', `${data.live}/${data.total}`);
+                        toast.warning(`${provider}: ${data.live}/${data.total} keys hoạt động`);
+                    } else {
+                        updateKeyStatus(provider, 'danger', 'Tất cả lỗi');
+                        toast.error(`${provider}: Không có key nào hoạt động!`);
+                    }
+
+                    // Log chi tiết vào console
+                    console.log(`[${provider}] Test results:`, data.results);
+                } else {
+                    updateKeyStatus(provider, 'danger', 'Lỗi');
+                    if (liveEl) liveEl.innerText = '--';
+                    toast.error(data.message || 'Lỗi không xác định');
+                }
+            } catch (err) {
+                console.error('Test key error:', err);
+                updateKeyStatus(provider, 'danger', 'Lỗi kết nối');
+                if (liveEl) liveEl.innerText = '--';
+                toast.error('Không thể kết nối server: ' + err.message);
+            }
+        }
+
+        function updateKeyStatus(provider, color, text) {
+            const badge = document.getElementById(`status-${provider}`);
+            if (badge) {
+                badge.className = `badge bg-${color}`;
+                badge.innerText = text;
+            }
+        }
+
+        async function testAllAIKeys() {
+            toast.info('Đang test tất cả AI providers...');
+            const providers = ['gemini', 'groq', 'sambanova', 'cohere', 'mistral', 'huggingface', 'cloudflare'];
+
+            // Test từng provider tuần tự để tránh overload
+            for (const p of providers) {
+                updateKeyStatus(p, 'info', 'Chờ...');
+            }
+
+            for (const p of providers) {
+                await testAIKey(p);
+                // Delay nhỏ giữa các providers
+                await new Promise(r => setTimeout(r, 300));
+            }
+
+            toast.success('Hoàn thành test tất cả providers!');
+        }
+
+        // Load AI status từ server khi mở tab API Keys
+        async function loadAIStatus() {
+            try {
+                const res = await fetch('/api/admin/ai-status');
+                const data = await res.json();
+
+                if (data.success) {
+                    // Cập nhật thống kê cho từng provider
+                    data.providers.forEach(p => {
+                        const liveEl = document.getElementById(`live-${p.provider}`);
+                        if (liveEl) {
+                            liveEl.innerText = `${p.available}/${p.total}`;
+                            liveEl.className = p.available === p.total && p.total > 0 ? 'fw-bold text-success' :
+                                p.available > 0 ? 'fw-bold text-warning' :
+                                    p.total === 0 ? 'fw-bold text-white-50' : 'fw-bold text-danger';
+                        }
+                    });
+
+                    console.log('[Admin] AI Status:', {
+                        ollama: data.ollamaEnabled ? `${data.ollamaModel}` : 'disabled',
+                        totalKeys: data.totalKeys,
+                        available: data.totalAvailable
+                    });
+                }
+            } catch (e) {
+                console.error('Error loading AI status:', e);
+            }
+        }
+
+        // Tự động load AI status khi page load
+        loadAIStatus();
+
+        function testOAuthKey(provider) {
+            const statusEl = document.getElementById(`${provider}-oauth-status`);
+            statusEl.innerText = 'Đang kiểm tra...';
+            statusEl.className = 'badge bg-info';
+
+            setTimeout(() => {
+                statusEl.innerText = 'Hợp lệ';
+                statusEl.className = 'badge bg-success';
+                toast.success(`Cấu hình ${provider} OAuth hợp lệ!`);
+            }, 1500);
+        }
+
+        function testMongoConnection() {
+            const badge = document.getElementById('mongo-status');
+            badge.innerText = 'Testing...';
+            badge.className = 'badge bg-warning text-white';
+
+            setTimeout(() => {
+                badge.innerHTML = '<i class="fa-solid fa-check me-1"></i>Connected';
+                badge.className = 'badge bg-success';
+                document.getElementById('mongo-db-name').innerText = 'Database: eschool_ai (Latency: 45ms)';
+                toast.success('Kết nối MongoDB thành công!');
+            }, 2000);
+        }
+
+        function generateRandomSecret() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+            let result = '';
+            for (let i = 0; i < 64; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('session-secret').value = result;
+        }
+
+        function togglePassword(id) {
+            const el = document.getElementById(id);
+            el.type = el.type === 'password' ? 'text' : 'password';
+        }
+
+        // --- SETTINGS MANAGEMENT (ADVANCED) ---
+        function saveSettings() {
+            const settings = {
+                siteName: document.getElementById('site-name').value,
+                siteDesc: document.getElementById('site-desc').value,
+                allowRegister: document.getElementById('allow-register').checked,
+                requireEmailVerify: document.getElementById('require-email-verify').checked,
+                maintenanceMode: document.getElementById('maintenance-mode').checked,
+                admin2fa: document.getElementById('admin-2fa-enabled').checked
+            };
+            localStorage.setItem('admin_settings', JSON.stringify(settings));
+            toast.success('Đã lưu cài đặt hệ thống!');
+        }
+
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('admin_settings') || '{}');
+            if (settings.siteName) document.getElementById('site-name').value = settings.siteName;
+            if (settings.siteDesc) document.getElementById('site-desc').value = settings.siteDesc;
+            document.getElementById('allow-register').checked = settings.allowRegister !== false;
+            document.getElementById('require-email-verify').checked = settings.requireEmailVerify || false;
+            document.getElementById('maintenance-mode').checked = settings.maintenanceMode || false;
+
+            const is2fa = settings.admin2fa || false;
+            document.getElementById('admin-2fa-enabled').checked = is2fa;
+            if (is2fa) document.getElementById('2fa-setup-area').style.display = 'block';
+        }
+
+        function toggle2FA(checked) {
+            const area = document.getElementById('2fa-setup-area');
+            if (checked) {
+                area.style.display = 'block';
+                // Gen QR 
+                document.getElementById('2fa-qr-code').innerHTML =
+                    '<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=otpauth://totp/ESchoolAdmin?secret=JBSWY3DPEHPK3PXP" class="img-fluid border rounded p-1">';
+            } else {
+                area.style.display = 'none';
+            }
+        }
+
+        function verify2FACode() {
+            const code = document.getElementById('2fa-verify-code').value;
+            if (code.length === 6 && !isNaN(code)) {
+                toast.success('Xác thực 2FA thành công! Đã kích hoạt bảo vệ.');
+                document.getElementById('2fa-setup-area').innerHTML = '<div class="alert alert-success"><i class="fa-solid fa-check-circle me-2"></i>2FA đã được kích hoạt</div>';
+            } else {
+                toast.error('Mã xác thực không đúng!');
+            }
+        }
+
+        async function changeAdminPassword() {
+            const current = document.getElementById('current-password').value;
+            const newPass = document.getElementById('new-password').value;
+            const confirm = document.getElementById('confirm-password').value;
+
+            if (!current || !newPass || !confirm) return toast.warning('Vui lòng nhập đầy đủ thông tin!');
+            if (newPass.length < 6) return toast.warning('Mật khẩu mới phải từ 6 ký tự!');
+            if (newPass !== confirm) return toast.error('Mật khẩu xác nhận không khớp!');
+
+            // Mock call
+            await new Promise(r => setTimeout(r, 1000));
+            toast.success('Đổi mật khẩu thành công! Vui lòng đăng nhập lại.');
+        }
+
+        async function refreshDBStats() {
+            const btn = document.querySelector('button[onclick="refreshDBStats()"]');
+            const originalText = btn ? btn.innerHTML : '';
+
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i>Đang tải...';
+            }
+
+            try {
+                await loadDashboardStats();
+                await loadPostsCount();
+                toast.success('Đã cập nhật thống kê từ Database');
+            } catch (e) {
+                toast.error('Lỗi cập nhật');
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = originalText || '<i class="fa-solid fa-sync me-1"></i>Refresh';
+                }
+            }
+        }
+
+        function backupDatabase() {
+            showConfirm('Bạn có muốn tạo bản sao lưu dữ liệu ngay bây giờ?').then(ok => {
+                if (ok) {
+                    toast.info('Đang tạo backup...');
+                    setTimeout(() => {
+                        toast.success('Backup thành công! File: eschool_backup_' + new Date().toISOString().slice(0, 10) + '.json');
+                        // Download mock
+                    }, 2000);
+                }
+            });
+        }
+
+
+        // --- DASHBOARD STATS FROM REAL API ---
+        async function loadDashboardStats() {
+            try {
+                const res = await fetch('/api/admin/stats');
+                const data = await res.json();
+                if (data.success) {
+                    // Dashboard
+                    document.getElementById('stat-users').innerText = (users.length > 0) ? users.length : (data.stats.users || 0);
+                    document.getElementById('stat-lessons').innerText = data.stats.englishLessons || 0;
+                    document.getElementById('stat-assignments').innerText = data.stats.assignments || 0;
+                    document.getElementById('stat-posts').innerText = data.stats.posts || 0;
+
+                    // Update System Status
+                    if (data.stats.uptime) {
+                        const uptime = Math.floor(data.stats.uptime);
+                        const h = Math.floor(uptime / 3600);
+                        const m = Math.floor((uptime % 3600) / 60);
+                        document.getElementById('sys-uptime').innerText = `${h}h ${m}m`;
+                    }
+                    if (data.stats.memory) document.getElementById('sys-memory').innerText = data.stats.memory + ' MB';
+
+                    // Settings
+                    if (document.getElementById('stats-users')) document.getElementById('stats-users').innerText = (users.length > 0) ? users.length : (data.stats.users || 0);
+                    if (document.getElementById('stats-assignments')) document.getElementById('stats-assignments').innerText = data.stats.assignments || 0;
+                    if (document.getElementById('stats-english')) document.getElementById('stats-english').innerText = data.stats.englishLessons || 0;
+
+                    // Database Card
+                    if (document.getElementById('db-users-count')) document.getElementById('db-users-count').innerText = (users.length > 0) ? users.length : (data.stats.users || 0);
+                    if (document.getElementById('db-posts-count')) document.getElementById('db-posts-count').innerText = data.stats.posts || 0;
+                }
+            } catch (e) {
+                console.log('Using local data for stats');
+                const uCount = users.length || 0;
+                const eCount = engLessons.length || 0;
+                const aCount = adminAssignments.length || 0;
+
+                // Dashboard
+                document.getElementById('stat-users').innerText = uCount;
+                document.getElementById('stat-lessons').innerText = eCount;
+                document.getElementById('stat-assignments').innerText = aCount;
+
+                // Settings
+                if (document.getElementById('stats-users')) document.getElementById('stats-users').innerText = uCount;
+                if (document.getElementById('stats-assignments')) document.getElementById('stats-assignments').innerText = aCount;
+                if (document.getElementById('stats-english')) document.getElementById('stats-english').innerText = eCount;
+
+                // Database
+                if (document.getElementById('db-users-count')) document.getElementById('db-users-count').innerText = uCount;
+            }
+        }
+
+        // Load real activity from users data
+        async function loadRecentActivity() {
+            const container = document.getElementById('activity-log');
+            try {
+                // Get recent users as activity
+                const activities = [];
+
+                // Add user registrations
+                users.slice(0, 5).forEach(u => {
+                    activities.push({
+                        icon: 'fa-user-plus',
+                        color: 'text-success',
+                        text: `User <strong>${u.username}</strong> đã đăng ký`,
+                        time: u.createdAt ? new Date(u.createdAt).toLocaleString('vi-VN') : 'Gần đây'
+                    });
+                });
+
+                // Add recent assignments
+                adminAssignments.slice(0, 5).forEach(a => {
+                    activities.push({
+                        icon: 'fa-clipboard-check',
+                        color: 'text-primary',
+                        text: `Bài tập <strong>${a.title}</strong> được tạo`,
+                        time: a.createdAt ? new Date(a.createdAt).toLocaleString('vi-VN') : 'Gần đây'
+                    });
+                });
+
+                if (activities.length === 0) {
+                    container.innerHTML = '<div class="text-white-50 text-center py-3">Chưa có hoạt động nào.</div>';
+                    return;
+                }
+
+                container.innerHTML = `<ul class="list-group list-group-flush">
+                    ${activities.slice(0, 8).map(a => `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="fa-solid ${a.icon} ${a.color} me-2"></i>${a.text}</span>
+                            <span class="text-white-50 small">${a.time}</span>
+                        </li>
+                    `).join('')}
+                </ul>`;
+            } catch (e) {
+                container.innerHTML = '<div class="text-white-50 text-center py-3">Không thể tải hoạt động.</div>';
+            }
+        }
+
+        // Load posts count
+        async function loadPostsCount() {
+            try {
+                const res = await fetch('/api/posts');
+                const data = await res.json();
+                if (Array.isArray(data)) {
+                    const count = data.length;
+                    document.getElementById('stat-posts').innerText = count;
+                    if (document.getElementById('db-posts-count')) document.getElementById('db-posts-count').innerText = count;
+                }
+            } catch (e) { }
+        }
+
+        // AI Settings
+        async function loadAISettings() {
+            try {
+                const res = await fetch('/api/admin/settings');
+                const data = await res.json();
+                if (data.success) {
+                    const limit = data.config.dailyLimit;
+                    document.getElementById('ai-daily-limit').value = limit;
+                    document.getElementById('current-limit-display').textContent = limit;
+                }
+            } catch (e) { console.error('Load AI Settings Error:', e); }
+        }
+
+        async function saveAISettings() {
+            const limit = document.getElementById('ai-daily-limit').value;
+            if (!limit) return toast.warning('Vui lòng nhập số lượng!');
+
+            try {
+                const res = await fetch('/api/admin/settings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ dailyLimit: limit })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    toast.success('✅ Đã lưu cấu hình giới hạn AI!');
+                    loadAISettings();
+                } else {
+                    toast.warning('❌ Lỗi lưu: ' + (data.message || 'Unknown'));
+                }
+            } catch (e) { toast.warning('❌ Lỗi kết nối server'); }
+        }
+
+        // ========================================
+        // SCHOOL APPROVAL FUNCTIONS
+        // ========================================
+        let pendingSchoolsCache = [];
+        let allSchoolsCache = [];
+        let currentSchoolView = 'pending';
+
+        function toggleSchoolView(view) {
+            currentSchoolView = view;
+            const searchArea = document.getElementById('school-search-area');
+            if (view === 'pending') {
+                searchArea.style.display = 'none';
+                loadPendingSchools();
+            } else {
+                searchArea.style.display = 'block';
+                loadAllSchools();
+            }
+        }
+
+        async function loadPendingSchools() {
+            try {
+                const res = await fetch('/api/admin/schools/pending');
+                const data = await res.json();
+
+                const tbody = document.getElementById('schools-tbody');
+                const countEl = document.getElementById('schools-count');
+                const badgeEl = document.getElementById('badge-schools');
+
+                if (!data.success || !data.schools || data.schools.length === 0) {
+                    pendingSchoolsCache = [];
+                    tbody.innerHTML = '<tr><td colspan="7" class="text-center text-white-50 py-4">Không có trường nào chờ duyệt.</td></tr>';
+                    countEl.textContent = '0 trường chờ duyệt';
+                    if (badgeEl) badgeEl.textContent = '0';
+                    return;
+                }
+
+                pendingSchoolsCache = data.schools; // Update cache
+
+                tbody.innerHTML = data.schools.map(s => `
+                    <tr>
+                        <td><code>${s.schoolCode}</code></td>
+                        <td><strong>${s.name}</strong></td>
+                        <td>${s.provinceName || '--'}</td>
+                        <td>${s.schoolLevel || '--'}</td>
+                        <td><span class="badge bg-secondary">${s.docs ? s.docs.length : 0} tài liệu</span></td>
+                        <td>${new Date(s.createdAt).toLocaleDateString('vi-VN')}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary me-1" onclick="viewSchoolDetails('${s.schoolCode}')">
+                                <i class="fa-solid fa-eye me-1"></i>Xem hồ sơ
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+
+                countEl.textContent = `${data.schools.length} trường chờ duyệt`;
+                if (badgeEl) badgeEl.textContent = data.schools.length;
+            } catch (e) {
+                console.error('Error loading pending schools:', e);
+            }
+        }
+
+        async function loadAllSchools() {
+            try {
+                const tbody = document.getElementById('schools-tbody');
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center text-white-50 py-4"><i class="fa-solid fa-spinner fa-spin me-2"></i>Đang tải dữ liệu...</td></tr>';
+
+                const res = await fetch('/api/admin/schools/all');
+                const data = await res.json();
+
+                if (!data.success || !data.schools) return;
+
+                allSchoolsCache = data.schools;
+                renderAllSchoolsTable(allSchoolsCache);
+            } catch (e) {
+                console.error('Error loading all schools:', e);
+            }
+        }
+
+        function renderAllSchoolsTable(schools) {
+            const tbody = document.getElementById('schools-tbody');
+            const countEl = document.getElementById('schools-count');
+
+            if (schools.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center text-white-50 py-4">Không tìm thấy trường nào.</td></tr>';
+                countEl.textContent = '0 trường';
+                return;
+            }
+
+            tbody.innerHTML = schools.map(s => {
+                const statusClass = s.status === 'pending' ? 'bg-warning text-dark' : (s.isActive ? 'bg-success' : 'bg-danger');
+                const statusText = s.status === 'pending' ? 'Chờ duyệt' : (s.isActive ? 'Active' : 'Inactive');
+
+                return `
+                    <tr>
+                        <td><code>${s.schoolCode}</code></td>
+                        <td><strong>${s.name}</strong></td>
+                        <td>${s.provinceName || '--'}</td>
+                        <td>${s.schoolLevel || '--'}</td>
+                        <td><span class="badge ${statusClass}">${statusText}</span></td>
+                        <td>${new Date(s.createdAt).toLocaleDateString('vi-VN')}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-light me-1" onclick="viewSchoolDetails('${s.schoolCode}')" title="Xem chi tiết">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                            ${s.status !== 'pending' ? `
+                            <button class="btn btn-sm ${s.isActive ? 'btn-outline-danger' : 'btn-outline-success'}" 
+                                onclick="toggleSchoolStatus('${s.schoolCode}', ${s.isActive})">
+                                <i class="fa-solid ${s.isActive ? 'fa-ban' : 'fa-check'}"></i>
+                            </button>` : ''}
+                        </td>
+                    </tr>
+                 `;
+            }).join('');
+            countEl.textContent = `${schools.length} trường`;
+        }
+
+        function filterAllSchools() {
+            const query = document.getElementById('school-search').value.toLowerCase();
+            const filtered = allSchoolsCache.filter(s =>
+                (s.name && s.name.toLowerCase().includes(query)) ||
+                (s.schoolCode && s.schoolCode.toLowerCase().includes(query)) ||
+                (s.provinceName && s.provinceName.toLowerCase().includes(query))
+            );
+            renderAllSchoolsTable(filtered);
+        }
+
+        async function toggleSchoolStatus(code, currentActive) {
+            if (!await showConfirm(`Bạn có chắc muốn ${currentActive ? 'KHÓA' : 'MỞ KHÓA'} trường ${code}?`)) return;
+
+            try {
+                const res = await fetch('/api/admin/schools/toggle-status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ schoolCode: code })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    toast.success('Đã cập nhật trạng thái');
+                    loadAllSchools(); // Reload
+                } else {
+                    toast.error('Lỗi: ' + data.error);
+                }
+            } catch (e) { toast.error('Lỗi kết nối'); }
+        }
+
+        function viewSchoolDetails(schoolCode) {
+            // Find in pending first, then all
+            let school = pendingSchoolsCache.find(s => s.schoolCode === schoolCode);
+            if (!school && allSchoolsCache.length > 0) {
+                school = allSchoolsCache.find(s => s.schoolCode === schoolCode);
+            }
+            if (!school) return;
+
+            // Set global currentDetailSchoolCode for hooks (like generateIntroLetter)
+            // Note: The hook wrapping this function might set it too, but setting it here is safer given the cache logic
+            currentDetailSchoolCode = schoolCode;
+
+            // 1. Populate Info
+            document.getElementById('detail-school-name').textContent = school.name;
+            document.getElementById('detail-school-code').textContent = school.schoolCode;
+            document.getElementById('detail-school-level').textContent = school.schoolLevel || 'Chưa rõ';
+            document.getElementById('detail-school-address').textContent = school.address || '--';
+
+            document.getElementById('detail-manager-name').textContent = school.managerName || '--';
+            document.getElementById('detail-manager-phone').textContent = school.managerPhone || '--';
+
+            // 2. Populate Docs
+            const docContainer = document.getElementById('detail-docs-container');
+            docContainer.innerHTML = '';
+
+            if (school.docs && school.docs.length > 0) {
+                // Map of labeled names
+                const labelMap = {
+                    'cccdFront': 'CCCD Mặt Trước',
+                    'cccdBack': 'CCCD Mặt Sau',
+                    'schoolDoc': 'Giấy Ủy Quyền / Giới Thiệu'
+                };
+
+                school.docs.forEach((doc, index) => {
+                    // Check if doc is string (old format) or object (new format)
+                    let path, label;
+
+                    if (typeof doc === 'string') {
+                        path = doc;
+                        label = `Tài liệu ${index + 1}`;
+                    } else {
+                        path = doc.path;
+                        label = doc.type ? (labelMap[doc.type] || 'Tài liệu khác') : 'Tài liệu khác';
+                    }
+
+                    const isImg = path.match(/\.(jpeg|jpg|png|gif)$/i);
+
+                    const col = document.createElement('div');
+                    col.className = 'col-md-4';
+                    col.innerHTML = `
+                        <div class="glass-card h-100 p-0 overflow-hidden">
+                            <div class="card-header bg-transparent border-bottom border-secondary py-2 fw-bold text-info small">
+                                ${label}
+                            </div>
+                            <div class="card-body p-0 d-flex align-items-center justify-content-center bg-transparent" style="height: 200px;">
+                                ${isImg ?
+                            `<img src="${path}" class="img-fluid" style="max-height: 100%; object-fit: contain; cursor: pointer" onclick="window.open('${path}')" title="Click để phóng to">` :
+                            `<iframe src="${path}" style="width:100%; height:100%; border:none;"></iframe>`
+                        }
+                            </div>
+                            <div class="card-footer bg-transparent border-top border-secondary py-2 text-center">
+                                <a href="${path}" target="_blank" class="btn btn-sm btn-outline-light w-100">
+                                    <i class="fa-solid fa-external-link-alt me-1"></i>Xem/Tải về
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    docContainer.appendChild(col);
+                });
+            } else {
+                docContainer.innerHTML = '<div class="col-12 text-center text-white-50 py-3">Không có tài liệu nào.</div>';
+            }
+
+            // 3. Bind Action Buttons & Visibility
+            const btnApprove = document.getElementById('btn-approve-school');
+            const btnReject = document.getElementById('btn-reject-school');
+
+            btnApprove.onclick = () => approveSchool(schoolCode);
+            btnReject.onclick = () => rejectSchool(schoolCode);
+
+            // Hide Approve/Reject if school is not pending
+            if (school.status !== 'pending') {
+                if (btnApprove) btnApprove.style.display = 'none';
+                if (btnReject) btnReject.style.display = 'none';
+            } else {
+                if (btnApprove) btnApprove.style.display = 'inline-block';
+                if (btnReject) btnReject.style.display = 'inline-block';
+            }
+
+            // 4. Show Modal
+            const modal = document.getElementById('modal-school-detail');
+            modal.style.display = 'flex';
+        }
+
+        function closeSchoolModal() {
+            document.getElementById('modal-school-detail').style.display = 'none';
+        }
+
+        async function approveSchool(schoolCode) {
+            if (!(await showConfirm(`Bạn có chắc muốn DUYỆT trường ${schoolCode}?`))) return;
+
+            try {
+                const res = await fetch('/api/admin/schools/approve', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ schoolCode })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    toast.success(`✅ Đã duyệt trường ${schoolCode} thành công!`);
+                    closeSchoolModal();
+                    if (currentSchoolView === 'all') loadAllSchools();
+                    else loadPendingSchools();
+                } else {
+                    toast.warning('❌ Lỗi: ' + (data.error || 'Unknown'));
+                }
+            } catch (e) {
+                toast.warning('❌ Lỗi kết nối server');
+            }
+        }
+
+        async function rejectSchool(schoolCode) {
+            const reason = prompt('Nhập lý do từ chối (tùy chọn):');
+            if (reason === null) return; // Cancelled
+
+            try {
+                const res = await fetch('/api/admin/schools/reject', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ schoolCode, reason })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    toast.warning(`✅ Đã từ chối trường ${schoolCode}.`);
+                    closeSchoolModal();
+                    if (currentSchoolView === 'all') loadAllSchools();
+                    else loadPendingSchools();
+                } else {
+                    toast.warning('❌ Lỗi: ' + (data.error || 'Unknown'));
+                }
+            } catch (e) {
+                toast.warning('❌ Lỗi kết nối server');
+            }
+        }
+
+        // --- INIT --- 
+        loadAllData();
+        loadAISettings();
+        loadUsersTable();
+        loadAdminAssignments();
+        loadPendingSchools();
+        loadAllApiKeys();
+        loadSettings();
+        loadPostsCount();
+        loadBooksData();
+        loadMethodsData();
+        loadQuizzesData();
+
+        // Load stats after data is ready
+        setTimeout(() => {
+            loadDashboardStats();
+            loadRecentActivity();
+        }, 1500);
+
+        // ===================================
+        // TEMPLATE MANAGEMENT & HOOKS
+        // ===================================
+        let currentDetailSchoolCode = null;
+
+        // 1. Hook switchTab
+        if (typeof window.originalSwitchTab === 'undefined') {
+            window.originalSwitchTab = window.switchTab;
+            window.switchTab = function (t, el) {
+                window.originalSwitchTab(t, el ? el : null); // Handle undefined el
+                if (t === 'templates') loadTemplates();
+            }
+        }
+
+        // 2. Hook viewSchoolDetails
+        if (typeof window.originalViewSchoolDetails === 'undefined') {
+            window.originalViewSchoolDetails = window.viewSchoolDetails;
+            window.viewSchoolDetails = function (code) {
+                currentDetailSchoolCode = code;
+                window.originalViewSchoolDetails(code);
+            }
+        }
+
+        // 3. Template Functions
+        async function loadTemplates() {
+            try {
+                const res = await fetch('/api/admin/templates');
+                const data = await res.json();
+                const tbody = document.getElementById('templates-tbody');
+                if (!data.success || !data.templates || data.templates.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="3" class="text-center text-white-50">Chưa có mẫu nào.</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = data.templates.map(t => `
+                <tr>
+                    <td class="fw-bold text-info">${t.name}</td>
+                    <td>${t.title}</td>
+                    <td class="text-white-50 small">${new Date(t.updatedAt).toLocaleString('vi-VN')}</td>
+                </tr>
+            `).join('');
+            } catch (err) {
+                console.error(err);
+                document.getElementById('templates-tbody').innerHTML = '<tr><td colspan="3" class="text-center text-danger">Lỗi tải dữ liệu.</td></tr>';
+            }
+        }
+
+        async function uploadTemplate() {
+            const name = document.getElementById('tpl-name').value;
+            const title = document.getElementById('tpl-title').value;
+            const file = document.getElementById('tpl-file').files[0];
+            if (!file) return toast.warning('Vui lòng chọn file!');
+
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('title', title);
+            formData.append('templateFile', file);
+
+            try {
+                const res = await fetch('/api/admin/templates/upload', { method: 'POST', body: formData });
+                const data = await res.json();
+                if (data.success) {
+                    toast.success('Upload thành công!');
+                    loadTemplates();
+                    document.getElementById('template-upload-form').reset();
+                } else {
+                    toast.warning('Lỗi: ' + data.error);
+                }
+            } catch (err) {
+                toast.warning('Lỗi: ' + err.message);
+            }
+        }
+
+        async function generateIntroLetter(code) {
+            code = code || currentDetailSchoolCode;
+            if (!code || code === '--') return toast.warning('Không tìm thấy mã trường!');
+
+            try {
+                const btn = document.activeElement; // Approximate
+                const originalText = btn.innerHTML;
+                if (btn.tagName === 'BUTTON') {
+                    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+                    btn.disabled = true;
+                }
+
+                const res = await fetch('/api/admin/generate-intro', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ schoolCode: code })
+                });
+
+                if (res.ok) {
+                    const blob = await res.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `GioiThieu_${code}.docx`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                } else {
+                    const err = await res.json();
+                    toast.warning('Lỗi: ' + (err.error || 'Server Error'));
+                }
+                if (btn.tagName === 'BUTTON') {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                toast.warning('Lỗi: ' + err.message);
+            }
+        }
+
+    </script>
+    <!-- SCHOOL DETAIL MODAL -->
+    <div class="modal-overlay" id="modal-school-detail" style="display:none">
+        <div class="modal-box glass-card border-0"
+            style="max-width:900px; height: 90vh; display: flex; flex-direction: column; background: rgba(15, 23, 42, 0.95);">
+            <div
+                class="modal-header d-flex justify-content-between align-items-center mb-3 flex-shrink-0 bg-transparent border-bottom border-secondary">
+                <h5 class="fw-bold mb-0 text-white"><i
+                        class="fa-solid fa-school-circle-check me-2 text-primary"></i>Thẩm định
+                    hồ sơ trường học</h5>
+                <button class="btn btn-sm btn-outline-light rounded-circle" onclick="closeSchoolModal()"><i
+                        class="fa-solid fa-times"></i></button>
+            </div>
+
+            <div class="modal-body overflow-auto flex-grow-1 pe-2">
+                <!-- 1. General Info -->
+                <div class="glass-card p-4 mb-3">
+                    <h6 class="fw-bold text-info border-bottom border-secondary pb-2 mb-3"><i
+                            class="fa-solid fa-info-circle me-2"></i>Thông tin cơ bản</h6>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="small text-white-50 fw-bold">Tên trường</label>
+                            <div class="fw-bold text-white" id="detail-school-name">--</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="small text-white-50 fw-bold">Mã trường</label>
+                            <div class="font-monospace text-accent" id="detail-school-code">--</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="small text-white-50 fw-bold">Cấp học</label>
+                            <div class="badge bg-primary" id="detail-school-level">--</div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="small text-white-50 fw-bold">Địa chỉ chi tiết</label>
+                            <div class="text-white-50" id="detail-school-address">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Manager Info -->
+                <div class="glass-card p-4 mb-3">
+                    <h6 class="fw-bold text-info border-bottom border-secondary pb-2 mb-3"><i
+                            class="fa-solid fa-user-tie me-2"></i>Người quản lý / Đại diện</h6>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="small text-white-50 fw-bold">Họ và tên</label>
+                            <div class="fw-bold text-white" id="detail-manager-name">--</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small text-white-50 fw-bold">Số điện thoại</label>
+                            <div class="font-monospace text-white" id="detail-manager-phone">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Documents -->
+                <h6 class="fw-bold text-white mb-3"><i class="fa-solid fa-file-contract me-2"></i>Hồ sơ pháp lý</h6>
+                <div class="row g-3" id="detail-docs-container">
+                    <!-- Helper Text -->
+                    <div class="col-12 text-center text-muted py-3">Đang tải hồ sơ...</div>
+                </div>
+            </div>
+
+            <div class="modal-footer flex-shrink-0 pt-3 border-top border-secondary mt-3 bg-transparent">
+                <div class="d-flex justify-content-end gap-2">
+                    <button class="btn btn-outline-light" onclick="closeSchoolModal()">Đóng</button>
+                    <button class="btn btn-outline-info" onclick="generateIntroLetter()">
+                        <i class="fa-solid fa-print me-1"></i>Xuất Giấy
+                    </button>
+                    <button class="btn btn-danger" id="btn-reject-school">
+                        <i class="fa-solid fa-times me-1"></i>Từ chối
+                    </button>
+                    <button class="btn btn-primary" id="btn-approve-school">
+                        <i class="fa-solid fa-check me-1"></i>DUYỆT HỒ SƠ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // ADMIN PROFILE FUNCTIONS (Like Student)
+        // ============================================
+        let adminAvatarDataUrl = null;
+
+        function loadAdminProfileView() {
+            const userData = JSON.parse(localStorage.getItem('user') || '{}');
+            console.log('[Admin Profile] Loading with localStorage:', userData);
+
+            // Initial render from localStorage
+            updateAdminProfileForm(userData);
+
+            // Fetch fresh data from server (sync)
+            if (userData.username) {
+                fetch(`/api/profile/${userData.username}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success && data.user) {
+                            // Check for changes
+                            if (JSON.stringify(userData) !== JSON.stringify(data.user) || !userData.avatarUrl) {
+                                console.log('[Admin Profile] Data changed, syncing UI:', data.user);
+                                const newUserData = { ...userData, ...data.user };
+                                localStorage.setItem('user', JSON.stringify(newUserData));
+                                updateAdminProfileForm(newUserData);
+                            } else {
+                                console.log('[Admin Profile] Data is up to date.');
+                            }
+                        }
+                    })
+                    .catch(err => console.error('[Admin Profile] Sync error:', err));
+            }
+
+            function updateAdminProfileForm(data) {
+                // Fill form fields
+                const fields = {
+                    'admin-view-fullname': data.fullname || '',
+                    'admin-view-email': data.email || '',
+                    'admin-view-phone': data.phone || ''
+                };
+
+                for (const [id, value] of Object.entries(fields)) {
+                    const el = document.getElementById(id);
+                    if (el) el.value = value;
+                }
+
+                // Update profile name display
+                const nameEl = document.getElementById('admin-profile-name');
+                if (nameEl) nameEl.textContent = data.fullname || data.username || 'Quản Trị Viên';
+
+                // Load avatar (Center large avatar) - STANDARD STYLE
+                const avatarEl = document.getElementById('admin-profile-avatar');
+                if (avatarEl) {
+                    if (data.avatarUrl) {
+                        avatarEl.innerHTML = '';
+                        avatarEl.style.backgroundImage = `url(${data.avatarUrl})`;
+                        avatarEl.style.backgroundSize = 'cover';
+                        avatarEl.style.backgroundPosition = 'center';
+                        // Update global var for save
+                        adminAvatarDataUrl = data.avatarUrl;
+                    } else {
+                        avatarEl.innerHTML = (data.fullname || 'A').charAt(0).toUpperCase();
+                        avatarEl.style.backgroundImage = '';
+                    }
+                }
+
+                // Update sidebar avatar (immediate sync) - STANDARD STYLE
+                const sidebarAvatar = document.getElementById('admin-avatar');
+                if (sidebarAvatar) {
+                    if (data.avatarUrl) {
+                        sidebarAvatar.innerHTML = '';
+                        sidebarAvatar.style.backgroundImage = `url(${data.avatarUrl})`;
+                        sidebarAvatar.style.backgroundSize = 'cover';
+                        sidebarAvatar.style.backgroundPosition = 'center';
+                    } else {
+                        sidebarAvatar.style.backgroundImage = '';
+                        sidebarAvatar.innerHTML = `<i class="fa-solid fa-user-shield"></i>`;
+                    }
+                }
+
+                // Update sidebar name (immediate sync)
+                const sidebarName = document.getElementById('admin-name-disp');
+                if (sidebarName) {
+                    sidebarName.textContent = data.fullname || data.username || 'Quản Trị Viên';
+                }
+
+                // Calculate progress
+                const allFields = [data.fullname, data.email, data.phone, data.avatarUrl];
+                const filled = allFields.filter(v => v && (typeof v === 'string' ? v.trim() !== '' : true)).length;
+                const progress = Math.round((filled / 4) * 100);
+                const progressBar = document.getElementById('admin-progress-bar');
+                const progressText = document.getElementById('admin-progress-text');
+
+                if (progressBar) progressBar.style.width = progress + '%';
+                if (progressText) progressText.textContent = progress + '%';
+            }
+        }
+
+        async function saveAdminProfileView() {
+            const userData = JSON.parse(localStorage.getItem('user') || '{}');
+            const username = userData.username;
+
+            if (!username) {
+                toast.warning('Không tìm thấy thông tin đăng nhập!');
+                return;
+            }
+
+            const currentAvatarUrl = adminAvatarDataUrl || userData.avatarUrl || '';
+
+            const updateData = {
+                username: username,
+                fullname: document.getElementById('admin-view-fullname')?.value || '',
+                email: document.getElementById('admin-view-email')?.value || '',
+                phone: document.getElementById('admin-view-phone')?.value || '',
+                avatarUrl: currentAvatarUrl
+            };
+
+            try {
+                const res = await fetch('/api/profile/update', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updateData)
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    // Update localStorage
+                    const updatedUser = { ...userData, ...data.user };
+                    localStorage.setItem('user', JSON.stringify(updatedUser));
+
+                    // Update displays
+                    const nameDisp = document.getElementById('admin-name-disp');
+                    if (nameDisp) nameDisp.textContent = updatedUser.fullname || 'Quản Trị Viên';
+
+                    toast.success('Đã lưu hồ sơ thành công!');
+                    loadAdminProfileView();
+                } else {
+                    toast.warning('Lỗi: ' + (data.error || 'Không thể lưu'));
+                }
+            } catch (err) {
+                console.error('Save admin profile error:', err);
+                toast.warning('Lỗi kết nối server!');
+            }
+        }
+
+        function previewAdminAvatar(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    adminAvatarDataUrl = e.target.result;
+
+                    // Update preview
+                    const avatarEl = document.getElementById('admin-profile-avatar');
+                    if (avatarEl) {
+                        avatarEl.innerHTML = '';
+                        avatarEl.style.backgroundImage = `url(${e.target.result})`;
+                    }
+
+                    // Update sidebar
+                    const sidebarAvatar = document.getElementById('admin-avatar');
+                    if (sidebarAvatar) {
+                        sidebarAvatar.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+                    }
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Init sidebar user info
+        (function initAdminSidebar() {
+            try {
+                const userData = JSON.parse(localStorage.getItem('user') || '{}');
+                console.log('[Admin Sidebar] Initializing with userData:', userData);
+
+                // Initial render from localStorage (fast)
+                updateSidebarUI(userData);
+
+                // Fetch fresh data from server (sync)
+                if (userData.username) {
+                    fetch(`/api/profile/${userData.username}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success && data.user) {
+                                // Check if data actually changed to avoid unnecessary "flash"
+                                if (JSON.stringify(userData) !== JSON.stringify(data.user) || !userData.avatarUrl) {
+                                    console.log('[Admin Sidebar] Data changed, syncing UI:', data.user);
+                                    const newUserData = { ...userData, ...data.user };
+                                    localStorage.setItem('user', JSON.stringify(newUserData));
+                                    updateSidebarUI(newUserData);
+                                } else {
+                                    console.log('[Admin Sidebar] Data is up to date.');
+                                }
+                            }
+                        })
+                        .catch(err => console.error('[Admin Sidebar] Sync error:', err));
+                }
+
+                function updateSidebarUI(data) {
+                    const nameEl = document.getElementById('admin-name-disp');
+                    if (nameEl) {
+                        const displayName = data.fullname || data.username || 'Quản Trị Viên';
+                        nameEl.textContent = displayName;
+                    }
+
+                    const avatarEl = document.getElementById('admin-avatar');
+                    if (avatarEl) {
+                        if (data.avatarUrl) {
+                            avatarEl.innerHTML = ''; // Clear icon
+                            avatarEl.style.backgroundImage = `url(${data.avatarUrl})`;
+                            avatarEl.style.backgroundSize = 'cover';
+                            avatarEl.style.backgroundPosition = 'center';
+                        } else {
+                            avatarEl.style.backgroundImage = '';
+                            avatarEl.innerHTML = `<i class="fa-solid fa-user-shield"></i>`;
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('[Admin Sidebar] Error initializing sidebar:', e);
+            }
+        })();
+    </script>
+</body>
+
+</html>

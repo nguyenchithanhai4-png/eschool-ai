@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1765500000000,
+    "username": "admin gõ",
+    "password": "123123",
+    "role": "admin",
+    "fullname": "Admin",
+    "isVip": true,
+    "createdAt": "2025-12-01T00:00:00.000Z"
+  },
+  {
+    "id": 1765452710204,
+    "username": "thanh2009",
+    "password": "123123",
+    "role": "user",
+    "isVip": false,
+    "createdAt": "2025-12-11T11:31:50.204Z"
+  },
+  {
+    "id": 1765457513013,
+    "username": "thanh2",
+    "password": "123123",
+    "role": "user",
+    "isVip": false,
+    "createdAt": "2025-12-11T12:51:53.013Z"
+  },
+  {
+    "id": 1765457998384,
+    "username": "thanh255",
+    "password": "123123",
+    "role": "user",
+    "isVip": false,
+    "createdAt": "2025-12-11T12:59:58.384Z"
+  },
+  {
+    "id": 1765458030256,
+    "username": "thanh25555",
+    "password": "123123",
+    "role": "user",
+    "isVip": false,
+    "createdAt": "2025-12-11T13:00:30.256Z"
+  },
+  {
+    "id": 1765458030256,
+    "username": "thanh25555",
+    "password": "123123",
+    "role": "user",
+    "isVip": false,
+    "createdAt": "2025-12-11T13:00:30.256Z"
+  },
+  {
+    "id": 1765500000001,
+    "username": "hocsinh1",
+    "password": "123123",
+    "role": "student",
+    "fullname": "Nguyễn Văn An",
+    "isVip": true,
+    "createdAt": "2025-12-12T08:00:00.000Z",
+    "avatarUrl": "/uploads/1765654329513-z6308596150238_56469bc5f191e1abadaabccaee444d4f.jpg",
+    "email": "",
+    "phone": "",
+    "birthday": "",
+    "gender": "male",
+    "address": ""
+  },
+  {
+    "id": 1765500000002,
+    "username": "giaovien1",
+    "password": "123123",
+    "role": "teacher",
+    "fullname": "Trần Thị Bích",
+    "isVip": true,
+    "createdAt": "2025-12-12T08:00:00.000Z",
+    "avatarUrl": "/uploads/1765681954835-images.jpg"
+  },
+  {
+    "id": 1765539591401,
+    "username": "nguyenchithanh23@gmail.com",
+    "password": "123123",
+    "role": "user",
+    "isVip": false,
+    "createdAt": "2025-12-12T11:39:51.401Z"
+  },
+  {
+    "id": 1765917447727,
+    "username": "nguyenchithanh7102009@gmail.com",
+    "password": "123123",
+    "fullname": "thanh999",
+    "email": "nguyenchithanh7102009@gmail.com",
+    "role": "student",
+    "createdAt": "2025-12-16T20:37:27.727Z"
+  }
+]

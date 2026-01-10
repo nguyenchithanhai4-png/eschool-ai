@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Năng - E-School AI Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --accent: #06b6d4;
+            --bg-dark: #0f0c29;
+            --text-light: #f8fafc;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-light: rgba(255, 255, 255, 0.15);
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        .bg-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, #0f0c29 0%, #050510 100%);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: orbFloat 20s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--primary);
+            top: -10%;
+            left: -10%;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--secondary);
+            bottom: -10%;
+            right: -10%;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            top: 40%;
+            right: 10%;
+            opacity: 0.3;
+        }
+
+        @keyframes orbFloat {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(50px, 70px);
+            }
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background: rgba(15, 12, 41, 0.8) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7) !important;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white !important;
+        }
+
+        /* Feature Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: 0.3s;
+            height: 100%;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+
+        .hero-section {
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-fixed">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="brand-logo" href="/"><i class="fa-solid fa-atom me-2"></i>E-School AI</a>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-3">
+                    <li class="nav-item"><a class="nav-link" href="/">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Tính năng</a></li>
+                </ul>
+                <div class="ms-lg-4 mt-3 mt-lg-0">
+                    <a href="login.html" class="btn btn-primary rounded-pill px-4 fw-bold shadow-lg">Đăng Nhập / Đăng
+                        Ký</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section">
+        <div class="container">
+            <span
+                class="badge bg-white bg-opacity-10 border border-white border-opacity-10 px-3 py-2 rounded-bill shadow-sm mb-3">
+                <i class="fa-solid fa-bolt text-warning me-2"></i>Full Features List
+            </span>
+            <h1 class="display-3 fw-bold mb-4">Khám Phá Sức Mạnh<br><span style="color: var(--secondary)">Hệ Sinh Thái
+                    E-School</span></h1>
+            <p class="lead text-white-50 mx-auto" style="max-width: 700px;">
+                Tổng hợp chi tiết hơn 30+ tính năng đột phá giúp quá trình Dạy & Học trở nên hiệu quả, thú vị và cá nhân
+                hóa hơn bao giờ hết.
+            </p>
+        </div>
+    </section>
+
+    <!-- Content Sections -->
+    <div class="container pb-5">
+
+        <!-- 1. Core Platform -->
+        <div class="mb-5">
+            <div class="text-center section-title">
+                <h2 class="fw-bold">Nền Tảng Cốt Lõi</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="glass-card">
+                        <div class="icon-box bg-primary bg-opacity-10 text-primary"><i
+                                class="fa-solid fa-layer-group"></i></div>
+                        <h4 class="fw-bold mb-3">Bảng Điều Khiển</h4>
+                        <p class="text-white-50">Dashboard chuyên biệt cho từng vai trò: Học sinh, Giáo viên, Nhân viên
+                            và Quản trị viên với giao diện tối ưu hóa.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="glass-card">
+                        <div class="icon-box bg-success bg-opacity-10 text-success"><i
+                                class="fa-solid fa-user-lock"></i></div>
+                        <h4 class="fw-bold mb-3">Phân Quyền 4 Cấp</h4>
+                        <p class="text-white-50">Hệ thống bảo mật và phân quyền chặt chẽ. Đảm bảo dữ liệu và tính năng
+                            chỉ truy cập được bởi đúng đối tượng.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="glass-card">
+                        <div class="icon-box bg-warning bg-opacity-10 text-warning"><i
+                                class="fa-solid fa-chart-line"></i></div>
+                        <h4 class="fw-bold mb-3">Báo Cáo Thời Gian Thực</h4>
+                        <p class="text-white-50">Theo dõi tiến độ học tập, điểm số và hoạt động ngay lập tức. Biểu đồ
+                            trực quan giúp nhận diện xu hướng sớm.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="glass-card">
+                        <div class="icon-box bg-info bg-opacity-10 text-info"><i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Đa Nền Tảng</h4>
+                        <p class="text-white-50">Trải nghiệm đồng nhất trên Web, Tablet và Mobile. Học và làm việc mọi
+                            lúc, mọi nơi không gián đoạn.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. AI Learning -->
+        <div class="mb-5">
+            <div class="text-center section-title">
+                <h2 class="fw-bold">Trợ Lý Học Tập AI</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card border-primary border-opacity-25">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="icon-box mb-0 bg-primary text-white shadow-lg"
+                                style="width: 50px; height: 50px;"><i class="fa-solid fa-robot"></i></div>
+                            <h4 class="fw-bold mb-0">AI Tutor 1:1</h4>
+                        </div>
+                        <p class="text-white-50">Không chỉ giải bài, AI đóng vai trò người hướng dẫn, gợi mở tư duy để
+                            học sinh tự tìm ra đáp án. Hỗ trợ tất cả các môn khoa học và xã hội.</p>
+                        <ul class="list-unstyled text-white-50 small mt-3">
+                            <li class="mb-2"><i class="fa-solid fa-check text-primary me-2"></i> Giải thích Step-by-step
+                            </li>
+                            <li><i class="fa-solid fa-check text-primary me-2"></i> Nhận diện chữ viết tay</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- PhotoMath Killer -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card">
+                        <div class="icon-box bg-danger bg-opacity-10 text-danger"><i class="fa-solid fa-camera"></i>
+                        </div>
+                        <h5 class="fw-bold">PhotoMath Killer</h5>
+                        <p class="small text-white-50">Chụp ảnh đề bài -> Nhận diện AI -> Giải toán, vẽ đồ thị hàm số và
+                            đưa ra lời giải chi tiết trong 3 giây.</p>
+                    </div>
+                </div>
+                <!-- Book Summary -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card">
+                        <div class="icon-box bg-warning bg-opacity-10 text-warning"><i
+                                class="fa-solid fa-book-open"></i></div>
+                        <h5 class="fw-bold">Tóm Tắt Sách 3s</h5>
+                        <p class="small text-white-50">Tải lên file PDF hoặc ảnh chụp trang sách. AI sẽ đọc hiểu, tóm
+                            tắt ý chính và trích xuất các luận điểm quan trọng.</p>
+                    </div>
+                </div>
+                <!-- Plagiarism Checker -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card">
+                        <div class="icon-box bg-info bg-opacity-10 text-info"><i class="fa-solid fa-user-secret"></i>
+                        </div>
+                        <h5 class="fw-bold">Sát Thủ Đạo Văn</h5>
+                        <p class="small text-white-50">Kiểm tra tỷ lệ trùng lặp văn bản với kho dữ liệu khổng lồ. Gợi ý
+                            viết lại câu để tránh lỗi đạo văn.</p>
+                    </div>
+                </div>
+                <!-- English Speaking -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card">
+                        <div class="icon-box bg-success bg-opacity-10 text-success"><i
+                                class="fa-solid fa-microphone"></i></div>
+                        <h5 class="fw-bold">Luyện Nói Tiếng Anh</h5>
+                        <p class="small text-white-50">Giao tiếp hội thoại thực tế với AI. Chỉnh sửa phát âm, ngữ điệu
+                            và ngữ pháp theo thời gian thực.</p>
+                    </div>
+                </div>
+                <!-- Career Compass -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="glass-card">
+                        <div class="icon-box bg-secondary bg-opacity-10 text-secondary"><i
+                                class="fa-solid fa-compass"></i></div>
+                        <h5 class="fw-bold">La Bàn Nghề Nghiệp</h5>
+                        <p class="small text-white-50">Kết hợp trắc nghiệm MBTI/Holland và lịch sử học tập để định hướng
+                            ngành nghề và trường Đại học phù hợp nhất.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Social Hub -->
+        <div class="mb-5">
+            <div class="text-center section-title">
+                <h2 class="fw-bold">Kết Nối Cộng Đồng</h2>
+            </div>
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5 order-lg-2">
+                    <div class="position-relative">
+                        <div class="glass-card border-0 bg-primary bg-opacity-25" style="transform: rotate(3deg);">
+                            <h4 class="fw-bold mb-4"><i class="fa-solid fa-users me-2"></i>E-School Hub</h4>
+                            <div class="bg-dark bg-opacity-50 p-3 rounded-3 mb-2">
+                                <div class="d-flex gap-2 align-items-center mb-2">
+                                    <div class="bg-white rounded-circle" style="width:30px;height:30px"></div>
+                                    <div class="bg-white bg-opacity-25 rounded-pill w-50" style="height:10px"></div>
+                                </div>
+                                <div class="bg-white bg-opacity-10 rounded-3 w-100" style="height:80px"></div>
+                            </div>
+                            <div class="bg-dark bg-opacity-50 p-3 rounded-3">
+                                <div class="d-flex gap-2 align-items-center mb-2">
+                                    <div class="bg-success rounded-circle" style="width:30px;height:30px"></div>
+                                    <div class="bg-white bg-opacity-25 rounded-pill w-50" style="height:10px"></div>
+                                </div>
+                                <div class="bg-white bg-opacity-10 rounded-3 w-100" style="height:80px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 order-lg-1">
+                    <h3 class="fw-bold mb-4">Mạng Xã Hội Thu Nhỏ</h3>
+                    <div class="d-flex gap-4 mb-3">
+                        <div class="icon-box bg-primary bg-opacity-10 text-primary flex-shrink-0"
+                            style="width:40px;height:40px;font-size:1.2rem;margin-bottom:0"><i
+                                class="fa-solid fa-newspaper"></i></div>
+                        <div>
+                            <h5 class="fw-bold">Bảng Tin (New Feed)</h5>
+                            <p class="text-white-50 small">Nơi chia sẻ kiến thức, tài liệu học tập và các khoảnh khắc
+                                trường lớp. Hỗ trợ đăng ảnh, status và tương tác (Like, Comment).</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-4 mb-3">
+                        <div class="icon-box bg-success bg-opacity-10 text-success flex-shrink-0"
+                            style="width:40px;height:40px;font-size:1.2rem;margin-bottom:0"><i
+                                class="fa-solid fa-comment-dots"></i></div>
+                        <div>
+                            <h5 class="fw-bold">Chat 1:1 Realtime</h5>
+                            <p class="text-white-50 small">Nhắn tin trực tiếp với bạn bè, thầy cô. Hỗ trợ gửi tin nhắn
+                                nhanh, thông báo tin nhắn mới.</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-4 mb-3">
+                        <div class="icon-box bg-warning bg-opacity-10 text-warning flex-shrink-0"
+                            style="width:40px;height:40px;font-size:1.2rem;margin-bottom:0"><i
+                                class="fa-solid fa-user-circle"></i></div>
+                        <div>
+                            <h5 class="fw-bold">Hồ Sơ Cá Nhân</h5>
+                            <p class="text-white-50 small">Trang cá nhân thể hiện cá tính, thống kê bài viết và lượt
+                                thích. Tích hợp huy hiệu vai trò (Học sinh, Giáo viên...).</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-4">
+                        <div class="icon-box bg-danger bg-opacity-10 text-danger flex-shrink-0"
+                            style="width:40px;height:40px;font-size:1.2rem;margin-bottom:0"><i
+                                class="fa-solid fa-photo-film"></i></div>
+                        <div>
+                            <h5 class="fw-bold">Stories & Reactions</h5>
+                            <p class="text-white-50 small">Chia sẻ khoảnh khắc ngắn (Stories) và thả cảm xúc đa dạng cho
+                                bài viết (Like, Love, Haha...).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Teacher & Management -->
+        <div class="mb-5">
+            <div class="text-center section-title">
+                <h2 class="fw-bold">Tiện Ích Quản Lý & Giảng Dạy</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="glass-card text-center">
+                        <div class="icon-box mx-auto bg-primary bg-opacity-10 text-primary rounded-circle"><i
+                                class="fa-solid fa-file-word"></i></div>
+                        <h5 class="fw-bold">Soạn Giáo Án Tự Động</h5>
+                        <p class="text-white-50 small">Tạo giáo án chuẩn theo công văn bộ giáo dục chỉ với 1 click. Xuất
+                            file Word/PowerPoint.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-card text-center">
+                        <div class="icon-box mx-auto bg-danger bg-opacity-10 text-danger rounded-circle"><i
+                                class="fa-solid fa-check-double"></i></div>
+                        <h5 class="fw-bold">Chấm Thi Camera</h5>
+                        <p class="text-white-50 small">Quét phiếu trả lời trắc nghiệm bằng Camera điện thoại. Tự động
+                            chấm điểm và vào sổ điểm.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-card text-center">
+                        <div class="icon-box mx-auto bg-success bg-opacity-10 text-success rounded-circle"><i
+                                class="fa-solid fa-address-book"></i></div>
+                        <h5 class="fw-bold">Sổ Liên Lạc 4.0</h5>
+                        <p class="text-white-50 small">Thông báo điểm số, chuyên cần tự động qua Zalo/SMS cho phụ huynh.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="text-center py-4 border-top border-white border-opacity-10 text-white-50 small">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 E-School AI Ecosystem. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+
+</html>

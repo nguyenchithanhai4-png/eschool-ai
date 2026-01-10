@@ -1,0 +1,7 @@
+# Dataset config for YOLOv8 bubble detection
+path: C:\Users\nguye\Desktop\ChamThiTuDong\bubble_dataset
+train: images/train
+val: images/train
+
+names:
+  0: filled_bubble

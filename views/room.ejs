@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng Học Online - E-School AI</title>
+
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Room Styles -->
+    <link rel="stylesheet" href="/css/room.css">
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="room-info">
+            <span class="room-title">E-School AI Meeting</span>
+            <span class="room-id" id="roomId" onclick="copyRoomId()">
+                <%= roomId %>
+            </span>
+        </div>
+        <div class="room-timer" id="roomTimer">00:00:00</div>
+    </div>
+
+    <!-- Main Video Grid -->
+    <div class="video-grid" id="videoGrid">
+        <!-- Videos will be added here dynamically -->
+    </div>
+
+    <!-- Control Bar -->
+    <div class="control-bar">
+        <button class="control-btn" id="muteBtn" onclick="toggleMute()">
+            <span class="material-icons" id="muteIcon">mic</span>
+            <span class="btn-label">Mic</span>
+        </button>
+
+        <button class="control-btn" id="cameraBtn" onclick="toggleCamera()">
+            <span class="material-icons" id="cameraIcon">videocam</span>
+            <span class="btn-label">Camera</span>
+        </button>
+
+        <button class="control-btn leave-btn" onclick="leaveRoom()">
+            <span class="material-icons">call_end</span>
+            <span class="btn-label">Rời phòng</span>
+        </button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Hidden Room ID for JS -->
+    <script>
+        const ROOM_ID = "<%= roomId %>";
+    </script>
+
+    <!-- PeerJS Client (from CDN) -->
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+
+    <!-- Socket.IO Client -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- Room Logic -->
+    <script src="/js/room.js"></script>
+</body>
+
+</html>

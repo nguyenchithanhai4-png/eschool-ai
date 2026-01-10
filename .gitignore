@@ -1,0 +1,78 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Environment variables (IMPORTANT: contains secrets!)
+.env
+.env.local
+.env.*.local
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build outputs
+dist/
+build/
+
+# Test files
+test/
+tests/
+
+# Archive and backups
+_archive/
+*.bak
+
+# Hugging Face project (separate)
+huggingface-omr/
+
+# Large test images
+ChamThiTuDong/ảnh bài thi/
+
+# Python utility scripts (not needed in production)
+fix_*.py
+delete_*.py
+upgrade_*.py
+
+# Log files
+*.log
+logs/
+
+# Tunneling & Deployment Binaries
+tool.exe
+ngrok.exe
+ngrok.zip
+temp_tool.exe
+start_cloudflare_tunnel.bat
+start_ai_tunnel.bat
+setup_ngrok_static.bat
+
+# AI Models & Heavy Binaries
+AI/
+*.gguf
+*.dll
+*.exe
+public/downloads/*.apk
+public/uploads/*
+!public/uploads/.gitkeep
+start_cloudflare_tunnel.bat
+start_ai_tunnel.bat
+setup_ngrok_static.bat
+

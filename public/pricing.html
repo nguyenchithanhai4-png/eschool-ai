@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Giá - E-School AI Ecosystem</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- TEMPORARILY HIDDEN: Pricing page disabled - redirect to home -->
+    <script>
+        // Trang bảng giá tạm thời ẩn - chuyển về trang chủ
+        window.location.href = '/';
+    </script>
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --accent: #06b6d4;
+            --bg-dark: #0f0c29;
+            --text-light: #f8fafc;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-light: rgba(255, 255, 255, 0.15);
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        .bg-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, #0f0c29 0%, #050510 100%);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: orbFloat 20s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--primary);
+            top: -10%;
+            left: -10%;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--secondary);
+            bottom: -10%;
+            right: -10%;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            top: 40%;
+            right: 10%;
+            opacity: 0.3;
+        }
+
+        @keyframes orbFloat {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(50px, 70px);
+            }
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background: rgba(15, 12, 41, 0.8) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7) !important;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white !important;
+        }
+
+        /* Pricing Card */
+        .price-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            transition: 0.3s;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .price-card.popular {
+            background: linear-gradient(145deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* Toggle Switch */
+        .pricing-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 5px;
+            border-radius: 50px;
+            display: inline-flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .toggle-btn {
+            padding: 10px 30px;
+            border-radius: 50px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .toggle-btn.active {
+            background: white;
+            color: var(--bg-dark);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-auth-glow {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: 0.3s;
+            border: none;
+            display: block;
+        }
+
+        .btn-auth-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+            color: white;
+        }
+
+        .btn-auth-glass {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: 0.3s;
+            display: block;
+        }
+
+        .btn-auth-glass:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            margin-bottom: 10px;
+            border-radius: 12px;
+        }
+
+        .faq-button {
+            width: 100%;
+            text-align: left;
+            padding: 15px 20px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-body {
+            padding: 0 20px 15px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .faq-item.active .faq-body {
+            display: block;
+        }
+
+        .faq-item.active .faq-button i {
+            transform: rotate(180deg);
+        }
+
+        .hero-section {
+            padding: 100px 0 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-fixed">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <a class="brand-logo" href="/"><i class="fa-solid fa-atom me-2"></i>E-School AI</a>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-3">
+                    <li class="nav-item"><a class="nav-link" href="/">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="features.html">Tính năng</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Bảng giá</a></li>
+                </ul>
+                <div class="ms-lg-4 mt-3 mt-lg-0">
+                    <a href="login.html" class="btn btn-primary rounded-pill px-4 fw-bold shadow-lg">Đăng Nhập / Đăng
+                        Ký</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">Đầu Tư Cho Tương Lai<br><span style="color: var(--primary)">Chi Phí Hợp
+                    Lý</span></h1>
+            <p class="lead text-white-50 mx-auto" style="max-width: 600px;">
+                Chọn gói dịch vụ phù hợp nhất với nhu cầu học tập và giảng dạy của bạn. Cam kết không phát sinh chi phí
+                ẩn.
+            </p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="container pb-5">
+        <!-- Toggle Switch -->
+        <div class="d-flex justify-content-center">
+            <div class="pricing-toggle" data-aos="fade-up">
+                <button id="btn-student" class="toggle-btn active" onclick="switchPricing('student')">Cho Học
+                    Sinh</button>
+                <button id="btn-teacher" class="toggle-btn" onclick="switchPricing('teacher')">Cho Giáo Viên</button>
+            </div>
+        </div>
+
+        <!-- Student Pricing Table -->
+        <div id="student-pricing" class="row g-4 justify-content-center">
+            <!-- Free -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="price-card h-100">
+                    <h5 class="text-white-50 fw-bold">Học Sinh FREE</h5>
+                    <div class="d-flex align-items-baseline gap-2 my-3">
+                        <h2 class="display-4 fw-bold text-white">0đ</h2>
+                    </div>
+                    <p class="text-white-50 mb-4 small">Trải nghiệm tính năng cơ bản</p>
+                    <hr class="border-white border-opacity-10 my-4">
+                    <ul class="list-unstyled text-start text-white-50 small d-flex flex-column gap-3 mb-5 flex-grow-1">
+                        <li><i class="fa-solid fa-check text-success me-2"></i> 5 câu hỏi AI/ngày</li>
+                        <li><i class="fa-solid fa-check text-success me-2"></i> Máy tính khoa học PhotoMath (5
+                            lượt/ngày)</li>
+                        <li><i class="fa-solid fa-check text-success me-2"></i> Truy cập thư viện (Cơ bản)</li>
+                        <li><i class="fa-solid fa-check text-success me-2"></i> Tham gia mạng xã hội E-School Hub</li>
+                        <li class="text-white-25"><i class="fa-solid fa-xmark me-2"></i> Không có English Coach</li>
+                        <li class="text-white-25"><i class="fa-solid fa-xmark me-2"></i> Không có Báo cáo chuyên sâu
+                        </li>
+                    </ul>
+                    <a href="login.html?register=true" class="btn-auth-glass">Đăng Ký Free</a>
+                </div>
+            </div>
+            <!-- Plus (Popular) -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="price-card popular h-100">
+                    <div class="badge-popular"><i class="fa-solid fa-crown me-1"></i>Phổ biến nhất</div>
+                    <h5 class="text-primary fw-bold">Học Sinh PLUS</h5>
+                    <div class="d-flex align-items-baseline gap-2 my-3">
+                        <h2 class="display-4 fw-bold text-white">99K</h2>
+                        <span class="text-white-50">/tháng</span>
+                    </div>
+                    <p class="text-white-50 mb-4 small">Bứt phá điểm số toàn diện</p>
+                    <hr class="border-white border-opacity-10 my-4">
+                    <ul class="list-unstyled text-start text-white small d-flex flex-column gap-3 mb-5 flex-grow-1">
+                        <li><i class="fa-solid fa-check text-primary me-2"></i> <strong>Không giới hạn</strong> hỏi đáp
+                            AI</li>
+                        <li><i class="fa-solid fa-check text-primary me-2"></i> PhotoMath & Giải Toán cao cấp
+                            (Unlimited)</li>
+                        <li><i class="fa-solid fa-check text-primary me-2"></i> Trợ lý Văn học & Hướng nghiệp</li>
+                        <li><i class="fa-solid fa-check text-primary me-2"></i> Luyện đề trắc nghiệm VIP</li>
+                        <li><i class="fa-solid fa-check text-primary me-2"></i> Chặn quảng cáo 100%</li>
+                    </ul>
+                    <a href="login.html?register=true" class="btn-auth-glow">Đăng Ký Ngay</a>
+                </div>
+            </div>
+            <!-- Premium -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="price-card h-100">
+                    <h5 class="text-warning fw-bold">Học Sinh PREMIUM</h5>
+                    <div class="d-flex align-items-baseline gap-2 my-3">
+                        <h2 class="display-4 fw-bold text-white">199K</h2>
+                        <span class="text-white-50">/tháng</span>
+                    </div>
+                    <p class="text-white-50 mb-4 small">Đặc quyền VIP cao cấp nhất</p>
+                    <hr class="border-white border-opacity-10 my-4">
+                    <ul class="list-unstyled text-start text-white-50 small d-flex flex-column gap-3 mb-5 flex-grow-1">
+                        <li><i class="fa-solid fa-check text-warning me-2"></i> <strong>Tất cả</strong> quyền lợi gói
+                            Plus</li>
+                        <li><i class="fa-solid fa-check text-warning me-2"></i> English Coach 1:1 (Luyện nói Realtime)
+                        </li>
+                        <li><i class="fa-solid fa-check text-warning me-2"></i> Gia sư Người thật 1 kèm 1 (Video Call -
+                            2h/tuần)</li>
+                        <li><i class="fa-solid fa-check text-warning me-2"></i> Báo cáo học tập & phân tích điểm yếu
+                            chuyên sâu</li>
+                        <li><i class="fa-solid fa-check text-warning me-2"></i> Vé tham dự Workshop hướng nghiệp Online
+                        </li>
+                    </ul>
+                    <a href="login.html?register=true"
+                        class="btn btn-outline-light fw-bold w-100 py-3 rounded-3 mt-auto text-warning border-warning">Nâng
+                        Cấp VIP</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teacher Pricing Table (Hidden) -->
+        <div id="teacher-pricing" class="row g-4 justify-content-center d-none">
+            <!-- Basic -->
+            <div class="col-lg-4 col-md-6">
+                <div class="price-card h-100">
+                    <h5 class="text-white-50 fw-bold">Giáo Viên BASIC</h5>
+                    <div class="d-flex align-items-baseline gap-2 my-3">
+                        <h2 class="display-4 fw-bold text-white">0đ</h2>
+                    </div>
+                    <p class="text-white-50 mb-4 small">Công cụ hỗ trợ giảng dạy cơ bản</p>
+                    <hr class="border-white border-opacity-10 my-4">
+                    <ul class="list-unstyled text-start text-white-50 small d-flex flex-column gap-3 mb-5 flex-grow-1">
+                        <li><i class="fa-solid fa-check text-success me-2"></i> Tạo 5 đề thi/tháng</li>
+                        <li><i class="fa-solid fa-check text-success me-2"></i> Kho tài liệu chung</li>
+                        <li><i class="fa-solid fa-check text-success me-2"></i> Quản lý 1 lớp học (tối đa 40 HS)</li>
+                        <li class="text-white-25"><i class="fa-solid fa-xmark me-2"></i> Không có Soạn giáo án AI</li>
+                    </ul>
+                    <a href="login.html?register=true" class="btn-auth-glass">Đăng Ký Free</a>
+                </div>
+            </div>
+            <!-- Pro -->
+            <div class="col-lg-4 col-md-6">
+                <div class="price-card popular h-100">
+                    <div class="badge-popular"><i class="fa-solid fa-star me-1"></i>Khuyên dùng</div>
+                    <h5 class="text-secondary fw-bold">Giáo Viên PRO</h5>
+                    <div class="d-flex align-items-baseline gap-2 my-3">
+                        <h2 class="display-4 fw-bold text-white">299K</h2>
+                        <span class="text-white-50">/tháng</span>
+                    </div>
+                    <p class="text-white-50 mb-4 small">Tự động hóa công việc giảng dạy</p>
+                    <hr class="border-white border-opacity-10 my-4">
+                    <ul class="list-unstyled text-start text-white small d-flex flex-column gap-3 mb-5 flex-grow-1">
+                        <li><i class="fa-solid fa-check text-secondary me-2"></i> Soạn Giáo Án Tự Động (Word/PPT)</li>
+                        <li><i class="fa-solid fa-check text-secondary me-2"></i> Chấm thi Camera (Không giới hạn)</li>
+                        <li><i class="fa-solid fa-check text-secondary me-2"></i> Quản lý 10 lớp học</li>
+                        <li><i class="fa-solid fa-check text-secondary me-2"></i> Sổ liên lạc điện tử tự động</li>
+                        <li><i class="fa-solid fa-check text-secondary me-2"></i> Phân tích phổ điểm lớp học</li>
+                    </ul>
+                    <a href="login.html?register=true" class="btn-auth-glow">Đăng Ký Ngay</a>
+                </div>
+            </div>
+            <!-- School -->
+            <div class="col-lg-4 col-md-6">
+                <div class="price-card h-100">
+                    <h5 class="text-info fw-bold">Trường Học / Tổ Chức</h5>
+                    <div class="d-flex align-items-baseline gap-2 my-3">
+                        <h2 class="display-4 fw-bold text-white">Liên Hệ</h2>
+                    </div>
+                    <p class="text-white-50 mb-4 small">Giải pháp chuyển đổi số toàn diện</p>
+                    <hr class="border-white border-opacity-10 my-4">
+                    <ul class="list-unstyled text-start text-white-50 small d-flex flex-column gap-3 mb-5 flex-grow-1">
+                        <li><i class="fa-solid fa-check text-info me-2"></i> Tài khoản quản trị cấp trường (Admin)</li>
+                        <li><i class="fa-solid fa-check text-info me-2"></i> Tên miền riêng (eschool.tentruong.edu.vn)
+                        </li>
+                        <li><i class="fa-solid fa-check text-info me-2"></i> Tích hợp CSDL ngành</li>
+                        <li><i class="fa-solid fa-check text-info me-2"></i> Đào tạo & Hỗ trợ kỹ thuật 24/7</li>
+                    </ul>
+                    <a href="#"
+                        class="btn btn-outline-light fw-bold w-100 py-3 rounded-3 mt-auto text-info border-info">Liên Hệ
+                        Báo Giá</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="container pb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="text-center mb-5">
+                    <h3 class="fw-bold">So Sánh Tính Năng Chi Tiết</h3>
+                </div>
+
+                <div class="table-responsive rounded-4 border border-white border-opacity-10"
+                    style="background: rgba(255,255,255,0.02); backdrop-filter: blur(10px);">
+                    <table class="table text-white mb-0" style="--bs-table-bg: transparent; --bs-table-color: white;">
+                        <thead>
+                            <tr class="border-bottom border-white border-opacity-10">
+                                <th scope="col" class="p-4 bg-transparent border-0" style="width: 40%;">Tính Năng</th>
+                                <th scope="col" class="p-4 text-center bg-transparent border-0" style="width: 20%;">Free
+                                </th>
+                                <th scope="col" class="p-4 text-center bg-transparent border-0 text-primary"
+                                    style="width: 20%;">Plus</th>
+                                <th scope="col" class="p-4 text-center bg-transparent border-0 text-warning"
+                                    style="width: 20%;">Premium</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- AI Learning -->
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td colspan="4" class="p-3 px-4 fw-bold text-white-50 small text-uppercase ls-1">Học Tập
+                                    AI</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border-white border-opacity-10">Hỏi đáp với AI Tutor</td>
+                                <td class="p-4 text-center border-white border-opacity-10">5 câu/ngày</td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-infinity text-primary"></i></td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-infinity text-warning"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border-white border-opacity-10">PhotoMath (Giải toán qua ảnh)</td>
+                                <td class="p-4 text-center border-white border-opacity-10">5 lượt/ngày</td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-check text-success"></i></td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-check text-success"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border-white border-opacity-10">Viết luận & Kiểm tra đạo văn</td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-minus text-white-25"></i></td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-check text-success"></i></td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-check text-success"></i></td>
+                            </tr>
+
+                            <!-- Social & Support -->
+                            <tr style="background: rgba(255,255,255,0.05);">
+                                <td colspan="4" class="p-3 px-4 fw-bold text-white-50 small text-uppercase ls-1">Tiện
+                                    Ích & Hỗ Trợ</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border-white border-opacity-10">Mạng xã hội E-School Hub</td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-check text-success"></i></td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-check text-success"></i></td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-check text-success"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border-white border-opacity-10">Chặn quảng cáo</td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-minus text-white-25"></i></td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-check text-success"></i></td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-check text-success"></i></td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border-white border-opacity-10">Gia sư 1 kèm 1 (Video Call)</td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-minus text-white-25"></i></td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-minus text-white-25"></i></td>
+                                <td class="p-4 text-center border-white border-opacity-10">2h / tuần</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 border-white border-opacity-10">English Coach (Luyện nói)</td>
+                                <td class="p-4 text-center border-white border-opacity-10"><i
+                                        class="fa-solid fa-minus text-white-25"></i></td>
+                                <td class="p-4 text-center border-white border-opacity-10">Cơ bản</td>
+                                <td class="p-4 text-center border-white border-opacity-10">Nâng cao (Realtime)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="container pb-5 mb-5" style="max-width: 800px;">
+        <h3 class="text-center fw-bold mb-4">Câu Hỏi Thường Gặp</h3>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-button" onclick="toggleFaq(this)">
+                    Tôi có thể hủy gói bất cứ lúc nào không?
+                    <i class="fa-solid fa-chevron-down transition-transform"></i>
+                </button>
+                <div class="faq-body">
+                    Hoàn toàn có thể. Bạn có thể hủy gia hạn tự động bất kỳ lúc nào trong phần cài đặt tài khoản. Gói
+                    cước của bạn sẽ duy trì đến hết chu kỳ hiện tại.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-button" onclick="toggleFaq(this)">
+                    Gói Plus và Premium khác gì nhau?
+                    <i class="fa-solid fa-chevron-down transition-transform"></i>
+                </button>
+                <div class="faq-body">
+                    Gói Premium bao gồm mọi tính năng của gói Plus, nhưng bổ sung các tính năng cao cấp cần người thật
+                    hỗ trợ như Gia sư 1:1, Chấm điểm bài viết luận chi tiết và Luyện nói tiếng Anh nâng cao.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-button" onclick="toggleFaq(this)">
+                    Thanh toán qua hình thức nào?
+                    <i class="fa-solid fa-chevron-down transition-transform"></i>
+                </button>
+                <div class="faq-body">
+                    Chúng tôi hỗ trợ thanh toán qua Thẻ ngân hàng (ATM/Visa/Mastercard), Ví MoMo, ZaloPay và chuyển
+                    khoản ngân hàng trực tiếp.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center py-4 border-top border-white border-opacity-10 text-white-50 small">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 E-School AI Ecosystem. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        function switchPricing(type) {
+            const btnStudent = document.getElementById('btn-student');
+            const btnTeacher = document.getElementById('btn-teacher');
+            const studentTable = document.getElementById('student-pricing');
+            const teacherTable = document.getElementById('teacher-pricing');
+
+            if (type === 'student') {
+                btnStudent.classList.add('active');
+                btnTeacher.classList.remove('active');
+                studentTable.classList.remove('d-none');
+                teacherTable.classList.add('d-none');
+                studentTable.classList.add('fade-in');
+            } else {
+                btnTeacher.classList.add('active');
+                btnStudent.classList.remove('active');
+                teacherTable.classList.remove('d-none');
+                studentTable.classList.add('d-none');
+                teacherTable.classList.add('fade-in');
+            }
+        }
+
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            item.classList.toggle('active');
+        }
+    </script>
+    <style>
+        .transition-transform {
+            transition: transform 0.3s;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</body>
+
+</html>

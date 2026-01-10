@@ -1,0 +1,59 @@
+{
+    "teachers": [
+        {
+            "username": "giaovien1",
+            "fullname": "Trần Thị Bích",
+            "subject": "Ngữ Văn",
+            "stats": {
+                "students_count": 45,
+                "class_name": "12A1",
+                "lesson_plans": 12,
+                "exams_ready": 8,
+                "grading_pending": 3
+            },
+            "activities": [
+                {
+                    "type": "lesson",
+                    "title": "Soạn giáo án 'Vợ Chồng A Phủ'",
+                    "time": "2 giờ trước",
+                    "icon": "fa-wand-magic-sparkles",
+                    "color": "primary"
+                },
+                {
+                    "type": "exam",
+                    "title": "Tạo đề thi: Toán 12 - Chương 1",
+                    "time": "Hôm qua",
+                    "icon": "fa-file-import",
+                    "color": "info"
+                },
+                {
+                    "type": "grading",
+                    "title": "Chấm bài 15 phút - Lớp 10A2",
+                    "time": "Hôm kia",
+                    "icon": "fa-check-double",
+                    "color": "danger"
+                }
+            ],
+            "tasks": [
+                {
+                    "time": "08:00",
+                    "title": "Dạy lớp 12A1",
+                    "subtitle": "Tiết 1-2: Ngữ Văn",
+                    "color": "primary"
+                },
+                {
+                    "time": "14:00",
+                    "title": "Họp tổ chuyên môn",
+                    "subtitle": "Phòng Hội Đồng",
+                    "color": "warning"
+                },
+                {
+                    "time": "16:30",
+                    "title": "Bồi dưỡng học sinh giỏi",
+                    "subtitle": "Phòng 305",
+                    "color": "info"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: eschool-ai
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: LOCAL_AI_ENDPOINT
+        sync: false
+        description: "Public Static URL of your local AI (Ngrok domain)"
+      - key: MONGODB_URI
+        sync: false
+        description: "Your MongoDB Atlas connection string"
+      - key: GEMINI_KEYS
+        sync: false
+        description: "Optional Google Gemini API Keys"

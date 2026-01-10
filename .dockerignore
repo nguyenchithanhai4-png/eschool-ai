@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local development
+.env.local
+.env.development
+
+# Test files
+test/
+tests/
+*.test.js
+
+# Archive
+_archive/
+
+# Hugging Face (separate project)
+huggingface-omr/
+
+# Git
+.git/
+.gitignore
+
+# Docs
+*.md
+!README.md
+
+# Large test images (not needed in production)
+ChamThiTuDong/ảnh bài thi/

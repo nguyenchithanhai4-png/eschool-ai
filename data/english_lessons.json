@@ -1,0 +1,802 @@
+[
+    {
+        "id": 1,
+        "cat": "Giao tiếp",
+        "level": "Easy",
+        "title": "Chào hỏi cơ bản",
+        "desc": "Học cách chào hỏi trong tiếng Anh hàng ngày",
+        "prompt": "Hello! I'm your English partner. Let's practice greetings! How would you say hello to a new friend?"
+    },
+    {
+        "id": 2,
+        "cat": "Giao tiếp",
+        "level": "Easy",
+        "title": "Giới thiệu bản thân",
+        "desc": "Tự giới thiệu tên, tuổi, nghề nghiệp",
+        "prompt": "Hi there! Let's practice introducing ourselves. Please tell me about yourself in English - your name, age, and what you do."
+    },
+    {
+        "id": 3,
+        "cat": "Giao tiếp",
+        "level": "Easy",
+        "title": "Hỏi thăm sức khỏe",
+        "desc": "How are you? và các biến thể",
+        "prompt": "Hey! Let's talk about asking how someone is doing. How would you ask me about my day?"
+    },
+    {
+        "id": 4,
+        "cat": "Giao tiếp",
+        "level": "Easy",
+        "title": "Cảm ơn và xin lỗi",
+        "desc": "Thank you, Sorry và các cách nói lịch sự",
+        "prompt": "Being polite is important! Let's practice saying thank you and sorry. Can you thank me for helping you?"
+    },
+    {
+        "id": 5,
+        "cat": "Giao tiếp",
+        "level": "Medium",
+        "title": "Hỏi đường",
+        "desc": "Chỉ đường và hỏi đường trong thành phố",
+        "prompt": "Excuse me, I'm lost! Can you help me? Let's practice asking for and giving directions."
+    },
+    {
+        "id": 6,
+        "cat": "Giao tiếp",
+        "level": "Medium",
+        "title": "Mua sắm cơ bản",
+        "desc": "Hỏi giá, trả giá, thanh toán",
+        "prompt": "Welcome to my shop! How can I help you today? Let's practice shopping conversations."
+    },
+    {
+        "id": 7,
+        "cat": "Giao tiếp",
+        "level": "Medium",
+        "title": "Gọi điện thoại",
+        "desc": "Nghe máy, để lại tin nhắn",
+        "prompt": "*Ring ring!* Hello, this is ABC Company. Let's practice phone conversations!"
+    },
+    {
+        "id": 8,
+        "cat": "Giao tiếp",
+        "level": "Medium",
+        "title": "Đặt lịch hẹn",
+        "desc": "Hẹn gặp, thay đổi lịch",
+        "prompt": "I'd like to schedule an appointment. Let's practice making and changing appointments."
+    },
+    {
+        "id": 9,
+        "cat": "Giao tiếp",
+        "level": "Hard",
+        "title": "Thương lượng",
+        "desc": "Đàm phán trong mua bán và công việc",
+        "prompt": "Let's practice negotiation skills. I'm selling this item for $100. Can you negotiate?"
+    },
+    {
+        "id": 10,
+        "cat": "Giao tiếp",
+        "level": "Hard",
+        "title": "Giải quyết khiếu nại",
+        "desc": "Phàn nàn và xử lý vấn đề",
+        "prompt": "I'm sorry, but there's a problem with my order. Let's practice handling complaints professionally."
+    },
+    {
+        "id": 11,
+        "cat": "Du lịch",
+        "level": "Easy",
+        "title": "Đặt phòng khách sạn",
+        "desc": "Check-in, check-out, yêu cầu dịch vụ",
+        "prompt": "Good evening! Welcome to Grand Hotel. Do you have a reservation? Let's practice hotel check-in!"
+    },
+    {
+        "id": 12,
+        "cat": "Du lịch",
+        "level": "Easy",
+        "title": "Tại sân bay",
+        "desc": "Làm thủ tục, hải quan, cổng bay",
+        "prompt": "Welcome to the airport! Let's practice airport English. Where are you flying to today?"
+    },
+    {
+        "id": 13,
+        "cat": "Du lịch",
+        "level": "Easy",
+        "title": "Gọi taxi/Grab",
+        "desc": "Đặt xe, nói địa điểm, thanh toán",
+        "prompt": "Hi, I need a ride! Let's practice calling a taxi and giving directions."
+    },
+    {
+        "id": 14,
+        "cat": "Du lịch",
+        "level": "Medium",
+        "title": "Tham quan địa điểm",
+        "desc": "Mua vé, hỏi thông tin, chụp ảnh",
+        "prompt": "Welcome to the famous museum! Let's practice tourist conversations. What would you like to see?"
+    },
+    {
+        "id": 15,
+        "cat": "Du lịch",
+        "level": "Medium",
+        "title": "Nhà hàng nước ngoài",
+        "desc": "Đọc menu, gọi món, thanh toán",
+        "prompt": "Good evening! Here's our menu. Are you ready to order? Let's practice restaurant English!"
+    },
+    {
+        "id": 16,
+        "cat": "Du lịch",
+        "level": "Medium",
+        "title": "Mua quà lưu niệm",
+        "desc": "Hỏi giá, mặc cả, chọn quà",
+        "prompt": "Looking for souvenirs? Let's practice shopping for gifts in English!"
+    },
+    {
+        "id": 17,
+        "cat": "Du lịch",
+        "level": "Hard",
+        "title": "Xử lý sự cố du lịch",
+        "desc": "Mất đồ, lỡ chuyến bay, khẩn cấp",
+        "prompt": "Oh no! I've lost my passport! Let's practice handling travel emergencies."
+    },
+    {
+        "id": 18,
+        "cat": "Du lịch",
+        "level": "Hard",
+        "title": "Du lịch y tế",
+        "desc": "Khám bệnh ở nước ngoài",
+        "prompt": "I don't feel well. Can you help me? Let's practice medical conversations while traveling."
+    },
+    {
+        "id": 19,
+        "cat": "Công việc",
+        "level": "Easy",
+        "title": "Giới thiệu đồng nghiệp",
+        "desc": "Introduce your team members",
+        "prompt": "Let me introduce you to my colleagues. Let's practice workplace introductions!"
+    },
+    {
+        "id": 20,
+        "cat": "Công việc",
+        "level": "Easy",
+        "title": "Email công việc cơ bản",
+        "desc": "Viết email chuyên nghiệp",
+        "prompt": "Let's practice writing professional emails. What kind of email do you need to write?"
+    },
+    {
+        "id": 21,
+        "cat": "Công việc",
+        "level": "Medium",
+        "title": "Họp online",
+        "desc": "Tham gia cuộc họp video call",
+        "prompt": "Can everyone hear me? Let's practice online meeting phrases and expressions!"
+    },
+    {
+        "id": 22,
+        "cat": "Công việc",
+        "level": "Medium",
+        "title": "Thuyết trình công việc",
+        "desc": "Present your ideas clearly",
+        "prompt": "Today I'd like to present... Let's practice giving presentations in English!"
+    },
+    {
+        "id": 23,
+        "cat": "Công việc",
+        "level": "Medium",
+        "title": "Phỏng vấn xin việc",
+        "desc": "Trả lời câu hỏi phỏng vấn",
+        "prompt": "Tell me about yourself! Let's practice common job interview questions."
+    },
+    {
+        "id": 24,
+        "cat": "Công việc",
+        "level": "Hard",
+        "title": "Đàm phán lương",
+        "desc": "Negotiate your salary professionally",
+        "prompt": "We'd like to offer you the position. Let's discuss your salary expectations."
+    },
+    {
+        "id": 25,
+        "cat": "Công việc",
+        "level": "Hard",
+        "title": "Báo cáo dự án",
+        "desc": "Report on project progress",
+        "prompt": "Let's go over the project status. How's your work progressing?"
+    },
+    {
+        "id": 26,
+        "cat": "IELTS",
+        "level": "Medium",
+        "title": "Speaking Part 1 - Hometown",
+        "desc": "Talk about where you live",
+        "prompt": "Let's practice IELTS Speaking Part 1. Tell me about your hometown."
+    },
+    {
+        "id": 27,
+        "cat": "IELTS",
+        "level": "Medium",
+        "title": "Speaking Part 1 - Work/Study",
+        "desc": "Describe your job or studies",
+        "prompt": "Do you work or are you a student? Let's practice describing your occupation."
+    },
+    {
+        "id": 28,
+        "cat": "IELTS",
+        "level": "Medium",
+        "title": "Speaking Part 1 - Hobbies",
+        "desc": "Discuss your free time activities",
+        "prompt": "What do you like to do in your free time? Let's practice talking about hobbies."
+    },
+    {
+        "id": 29,
+        "cat": "IELTS",
+        "level": "Hard",
+        "title": "Speaking Part 2 - Describe a Person",
+        "desc": "2-minute monologue practice",
+        "prompt": "Describe a person who has influenced you. You have 1 minute to prepare."
+    },
+    {
+        "id": 30,
+        "cat": "IELTS",
+        "level": "Hard",
+        "title": "Speaking Part 2 - Describe a Place",
+        "desc": "Talk about a memorable location",
+        "prompt": "Describe a place you would like to visit. You have 1 minute to prepare."
+    },
+    {
+        "id": 31,
+        "cat": "IELTS",
+        "level": "Hard",
+        "title": "Speaking Part 3 - Technology",
+        "desc": "Discuss technology and society",
+        "prompt": "How has technology changed the way people communicate? Let's discuss."
+    },
+    {
+        "id": 32,
+        "cat": "IELTS",
+        "level": "Hard",
+        "title": "Speaking Part 3 - Environment",
+        "desc": "Environmental issues discussion",
+        "prompt": "What can individuals do to protect the environment? Share your thoughts."
+    },
+    {
+        "id": 33,
+        "cat": "TOEIC",
+        "level": "Easy",
+        "title": "Office Vocabulary",
+        "desc": "Common office words and phrases",
+        "prompt": "Let's learn office vocabulary! What do you call the place where you work?"
+    },
+    {
+        "id": 34,
+        "cat": "TOEIC",
+        "level": "Easy",
+        "title": "Business Meetings",
+        "desc": "Meeting terminology and phrases",
+        "prompt": "The meeting will start in 5 minutes. Let's practice meeting vocabulary!"
+    },
+    {
+        "id": 35,
+        "cat": "TOEIC",
+        "level": "Medium",
+        "title": "Business Correspondence",
+        "desc": "Formal letter and email writing",
+        "prompt": "Please find attached... Let's practice formal business writing!"
+    },
+    {
+        "id": 36,
+        "cat": "TOEIC",
+        "level": "Medium",
+        "title": "Phone Messages",
+        "desc": "Taking and leaving messages",
+        "prompt": "May I take a message? Let's practice professional phone communication."
+    },
+    {
+        "id": 37,
+        "cat": "TOEIC",
+        "level": "Hard",
+        "title": "Contract Discussion",
+        "desc": "Discussing terms and conditions",
+        "prompt": "Let's review the contract terms. What questions do you have?"
+    },
+    {
+        "id": 38,
+        "cat": "TOEIC",
+        "level": "Hard",
+        "title": "Company Presentation",
+        "desc": "Present your company in English",
+        "prompt": "Tell me about your company. What products or services do you offer?"
+    },
+    {
+        "id": 39,
+        "cat": "Học thuật",
+        "level": "Medium",
+        "title": "Classroom English",
+        "desc": "Common phrases in class",
+        "prompt": "Can you repeat that, please? Let's practice classroom language!"
+    },
+    {
+        "id": 40,
+        "cat": "Học thuật",
+        "level": "Medium",
+        "title": "Asking Questions in Class",
+        "desc": "How to ask the teacher",
+        "prompt": "I have a question about... Let's practice asking questions politely."
+    },
+    {
+        "id": 41,
+        "cat": "Học thuật",
+        "level": "Hard",
+        "title": "Academic Discussion",
+        "desc": "Debate and discuss ideas",
+        "prompt": "I agree with your point, however... Let's practice academic discussion skills."
+    },
+    {
+        "id": 42,
+        "cat": "Học thuật",
+        "level": "Hard",
+        "title": "Research Presentation",
+        "desc": "Present your research findings",
+        "prompt": "My research focuses on... Let's practice presenting academic work."
+    },
+    {
+        "id": 43,
+        "cat": "Giao tiếp",
+        "level": "Easy",
+        "title": "Thời tiết",
+        "desc": "Nói về thời tiết hàng ngày",
+        "prompt": "Nice weather today, isn't it? Let's practice talking about the weather!"
+    },
+    {
+        "id": 44,
+        "cat": "Giao tiếp",
+        "level": "Easy",
+        "title": "Gia đình",
+        "desc": "Giới thiệu gia đình của bạn",
+        "prompt": "Tell me about your family! How many people are in your family?"
+    },
+    {
+        "id": 45,
+        "cat": "Giao tiếp",
+        "level": "Easy",
+        "title": "Sở thích",
+        "desc": "Chia sẻ những gì bạn thích",
+        "prompt": "What do you enjoy doing on weekends? Let's talk about hobbies!"
+    },
+    {
+        "id": 46,
+        "cat": "Giao tiếp",
+        "level": "Medium",
+        "title": "Kế hoạch tương lai",
+        "desc": "Nói về dự định và mong muốn",
+        "prompt": "What are your plans for the future? Let's practice future tense!"
+    },
+    {
+        "id": 47,
+        "cat": "Giao tiếp",
+        "level": "Medium",
+        "title": "Kể chuyện quá khứ",
+        "desc": "Chia sẻ kỷ niệm và trải nghiệm",
+        "prompt": "Tell me about your last vacation! Let's practice past tense."
+    },
+    {
+        "id": 48,
+        "cat": "Giao tiếp",
+        "level": "Medium",
+        "title": "Đưa ra lời khuyên",
+        "desc": "Giving and asking for advice",
+        "prompt": "I have a problem... Can you give me some advice?"
+    },
+    {
+        "id": 49,
+        "cat": "Giao tiếp",
+        "level": "Hard",
+        "title": "Tranh luận",
+        "desc": "Express and defend opinions",
+        "prompt": "Do you think social media is good or bad? Let's debate!"
+    },
+    {
+        "id": 50,
+        "cat": "Giao tiếp",
+        "level": "Hard",
+        "title": "Nói về tin tức",
+        "desc": "Discuss current events",
+        "prompt": "Did you hear about the news? Let's discuss current events!"
+    },
+    {
+        "id": 51,
+        "cat": "Du lịch",
+        "level": "Easy",
+        "title": "Đổi tiền",
+        "desc": "Currency exchange conversations",
+        "prompt": "I'd like to exchange some money. Let's practice money-related vocabulary!"
+    },
+    {
+        "id": 52,
+        "cat": "Du lịch",
+        "level": "Easy",
+        "title": "Hỏi về wifi",
+        "desc": "Connecting to internet abroad",
+        "prompt": "Do you have wifi here? Let's practice tech-related travel phrases!"
+    },
+    {
+        "id": 53,
+        "cat": "Du lịch",
+        "level": "Medium",
+        "title": "Thuê xe",
+        "desc": "Renting a car or motorbike",
+        "prompt": "I'd like to rent a car. What documents do I need?"
+    },
+    {
+        "id": 54,
+        "cat": "Du lịch",
+        "level": "Medium",
+        "title": "Mua vé tàu/bus",
+        "desc": "Public transportation abroad",
+        "prompt": "One ticket to London, please. Let's practice buying transportation tickets!"
+    },
+    {
+        "id": 55,
+        "cat": "Du lịch",
+        "level": "Hard",
+        "title": "Bảo hiểm du lịch",
+        "desc": "Discussing travel insurance",
+        "prompt": "I need to file an insurance claim. Let's practice insurance vocabulary."
+    },
+    {
+        "id": 56,
+        "cat": "Công việc",
+        "level": "Easy",
+        "title": "Nghỉ phép",
+        "desc": "Asking for leave",
+        "prompt": "I'd like to request some time off. Let's practice leave-related conversations!"
+    },
+    {
+        "id": 57,
+        "cat": "Công việc",
+        "level": "Easy",
+        "title": "Chỉ đường trong văn phòng",
+        "desc": "Navigating the office",
+        "prompt": "Where is the meeting room? Let's practice office directions!"
+    },
+    {
+        "id": 58,
+        "cat": "Công việc",
+        "level": "Medium",
+        "title": "Feedback công việc",
+        "desc": "Giving and receiving feedback",
+        "prompt": "Can I give you some feedback? Let's practice constructive criticism."
+    },
+    {
+        "id": 59,
+        "cat": "Công việc",
+        "level": "Medium",
+        "title": "Teamwork",
+        "desc": "Collaborating with colleagues",
+        "prompt": "Let's work together on this project. How should we divide the tasks?"
+    },
+    {
+        "id": 60,
+        "cat": "Công việc",
+        "level": "Hard",
+        "title": "Crisis Management",
+        "desc": "Handling work emergencies",
+        "prompt": "We have a problem! The deadline is tomorrow. What should we do?"
+    },
+    {
+        "id": 61,
+        "cat": "IELTS",
+        "level": "Medium",
+        "title": "Speaking Part 1 - Food",
+        "desc": "Discuss food preferences",
+        "prompt": "What kind of food do you like? Do you prefer cooking or eating out?"
+    },
+    {
+        "id": 62,
+        "cat": "IELTS",
+        "level": "Medium",
+        "title": "Speaking Part 1 - Transportation",
+        "desc": "Talk about how you travel",
+        "prompt": "How do you usually get to work or school? Let's discuss transportation."
+    },
+    {
+        "id": 63,
+        "cat": "IELTS",
+        "level": "Hard",
+        "title": "Speaking Part 2 - Event",
+        "desc": "Describe a memorable event",
+        "prompt": "Describe a special event you attended. You have 1 minute to prepare."
+    },
+    {
+        "id": 64,
+        "cat": "IELTS",
+        "level": "Hard",
+        "title": "Speaking Part 3 - Education",
+        "desc": "Discuss education systems",
+        "prompt": "How has education changed in your country? Let's discuss."
+    },
+    {
+        "id": 65,
+        "cat": "IELTS",
+        "level": "Hard",
+        "title": "Speaking Part 3 - Globalization",
+        "desc": "Discuss global issues",
+        "prompt": "What are the advantages and disadvantages of globalization?"
+    },
+    {
+        "id": 66,
+        "cat": "TOEIC",
+        "level": "Easy",
+        "title": "Company Structure",
+        "desc": "Describe company organization",
+        "prompt": "Who is your manager? Let's practice organizational vocabulary!"
+    },
+    {
+        "id": 67,
+        "cat": "TOEIC",
+        "level": "Medium",
+        "title": "Progress Reports",
+        "desc": "Report on work status",
+        "prompt": "How is the project going? Let's practice giving updates."
+    },
+    {
+        "id": 68,
+        "cat": "TOEIC",
+        "level": "Hard",
+        "title": "Budget Discussion",
+        "desc": "Discussing finances at work",
+        "prompt": "We need to review the budget. What are your cost projections?"
+    },
+    {
+        "id": 69,
+        "cat": "Học thuật",
+        "level": "Easy",
+        "title": "Library English",
+        "desc": "Finding books and resources",
+        "prompt": "I'm looking for a book about... Let's practice library vocabulary!"
+    },
+    {
+        "id": 70,
+        "cat": "Học thuật",
+        "level": "Medium",
+        "title": "Group Projects",
+        "desc": "Collaborating on assignments",
+        "prompt": "Who wants to be the group leader? Let's practice teamwork language!"
+    },
+    {
+        "id": 71,
+        "cat": "Giao tiếp",
+        "level": "Easy",
+        "title": "Số và ngày tháng",
+        "desc": "Numbers, dates, and times",
+        "prompt": "What's the date today? Let's practice numbers and dates!"
+    },
+    {
+        "id": 72,
+        "cat": "Giao tiếp",
+        "level": "Easy",
+        "title": "Màu sắc và hình dáng",
+        "desc": "Describing objects",
+        "prompt": "Can you describe this object? Let's practice colors and shapes!"
+    },
+    {
+        "id": 73,
+        "cat": "Giao tiếp",
+        "level": "Medium",
+        "title": "So sánh",
+        "desc": "Making comparisons",
+        "prompt": "Which one is better? Let's practice comparative and superlative adjectives!"
+    },
+    {
+        "id": 74,
+        "cat": "Giao tiếp",
+        "level": "Medium",
+        "title": "Diễn tả cảm xúc",
+        "desc": "Express feelings in English",
+        "prompt": "How are you feeling today? Let's practice emotion vocabulary!"
+    },
+    {
+        "id": 75,
+        "cat": "Giao tiếp",
+        "level": "Hard",
+        "title": "Idioms thông dụng",
+        "desc": "Common English idioms",
+        "prompt": "It's raining cats and dogs! Let's learn some popular idioms."
+    },
+    {
+        "id": 76,
+        "cat": "Du lịch",
+        "level": "Easy",
+        "title": "Đặt tour",
+        "desc": "Booking tours and activities",
+        "prompt": "I'd like to book a city tour. What options do you have?"
+    },
+    {
+        "id": 77,
+        "cat": "Du lịch",
+        "level": "Medium",
+        "title": "Review khách sạn",
+        "desc": "Leaving reviews and feedback",
+        "prompt": "How was your stay? Let's practice writing reviews!"
+    },
+    {
+        "id": 78,
+        "cat": "Du lịch",
+        "level": "Hard",
+        "title": "Văn hóa địa phương",
+        "desc": "Asking about local customs",
+        "prompt": "What should I know about local customs? Let's discuss cultural etiquette!"
+    },
+    {
+        "id": 79,
+        "cat": "Công việc",
+        "level": "Easy",
+        "title": "Giờ làm việc",
+        "desc": "Discussing work hours",
+        "prompt": "What time do you start work? Let's practice work schedule vocabulary!"
+    },
+    {
+        "id": 80,
+        "cat": "Công việc",
+        "level": "Medium",
+        "title": "Remote Work",
+        "desc": "Working from home discussions",
+        "prompt": "I'm working from home today. Let's practice remote work language!"
+    },
+    {
+        "id": 81,
+        "cat": "Công việc",
+        "level": "Hard",
+        "title": "Leadership",
+        "desc": "Leading a team in English",
+        "prompt": "As the team leader, I think we should... Let's practice leadership language!"
+    },
+    {
+        "id": 82,
+        "cat": "IELTS",
+        "level": "Medium",
+        "title": "Speaking Part 1 - Reading",
+        "desc": "Discuss reading habits",
+        "prompt": "Do you like reading? What kind of books do you enjoy?"
+    },
+    {
+        "id": 83,
+        "cat": "IELTS",
+        "level": "Hard",
+        "title": "Speaking Part 2 - Skill",
+        "desc": "Describe a skill you learned",
+        "prompt": "Describe a skill you learned that has helped you. You have 1 minute."
+    },
+    {
+        "id": 84,
+        "cat": "IELTS",
+        "level": "Hard",
+        "title": "Speaking Part 3 - Health",
+        "desc": "Discuss health and lifestyle",
+        "prompt": "How can people stay healthy in modern life? Let's discuss."
+    },
+    {
+        "id": 85,
+        "cat": "TOEIC",
+        "level": "Medium",
+        "title": "Training Sessions",
+        "desc": "Workplace training vocabulary",
+        "prompt": "Welcome to the training session! Let's practice learning at work."
+    },
+    {
+        "id": 86,
+        "cat": "TOEIC",
+        "level": "Hard",
+        "title": "Performance Reviews",
+        "desc": "Annual review conversations",
+        "prompt": "Let's discuss your performance this year. What achievements are you proud of?"
+    },
+    {
+        "id": 87,
+        "cat": "Học thuật",
+        "level": "Medium",
+        "title": "Taking Notes",
+        "desc": "Note-taking strategies",
+        "prompt": "How do you take notes in class? Let's practice note-taking vocabulary!"
+    },
+    {
+        "id": 88,
+        "cat": "Học thuật",
+        "level": "Hard",
+        "title": "Thesis Defense",
+        "desc": "Defending your research",
+        "prompt": "What is the main argument of your thesis? Let's practice academic defense!"
+    },
+    {
+        "id": 89,
+        "cat": "Giao tiếp",
+        "level": "Easy",
+        "title": "Đồ ăn yêu thích",
+        "desc": "Talk about favorite foods",
+        "prompt": "What's your favorite food? Let's practice food vocabulary!"
+    },
+    {
+        "id": 90,
+        "cat": "Giao tiếp",
+        "level": "Medium",
+        "title": "Công thức nấu ăn",
+        "desc": "Sharing recipes in English",
+        "prompt": "Can you share a recipe? Let's practice cooking vocabulary!"
+    },
+    {
+        "id": 91,
+        "cat": "Du lịch",
+        "level": "Easy",
+        "title": "Chụp ảnh du lịch",
+        "desc": "Asking someone to take photos",
+        "prompt": "Could you take a photo of me? Let's practice photography phrases!"
+    },
+    {
+        "id": 92,
+        "cat": "Du lịch",
+        "level": "Medium",
+        "title": "Hành lý bị mất",
+        "desc": "Lost luggage situations",
+        "prompt": "My luggage is missing! Let's practice handling lost baggage."
+    },
+    {
+        "id": 93,
+        "cat": "Công việc",
+        "level": "Medium",
+        "title": "Networking",
+        "desc": "Building professional connections",
+        "prompt": "Nice to meet you! What do you do? Let's practice networking!"
+    },
+    {
+        "id": 94,
+        "cat": "Công việc",
+        "level": "Hard",
+        "title": "Conflict Resolution",
+        "desc": "Resolving workplace conflicts",
+        "prompt": "We seem to have a disagreement. How can we resolve this?"
+    },
+    {
+        "id": 95,
+        "cat": "IELTS",
+        "level": "Medium",
+        "title": "Speaking Part 1 - Sports",
+        "desc": "Discuss sports and exercise",
+        "prompt": "Do you play any sports? What's your favorite form of exercise?"
+    },
+    {
+        "id": 96,
+        "cat": "IELTS",
+        "level": "Hard",
+        "title": "Speaking Part 3 - Media",
+        "desc": "Discuss media influence",
+        "prompt": "How does media influence young people? Share your thoughts."
+    },
+    {
+        "id": 97,
+        "cat": "TOEIC",
+        "level": "Easy",
+        "title": "Office Supplies",
+        "desc": "Requesting supplies at work",
+        "prompt": "I need some office supplies. Let's practice making requests!"
+    },
+    {
+        "id": 98,
+        "cat": "TOEIC",
+        "level": "Hard",
+        "title": "Merger Discussion",
+        "desc": "Company merger vocabulary",
+        "prompt": "Our companies are merging. Let's discuss the transition."
+    },
+    {
+        "id": 99,
+        "cat": "Học thuật",
+        "level": "Hard",
+        "title": "Peer Review",
+        "desc": "Reviewing classmates' work",
+        "prompt": "I've read your essay. Let me give you some feedback."
+    },
+    {
+        "id": 100,
+        "cat": "Học thuật",
+        "level": "Easy",
+        "title": "Asking for Help",
+        "desc": "Getting help with studies",
+        "prompt": "I don't understand this concept. Can you explain it to me?"
+    }
+]

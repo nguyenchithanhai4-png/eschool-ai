@@ -1,0 +1,294 @@
+/**
+ * =============================================================================
+ * VIRTUAL LAB PREMIUM THEME
+ * Professional, Immersive, Dark-Mode Science Lab UI
+ * =============================================================================
+ */
+
+:root {
+    --vlab-bg: #0f172a;
+    --vlab-surface: rgba(15, 23, 42, 0.7);
+    --vlab-surface-light: rgba(30, 41, 59, 0.6);
+    --vlab-glass: rgba(15, 23, 42, 0.6);
+    --vlab-border: rgba(255, 255, 255, 0.1);
+    --vlab-border-highlight: rgba(255, 255, 255, 0.2);
+    
+    --vlab-primary: #3b82f6;
+    --vlab-primary-glow: rgba(59, 130, 246, 0.5);
+    --vlab-accent: #06b6d4;
+    --vlab-success: #22c55e;
+    --vlab-warning: #f59e0b;
+    --vlab-danger: #ef4444;
+    
+    --vlab-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --vlab-font-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* --- Base Layout --- */
+.vlab-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+    font-family: var(--vlab-font-sans);
+    color: #e2e8f0;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Immersive Canvas Area --- */
+.vlab-stage {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(to bottom, #0f172a, #020617);
+    overflow: hidden;
+}
+
+.vlab-canvas-container {
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+/* --- Floating Glass Panels --- */
+.vlab-panel {
+    background: var(--vlab-glass);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid var(--vlab-border);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+/* Header Bar (Floating Top) */
+.vlab-header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    height: 64px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    pointer-events: none; /* Let clicks pass through empty space */
+}
+
+.vlab-header-content {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.vlab-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 10px rgba(255,255,255,0.1);
+}
+
+.vlab-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05);
+}
+
+/* --- Controls Container (Floating Bottom/Left) --- */
+.vlab-controls {
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    bottom: 20px;
+    width: 320px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    pointer-events: none;
+}
+
+.vlab-control-group {
+    pointer-events: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.vlab-control-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #94a3b8;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* --- Experiment Selector (Floating Right) --- */
+.vlab-sidebar {
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    width: 280px;
+    z-index: 10;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.exp-card {
+    position: relative;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+.exp-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.exp-card.active {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
+    border-color: var(--vlab-primary);
+}
+
+.exp-card.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--vlab-primary);
+    box-shadow: 0 0 10px var(--vlab-primary);
+}
+
+/* --- Custom Inputs --- */
+/* Slider */
+.vlab-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    outline: none;
+}
+
+.vlab-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    border: 2px solid rgba(0,0,0,0.1);
+    transition: transform 0.1s;
+}
+
+.vlab-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* Buttons */
+.vlab-btn {
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.vlab-btn:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.vlab-btn-primary {
+    background: var(--vlab-primary);
+    border-color: transparent;
+    box-shadow: 0 0 15px var(--vlab-primary-glow);
+}
+
+.vlab-btn-primary:hover {
+    background: #2563eb;
+    box-shadow: 0 0 25px var(--vlab-primary-glow);
+}
+
+.vlab-btn-warning {
+    background: rgba(245, 158, 11, 0.2);
+    border-color: rgba(245, 158, 11, 0.5);
+    color: #fbbf24;
+}
+
+.vlab-btn-warning:hover {
+    background: rgba(245, 158, 11, 0.3);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+}
+
+/* --- Data Display --- */
+.vlab-lcd {
+    font-family: 'Digital-7', 'Courier New', monospace; /* Fallback if Digital-7 not avail */
+    background: #000;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: #ef4444;
+    text-shadow: 0 0 5px #ef4444;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 1.5rem;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* --- Animations --- */
+@keyframes vlab-fade-in {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.vlab-animate-in {
+    animation: vlab-fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Particle/Microscope View Mask */
+.vlab-scope-mask {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.8) 100%);
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0.5;
+}

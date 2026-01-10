@@ -1,0 +1,1552 @@
+[
+  {
+    "name": "Trường Cao đẳng ASEAN",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Âu Lạc Huế",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Bách khoa Đà Nẵng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Bách khoa Hưng Yên",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Bách Việt",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Bán công Công nghệ và Quản trị doanh nghiệp",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Công nghệ Bắc Hà",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Công nghệ Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Công nghệ thông tin Thành phố Hồ Chí Minh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Công nghệ và Quản trị Sonadezi",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Công nghệ và Thương mại Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Đại Việt – Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Đại Việt Đà Nẵng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Dược Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Hoan Châu",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kinh tế Công nghệ Thành phố Hồ Chí Minh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kinh tế Kỹ thuật Đông Du – Đà Nẵng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kinh tế Kỹ thuật Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật Công nghệ Bách Khoa",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật Công nghệ Vạn Xuân",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Lạc Việt – Đà Nẵng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Miền Nam",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Ngoại ngữ – Công nghệ Việt Nhật",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Phương Đông – Đà Nẵng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Phương Đông – Quảng Nam",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Quảng Ngãi",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Quốc tế Pegasus",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Tâm Trí",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Tư thục Đức Trí – Đà Nẵng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Văn hoá Nghệ thuật và Du lịch Sài Gòn",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Viễn Đông",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Việt – Anh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Việt Mỹ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Y Dược Hồ Chí Minh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Y Dược Hợp Lực – Thanh Hóa",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Y Dược Pasteur Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Y Dược Pasteur Thành phố Hồ Chí Minh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Y Dược Pasteur Yên Bái",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Y Dược Phú Thọ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Y Dược Sài Gòn",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Y khoa Phạm Ngọc Thạch",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Cơ Điện và Công nghệ thực phẩm Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Điện lực miền Bắc",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Đường sắt",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Giao thông vận tải Trung ương I",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật trang thiết bị Y tế",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề An ninh – Công nghệ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Bách khoa Hà Nội(Hactech)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Bách Khoa",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Cơ điện Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ cao Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ và Kinh tế Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghiệp Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Hùng Vương",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kinh doanh và Công nghệ Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kỹ thuật – Công nghệ – Kinh tế Simco Sông Đà",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kỹ thuật Công nghệ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kỹ thuật Mỹ nghệ Việt Nam",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Nghề Kỹ thuật và Nghiệp vụ Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Long Biên",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Nguyễn Trãi",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Quốc tế Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 17 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Thăng Long",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Trần Hưng Đạo",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Văn Lang Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Việt Nam – Hàn Quốc Thành phố Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Phú Châu",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Thực hành FPT",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Giao thông vận tải Đường thủy II",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kinh tế – Kỹ thuật Thủ Đức",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ nghệ II",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật Nguyễn Trường Tộ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ thông tin iSPACE",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Du lịch Sài Gòn",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Nghề Hàng hải Thành phố Hồ Chí Minh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Nghề Kinh tế kỹ thuật Thành phố Hồ Chí Minh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Sài Gòn",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 7 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Nghề Thành phố Hồ Chí Minh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Quốc tế Thành phố Hồ Chí Minh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Thủ Thiêm – TP. Hồ Chí Minh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Nông nghiệp và Phát triển nông thôn Thanh Hóa",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Cơ điện Phú Thọ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Cơ điện và Xây dựng Bắc Ninh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Cơ giới Xây dựng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Cơ khí Nông nghiệp",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Công nghiệp Bắc Ninh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Công nghiệp Dệt – May Nam Định",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Công Thương Thái Nguyên",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Du lịch – Thương mại Nghệ An",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật Công nghệ Hòa Bình",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật Công nghệ Nam Định",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật công nghệ Sơn La",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật và Công nghệ tỉnh Hà Giang",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Lào Cai",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề An Nhất Vinh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Bắc Giang",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Bắc Nam",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Bách nghệ Hải Phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Cơ điện Tây Bắc",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Cơ điện và Thủy lợi",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Cơ điện xây dựng Tam Điệp",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Cơ giới Ninh Bình",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ Giấy và Cơ điện",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ Hà Tĩnh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ LICOGI Thanh Hóa",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ và Nông Lâm Đông Bắc",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ và Nông Lâm Phú Thọ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ Việt– Hàn Bắc Giang",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ, Kinh tế và Chế biến lâm sản",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ, Kinh tế và Thủy sản",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghiệp Hải Phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghiệp Thanh Hóa",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghiệp Việt Bắc – Vinacomin",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công thương Việt Nam",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Đại An",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề dân tộc nội trú Bắc Kạn",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Dịch vụ Hàng không AIRSERCO",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Điện Biên",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Du lịch và dịch vụ Hải Phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Duyên Hải",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Nghề Giao thông Cơ điện Quảng Ninh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Giao thông Vận tải Đường thủy I",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Giao thông vận tải trung ương II",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Hà Nam",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Hải Dương",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kinh tế – Công nghệ VICET",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kinh tế – Kỹ thuật Bắc Bộ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kinh tế – Kỹ thuật số 1 Nghệ An",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kinh tế – Kỹ thuật Tô Hiệu",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kỹ thuật – Công nghệ LOD",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kỹ thuật Công nghiệp Việt Nam – Hàn Quốc Nghệ An",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Nghề Kỹ thuật y tế Thăng Long",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Nghề Kỹ thuật–Công nghệ Tuyên Quang",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Lam Kinh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Lạng Sơn",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Lao động – Xã hội Hải Phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề LILAMA–1",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Phú Thọ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Quản lý và Công nghệ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 1 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 13 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 19 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 2 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 20 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 3 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 4 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Sông Đà",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Thái Bình",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Thương mại và Công nghiệp",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Việt – Hàn Quảng Ninh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Việt Xô số 1",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Việt–Đức Hà Tĩnh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Viglacera",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Vĩnh Phúc",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Yên Bái",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Than – Khoáng sản Việt Nam",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Việt Đức Nghệ An",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng VMU",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Cơ điện – Xây dựng và Nông Lâm Trung Bộ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Công nghệ Quốc tế LILAMA–2",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Công nghệ Tây Nguyên",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Công nghệ và Nông Lâm Nam Bộ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Dầu khí",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Đồng Khởi",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Du lịch Cần Thơ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Du lịch Đà Lạt",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Du lịch Đà Nẵng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Du lịch Huế",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Du lịch Nha Trang",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Du lịch Vũng Tàu",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Hòa Bình Xuân Lộc",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ nghệ Dung Quất",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật Công nghệ Bà Rịa – Vũng Tàu",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật Công nghệ Nha Trang",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật Công nghệ Quy Nhơn",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật Đắk Lắk",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Kỹ thuật Đồng Nai",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề An Giang",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Bạc Liêu",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Bình Phước",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Bình Thuận",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Cần Thơ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Cơ giới Quảng Ngãi",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Cơ giới và Thủy lợi",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ cao Đồng An",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ cao Đồng Nai",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Công nghệ Sài Gòn",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Đà Lạt",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Đà Nẵng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Đồng Tháp",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Hoa Sen",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Nghề Khách sạn Du lịch Quốc tế IMPERIAL",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kiên Giang",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kỹ thuật Công nghệ LADEC",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Kỹ thuật thiết bị Y tế Bình Dương",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Long An",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Nguyễn Tri Phương",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Nguyễn Văn Trỗi",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Ninh Thuận",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Phú Yên",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Quảng Bình",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Quảng Nam",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Quốc tế Nam Việt",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 21 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 22 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 23 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 5 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 8 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề số 9 – Bộ Quốc phòng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Sóc Trăng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Tây Ninh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Tây Sài Gòn",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Nghề Thừa Thiên – Huế",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Tiền Giang",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Trà Vinh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Trần Đại Nghĩa",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Việt Nam – Hàn Quốc Cà Mau",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Việt Nam – Singapore",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Việt Nam–Hàn Quốc Quảng Ngãi",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Việt–Úc Đà Nẵng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng nghề Vĩnh Long",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Quốc tế Vabis",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Thaco",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Việt Nam–Hàn Quốc Bình Dương",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "^Còn được gọi là Trường Đại học Việt - Pháp",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "^Yến Anh (ngày 10 tháng 9 năm 2019).\"Đại học lo bị bỏ rơi khi tự chủ\".Người Lao động.",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "^Trường Đại học Cần Thơ.\"Luật giáo dục đại học sử đổi năm 2018\"(PDF).",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học và cao đẳng",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Brunei Darussalam",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Hoàng gia Phnôm Pênh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Kinh tế và Luật Hoàng gia",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Indonesia",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Gadjah Mada",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Airlangga",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Quốc gia Lào",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Sains Malaysia",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Malaya",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Kebangsaan Malaysia",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Utara Malaysia",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Putra Malaysia",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học De La Salle-Manila",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Philippines",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Ateneo de Manila",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Học viện Kinh tế Yangon",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Yangon",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Học viện Kinh tế Yangon",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Quốc gia Singapore",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Công nghệ Nanyang",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Quản lý Singapore",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Burapha",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Chulalongkorn",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Mahidol",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Chiang Mai",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Prince of Songkla",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Quốc gia Hà Nội",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Quốc gia Thành phố Hồ Chí Minh",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Cần Thơ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Đại học Duy Tân(DDT)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Gia Định(GDU)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Bà Rịa – Vũng Tàu(BVU)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Quốc tế Hồng Bàng(HIU)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Hoa Sen(HSU)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học FPT(FPT)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Thực hành FPT",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Quốc tế BTEC FPT",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Công nghệ Thành phố Hồ Chí Minh(DKC)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Kinh tế – Tài chính Thành phố Hồ Chí Minh(UEF)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Nguyễn Tất Thành(NTT)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Văn Hiến(DVH)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Văn Lang(DVL)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Kinh tế – Kỹ thuật Bình Dương(DKB)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Quốc tế RMIT Việt Nam(RMU)*",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Fulbright Việt Nam(FUV)*",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Yersin Đà Lạt(DYD)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Tân Tạo(TTU)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học VinUni(VinUni)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Hùng Vương Thành phố Hồ Chí Minh(DHV)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Phú Xuân(DPX)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Cao đẳng Việt Mỹ",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Phenikaa(PKA)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Quốc tế Miền Đông(EIU)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Phương Đông(DPD)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Thăng Long(DTL)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Đại Nam(DDN)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Thành Đô(TDD)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Nguyễn Trãi(NTU)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Hòa Bình(ETU)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Đông Đô(DDU)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Quản lý và Công nghệ Hải Phòng(HPU)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Công nghệ Đông Á(DDA)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Chu Văn An(DCA)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Lương Thế Vinh(DTV)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Quốc tế Bắc Hà(DBH)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Công nghiệp Vinh(DCV)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Công nghệ Vạn Xuân(DVX)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Kiến trúc Đà Nẵng(KTD)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Phan Thiết(DPT)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Ngoại ngữ – Tin học Thành phố Hồ Chí Minh(DNT)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Quốc tế Sài Gòn(SIU)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Công nghệ Sài Gòn(DSG)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Lạc Hồng(DLH)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Kinh tế Công nghiệp Long An(DLA)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Quang Trung(DQT)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Nam Cần Thơ(DNC)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Tây Đô(DTD)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Võ Trường Toản(VTT)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Công nghệ Đồng Nai(DCD)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  },
+  {
+    "name": "Trường Đại học Quốc tế Bắc Hà(DBH)",
+    "type": "UNIVERSITY",
+    "level": "DAI_HOC"
+  }
+]

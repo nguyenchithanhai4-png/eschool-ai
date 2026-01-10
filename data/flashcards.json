@@ -1,0 +1,76 @@
+{
+  "flashcards": [
+    {
+      "id": 1765774564094,
+      "username": "hocsinh1",
+      "title": "cuộc sống",
+      "cards": [
+        {
+          "front": "Cuộc sống xanh là gì?",
+          "back": "Lối sống hướng tới giảm thiểu tác động tiêu cực đến môi trường, bảo vệ tài nguyên thiên nhiên và cải thiện sức khỏe."
+        },
+        {
+          "front": "Lợi ích chính của cuộc sống xanh?",
+          "back": "Bảo vệ môi trường, tiết kiệm chi phí, cải thiện sức khỏe và nâng cao chất lượng cuộc sống."
+        },
+        {
+          "front": "Nguyên tắc 3R trong cuộc sống xanh?",
+          "back": "Reduce (Giảm thiểu), Reuse (Tái sử dụng), Recycle (Tái chế) rác thải."
+        },
+        {
+          "front": "Biện pháp tiết kiệm năng lượng trong cuộc sống xanh?",
+          "back": "Tắt thiết bị điện khi không sử dụng, dùng thiết bị tiết kiệm điện, tận dụng ánh sáng tự nhiên."
+        },
+        {
+          "front": "Tiêu dùng bền vững là gì?",
+          "back": "Lựa chọn và sử dụng sản phẩm thân thiện với môi trường, có nguồn gốc rõ ràng, ít gây hại và sử dụng lâu dài."
+        },
+        {
+          "front": "Giao thông xanh có nghĩa là gì?",
+          "back": "Sử dụng các phương tiện ít phát thải như đi bộ, xe đạp, phương tiện công cộng hoặc xe điện."
+        },
+        {
+          "front": "Thực phẩm xanh trong cuộc sống xanh?",
+          "back": "Thực phẩm hữu cơ, ít qua chế biến, có nguồn gốc địa phương và giảm thiểu bao bì."
+        }
+      ],
+      "createdAt": "2025-12-15T04:56:04.094Z"
+    },
+    {
+      "id": 1765776905193,
+      "username": "hocsinh1",
+      "title": "fdgfhdg",
+      "cards": [
+        {
+          "front": "Cuộc sống vĩ đại",
+          "back": "Một cuộc sống trọn vẹn, ý nghĩa và đáng sống, thường bao gồm hạnh phúc, mục đích, thành công và sự đóng góp tích cực."
+        },
+        {
+          "front": "Hạnh phúc",
+          "back": "Trạng thái cảm xúc vui vẻ, hài lòng và mãn nguyện, là yếu tố cốt lõi của một cuộc sống vĩ đại."
+        },
+        {
+          "front": "Mục đích sống",
+          "back": "Lý do tồn tại hoặc mục tiêu lớn mà một người theo đuổi, mang lại ý nghĩa sâu sắc cho cuộc sống cá nhân."
+        },
+        {
+          "front": "Thành công (trong bối cảnh cuộc sống vĩ đại)",
+          "back": "Việc đạt được các mục tiêu cá nhân, sự nghiệp hoặc tạo ra giá trị, không chỉ về vật chất mà còn về tinh thần và sự viên mãn."
+        },
+        {
+          "front": "Sức khỏe toàn diện",
+          "back": "Trạng thái tốt cả về thể chất lẫn tinh thần, là nền tảng để theo đuổi và tận hưởng một cuộc sống vĩ đại một cách trọn vẹn."
+        },
+        {
+          "front": "Các mối quan hệ ý nghĩa",
+          "back": "Những kết nối sâu sắc và tích cực với gia đình, bạn bè và cộng đồng, mang lại sự hỗ trợ, tình yêu và niềm vui."
+        },
+        {
+          "front": "Sự cống hiến",
+          "back": "Việc đóng góp giá trị cho người khác, cộng đồng hoặc xã hội, tạo ra ảnh hưởng tích cực và cảm giác viên mãn."
+        }
+      ],
+      "createdAt": "2025-12-15T05:35:05.193Z"
+    }
+  ]
+}

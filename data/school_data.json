@@ -1,0 +1,40 @@
+{
+    "stats": {
+        "students": 1240,
+        "teachers": 85,
+        "classes": 42
+    },
+    "announcements": [
+        {
+            "tag": "Sắp diễn ra",
+            "title": "Họp Hội Đồng Sư Phạm",
+            "subtitle": "Thứ 2, 8:00 AM • Phòng Hội Đồng",
+            "icon": "fa-calendar-plus",
+            "color": "danger"
+        },
+        {
+            "tag": "Kế hoạch",
+            "title": "Bảo Trì Hệ Thống Máy Chủ",
+            "subtitle": "Chủ Nhật • 12:00 PM - 4:00 PM",
+            "icon": "fa-wrench",
+            "color": "warning"
+        },
+        {
+            "tag": "Hoạt động",
+            "title": "Ngày hội Công nghệ thông tin",
+            "subtitle": "Thứ 6 • Sân trường",
+            "icon": "fa-laptop-code",
+            "color": "primary"
+        }
+    ],
+    "documents": [
+        {
+            "name": "Ke_hoach_nam_hoc_2024.pdf",
+            "date": "10/08/2024"
+        },
+        {
+            "name": "Bien_ban_hop_phu_huynh.docx",
+            "date": "15/09/2024"
+        }
+    ]
+}

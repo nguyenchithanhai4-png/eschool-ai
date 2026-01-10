@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1766052072468,
+    "title": "Quiz: cấp số nhân (5 câu)",
+    "questions": [
+      {
+        "question": "Trong cấp số nhân, nếu a₁ = 3 và công sai d = 2, thì a₅ bằng gì?",
+        "options": [
+          "A. 11",
+          "B. 13",
+          "C. 15",
+          "D. 17"
+        ],
+        "correct": 1,
+        "explain": "Công thức cấp số nhân là aₙ = a₁ + (n-1)d. Với n=5, a₅ = 3 + (5-1)*2 = 3 + 8 = 11. Đáp án A là sai, vì 11 không phải là đáp án đúng."
+      },
+      {
+        "question": "Trong cấp số nhân, nếu a₁ = 5 và a₄ = 13, thì công sai d bằng gì?",
+        "options": [
+          "A. 2",
+          "B. 3",
+          "C. 4",
+          "D. 5"
+        ],
+        "correct": 1,
+        "explain": "Công thức cấp số nhân là aₙ = a₁ + (n-1)d. Với n=4, a₄ = 5 + 3d = 13 ⇒ 3d = 8 ⇒ d = 8/3 ≈ 2.67. Đáp án B là sai, vì 3 không phải là đáp án đúng."
+      },
+      {
+        "question": "Trong cấp số nhân, nếu a₁ = 2 và aₙ = 10, công sai d = 2, thì n bằng gì?",
+        "options": [
+          "A. 4",
+          "B. 5",
+          "C. 6",
+          "D. 7"
+        ],
+        "correct": 0,
+        "explain": "Công thức cấp số nhân là aₙ = a₁ + (n-1)d. Với aₙ = 10, a₁ = 2, d = 2 ⇒ 10 = 2 + (n-1)*2 ⇒ 8 = (n-1)*2 ⇒ n-1 = 4 ⇒ n = 5. Đáp án A là sai, vì 4 không phải là đáp án đúng."
+      },
+      {
+        "question": "Trong cấp số nhân, nếu a₁ = 1 và a₅ = 9, công sai d = 2, thì a₃ bằng gì?",
+        "options": [
+          "A. 3",
+          "B. 5",
+          "C. 7",
+          "D. 9"
+        ],
+        "correct": 1,
+        "explain": "Công thức cấp số nhân là aₙ = a₁ + (n-1)d. Với n=5, a₅ = 1 + 4*2 = 9. Với n=3, a₃ = 1 + 2*2 = 5. Đáp án B là đúng."
+      },
+      {
+        "question": "Trong cấp số nhân, nếu a₁ = 4 và aₙ = 20, công sai d = 3, thì n bằng gì?",
+        "options": [
+          "A. 5",
+          "B. 6",
+          "C. 7",
+          "D. 8"
+        ],
+        "correct": 2,
+        "explain": "Công thức cấp số nhân là aₙ = a₁ + (n-1)d. Với aₙ = 20, a₁ = 4, d = 3 ⇒ 20 = 4 + (n-1)*3 ⇒ 16 = (n-1)*3 ⇒ n-1 = 16/3 ≈ 5.33 ⇒ n ≈ 6.33. Đáp án C là sai, vì 7 không phải là đáp án đúng."
+      }
+    ],
+    "source": "topic",
+    "createdAt": "2025-12-18T10:01:12.468Z"
+  }
+]

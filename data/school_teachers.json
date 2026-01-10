@@ -1,0 +1,59 @@
+{
+    "teachers": [
+        {
+            "id": "t001",
+            "name": "Nguyễn Văn An",
+            "email": "an.nguyen@school.edu.vn",
+            "phone": "0901234567",
+            "subject": "Toán học",
+            "homeroom": "12A1",
+            "status": "active",
+            "joinDate": "2020-09-01",
+            "avatar": null
+        },
+        {
+            "id": "t002",
+            "name": "Trần Thị Bình",
+            "email": "binh.tran@school.edu.vn",
+            "phone": "0912345678",
+            "subject": "Ngữ văn",
+            "homeroom": "11A2",
+            "status": "active",
+            "joinDate": "2019-09-01",
+            "avatar": null
+        },
+        {
+            "id": "t003",
+            "name": "Lê Hoàng Cường",
+            "email": "cuong.le@school.edu.vn",
+            "phone": "0923456789",
+            "subject": "Tiếng Anh",
+            "homeroom": "10A3",
+            "status": "active",
+            "joinDate": "2021-09-01",
+            "avatar": null
+        },
+        {
+            "id": "t004",
+            "name": "Phạm Thị Dung",
+            "email": "dung.pham@school.edu.vn",
+            "phone": "0934567890",
+            "subject": "Vật lý",
+            "homeroom": null,
+            "status": "active",
+            "joinDate": "2018-09-01",
+            "avatar": null
+        },
+        {
+            "id": "t005",
+            "name": "Hoàng Minh Đức",
+            "email": "duc.hoang@school.edu.vn",
+            "phone": "0945678901",
+            "subject": "Hóa học",
+            "homeroom": "12A2",
+            "status": "active",
+            "joinDate": "2017-09-01",
+            "avatar": null
+        }
+    ]
+}

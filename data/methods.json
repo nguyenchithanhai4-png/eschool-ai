@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "tag": "memory",
+        "title": "Active Recall",
+        "content": "Phương pháp học tập chủ động bằng cách tự kiểm tra kiến thức thay vì đọc lại tài liệu. Bấm để xem chi tiết."
+    },
+    {
+        "id": 2,
+        "tag": "time",
+        "title": "Spaced Repetition",
+        "content": "Ôn tập theo khoảng cách thời gian tăng dần để ghi nhớ lâu hơn. Bấm để xem chi tiết."
+    },
+    {
+        "id": 3,
+        "tag": "memory",
+        "title": "Leitner System",
+        "content": "Sử dụng hệ thống 5 hộp Flashcards để học hiệu quả. Bấm để xem chi tiết."
+    },
+    {
+        "id": 4,
+        "tag": "time",
+        "title": "Pomodoro",
+        "content": "Tập trung 25 phút, nghỉ 5 phút. Sau 4 phiên, nghỉ dài 15-30 phút. Bấm để xem chi tiết."
+    },
+    {
+        "id": 5,
+        "tag": "focus",
+        "title": "Feynman Technique",
+        "content": "Giảng lại kiến thức cho một đứa trẻ để hiểu sâu hơn. Bấm để xem chi tiết."
+    }
+]

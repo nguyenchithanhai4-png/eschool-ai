@@ -1,0 +1,61 @@
+[
+  {
+    "id": 1765542202747,
+    "content": "fgdfgd",
+    "author": {
+      "username": "nguyenchithanh23@gmail.com",
+      "fullname": "nguyenchithanh23@gmail.com",
+      "avatar": "N",
+      "role": "user"
+    },
+    "image": null,
+    "likes": [
+      "nguyenchithanh23@gmail.com",
+      "hocsinh1",
+      "giaovien1"
+    ],
+    "comments": [
+      {
+        "id": 1765542208145,
+        "content": "haha",
+        "author": {
+          "username": "nguyenchithanh23@gmail.com",
+          "fullname": "nguyenchithanh23@gmail.com",
+          "avatar": "N"
+        },
+        "createdAt": "2025-12-12T12:23:28.145Z"
+      },
+      {
+        "id": 1765545219500,
+        "content": "vãi lồn",
+        "author": {
+          "username": "hocsinh1",
+          "fullname": "Nguyễn Văn An",
+          "avatar": "N"
+        },
+        "createdAt": "2025-12-12T13:13:39.500Z"
+      },
+      {
+        "id": 1765555127653,
+        "content": ";))",
+        "author": {
+          "username": "giaovien1",
+          "fullname": "Trần Thị Bích",
+          "avatar": "T"
+        },
+        "createdAt": "2025-12-12T15:58:47.653Z"
+      },
+      {
+        "id": 1765557650429,
+        "content": "fghdgf",
+        "author": {
+          "username": "giaovien1",
+          "fullname": "Trần Thị Bích",
+          "avatar": "T"
+        },
+        "createdAt": "2025-12-12T16:40:50.429Z"
+      }
+    ],
+    "createdAt": "2025-12-12T12:23:22.747Z"
+  }
+]

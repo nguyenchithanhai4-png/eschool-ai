@@ -1,0 +1,2577 @@
+{
+    "personalityQuestions": [
+        {
+            "id": 1,
+            "text": "Bạn thích làm việc một mình hay làm việc nhóm?",
+            "options": [
+                "Một mình",
+                "Cả hai",
+                "Làm việc nhóm"
+            ],
+            "traits": {
+                "I": [
+                    2,
+                    1,
+                    0
+                ],
+                "E": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "text": "Bạn thích công việc có quy trình rõ ràng hay sáng tạo linh hoạt?",
+            "options": [
+                "Quy trình",
+                "Vừa phải",
+                "Sáng tạo"
+            ],
+            "traits": {
+                "J": [
+                    2,
+                    1,
+                    0
+                ],
+                "P": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "text": "Bạn giỏi về số liệu hay ngôn ngữ?",
+            "options": [
+                "Số liệu",
+                "Cân bằng",
+                "Ngôn ngữ"
+            ],
+            "traits": {
+                "T": [
+                    2,
+                    1,
+                    0
+                ],
+                "F": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 4,
+            "text": "Bạn thích lãnh đạo hay hỗ trợ?",
+            "options": [
+                "Lãnh đạo",
+                "Vừa phải",
+                "Hỗ trợ"
+            ],
+            "traits": {
+                "E": [
+                    2,
+                    1,
+                    0
+                ],
+                "I": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 5,
+            "text": "Bạn thích làm việc với máy móc hay con người?",
+            "options": [
+                "Máy móc",
+                "Cả hai",
+                "Con người"
+            ],
+            "traits": {
+                "T": [
+                    2,
+                    1,
+                    0
+                ],
+                "F": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 6,
+            "text": "Bạn thích chi tiết hay nhìn tổng thể?",
+            "options": [
+                "Chi tiết",
+                "Cả hai",
+                "Tổng thể"
+            ],
+            "traits": {
+                "S": [
+                    2,
+                    1,
+                    0
+                ],
+                "N": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 7,
+            "text": "Bạn thích ổn định hay thử thách?",
+            "options": [
+                "Ổn định",
+                "Vừa phải",
+                "Thử thách"
+            ],
+            "traits": {
+                "J": [
+                    2,
+                    1,
+                    0
+                ],
+                "P": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 8,
+            "text": "Bạn thích trong nhà hay ngoài trời?",
+            "options": [
+                "Trong nhà",
+                "Đều được",
+                "Ngoài trời"
+            ],
+            "traits": {
+                "I": [
+                    2,
+                    1,
+                    0
+                ],
+                "E": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 9,
+            "text": "Bạn ra quyết định dựa vào logic hay cảm xúc?",
+            "options": [
+                "Logic",
+                "Cân bằng",
+                "Cảm xúc"
+            ],
+            "traits": {
+                "T": [
+                    2,
+                    1,
+                    0
+                ],
+                "F": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 10,
+            "text": "Bạn thích lên kế hoạch trước hay linh hoạt ứng biến?",
+            "options": [
+                "Kế hoạch",
+                "Tùy tình huống",
+                "Linh hoạt"
+            ],
+            "traits": {
+                "J": [
+                    2,
+                    1,
+                    0
+                ],
+                "P": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 11,
+            "text": "Bạn thích công việc có tính cạnh tranh cao không?",
+            "options": [
+                "Không",
+                "Bình thường",
+                "Có"
+            ],
+            "traits": {
+                "I": [
+                    2,
+                    1,
+                    0
+                ],
+                "E": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 12,
+            "text": "Bạn thích công việc đòi hỏi di chuyển nhiều không?",
+            "options": [
+                "Không",
+                "Vừa phải",
+                "Có"
+            ],
+            "traits": {
+                "I": [
+                    2,
+                    1,
+                    0
+                ],
+                "E": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 13,
+            "text": "Bạn quan tâm đến thu nhập cao hay đam mê?",
+            "options": [
+                "Thu nhập",
+                "Cân bằng",
+                "Đam mê"
+            ],
+            "traits": {
+                "T": [
+                    2,
+                    1,
+                    0
+                ],
+                "F": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 14,
+            "text": "Bạn thích công việc nghiên cứu hay thực hành?",
+            "options": [
+                "Nghiên cứu",
+                "Cả hai",
+                "Thực hành"
+            ],
+            "traits": {
+                "N": [
+                    2,
+                    1,
+                    0
+                ],
+                "S": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 15,
+            "text": "Bạn có thích giao tiếp với nhiều người không?",
+            "options": [
+                "Không",
+                "Bình thường",
+                "Có"
+            ],
+            "traits": {
+                "I": [
+                    2,
+                    1,
+                    0
+                ],
+                "E": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 16,
+            "text": "Bạn thích môi trường làm việc văn phòng hay năng động?",
+            "options": [
+                "Văn phòng",
+                "Linh hoạt",
+                "Năng động"
+            ],
+            "traits": {
+                "I": [
+                    2,
+                    1,
+                    0
+                ],
+                "E": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 17,
+            "text": "Bạn có thoải mái khi phải thuyết trình trước đám đông?",
+            "options": [
+                "Không",
+                "Bình thường",
+                "Rất thoải mái"
+            ],
+            "traits": {
+                "I": [
+                    2,
+                    1,
+                    0
+                ],
+                "E": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 18,
+            "text": "Bạn thích tạo ra sản phẩm mới hay cải thiện thứ có sẵn?",
+            "options": [
+                "Cải thiện",
+                "Cả hai",
+                "Tạo mới"
+            ],
+            "traits": {
+                "J": [
+                    2,
+                    1,
+                    0
+                ],
+                "P": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 19,
+            "text": "Bạn có thích làm việc với trẻ em không?",
+            "options": [
+                "Không",
+                "Bình thường",
+                "Rất thích"
+            ],
+            "traits": {
+                "T": [
+                    2,
+                    1,
+                    0
+                ],
+                "F": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        },
+        {
+            "id": 20,
+            "text": "Điều gì quan trọng nhất với bạn trong công việc?",
+            "options": [
+                "Tiền bạc",
+                "Cân bằng cuộc sống",
+                "Đam mê và ý nghĩa"
+            ],
+            "traits": {
+                "T": [
+                    2,
+                    1,
+                    0
+                ],
+                "F": [
+                    0,
+                    1,
+                    2
+                ]
+            }
+        }
+    ],
+    "careers": [
+        {
+            "id": 1,
+            "name": "Kỹ sư phần mềm",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Toán",
+                "Tin học"
+            ],
+            "salary": "25-80 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 2,
+            "name": "Lập trình viên Web",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Tin học",
+                "Toán"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 3,
+            "name": "Lập trình viên Mobile",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Tin học",
+                "Toán"
+            ],
+            "salary": "20-60 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 4,
+            "name": "Kỹ sư AI/Machine Learning",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Toán",
+                "Tin học"
+            ],
+            "salary": "30-100 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 5,
+            "name": "Kỹ sư Data",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Toán",
+                "Tin học"
+            ],
+            "salary": "25-70 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 6,
+            "name": "Chuyên gia an ninh mạng",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Tin học",
+                "Toán"
+            ],
+            "salary": "25-80 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 7,
+            "name": "DevOps Engineer",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Tin học"
+            ],
+            "salary": "25-70 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 8,
+            "name": "QA/Tester",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Tin học"
+            ],
+            "salary": "15-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 9,
+            "name": "Quản trị hệ thống",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Tin học"
+            ],
+            "salary": "15-45 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 10,
+            "name": "UX/UI Designer",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Mỹ thuật",
+                "Tin học"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 11,
+            "name": "Game Developer",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Tin học",
+                "Toán"
+            ],
+            "salary": "20-60 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 12,
+            "name": "Blockchain Developer",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Tin học",
+                "Toán"
+            ],
+            "salary": "30-100 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 13,
+            "name": "Cloud Architect",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Tin học"
+            ],
+            "salary": "40-120 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 14,
+            "name": "Bác sĩ đa khoa",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "20-80 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 15,
+            "name": "Bác sĩ nội khoa",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "25-100 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 16,
+            "name": "Bác sĩ ngoại khoa",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "30-150 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 17,
+            "name": "Bác sĩ nhi khoa",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "20-80 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 18,
+            "name": "Bác sĩ sản phụ khoa",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "25-100 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 19,
+            "name": "Bác sĩ răng hàm mặt",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "30-120 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 20,
+            "name": "Bác sĩ da liễu",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "25-100 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 21,
+            "name": "Bác sĩ tim mạch",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "40-150 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 22,
+            "name": "Bác sĩ thần kinh",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "35-120 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 23,
+            "name": "Dược sĩ",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 24,
+            "name": "Y tá/Điều dưỡng",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học"
+            ],
+            "salary": "8-25 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 25,
+            "name": "Kỹ thuật viên xét nghiệm",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "10-30 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 26,
+            "name": "Chuyên gia dinh dưỡng",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học"
+            ],
+            "salary": "12-40 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 27,
+            "name": "Vật lý trị liệu",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học",
+                "Vật lý"
+            ],
+            "salary": "15-45 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 28,
+            "name": "Bác sĩ thú y",
+            "field": "Y tế",
+            "subjects": [
+                "Sinh học"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 29,
+            "name": "Nhà tâm lý học",
+            "field": "Y tế",
+            "subjects": [
+                "Văn",
+                "Sinh học"
+            ],
+            "salary": "15-60 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 30,
+            "name": "Giáo viên Tiểu học",
+            "field": "Giáo dục",
+            "subjects": [
+                "Văn",
+                "Toán"
+            ],
+            "salary": "8-20 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 31,
+            "name": "Giáo viên THCS",
+            "field": "Giáo dục",
+            "subjects": [
+                "Toán",
+                "Văn"
+            ],
+            "salary": "10-25 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 32,
+            "name": "Giáo viên THPT",
+            "field": "Giáo dục",
+            "subjects": [
+                "Toán",
+                "Lý",
+                "Hóa"
+            ],
+            "salary": "12-30 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 33,
+            "name": "Giảng viên Đại học",
+            "field": "Giáo dục",
+            "subjects": [
+                "Chuyên ngành"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 34,
+            "name": "Giáo viên Tiếng Anh",
+            "field": "Giáo dục",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 35,
+            "name": "Giáo viên Mầm non",
+            "field": "Giáo dục",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "6-15 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 36,
+            "name": "Gia sư",
+            "field": "Giáo dục",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "5-30 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 37,
+            "name": "Chuyên gia đào tạo",
+            "field": "Giáo dục",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 38,
+            "name": "Luật sư",
+            "field": "Luật",
+            "subjects": [
+                "Văn",
+                "GDCD"
+            ],
+            "salary": "20-150 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 39,
+            "name": "Thẩm phán",
+            "field": "Luật",
+            "subjects": [
+                "Văn",
+                "GDCD"
+            ],
+            "salary": "25-60 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 40,
+            "name": "Công chứng viên",
+            "field": "Luật",
+            "subjects": [
+                "Văn",
+                "GDCD"
+            ],
+            "salary": "20-80 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 41,
+            "name": "Chuyên viên pháp lý",
+            "field": "Luật",
+            "subjects": [
+                "Văn",
+                "GDCD"
+            ],
+            "salary": "12-40 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 42,
+            "name": "Kế toán viên",
+            "field": "Tài chính",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "10-30 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 43,
+            "name": "Kiểm toán viên",
+            "field": "Tài chính",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "15-60 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 44,
+            "name": "Chuyên viên tài chính",
+            "field": "Tài chính",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 45,
+            "name": "Nhân viên ngân hàng",
+            "field": "Tài chính",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "12-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 46,
+            "name": "Chuyên viên đầu tư",
+            "field": "Tài chính",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "20-100 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 47,
+            "name": "Môi giới chứng khoán",
+            "field": "Tài chính",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "15-80 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 48,
+            "name": "Phân tích tài chính",
+            "field": "Tài chính",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "20-70 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 49,
+            "name": "Chuyên viên bảo hiểm",
+            "field": "Tài chính",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "10-40 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 50,
+            "name": "Kiến trúc sư",
+            "field": "Xây dựng",
+            "subjects": [
+                "Toán",
+                "Mỹ thuật"
+            ],
+            "salary": "20-80 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 51,
+            "name": "Kỹ sư xây dựng",
+            "field": "Xây dựng",
+            "subjects": [
+                "Toán",
+                "Vật lý"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 52,
+            "name": "Kỹ sư cầu đường",
+            "field": "Xây dựng",
+            "subjects": [
+                "Toán",
+                "Vật lý"
+            ],
+            "salary": "15-45 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 53,
+            "name": "Thiết kế nội thất",
+            "field": "Xây dựng",
+            "subjects": [
+                "Mỹ thuật"
+            ],
+            "salary": "15-60 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 54,
+            "name": "Kỹ sư môi trường",
+            "field": "Xây dựng",
+            "subjects": [
+                "Hóa học",
+                "Sinh học"
+            ],
+            "salary": "12-40 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 55,
+            "name": "Kỹ sư điện",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Vật lý",
+                "Toán"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 56,
+            "name": "Kỹ sư điện tử",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Vật lý",
+                "Toán"
+            ],
+            "salary": "15-55 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 57,
+            "name": "Kỹ sư cơ khí",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Vật lý",
+                "Toán"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 58,
+            "name": "Kỹ sư ô tô",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Vật lý",
+                "Toán"
+            ],
+            "salary": "15-55 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 59,
+            "name": "Kỹ sư hàng không",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Vật lý",
+                "Toán"
+            ],
+            "salary": "25-80 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 60,
+            "name": "Kỹ sư robot",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Vật lý",
+                "Tin học"
+            ],
+            "salary": "25-80 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 61,
+            "name": "Kỹ sư năng lượng",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Vật lý"
+            ],
+            "salary": "20-60 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 62,
+            "name": "Kỹ sư hóa học",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Hóa học"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 63,
+            "name": "Marketing Manager",
+            "field": "Marketing",
+            "subjects": [
+                "Tiếng Anh",
+                "Văn"
+            ],
+            "salary": "25-80 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 64,
+            "name": "Digital Marketing",
+            "field": "Marketing",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "12-50 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 65,
+            "name": "Content Creator",
+            "field": "Marketing",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "8-40 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 66,
+            "name": "SEO Specialist",
+            "field": "Marketing",
+            "subjects": [
+                "Tin học"
+            ],
+            "salary": "12-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 67,
+            "name": "Social Media Manager",
+            "field": "Marketing",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "12-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 68,
+            "name": "Brand Manager",
+            "field": "Marketing",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "25-70 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 69,
+            "name": "Copywriter",
+            "field": "Marketing",
+            "subjects": [
+                "Văn",
+                "Tiếng Anh"
+            ],
+            "salary": "10-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 70,
+            "name": "Nhân viên kinh doanh",
+            "field": "Kinh doanh",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "10-50 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 71,
+            "name": "Giám đốc kinh doanh",
+            "field": "Kinh doanh",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "40-150 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 72,
+            "name": "Quản lý cửa hàng",
+            "field": "Kinh doanh",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "12-35 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 73,
+            "name": "Nhân viên xuất nhập khẩu",
+            "field": "Kinh doanh",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "12-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 74,
+            "name": "Chuyên viên logistics",
+            "field": "Kinh doanh",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "12-45 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 75,
+            "name": "Nhân viên thu mua",
+            "field": "Kinh doanh",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "10-35 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 76,
+            "name": "Nhà báo",
+            "field": "Truyền thông",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "10-40 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 77,
+            "name": "Biên tập viên",
+            "field": "Truyền thông",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "10-35 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 78,
+            "name": "Phóng viên",
+            "field": "Truyền thông",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "8-30 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 79,
+            "name": "MC/Người dẫn chương trình",
+            "field": "Truyền thông",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "15-100 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 80,
+            "name": "Quay phim",
+            "field": "Truyền thông",
+            "subjects": [
+                "Mỹ thuật"
+            ],
+            "salary": "10-40 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 81,
+            "name": "Biên kịch",
+            "field": "Truyền thông",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "15-60 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 82,
+            "name": "Đạo diễn phim",
+            "field": "Truyền thông",
+            "subjects": [
+                "Mỹ thuật",
+                "Văn"
+            ],
+            "salary": "20-200 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 83,
+            "name": "Graphic Designer",
+            "field": "Thiết kế",
+            "subjects": [
+                "Mỹ thuật"
+            ],
+            "salary": "10-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 84,
+            "name": "Motion Designer",
+            "field": "Thiết kế",
+            "subjects": [
+                "Mỹ thuật",
+                "Tin học"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 85,
+            "name": "3D Artist",
+            "field": "Thiết kế",
+            "subjects": [
+                "Mỹ thuật",
+                "Tin học"
+            ],
+            "salary": "15-60 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 86,
+            "name": "Họa sĩ minh họa",
+            "field": "Thiết kế",
+            "subjects": [
+                "Mỹ thuật"
+            ],
+            "salary": "10-50 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 87,
+            "name": "Nhiếp ảnh gia",
+            "field": "Thiết kế",
+            "subjects": [
+                "Mỹ thuật"
+            ],
+            "salary": "10-60 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 88,
+            "name": "Video Editor",
+            "field": "Thiết kế",
+            "subjects": [
+                "Mỹ thuật",
+                "Tin học"
+            ],
+            "salary": "10-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 89,
+            "name": "Fashion Designer",
+            "field": "Thiết kế",
+            "subjects": [
+                "Mỹ thuật"
+            ],
+            "salary": "15-80 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 90,
+            "name": "Nhạc sĩ/Composer",
+            "field": "Nghệ thuật",
+            "subjects": [
+                "Âm nhạc"
+            ],
+            "salary": "10-100 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 91,
+            "name": "Ca sĩ",
+            "field": "Nghệ thuật",
+            "subjects": [
+                "Âm nhạc"
+            ],
+            "salary": "5-500 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 92,
+            "name": "Diễn viên",
+            "field": "Nghệ thuật",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "10-200 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 93,
+            "name": "Vũ công",
+            "field": "Nghệ thuật",
+            "subjects": [
+                "Thể dục"
+            ],
+            "salary": "8-50 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 94,
+            "name": "Nghệ sĩ múa",
+            "field": "Nghệ thuật",
+            "subjects": [
+                "Thể dục"
+            ],
+            "salary": "8-40 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 95,
+            "name": "Họa sĩ",
+            "field": "Nghệ thuật",
+            "subjects": [
+                "Mỹ thuật"
+            ],
+            "salary": "5-100 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 96,
+            "name": "Nhà văn",
+            "field": "Nghệ thuật",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "5-50 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 97,
+            "name": "Phi công",
+            "field": "Hàng không",
+            "subjects": [
+                "Vật lý",
+                "Tiếng Anh"
+            ],
+            "salary": "80-250 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 98,
+            "name": "Tiếp viên hàng không",
+            "field": "Hàng không",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "20-50 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 99,
+            "name": "Kỹ thuật viên hàng không",
+            "field": "Hàng không",
+            "subjects": [
+                "Vật lý"
+            ],
+            "salary": "25-60 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 100,
+            "name": "Nhân viên HR",
+            "field": "Nhân sự",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "10-35 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 101,
+            "name": "HR Manager",
+            "field": "Nhân sự",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "25-70 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 102,
+            "name": "Chuyên viên tuyển dụng",
+            "field": "Nhân sự",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "12-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 103,
+            "name": "Chuyên viên C&B",
+            "field": "Nhân sự",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "15-45 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 104,
+            "name": "Đầu bếp",
+            "field": "Nhà hàng khách sạn",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "10-50 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 105,
+            "name": "Bartender",
+            "field": "Nhà hàng khách sạn",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "8-25 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 106,
+            "name": "Quản lý nhà hàng",
+            "field": "Nhà hàng khách sạn",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 107,
+            "name": "Quản lý khách sạn",
+            "field": "Nhà hàng khách sạn",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "20-80 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 108,
+            "name": "Lễ tân khách sạn",
+            "field": "Nhà hàng khách sạn",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "8-20 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 109,
+            "name": "Hướng dẫn viên du lịch",
+            "field": "Du lịch",
+            "subjects": [
+                "Tiếng Anh",
+                "Địa lý"
+            ],
+            "salary": "10-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 110,
+            "name": "Nhân viên điều hành tour",
+            "field": "Du lịch",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "10-30 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 111,
+            "name": "Nhân viên đặt phòng",
+            "field": "Du lịch",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "8-20 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 112,
+            "name": "Thợ điện",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Vật lý"
+            ],
+            "salary": "8-25 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 113,
+            "name": "Thợ nước",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "8-20 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 114,
+            "name": "Thợ sửa ô tô",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "10-30 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 115,
+            "name": "Thợ điều hòa",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Vật lý"
+            ],
+            "salary": "10-30 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 116,
+            "name": "Kỹ thuật viên sửa điện thoại",
+            "field": "Kỹ thuật",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "8-25 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 117,
+            "name": "Nông dân công nghệ cao",
+            "field": "Nông nghiệp",
+            "subjects": [
+                "Sinh học"
+            ],
+            "salary": "10-50 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 118,
+            "name": "Kỹ sư nông nghiệp",
+            "field": "Nông nghiệp",
+            "subjects": [
+                "Sinh học"
+            ],
+            "salary": "12-40 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 119,
+            "name": "Chuyên gia thủy sản",
+            "field": "Nông nghiệp",
+            "subjects": [
+                "Sinh học"
+            ],
+            "salary": "12-40 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 120,
+            "name": "Chuyên gia chăn nuôi",
+            "field": "Nông nghiệp",
+            "subjects": [
+                "Sinh học"
+            ],
+            "salary": "10-35 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 121,
+            "name": "Cầu thủ bóng đá",
+            "field": "Thể thao",
+            "subjects": [
+                "Thể dục"
+            ],
+            "salary": "10-500 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 122,
+            "name": "VĐV điền kinh",
+            "field": "Thể thao",
+            "subjects": [
+                "Thể dục"
+            ],
+            "salary": "5-100 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 123,
+            "name": "HLV thể hình",
+            "field": "Thể thao",
+            "subjects": [
+                "Thể dục"
+            ],
+            "salary": "10-50 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 124,
+            "name": "HLV yoga",
+            "field": "Thể thao",
+            "subjects": [
+                "Thể dục"
+            ],
+            "salary": "10-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 125,
+            "name": "Chuyên gia golf",
+            "field": "Thể thao",
+            "subjects": [
+                "Thể dục"
+            ],
+            "salary": "15-80 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 126,
+            "name": "Bình luận viên thể thao",
+            "field": "Thể thao",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "15-60 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 127,
+            "name": "Công an",
+            "field": "An ninh",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "10-30 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 128,
+            "name": "Quân nhân",
+            "field": "An ninh",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "10-25 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 129,
+            "name": "Lính cứu hỏa",
+            "field": "An ninh",
+            "subjects": [
+                "Thể dục"
+            ],
+            "salary": "10-25 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 130,
+            "name": "Bảo vệ",
+            "field": "An ninh",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "6-15 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 131,
+            "name": "Thám tử tư",
+            "field": "An ninh",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 132,
+            "name": "Thông dịch viên",
+            "field": "Ngôn ngữ",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "15-60 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 133,
+            "name": "Biên dịch viên",
+            "field": "Ngôn ngữ",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "12-50 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 134,
+            "name": "Giáo viên tiếng Nhật",
+            "field": "Ngôn ngữ",
+            "subjects": [
+                "Tiếng Nhật"
+            ],
+            "salary": "15-45 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 135,
+            "name": "Giáo viên tiếng Hàn",
+            "field": "Ngôn ngữ",
+            "subjects": [
+                "Tiếng Hàn"
+            ],
+            "salary": "15-45 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 136,
+            "name": "Giáo viên tiếng Trung",
+            "field": "Ngôn ngữ",
+            "subjects": [
+                "Tiếng Trung"
+            ],
+            "salary": "15-45 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 137,
+            "name": "Nhà khoa học dữ liệu",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Toán",
+                "Tin học"
+            ],
+            "salary": "30-100 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 138,
+            "name": "Product Manager",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Tin học"
+            ],
+            "salary": "30-100 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 139,
+            "name": "Scrum Master",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Tin học"
+            ],
+            "salary": "25-70 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 140,
+            "name": "Business Analyst",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Toán",
+                "Tin học"
+            ],
+            "salary": "20-60 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 141,
+            "name": "Technical Writer",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Văn",
+                "Tin học"
+            ],
+            "salary": "15-45 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 142,
+            "name": "Startup Founder",
+            "field": "Kinh doanh",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "0-1000 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 143,
+            "name": "CEO/Giám đốc điều hành",
+            "field": "Kinh doanh",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "50-500 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 144,
+            "name": "CFO/Giám đốc tài chính",
+            "field": "Tài chính",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "50-300 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 145,
+            "name": "CTO/Giám đốc công nghệ",
+            "field": "Công nghệ thông tin",
+            "subjects": [
+                "Tin học"
+            ],
+            "salary": "60-400 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 146,
+            "name": "CMO/Giám đốc marketing",
+            "field": "Marketing",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "40-200 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 147,
+            "name": "Nhà ngoại giao",
+            "field": "Chính trị",
+            "subjects": [
+                "Tiếng Anh",
+                "GDCD"
+            ],
+            "salary": "20-80 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 148,
+            "name": "Chuyên viên quan hệ quốc tế",
+            "field": "Chính trị",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 149,
+            "name": "Nhà kinh tế học",
+            "field": "Kinh tế",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "20-80 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 150,
+            "name": "Nhà xã hội học",
+            "field": "Xã hội",
+            "subjects": [
+                "Văn",
+                "GDCD"
+            ],
+            "salary": "12-40 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 151,
+            "name": "Nhân viên công tác xã hội",
+            "field": "Xã hội",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "8-25 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 152,
+            "name": "Chuyên gia môi trường",
+            "field": "Môi trường",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "12-45 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 153,
+            "name": "Nhà khí tượng học",
+            "field": "Khoa học",
+            "subjects": [
+                "Vật lý",
+                "Địa lý"
+            ],
+            "salary": "12-40 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 154,
+            "name": "Nhà địa chất",
+            "field": "Khoa học",
+            "subjects": [
+                "Địa lý"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 155,
+            "name": "Nhà thiên văn học",
+            "field": "Khoa học",
+            "subjects": [
+                "Vật lý",
+                "Toán"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 156,
+            "name": "Nhà vật lý",
+            "field": "Khoa học",
+            "subjects": [
+                "Vật lý",
+                "Toán"
+            ],
+            "salary": "15-60 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 157,
+            "name": "Nhà hóa học",
+            "field": "Khoa học",
+            "subjects": [
+                "Hóa học"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 158,
+            "name": "Nhà sinh học",
+            "field": "Khoa học",
+            "subjects": [
+                "Sinh học"
+            ],
+            "salary": "12-45 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 159,
+            "name": "Nhà toán học",
+            "field": "Khoa học",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 160,
+            "name": "Nghiên cứu sinh",
+            "field": "Khoa học",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "5-20 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 161,
+            "name": "Stylist thời trang",
+            "field": "Thời trang",
+            "subjects": [
+                "Mỹ thuật"
+            ],
+            "salary": "10-80 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 162,
+            "name": "Người mẫu",
+            "field": "Thời trang",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "5-200 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 163,
+            "name": "Makeup Artist",
+            "field": "Thời trang",
+            "subjects": [
+                "Mỹ thuật"
+            ],
+            "salary": "10-60 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 164,
+            "name": "Thợ làm tóc",
+            "field": "Thời trang",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "8-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 165,
+            "name": "Nail Artist",
+            "field": "Thời trang",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "8-30 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 166,
+            "name": "Spa Therapist",
+            "field": "Làm đẹp",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "8-25 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 167,
+            "name": "Chuyên viên chăm sóc da",
+            "field": "Làm đẹp",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "10-40 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 168,
+            "name": "Influencer/KOL",
+            "field": "Truyền thông",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "5-500 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 169,
+            "name": "YouTuber",
+            "field": "Truyền thông",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "0-500 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 170,
+            "name": "Streamer",
+            "field": "Truyền thông",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "5-200 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 171,
+            "name": "Podcaster",
+            "field": "Truyền thông",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "5-100 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 172,
+            "name": "Nhà môi giới BĐS",
+            "field": "Bất động sản",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "10-200 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 173,
+            "name": "Định giá BĐS",
+            "field": "Bất động sản",
+            "subjects": [
+                "Toán"
+            ],
+            "salary": "15-50 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 174,
+            "name": "Quản lý tòa nhà",
+            "field": "Bất động sản",
+            "subjects": [
+                "Đa dạng"
+            ],
+            "salary": "15-40 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 175,
+            "name": "Thợ mộc",
+            "field": "Thủ công",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "10-35 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 176,
+            "name": "Thợ hàn",
+            "field": "Thủ công",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "10-30 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 177,
+            "name": "Thợ may",
+            "field": "Thủ công",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "8-25 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 178,
+            "name": "Thợ kim hoàn",
+            "field": "Thủ công",
+            "subjects": [
+                "Mỹ thuật"
+            ],
+            "salary": "10-50 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 179,
+            "name": "Nghệ nhân gốm sứ",
+            "field": "Thủ công",
+            "subjects": [
+                "Mỹ thuật"
+            ],
+            "salary": "8-40 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 180,
+            "name": "Tài xế Grab/Gojek",
+            "field": "Vận tải",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "10-25 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 181,
+            "name": "Tài xế xe tải",
+            "field": "Vận tải",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "12-30 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 182,
+            "name": "Tài xế xe bus",
+            "field": "Vận tải",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "10-20 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 183,
+            "name": "Lái tàu",
+            "field": "Vận tải",
+            "subjects": [
+                "Khác"
+            ],
+            "salary": "15-40 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 184,
+            "name": "Thuyền trưởng",
+            "field": "Hàng hải",
+            "subjects": [
+                "Địa lý"
+            ],
+            "salary": "30-100 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 185,
+            "name": "Thợ lặn",
+            "field": "Hàng hải",
+            "subjects": [
+                "Thể dục"
+            ],
+            "salary": "20-80 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 186,
+            "name": "Chuyên viên CNTT y tế",
+            "field": "Y tế",
+            "subjects": [
+                "Tin học",
+                "Sinh học"
+            ],
+            "salary": "20-60 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 187,
+            "name": "Chuyên gia biotech",
+            "field": "Khoa học",
+            "subjects": [
+                "Sinh học",
+                "Hóa học"
+            ],
+            "salary": "20-70 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 188,
+            "name": "Nhà sản xuất phim",
+            "field": "Nghệ thuật",
+            "subjects": [
+                "Văn",
+                "Mỹ thuật"
+            ],
+            "salary": "20-300 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 189,
+            "name": "DJ",
+            "field": "Nghệ thuật",
+            "subjects": [
+                "Âm nhạc"
+            ],
+            "salary": "10-100 triệu",
+            "demand": "Thấp"
+        },
+        {
+            "id": 190,
+            "name": "Sound Engineer",
+            "field": "Nghệ thuật",
+            "subjects": [
+                "Âm nhạc",
+                "Vật lý"
+            ],
+            "salary": "12-50 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 191,
+            "name": "Event Planner",
+            "field": "Dịch vụ",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "12-50 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 192,
+            "name": "Wedding Planner",
+            "field": "Dịch vụ",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "15-80 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 193,
+            "name": "Chuyên viên chăm sóc khách hàng",
+            "field": "Dịch vụ",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "8-25 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 194,
+            "name": "Tổng đài viên",
+            "field": "Dịch vụ",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "6-15 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 195,
+            "name": "Thư ký",
+            "field": "Hành chính",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "8-20 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 196,
+            "name": "Trợ lý giám đốc",
+            "field": "Hành chính",
+            "subjects": [
+                "Tiếng Anh"
+            ],
+            "salary": "12-35 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 197,
+            "name": "Nhân viên hành chính",
+            "field": "Hành chính",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "8-18 triệu",
+            "demand": "Cao"
+        },
+        {
+            "id": 198,
+            "name": "Quản trị viên văn phòng",
+            "field": "Hành chính",
+            "subjects": [
+                "Văn"
+            ],
+            "salary": "12-30 triệu",
+            "demand": "Trung bình"
+        },
+        {
+            "id": 199,
+            "name": "E-commerce Specialist",
+            "field": "Kinh doanh",
+            "subjects": [
+                "Tin học"
+            ],
+            "salary": "12-45 triệu",
+            "demand": "Rất cao"
+        },
+        {
+            "id": 200,
+            "name": "Affiliate Marketer",
+            "field": "Marketing",
+            "subjects": [
+                "Tin học"
+            ],
+            "salary": "5-100 triệu",
+            "demand": "Cao"
+        }
+    ],
+    "subjectWeights": {
+        "Toán": [
+            "Kỹ sư phần mềm",
+            "Kỹ sư AI",
+            "Kế toán",
+            "Kiểm toán",
+            "Chuyên viên tài chính",
+            "Kiến trúc sư",
+            "Kỹ sư xây dựng",
+            "Nhà toán học"
+        ],
+        "Vật lý": [
+            "Kỹ sư điện",
+            "Kỹ sư cơ khí",
+            "Kỹ sư hàng không",
+            "Phi công",
+            "Nhà vật lý",
+            "Kỹ sư năng lượng"
+        ],
+        "Hóa học": [
+            "Dược sĩ",
+            "Kỹ sư hóa học",
+            "Nhà hóa học",
+            "Chuyên gia môi trường"
+        ],
+        "Sinh học": [
+            "Bác sĩ",
+            "Y tá",
+            "Dược sĩ",
+            "Chuyên gia dinh dưỡng",
+            "Nhà sinh học",
+            "Kỹ sư nông nghiệp"
+        ],
+        "Tin học": [
+            "Lập trình viên",
+            "Kỹ sư phần mềm",
+            "DevOps",
+            "QA/Tester",
+            "Data Scientist",
+            "UX/UI Designer"
+        ],
+        "Tiếng Anh": [
+            "Thông dịch viên",
+            "Giáo viên tiếng Anh",
+            "Marketing",
+            "Hướng dẫn viên du lịch",
+            "Tiếp viên hàng không"
+        ],
+        "Văn": [
+            "Nhà báo",
+            "Biên tập viên",
+            "Copywriter",
+            "Giáo viên",
+            "Luật sư",
+            "Nhà văn"
+        ],
+        "Mỹ thuật": [
+            "Graphic Designer",
+            "Kiến trúc sư",
+            "Thiết kế nội thất",
+            "Họa sĩ",
+            "Fashion Designer",
+            "3D Artist"
+        ],
+        "Địa lý": [
+            "Hướng dẫn viên du lịch",
+            "Nhà địa chất",
+            "Thuyền trưởng",
+            "Nhà khí tượng học"
+        ],
+        "Lịch sử": [
+            "Nhà nghiên cứu lịch sử",
+            "Giáo viên lịch sử",
+            "Hướng dẫn viên du lịch",
+            "Nhà ngoại giao"
+        ],
+        "GDCD": [
+            "Luật sư",
+            "Thẩm phán",
+            "Công chứng viên",
+            "Nhân viên công tác xã hội"
+        ],
+        "Thể dục": [
+            "VĐV",
+            "HLV thể hình",
+            "HLV yoga",
+            "Vũ công",
+            "Thợ lặn"
+        ]
+    }
+}
