@@ -14565,15 +14565,27 @@ Yêu cầu output JSON thuần túy (KHÔNG có markdown, KHÔNG có \`\`\`):
 
                 if (reply) {
                     let jsonStr = reply.trim();
-                    // Remove markdown code blocks if present
-                    if (jsonStr.includes('```json')) jsonStr = jsonStr.split('```json')[1].split('```')[0].trim();
-                    else if (jsonStr.includes('```')) jsonStr = jsonStr.split('```')[1].split('```')[0].trim();
-                    // Find JSON object
+                    console.log('[Essay] Raw reply length:', jsonStr.length);
+
+                    // Try to extract JSON from response
+                    // Method 1: Remove markdown code blocks
+                    if (jsonStr.includes('```json')) {
+                        jsonStr = jsonStr.split('```json')[1].split('```')[0].trim();
+                    } else if (jsonStr.includes('```')) {
+                        jsonStr = jsonStr.split('```')[1].split('```')[0].trim();
+                    }
+
+                    // Method 2: Find JSON object using regex (most reliable)
                     const jsonMatch = jsonStr.match(/\{[\s\S]*\}/);
-                    if (jsonMatch) jsonStr = jsonMatch[0];
+                    if (jsonMatch) {
+                        jsonStr = jsonMatch[0];
+                    }
+
+                    console.log('[Essay] Extracted JSON:', jsonStr.substring(0, 100) + '...');
 
                     try {
                         const result = JSON.parse(jsonStr);
+                        console.log('[Essay] Parse success! Score:', result.score);
                         const scorePercent = (result.score / result.maxScore) * 100;
                         const scoreColor = scorePercent >= 80 ? '#10b981' : scorePercent >= 50 ? '#f59e0b' : '#ef4444';
 
