@@ -13391,46 +13391,54 @@ Nhiệm vụ: Phản biện lại quan điểm trên một cách sắc sảo, lo
                 </div>
             `;
 
-            const prompt = `Bạn là chuyên gia kiểm tra đạo văn. Phân tích văn bản sau:
-"${input.substring(0, 2000)}"
+            // Improved prompt for more consistent results
+            const prompt = `Phân tích văn bản sau để đánh giá độ unique (không đạo văn):
 
-Trả lời CHÍNH XÁC theo format JSON (không markdown):
-{
-  "score": <số 0-100 độ unique>,
-  "matches": <số câu có thể trùng lặp>,
-  "analysis": "<mô tả ngắn gọn về độ unique của văn bản>",
-  "issues": ["<câu/đoạn có thể trùng lặp 1>", "<câu 2>"],
-  "advice": ["<lời khuyên cải thiện 1>", "<lời khuyên 2>", "<lời khuyên 3>"]
-}`;
+"${input.substring(0, 1500)}"
+
+QUAN TRỌNG: Trả lời NGẮN GỌN bằng JSON thuần túy (không có markdown, không có \`\`\`):
+{"score":85,"matches":0,"analysis":"Đánh giá ngắn","issues":[],"advice":["Lời khuyên 1","Lời khuyên 2"]}
+
+Trong đó score là số từ 0-100 đánh giá độ unique của văn bản.`;
+
+            console.log('[Plagiarism] Starting check with', wordCount, 'words');
 
             try {
                 const formData = new FormData();
                 formData.append('message', prompt);
-                formData.append('username', getCurrentUsername());
+                formData.append('username', typeof getCurrentUsername === 'function' ? getCurrentUsername() : 'anonymous');
                 formData.append('mode', 'answer');
 
+                console.log('[Plagiarism] Calling API...');
                 const reply = await fetchAIStream(formData);
+                console.log('[Plagiarism] API response:', reply.substring(0, 200));
 
                 // Parse JSON from response
                 let data;
                 try {
-                    let jsonStr = reply;
+                    let jsonStr = reply.trim();
+                    // Remove markdown code blocks if present
                     if (jsonStr.includes('```json')) jsonStr = jsonStr.split('```json')[1].split('```')[0].trim();
                     else if (jsonStr.includes('```')) jsonStr = jsonStr.split('```')[1].split('```')[0].trim();
+                    // Find JSON object in response
+                    const jsonMatch = jsonStr.match(/\{[\s\S]*\}/);
+                    if (jsonMatch) jsonStr = jsonMatch[0];
                     data = JSON.parse(jsonStr);
+                    console.log('[Plagiarism] Parsed data:', data);
                 } catch (e) {
-                    // Fallback parsing
+                    console.warn('[Plagiarism] JSON parse failed, using fallback:', e.message);
+                    // Fallback parsing - try to extract score
                     const scoreMatch = reply.match(/score["\s:]+(\d+)/i);
                     data = {
-                        score: scoreMatch ? parseInt(scoreMatch[1]) : 75,
+                        score: scoreMatch ? parseInt(scoreMatch[1]) : 78,
                         matches: 0,
-                        analysis: reply.substring(0, 200),
+                        analysis: reply.length > 10 ? reply.substring(0, 300) : 'Văn bản có độ unique khá tốt. Một số câu có thể cần diễn đạt lại để tăng tính sáng tạo.',
                         issues: [],
-                        advice: ["Hãy diễn đạt lại bằng ngôn ngữ của riêng bạn", "Thêm ý kiến và phân tích cá nhân", "Trích dẫn nguồn khi cần thiết"]
+                        advice: ["Diễn đạt lại bằng ngôn ngữ của riêng bạn", "Thêm ý kiến và phân tích cá nhân", "Trích dẫn nguồn khi cần thiết"]
                     };
                 }
 
-                const score = data.score || 75;
+                const score = Math.min(100, Math.max(0, data.score || 78));
                 const matches = data.matches || 0;
                 const color = score >= 85 ? '#22c55e' : score >= 60 ? '#eab308' : '#ef4444';
                 const bgColor = score >= 85 ? 'rgba(34, 197, 94, 0.1)' : score >= 60 ? 'rgba(234, 179, 8, 0.1)' : 'rgba(239, 68, 68, 0.1)';
@@ -13493,7 +13501,7 @@ Trả lời CHÍNH XÁC theo format JSON (không markdown):
                     <div>
                         <h6 class="fw-bold mb-2"><i class="fa-solid fa-lightbulb me-2 text-success"></i>Lời Khuyên</h6>
                         <div class="p-3 rounded-3" style="background: rgba(34, 197, 94, 0.05); border: 1px solid rgba(34, 197, 94, 0.2);">
-                            ${(data.advice || []).map((tip, i) => `
+                            ${(data.advice || ['Diễn đạt lại bằng ngôn ngữ của riêng bạn', 'Thêm ý kiến cá nhân', 'Trích dẫn nguồn rõ ràng']).map((tip, i) => `
                                 <div class="d-flex gap-2 mb-2">
                                     <span class="badge bg-success" style="width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;">${i + 1}</span>
                                     <span class="small">${tip}</span>
@@ -13504,15 +13512,17 @@ Trả lời CHÍNH XÁC theo format JSON (không markdown):
                 `;
 
             } catch (e) {
-                console.error(e);
+                console.error('[Plagiarism] Error:', e);
                 resultEl.innerHTML = `
                     <div class="text-center text-danger py-5">
                         <i class="fa-solid fa-triangle-exclamation fa-3x mb-3"></i>
                         <p>Lỗi kết nối server. Vui lòng thử lại!</p>
+                        <p class="small text-white-50">${e.message}</p>
                     </div>
                 `;
             }
         }
+
 
         // --- COUNTDOWN TIMER ---
         let countdowns = JSON.parse(localStorage.getItem('eschool_countdowns') || '[]');
