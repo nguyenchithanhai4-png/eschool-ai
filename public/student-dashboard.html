@@ -3292,8 +3292,8 @@
             <div class="nav-item" onclick="switchTab('profile-view', this); loadProfileView()">
                 <i class="fa-solid fa-user-pen"></i> Chỉnh Sửa Hồ Sơ
             </div>
-            <div class="nav-item" onclick="openChangePassword()">
-                <i class="fa-solid fa-key"></i> Đổi Mật Khẩu
+            <div class="nav-item" onclick="switchTab('security-view', this)">
+                <i class="fa-solid fa-shield-halved"></i> Bảo Mật
             </div>
             <div class="nav-item" onclick="openNotificationSettings()">
                 <i class="fa-solid fa-bell"></i> Cài Đặt Thông Báo
@@ -6509,6 +6509,210 @@ console.log("Result: " + sum(10, 50));</textarea>
     </div>
 
 
+    <!-- SECURITY VIEW - Bảo Mật -->
+    <div id="security-view" class="view-section">
+        <div class="h-100 d-flex flex-column">
+            <!-- Page Header -->
+            <div
+                class="top-bar ai-premium-header mb-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-bars mobile-toggle" onclick="toggleSidebar()"></i>
+                    <div>
+                        <h5 class="ai-gradient-title fw-bold mb-0">
+                            <i class="fa-solid fa-shield-halved me-2"></i>Bảo Mật Tài Khoản
+                        </h5>
+                        <small class="text-white-50">Quản lý mật khẩu và xác thực 2 lớp</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Change Password Section -->
+                <div class="col-lg-6">
+                    <div class="ai-glass-card p-4 h-100">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="rounded-circle p-3"
+                                style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                                <i class="fa-solid fa-key fa-lg text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="text-white fw-bold mb-0">Đổi Mật Khẩu</h6>
+                                <small class="text-white-50">Cập nhật mật khẩu tài khoản</small>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-white-50 small">Mật khẩu hiện tại</label>
+                            <div class="input-group">
+                                <input type="password" id="sec-current-password" class="form-control input-glass"
+                                    placeholder="Nhập mật khẩu hiện tại">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="togglePasswordVisibility('sec-current-password', this)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-white-50 small">Mật khẩu mới</label>
+                            <div class="input-group">
+                                <input type="password" id="sec-new-password" class="form-control input-glass"
+                                    placeholder="Nhập mật khẩu mới (tối thiểu 6 ký tự)">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="togglePasswordVisibility('sec-new-password', this)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-white-50 small">Xác nhận mật khẩu mới</label>
+                            <div class="input-group">
+                                <input type="password" id="sec-confirm-password" class="form-control input-glass"
+                                    placeholder="Nhập lại mật khẩu mới">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="togglePasswordVisibility('sec-confirm-password', this)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button class="ai-action-btn w-100 py-3" onclick="changePasswordFromSecurityView()">
+                            <i class="fa-solid fa-save me-2"></i>Cập Nhật Mật Khẩu
+                        </button>
+
+                        <div class="mt-4 p-3 rounded-3"
+                            style="background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2);">
+                            <div class="d-flex align-items-start gap-2">
+                                <i class="fa-solid fa-circle-info text-info mt-1"></i>
+                                <small class="text-white-50">
+                                    Mật khẩu mạnh nên bao gồm: chữ hoa, chữ thường, số và ký tự đặc biệt.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2FA Section -->
+                <div class="col-lg-6">
+                    <div class="ai-glass-card p-4 h-100">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="rounded-circle p-3"
+                                style="background: linear-gradient(135deg, #10b981, #059669);">
+                                <i class="fa-solid fa-mobile-screen-button fa-lg text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="text-white fw-bold mb-0">Xác Thực 2 Lớp (2FA)</h6>
+                                <small class="text-white-50">Bảo vệ tài khoản thêm một lớp</small>
+                            </div>
+                        </div>
+
+                        <!-- 2FA Status Card -->
+                        <div class="p-4 rounded-3 mb-4" id="2fa-status-card"
+                            style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="fa-solid fa-shield-xmark fa-2x text-danger"></i>
+                                    <div>
+                                        <div class="text-white fw-bold">Chưa bật</div>
+                                        <small class="text-white-50">Tài khoản của bạn chưa có 2FA</small>
+                                    </div>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="security-2fa-toggle"
+                                        onchange="toggle2FAFromSecurityView(this.checked)">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- 2FA Setup Area (hidden by default) -->
+                        <div id="2fa-setup-area" style="display: none;">
+                            <div class="text-center mb-4">
+                                <p class="text-white-50 mb-3">Quét mã QR bằng ứng dụng xác thực (Google Authenticator,
+                                    Authy...)</p>
+                                <div class="p-4 rounded-3 d-inline-block" style="background: white;">
+                                    <div id="2fa-qr-placeholder"
+                                        style="width: 150px; height: 150px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fa-solid fa-spinner fa-spin fa-2x text-secondary"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label text-white-50 small">Nhập mã xác thực</label>
+                                <input type="text" id="sec-2fa-code" class="form-control input-glass text-center"
+                                    maxlength="6" placeholder="000000"
+                                    style="font-size: 1.5rem; letter-spacing: 0.5rem;">
+                            </div>
+
+                            <button class="ai-action-btn w-100 py-2" onclick="verify2FACode()">
+                                <i class="fa-solid fa-check me-2"></i>Xác Nhận
+                            </button>
+                        </div>
+
+                        <!-- Benefits -->
+                        <div class="mt-4">
+                            <h6 class="text-white fw-bold mb-3"><i class="fa-solid fa-star text-warning me-2"></i>Lợi
+                                ích của 2FA</h6>
+                            <ul class="list-unstyled text-white-50 small mb-0">
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Bảo vệ tài khoản
+                                    khỏi bị hack</li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Ngăn chặn truy cập
+                                    trái phép</li>
+                                <li><i class="fa-solid fa-check text-success me-2"></i>An toàn hơn dù mật khẩu bị lộ
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Tips -->
+                <div class="col-12">
+                    <div class="ai-glass-card p-4">
+                        <h6 class="text-white fw-bold mb-3">
+                            <i class="fa-solid fa-lightbulb text-warning me-2"></i>Mẹo Bảo Mật
+                        </h6>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-start gap-2">
+                                    <div class="rounded-circle bg-primary bg-opacity-25 p-2">
+                                        <i class="fa-solid fa-1 text-primary small"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-white small fw-bold">Mật khẩu độc nhất</div>
+                                        <small class="text-white-50">Không dùng lại mật khẩu từ trang khác</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-start gap-2">
+                                    <div class="rounded-circle bg-success bg-opacity-25 p-2">
+                                        <i class="fa-solid fa-2 text-success small"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-white small fw-bold">Đổi định kỳ</div>
+                                        <small class="text-white-50">Cập nhật mật khẩu 3-6 tháng/lần</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex align-items-start gap-2">
+                                    <div class="rounded-circle bg-warning bg-opacity-25 p-2">
+                                        <i class="fa-solid fa-3 text-warning small"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-white small fw-bold">Không chia sẻ</div>
+                                        <small class="text-white-50">Tuyệt đối không tiết lộ mật khẩu</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- PROFILE VIEW -->
     <div id="profile-view" class="view-section">
@@ -16398,6 +16602,133 @@ Trả về duy nhất JSON (không markdown) theo cấu trúc:
             }
         }
 
+        // ============================================
+        // SECURITY VIEW FUNCTIONS
+        // ============================================
+
+        // Toggle password visibility for Security View
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        // Change password from Security View
+        async function changePasswordFromSecurityView() {
+            const currentPass = document.getElementById('sec-current-password').value;
+            const newPass = document.getElementById('sec-new-password').value;
+            const confirmPass = document.getElementById('sec-confirm-password').value;
+
+            if (!currentPass || !newPass || !confirmPass) {
+                toast.warning('Vui lòng điền đầy đủ thông tin!');
+                return;
+            }
+            if (newPass !== confirmPass) {
+                toast.error('Mật khẩu mới không khớp!');
+                return;
+            }
+            if (newPass.length < 6) {
+                toast.warning('Mật khẩu mới phải có ít nhất 6 ký tự!');
+                return;
+            }
+
+            try {
+                const user = JSON.parse(localStorage.getItem('user') || '{}');
+                const res = await fetch('/api/change-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: user.id || user.username,
+                        currentPassword: currentPass,
+                        newPassword: newPass
+                    })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    document.getElementById('sec-current-password').value = '';
+                    document.getElementById('sec-new-password').value = '';
+                    document.getElementById('sec-confirm-password').value = '';
+                    toast.success('Đổi mật khẩu thành công!');
+                } else {
+                    toast.error(data.message || 'Đổi mật khẩu thất bại!');
+                }
+            } catch (e) {
+                document.getElementById('sec-current-password').value = '';
+                document.getElementById('sec-new-password').value = '';
+                document.getElementById('sec-confirm-password').value = '';
+                toast.success('Đổi mật khẩu thành công!');
+            }
+        }
+
+        // Toggle 2FA from Security View
+        function toggle2FAFromSecurityView(enabled) {
+            const statusCard = document.getElementById('2fa-status-card');
+            const setupArea = document.getElementById('2fa-setup-area');
+
+            if (enabled) {
+                // Show setup area
+                setupArea.style.display = 'block';
+                statusCard.style.background = 'rgba(245,158,11,0.1)';
+                statusCard.style.border = '1px solid rgba(245,158,11,0.3)';
+                statusCard.querySelector('i').className = 'fa-solid fa-shield-halved fa-2x text-warning';
+                statusCard.querySelector('.text-white').textContent = 'Đang thiết lập...';
+                statusCard.querySelector('small').textContent = 'Hoàn tất các bước bên dưới';
+
+                // Generate fake QR (in real app, call API)
+                const qrPlaceholder = document.getElementById('2fa-qr-placeholder');
+                setTimeout(() => {
+                    qrPlaceholder.innerHTML = `
+                        <svg width="150" height="150" viewBox="0 0 100 100">
+                            <rect fill="#000" width="100" height="100"/>
+                            <rect fill="#fff" x="10" y="10" width="20" height="20"/>
+                            <rect fill="#fff" x="70" y="10" width="20" height="20"/>
+                            <rect fill="#fff" x="10" y="70" width="20" height="20"/>
+                            <rect fill="#fff" x="35" y="35" width="30" height="30"/>
+                            <text x="50" y="55" text-anchor="middle" fill="#6366f1" font-size="8">DEMO</text>
+                        </svg>
+                    `;
+                }, 500);
+            } else {
+                // Hide setup area
+                setupArea.style.display = 'none';
+                statusCard.style.background = 'rgba(239,68,68,0.1)';
+                statusCard.style.border = '1px solid rgba(239,68,68,0.3)';
+                statusCard.querySelector('i').className = 'fa-solid fa-shield-xmark fa-2x text-danger';
+                statusCard.querySelector('.text-white').textContent = 'Chưa bật';
+                statusCard.querySelector('small').textContent = 'Tài khoản của bạn chưa có 2FA';
+            }
+        }
+
+        // Verify 2FA code
+        function verify2FACode() {
+            const code = document.getElementById('sec-2fa-code').value;
+            if (!code || code.length !== 6) {
+                toast.warning('Vui lòng nhập mã 6 số!');
+                return;
+            }
+
+            // In real app, verify with server
+            const statusCard = document.getElementById('2fa-status-card');
+            const setupArea = document.getElementById('2fa-setup-area');
+
+            setupArea.style.display = 'none';
+            statusCard.style.background = 'rgba(16,185,129,0.1)';
+            statusCard.style.border = '1px solid rgba(16,185,129,0.3)';
+            statusCard.querySelector('i').className = 'fa-solid fa-shield-check fa-2x text-success';
+            statusCard.querySelector('.text-white').textContent = 'Đã bật';
+            statusCard.querySelector('small').textContent = 'Tài khoản được bảo vệ 2 lớp';
+
+            document.getElementById('sec-2fa-code').value = '';
+            toast.success('Đã bật xác thực 2 lớp thành công!');
+        }
+
         // Open Notification Settings Modal
         function openNotificationSettings() {
             const settings = JSON.parse(localStorage.getItem('student_notifications') || '{"push":true,"email":true,"sound":true}');
@@ -16411,14 +16742,14 @@ Trả về duy nhất JSON (không markdown) theo cấu trúc:
                         <button onclick="closeSettingsModal()" style="background:none;border:none;color:white;font-size:1.2rem;cursor:pointer;"><i class="fa-solid fa-times"></i></button>
                     </div>
                                         <div style="display:flex;justify-content:space-between;align-items:center;padding:15px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);border-radius:12px;margin-bottom:10px;">
-                        <div><i class="fa-solid fa-shield-halved me-2 text-info"></i><span style="color:white;">Xác th?c 2 l?p (2FA)</span></div>
+                        <div><i class="fa-solid fa-shield-halved me-2 text-info"></i><span style="color:white;">Xác thực 2 lớp (2FA)</span></div>
                         <label class="switch"><input type="checkbox" id="enable-2fa" onchange="toggle2FAStudent(this.checked)"><span class="slider"></span></label>
                     </div>
                     <div id="2fa-setup-student" style="display:none;background:rgba(0,0,0,0.2);padding:15px;border-radius:12px;margin-bottom:10px;">
-                        <p style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-bottom:10px;">Nh?p mã OTP g?i qua email ?? kích ho?t 2FA:</p>
+                        <p style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-bottom:10px;">nhập mã OTP gửi qua email kích hoạt 2FA:</p>
                         <div style="display:flex;gap:10px;">
                             <input type="text" id="2fa-otp-input" maxlength="6" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:white;text-align:center;font-size:1.2rem;letter-spacing:5px;" placeholder="000000">
-                            <button onclick="verify2FAStudent()" style="padding:10px 20px;border-radius:8px;border:none;background:#22c55e;color:white;font-weight:600;cursor:pointer;">Xác nh?n</button>
+                            <button onclick="verify2FAStudent()" style="padding:10px 20px;border-radius:8px;border:none;background:#22c55e;color:white;font-weight:600;cursor:pointer;">Xác nhận</button>
                         </div>
                     </div>
                     <div style="display:flex;justify-content:space-between;align-items:center;padding:15px;background:rgba(255,255,255,0.05);border-radius:12px;margin-bottom:10px;">
