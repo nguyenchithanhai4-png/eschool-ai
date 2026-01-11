@@ -10478,23 +10478,19 @@ Chỉ trả về JSON, không giải thích gì thêm.`;
                 const formData = new FormData();
                 formData.append('message', prompt);
                 formData.append('username', 'flashcard-game');
+                formData.append('mode', 'answer');
 
-                const response = await fetch('/api/ai-chat', {
-                    method: 'POST',
-                    body: formData
-                });
+                // Use fetchAIStream (same as working chatbot)
+                const responseText = await fetchAIStream(formData);
 
-                const data = await response.json();
-
-                if (!data.reply) {
+                if (!responseText) {
                     throw new Error('Không nhận được phản hồi từ AI');
                 }
 
                 // Parse AI response
                 let vocabData;
-                const responseText = data.reply || '';
 
-                // Try to extract JSON from response
+                // Try to extract JSON array from response
                 const jsonMatch = responseText.match(/\[[\s\S]*\]/);
                 if (jsonMatch) {
                     vocabData = JSON.parse(jsonMatch[0]);
@@ -13301,12 +13297,12 @@ Chỉ liệt kê nội dung câu trả lời, không đánh số, mỗi câu m�
             try {
                 const formData = new FormData();
                 formData.append('message', prompt);
-                formData.append('username', getCurrentUsername());
+                formData.append('username', typeof getCurrentUsername === 'function' ? getCurrentUsername() : 'anonymous');
                 formData.append('mode', 'answer');
 
-                const res = await fetch('/api/ai-chat', { method: 'POST', body: formData });
-                const data = await res.json();
-                outputEl.innerHTML = data.reply || 'Không thể dịch.';
+                // Use fetchAIStream (same as working chatbot)
+                const reply = await fetchAIStream(formData);
+                outputEl.innerHTML = reply || 'Không thể dịch.';
             } catch (e) {
                 outputEl.innerHTML = '⚠️ Lỗi kết nối. Vui lòng thử lại.';
             }
@@ -14223,11 +14219,10 @@ QUAN TRỌNG:
 (Lưu ý nếu có)`);
                 formData.append('username', getCurrentUsername());
 
-                const res = await fetch('/api/ai-chat', { method: 'POST', body: formData });
-                const data = await res.json();
+                // Use fetchAIStream (same as working chatbot)
+                const rawText = await fetchAIStream(formData);
 
-                if (data.reply) {
-                    const rawText = data.reply;
+                if (rawText) {
 
                     // Custom Parser for the delimiter format
                     const solution = {
