@@ -5010,15 +5010,19 @@ console.log("Result: " + sum(10, 50));</textarea>
                         <i class="fa-solid fa-upload me-2 text-primary"></i>Tải lên file
                     </h6>
 
-                    <div class="ai-upload-zone py-5" onclick="document.getElementById('converter-file').click()"
-                        id="converter-dropzone" ondragover="event.preventDefault(); this.classList.add('dragover')"
+                    <div class="ai-upload-zone py-5" id="converter-dropzone" style="cursor: pointer;"
+                        onclick="if(event.target.tagName !== 'BUTTON') document.getElementById('converter-file').click();"
+                        ondragover="event.preventDefault(); this.classList.add('dragover')"
                         ondragleave="this.classList.remove('dragover')" ondrop="handleConverterDrop(event)">
-                        <i class="fa-solid fa-cloud-arrow-up fa-3x mb-3" style="color: var(--primary);"></i>
-                        <h5 class="text-white mb-2">Kéo thả file vào đây</h5>
-                        <p class="text-white-50 mb-3">Hỗ trợ: PDF, Word, Ảnh (JPG, PNG)</p>
+                        <i class="fa-solid fa-cloud-arrow-up fa-3x mb-3"
+                            style="color: var(--primary); pointer-events: none;"></i>
+                        <h5 class="text-white mb-2" style="pointer-events: none;">Kéo thả file vào đây</h5>
+                        <p class="text-white-50 mb-3" style="pointer-events: none;">Hỗ trợ: PDF, Word, Ảnh (JPG, PNG)
+                        </p>
                         <input type="file" id="converter-file" class="d-none"
                             accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp" onchange="handleConverterFile(this)">
-                        <button class="ai-action-btn py-2 px-4">
+                        <button type="button" class="ai-action-btn py-2 px-4"
+                            onclick="event.stopPropagation(); document.getElementById('converter-file').click();">
                             <i class="fa-solid fa-folder-open me-2"></i>Chọn File
                         </button>
                     </div>
