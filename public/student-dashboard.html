@@ -14547,40 +14547,30 @@ Example:
 
             try {
                 const prompt = `Chấm bài luận sau.
-Chủ đề: "${topic}".
+Chủ đề: "${topic || 'Không có chủ đề'}".
 Nội dung: "${essayText}".
-(Nếu có ảnh, hãy đọc từ ảnh).
 
-Yêu cầu output JSON KHÔNG markdown:
-{
-  "score": <số điểm trên 10>,
-  "maxScore": 10,
-  "breakdown": {
-    "content": {"score": <điểm>, "max": 3, "comment": "Nx"},
-    "structure": {"score": <điểm>, "max": 3, "comment": "Nx"},
-    "language": {"score": <điểm>, "max": 2, "comment": "Nx"},
-    "presentation": {"score": <điểm>, "max": 2, "comment": "Nx"}
-  },
-  "strengths": ["Điểm mạnh 1", "Điểm mạnh 2"],
-  "improvements": ["Cần cải thiện 1", "Cần cải thiện 2"],
-  "overallFeedback": "Nhận xét tổng quan"
-}`;
+Yêu cầu output JSON thuần túy (KHÔNG có markdown, KHÔNG có \`\`\`):
+{"score":8,"maxScore":10,"breakdown":{"content":{"score":2.5,"max":3,"comment":"Nội dung tốt"},"structure":{"score":2,"max":3,"comment":"Cấu trúc rõ ràng"},"language":{"score":1.5,"max":2,"comment":"Ngôn ngữ ổn"},"presentation":{"score":2,"max":2,"comment":"Trình bày đẹp"}},"strengths":["Điểm mạnh 1","Điểm mạnh 2"],"improvements":["Cần cải thiện 1","Cần cải thiện 2"],"overallFeedback":"Nhận xét tổng quan về bài viết"}`;
 
                 const formData = new FormData();
                 formData.append('message', prompt);
-                formData.append('username', getCurrentUsername());
-                if (essayImageFile) {
-                    formData.append('image', essayImageFile);
-                }
+                formData.append('username', typeof getCurrentUsername === 'function' ? getCurrentUsername() : 'anonymous');
+                formData.append('mode', 'answer');
 
-                // Use Local AI Vision
-                const res = await fetch('/api/ai-chat', { method: 'POST', body: formData });
-                const data = await res.json();
+                // Use fetchAIStream (same as working chatbot)
+                console.log('[Essay] Calling AI...');
+                const reply = await fetchAIStream(formData);
+                console.log('[Essay] AI response:', reply.substring(0, 200));
 
-                if (data.reply) {
-                    let jsonStr = data.reply;
+                if (reply) {
+                    let jsonStr = reply.trim();
+                    // Remove markdown code blocks if present
                     if (jsonStr.includes('```json')) jsonStr = jsonStr.split('```json')[1].split('```')[0].trim();
                     else if (jsonStr.includes('```')) jsonStr = jsonStr.split('```')[1].split('```')[0].trim();
+                    // Find JSON object
+                    const jsonMatch = jsonStr.match(/\{[\s\S]*\}/);
+                    if (jsonMatch) jsonStr = jsonMatch[0];
 
                     try {
                         const result = JSON.parse(jsonStr);
@@ -14629,16 +14619,19 @@ Yêu cầu output JSON KHÔNG markdown:
                         essayImageFile = null;
 
                     } catch (parseErr) {
+                        console.warn('[Essay] JSON parse failed, showing raw response');
                         // Fallback if AI didn't return perfect JSON
-                        resultEl.innerHTML = marked.parse(data.reply);
+                        resultEl.innerHTML = marked.parse(reply);
                     }
                 } else {
                     resultEl.innerHTML = `<div class="text-center text-danger py-5"><p>Không thể chấm bài.</p></div>`;
                 }
             } catch (e) {
-                resultEl.innerHTML = `<div class="text-center text-danger py-5"><p>Lỗi kết nối!</p></div>`;
+                console.error('[Essay] Error:', e);
+                resultEl.innerHTML = `<div class="text-center text-danger py-5"><p>Lỗi kết nối! ${e.message}</p></div>`;
             }
         }
+
 
         // --- FLASHCARD AI ---
         let flashcardDecks = [];
