@@ -5001,6 +5001,46 @@ app.post('/api/ai/reset-memory', (req, res) => {
     }
 });
 
+// AI Generation endpoint for teacher dashboard (Lesson Plan, Quiz)
+app.post('/api/ai/generate', async (req, res) => {
+    try {
+        const { prompt, type } = req.body;
+
+        if (!prompt) {
+            return res.json({ success: false, message: 'Prompt is required' });
+        }
+
+        console.log(`[AI Generate] Type: ${type}, Prompt length: ${prompt.length}`);
+
+        // Use askSmartAI for generation
+        const result = await askSmartAI(prompt, 'teacher-ai', type || 'generate');
+
+        if (result.success && result.data) {
+            let content = result.data;
+
+            // For quiz-json type, try to extract JSON
+            if (type === 'quiz-json') {
+                try {
+                    // Try to parse as JSON directly
+                    const jsonMatch = content.match(/\[[\s\S]*\]/);
+                    if (jsonMatch) {
+                        content = JSON.parse(jsonMatch[0]);
+                    }
+                } catch (parseErr) {
+                    console.log('[AI Generate] Could not parse JSON, returning raw content');
+                }
+            }
+
+            res.json({ success: true, content, provider: result.provider });
+        } else {
+            res.json({ success: false, message: 'AI generation failed' });
+        }
+    } catch (err) {
+        console.error('[AI Generate] Error:', err.message);
+        res.json({ success: false, message: 'Server AI error: ' + err.message });
+    }
+});
+
 app.post('/api/generate-flashcards', async (req, res) => {
     try {
         const { text, topic } = req.body;
