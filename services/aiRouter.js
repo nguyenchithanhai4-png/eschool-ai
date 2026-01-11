@@ -186,16 +186,32 @@ async function handleText(content, task = 'chat', meta = {}) {
                 response: result.data    // Câu trả lời
             };
         } catch (ollamaError) {
-            // Ollama fail → log và tiếp tục với Cloud
-            console.log('[AIRouter] TEXT: Ollama failed, fallback to Cloud...', ollamaError.message);
+            // Ollama fail → log và kiểm tra xem có cho phép fallback không
+            console.log('[AIRouter] TEXT: Ollama failed:', ollamaError.message);
+
+            // Chỉ fallback sang cloud nếu có env USE_CLOUD_FALLBACK=true
+            if (process.env.USE_CLOUD_FALLBACK !== 'true') {
+                throw new Error('AI Local không khả dụng. Vui lòng đảm bảo AI đang chạy.');
+            }
+            console.log('[AIRouter] TEXT: Fallback to Cloud enabled, trying Cloud...');
         }
     } else if (!ollamaAvailable) {
-        console.log('[AIRouter] TEXT: Ollama not available, using Cloud...');
+        console.log('[AIRouter] TEXT: Ollama not available');
+
+        // Chỉ fallback sang cloud nếu có env USE_CLOUD_FALLBACK=true
+        if (process.env.USE_CLOUD_FALLBACK !== 'true') {
+            throw new Error('AI Local không khả dụng. Vui lòng đảm bảo Ngrok tunnel đang chạy và LOCAL_AI_URL được cấu hình đúng.');
+        }
+        console.log('[AIRouter] TEXT: Fallback to Cloud enabled, trying Cloud...');
     } else {
-        console.log('[AIRouter] TEXT: Queue busy, using Cloud...');
+        console.log('[AIRouter] TEXT: Queue busy, waiting...');
+        // Nếu queue busy, vẫn thử cloud nếu được phép
+        if (process.env.USE_CLOUD_FALLBACK !== 'true') {
+            throw new Error('AI đang bận. Vui lòng thử lại sau.');
+        }
     }
 
-    // ===== BƯỚC 2: FALLBACK SANG CLOUD =====
+    // ===== BƯỚC 2: FALLBACK SANG CLOUD (chỉ khi được phép) =====
     console.log('[AIRouter] TEXT: Trying Cloud providers...');
     const result = await cloudProvider.callText(content, finalSystemPrompt);
     return {
