@@ -4978,8 +4978,15 @@ Hãy gọi họ bằng tên này khi phù hợp.
             res.json({ reply: result.data, remaining: usageCheck.remaining, provider: result.provider });
         }
     } catch (err) {
-        console.error('AI Chat Error:', err);
-        res.json({ reply: '⚠️ Server AI đang xử lý, thử lại sau vài giây nhé!' });
+        console.error('AI Chat Error:', err.message);
+        // Provide more detailed error for debugging
+        let errorMessage = '⚠️ Server AI đang xử lý, thử lại sau vài giây nhé!';
+        if (err.message.includes('All Cloud Providers Failed')) {
+            errorMessage = '⚠️ Không thể kết nối AI. Vui lòng kiểm tra kết nối mạng hoặc liên hệ admin.';
+        } else if (err.message.includes('ECONNREFUSED') || err.message.includes('timeout')) {
+            errorMessage = '⚠️ AI Local không khả dụng. Hãy đảm bảo AI đang chạy trên máy chủ.';
+        }
+        res.json({ reply: errorMessage, error: err.message });
     }
 });
 
