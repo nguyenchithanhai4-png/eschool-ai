@@ -14025,7 +14025,7 @@ Trong đó score là số từ 0-100 đánh giá độ unique của văn bản.`
         }
 
         // Send teacher connection request
-        function sendTeacherRequest() {
+        async function sendTeacherRequest() {
             const emailInput = document.getElementById('teacher-email-input');
             const teacherEmail = emailInput.value.trim();
 
@@ -14063,24 +14063,53 @@ Trong đó score là số từ 0-100 đánh giá độ unique của văn bản.`
                 return;
             }
 
-            // Create new request
-            const newRequest = {
-                id: Date.now(),
-                studentUsername: studentUsername,
-                studentFullname: studentFullname,
-                studentEmail: studentEmail,
-                teacherEmail: teacherEmail.toLowerCase(),
-                status: 'pending',
-                createdAt: new Date().toISOString(),
-                respondedAt: null
-            };
+            // STEP 1: Check if teacher email exists in database
+            try {
+                showStudentPopup('Đang kiểm tra email giáo viên...', 'info');
 
-            requests.push(newRequest);
-            saveConnectionRequests(requests);
+                const checkResponse = await fetch(`/api/check-teacher-email?email=${encodeURIComponent(teacherEmail)}`);
+                const checkData = await checkResponse.json();
 
-            emailInput.value = '';
-            showStudentPopup(`Đã gửi yêu cầu kết nối đến ${teacherEmail}!`, 'success');
-            renderMyTeachers();
+                if (!checkData.success) {
+                    // Email not found or not a teacher
+                    showStudentPopup(checkData.message || 'Email giáo viên không tồn tại trong hệ thống!', 'error');
+                    return;
+                }
+
+                // Teacher found! Show confirm with teacher info
+                const teacher = checkData.teacher;
+                const confirmMsg = `Tìm thấy giáo viên:\n📧 ${teacher.fullname}\n📚 ${teacher.subject || 'Chưa cập nhật môn'}\n🏫 ${teacher.school || 'Chưa cập nhật trường'}\n\nBạn có muốn gửi yêu cầu kết nối?`;
+
+                if (!confirm(confirmMsg)) {
+                    return;
+                }
+
+                // STEP 2: Create new request
+                const newRequest = {
+                    id: Date.now(),
+                    studentUsername: studentUsername,
+                    studentFullname: studentFullname,
+                    studentEmail: studentEmail,
+                    teacherEmail: teacherEmail.toLowerCase(),
+                    teacherFullname: teacher.fullname,
+                    teacherSubject: teacher.subject,
+                    teacherSchool: teacher.school,
+                    status: 'pending',
+                    createdAt: new Date().toISOString(),
+                    respondedAt: null
+                };
+
+                requests.push(newRequest);
+                saveConnectionRequests(requests);
+
+                emailInput.value = '';
+                showStudentPopup(`Đã gửi yêu cầu kết nối đến ${teacher.fullname}!`, 'success');
+                renderMyTeachers();
+
+            } catch (error) {
+                console.error('[Teacher Connect] Error:', error);
+                showStudentPopup('Lỗi kết nối server! Vui lòng thử lại.', 'error');
+            }
         }
 
         // Render my teachers lists

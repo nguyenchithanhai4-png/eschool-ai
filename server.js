@@ -1561,6 +1561,61 @@ app.post('/api/admin/schools/approve', async (req, res) => {
 });
 
 // ============================================
+// CHECK TEACHER EMAIL ENDPOINT
+// ============================================
+// Kiểm tra email giáo viên có tồn tại trong hệ thống không
+app.get('/api/check-teacher-email', async (req, res) => {
+    try {
+        const { email } = req.query;
+
+        if (!email) {
+            return res.json({ success: false, exists: false, message: 'Email is required' });
+        }
+
+        // Find user by email
+        const user = await UserModel.findOne({
+            email: { $regex: new RegExp(`^${email.trim()}$`, 'i') }
+        });
+
+        if (!user) {
+            return res.json({
+                success: false,
+                exists: false,
+                message: 'Email này chưa đăng ký trong hệ thống E-School AI'
+            });
+        }
+
+        // Check if user is a teacher
+        if (user.role !== 'teacher') {
+            return res.json({
+                success: false,
+                exists: true,
+                isTeacher: false,
+                message: 'Email này không phải là tài khoản giáo viên'
+            });
+        }
+
+        // Teacher found!
+        res.json({
+            success: true,
+            exists: true,
+            isTeacher: true,
+            teacher: {
+                fullname: user.fullname || 'Giáo viên',
+                email: user.email,
+                subject: user.subject || '',
+                school: user.school || '',
+                avatarUrl: user.avatarUrl || ''
+            },
+            message: 'Tìm thấy giáo viên!'
+        });
+    } catch (err) {
+        console.error('[Check Teacher Email] Error:', err.message);
+        res.json({ success: false, exists: false, message: 'Lỗi server: ' + err.message });
+    }
+});
+
+// ============================================
 // CLASS RANKING (THI ĐUA) ENDPOINTS
 // ============================================
 
