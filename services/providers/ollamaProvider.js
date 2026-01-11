@@ -80,35 +80,48 @@ const MAX_HISTORY_LENGTH = 10;
  * @returns {Promise<boolean>} - true nếu Ollama đang chạy, false nếu không
  */
 async function checkAvailable() {
-    return new Promise((resolve) => {
-        const net = require('net');
-        const url = new URL(CONFIG.baseUrl);
-        const port = url.port || 8080;
-        const host = url.hostname || '127.0.0.1';
+    try {
+        // Sử dụng HTTP/HTTPS request thay vì TCP socket để tương thích với Ngrok
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 giây timeout
 
-        const socket = new net.Socket();
-        socket.setTimeout(3000); // 3 giây timeout (nhanh hơn HTTP)
+        const response = await fetch(CONFIG.baseUrl + '/health', {
+            method: 'GET',
+            signal: controller.signal
+        }).catch(() => null);
 
-        socket.on('connect', () => {
-            socket.destroy();
-            resolve(true); // Kết nối thành công -> AI đang chạy
-        });
+        clearTimeout(timeoutId);
 
-        socket.on('timeout', () => {
-            socket.destroy();
-            console.log('[Qwen AI] Check timeout (TCP)');
-            resolve(false);
-        });
+        if (response && response.ok) {
+            console.log('[Qwen AI] Available via HTTP check');
+            return true;
+        }
 
-        socket.on('error', (err) => {
-            socket.destroy();
-            // console.log('[Qwen AI] Not available (TCP):', err.message);
-            resolve(false);
-        });
+        // Fallback: Try chat endpoint directly
+        const chatResponse = await fetch(CONFIG.chatUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: CONFIG.model,
+                messages: [{ role: 'user', content: 'test' }],
+                max_tokens: 1
+            }),
+            signal: AbortSignal.timeout(5000)
+        }).catch(() => null);
 
-        socket.connect(port, host);
-    });
+        if (chatResponse && (chatResponse.ok || chatResponse.status === 400)) {
+            console.log('[Qwen AI] Available via chat endpoint check');
+            return true;
+        }
+
+        console.log('[Qwen AI] Not available');
+        return false;
+    } catch (error) {
+        console.log('[Qwen AI] Check failed:', error.message);
+        return false;
+    }
 }
+
 
 // ============================================
 // TẠO VĂN BẢN (TEXT GENERATION)
