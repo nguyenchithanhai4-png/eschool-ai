@@ -4992,52 +4992,174 @@ console.log("Result: " + sum(10, 50));</textarea>
                 <i class="fa-solid fa-bars mobile-toggle" onclick="toggleSidebar()"></i>
                 <div>
                     <h5 class="ai-gradient-title fw-bold mb-0">Converter Vạn Năng</h5>
-                    <small class="text-white-50">Chuyển đổi file và xử lý tài liệu siêu tốc</small>
+                    <small class="text-white-50">Chuyển đổi file và xử lý tài liệu siêu tốc với AI</small>
                 </div>
             </div>
-
+            <div>
+                <span class="badge bg-success bg-opacity-25 text-success px-3 py-2">
+                    <i class="fa-solid fa-bolt me-1"></i>Miễn phí
+                </span>
+            </div>
         </div>
 
         <div class="row g-4">
-            <div class="col-md-6">
-                <div class="ai-glass-card h-100 d-flex flex-column justify-content-center p-4">
-                    <div class="ai-upload-zone" onclick="document.getElementById('converter-file').click()">
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
-                        <h5 class="text-white">Kéo thả file vào đây</h5>
-                        <p class="text-white-50">Hoặc bấm để chọn file</p>
-                        <input type="file" id="converter-file" class="d-none">
-                        <button class="ai-action-btn mt-3 py-2 px-4 shadow-none position-relative">Chọn
-                            File</button>
+            <!-- Upload Area -->
+            <div class="col-lg-5">
+                <div class="ai-glass-card p-4" style="min-height: 400px;">
+                    <h6 class="text-white fw-bold mb-3">
+                        <i class="fa-solid fa-upload me-2 text-primary"></i>Tải lên file
+                    </h6>
+
+                    <div class="ai-upload-zone py-5" onclick="document.getElementById('converter-file').click()"
+                        id="converter-dropzone" ondragover="event.preventDefault(); this.classList.add('dragover')"
+                        ondragleave="this.classList.remove('dragover')" ondrop="handleConverterDrop(event)">
+                        <i class="fa-solid fa-cloud-arrow-up fa-3x mb-3" style="color: var(--primary);"></i>
+                        <h5 class="text-white mb-2">Kéo thả file vào đây</h5>
+                        <p class="text-white-50 mb-3">Hỗ trợ: PDF, Word, Ảnh (JPG, PNG)</p>
+                        <input type="file" id="converter-file" class="d-none"
+                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp" onchange="handleConverterFile(this)">
+                        <button class="ai-action-btn py-2 px-4">
+                            <i class="fa-solid fa-folder-open me-2"></i>Chọn File
+                        </button>
+                    </div>
+
+                    <!-- Selected File Preview -->
+                    <div id="converter-file-preview" class="mt-4" style="display: none;">
+                        <div class="d-flex align-items-center gap-3 p-3 rounded-3"
+                            style="background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);">
+                            <div class="rounded-circle bg-primary bg-opacity-25 p-3">
+                                <i class="fa-solid fa-file fa-lg text-primary" id="converter-file-icon"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="text-white fw-bold" id="converter-file-name">filename.pdf</div>
+                                <small class="text-white-50" id="converter-file-size">1.2 MB</small>
+                            </div>
+                            <button class="btn btn-sm btn-outline-danger rounded-circle" onclick="clearConverterFile()">
+                                <i class="fa-solid fa-times"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="ai-glass-card h-100 p-4">
-                    <h6 class="text-white mb-3 fw-bold">Tùy chọn chuyển đổi</h6>
-                    <div class="d-grid gap-3">
-                        <button class="method-card d-flex align-items-center gap-3 p-3 text-start bg-transparent"
-                            onclick="convertFile('pdf2word')">
-                            <div class="rounded-circle bg-primary bg-opacity-25 p-2 text-primary"><i
-                                    class="fa-solid fa-file-word"></i></div>
-                            <span class="fw-bold text-white">PDF sang Word</span>
-                        </button>
-                        <button class="method-card d-flex align-items-center gap-3 p-3 text-start bg-transparent"
-                            onclick="convertFile('img2text')">
-                            <div class="rounded-circle bg-warning bg-opacity-25 p-2 text-warning"><i
-                                    class="fa-solid fa-font"></i></div>
-                            <span class="fw-bold text-white">Ảnh sang Văn Bản (OCR)</span>
-                        </button>
-                        <button class="method-card d-flex align-items-center gap-3 p-3 text-start bg-transparent"
-                            onclick="convertFile('word2pdf')">
-                            <div class="rounded-circle bg-danger bg-opacity-25 p-2 text-danger"><i
-                                    class="fa-solid fa-file-pdf"></i></div>
-                            <span class="fw-bold text-white">Word sang PDF</span>
-                        </button>
+
+            <!-- Conversion Options -->
+            <div class="col-lg-7">
+                <div class="ai-glass-card p-4" style="min-height: 400px;">
+                    <h6 class="text-white fw-bold mb-3">
+                        <i class="fa-solid fa-wand-magic-sparkles me-2 text-warning"></i>Chọn chức năng
+                    </h6>
+
+                    <div class="row g-3 mb-4">
+                        <!-- PDF to Word -->
+                        <div class="col-sm-6">
+                            <div class="converter-option p-3 rounded-3 h-100"
+                                onclick="selectConverterOption('pdf2word')" data-option="pdf2word">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle p-3"
+                                        style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
+                                        <i class="fa-solid fa-file-word fa-lg text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-white fw-bold">PDF → Word</div>
+                                        <small class="text-white-50">Chuyển PDF thành Word chỉnh sửa được</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- OCR - Image to Text -->
+                        <div class="col-sm-6">
+                            <div class="converter-option p-3 rounded-3 h-100"
+                                onclick="selectConverterOption('img2text')" data-option="img2text">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle p-3"
+                                        style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                                        <i class="fa-solid fa-font fa-lg text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-white fw-bold">Ảnh → Văn bản</div>
+                                        <small class="text-white-50">OCR: Nhận dạng chữ từ ảnh bằng AI</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Word to PDF -->
+                        <div class="col-sm-6">
+                            <div class="converter-option p-3 rounded-3 h-100"
+                                onclick="selectConverterOption('word2pdf')" data-option="word2pdf">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle p-3"
+                                        style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                                        <i class="fa-solid fa-file-pdf fa-lg text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-white fw-bold">Word → PDF</div>
+                                        <small class="text-white-50">Chuyển Word thành PDF chuẩn</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image Compress -->
+                        <div class="col-sm-6">
+                            <div class="converter-option p-3 rounded-3 h-100"
+                                onclick="selectConverterOption('compress')" data-option="compress">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle p-3"
+                                        style="background: linear-gradient(135deg, #10b981, #059669);">
+                                        <i class="fa-solid fa-compress fa-lg text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-white fw-bold">Nén ảnh</div>
+                                        <small class="text-white-50">Giảm dung lượng ảnh tối đa 80%</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mt-4 pt-3 border-top border-white border-opacity-10" id="convert-status">
-                        <!-- Status -->
+
+                    <!-- Convert Button -->
+                    <button class="ai-action-btn w-100 py-3 mb-4" id="btn-convert" onclick="startConversion()" disabled>
+                        <i class="fa-solid fa-bolt me-2"></i>Bắt đầu chuyển đổi
+                    </button>
+
+                    <!-- Status/Result Area -->
+                    <div id="convert-status" class="rounded-3 p-4"
+                        style="background: rgba(0,0,0,0.2); min-height: 150px;">
+                        <div class="text-center text-white-50">
+                            <i class="fa-solid fa-arrow-up-from-bracket fa-2x mb-2 opacity-50"></i>
+                            <p class="mb-0">Chọn file và chức năng để bắt đầu</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Conversion History -->
+        <div class="ai-glass-card p-4 mt-4">
+            <h6 class="text-white fw-bold mb-3">
+                <i class="fa-solid fa-clock-rotate-left me-2 text-info"></i>Lịch sử chuyển đổi gần đây
+            </h6>
+            <div id="converter-history" class="table-responsive">
+                <table class="table table-dark table-hover mb-0" style="background: transparent;">
+                    <thead>
+                        <tr class="text-white-50 border-bottom border-white border-opacity-10">
+                            <th>File</th>
+                            <th>Loại</th>
+                            <th>Thời gian</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="converter-history-body">
+                        <tr>
+                            <td colspan="5" class="text-center text-white-50 py-4">
+                                <i class="fa-solid fa-inbox me-2"></i>Chưa có lịch sử chuyển đổi
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -8646,46 +8768,329 @@ console.log("Result: " + sum(10, 50));</textarea>
         // =============================================
         // 4. UNIVERSAL CONVERTER LOGIC
         // =============================================
-        function convertFile(type) {
+        let converterFile = null;
+        let selectedConverterOption = null;
+        let converterHistory = JSON.parse(localStorage.getItem('converter_history') || '[]');
+
+        function handleConverterFile(input) {
+            if (input.files && input.files[0]) {
+                converterFile = input.files[0];
+                showConverterFilePreview();
+                updateConverterButton();
+            }
+        }
+
+        function handleConverterDrop(event) {
+            event.preventDefault();
+            event.target.classList.remove('dragover');
+            if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+                converterFile = event.dataTransfer.files[0];
+                showConverterFilePreview();
+                updateConverterButton();
+            }
+        }
+
+        function showConverterFilePreview() {
+            const preview = document.getElementById('converter-file-preview');
+            const nameEl = document.getElementById('converter-file-name');
+            const sizeEl = document.getElementById('converter-file-size');
+            const iconEl = document.getElementById('converter-file-icon');
+
+            if (!converterFile) {
+                preview.style.display = 'none';
+                return;
+            }
+
+            nameEl.textContent = converterFile.name;
+            sizeEl.textContent = formatFileSize(converterFile.size);
+
+            // Set icon based on file type
+            const ext = converterFile.name.split('.').pop().toLowerCase();
+            if (['pdf'].includes(ext)) iconEl.className = 'fa-solid fa-file-pdf fa-lg text-danger';
+            else if (['doc', 'docx'].includes(ext)) iconEl.className = 'fa-solid fa-file-word fa-lg text-primary';
+            else if (['jpg', 'jpeg', 'png', 'webp'].includes(ext)) iconEl.className = 'fa-solid fa-image fa-lg text-success';
+            else iconEl.className = 'fa-solid fa-file fa-lg text-primary';
+
+            preview.style.display = 'block';
+        }
+
+        function clearConverterFile() {
+            converterFile = null;
+            document.getElementById('converter-file').value = '';
+            document.getElementById('converter-file-preview').style.display = 'none';
+            updateConverterButton();
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function selectConverterOption(option) {
+            selectedConverterOption = option;
+            document.querySelectorAll('.converter-option').forEach(el => {
+                el.classList.remove('selected');
+                el.style.border = '1px solid rgba(255,255,255,0.1)';
+                el.style.background = 'rgba(255,255,255,0.03)';
+            });
+            const selected = document.querySelector(`.converter-option[data-option="${option}"]`);
+            if (selected) {
+                selected.classList.add('selected');
+                selected.style.border = '2px solid var(--primary)';
+                selected.style.background = 'rgba(99,102,241,0.1)';
+            }
+            updateConverterButton();
+        }
+
+        function updateConverterButton() {
+            const btn = document.getElementById('btn-convert');
+            btn.disabled = !(converterFile && selectedConverterOption);
+        }
+
+        async function startConversion() {
+            if (!converterFile || !selectedConverterOption) {
+                toast.warning('Vui lòng chọn file và chức năng!');
+                return;
+            }
+
             const statusDiv = document.getElementById('convert-status');
-            const icons = {
-                'pdf2word': 'fa-file-word text-info',
-                'img2text': 'fa-font text-warning',
-                'word2pdf': 'fa-file-pdf text-danger'
-            };
             const labels = {
-                'pdf2word': 'PDF sang Word',
-                'img2text': 'Ảnh sang Văn Bản',
-                'word2pdf': 'Word sang PDF'
+                'pdf2word': 'PDF → Word',
+                'img2text': 'Ảnh → Văn bản (OCR)',
+                'word2pdf': 'Word → PDF',
+                'compress': 'Nén ảnh'
             };
 
+            // Show loading
             statusDiv.innerHTML = `
-                <div class="d-flex align-items-center gap-3">
-                     <i class="fa-solid fa-spinner fa-spin text-white-50"></i>
-                     <div class="flex-grow-1">
-                        <div class="d-flex justify-content-between mb-1">
-                            <small class="text-white">Đang chuyển đổi ${labels[type]}...</small>
-                            <small class="text-white-50">45%</small>
-                        </div>
-                        <div class="progress" style="height: 4px;">
-                            <div class="progress-bar bg-primary" style="width: 45%"></div>
-                        </div>
-                     </div>
+                <div class="text-center py-3">
+                    <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;"></div>
+                    <p class="text-white mb-1">Đang xử lý ${labels[selectedConverterOption]}...</p>
+                    <small class="text-white-50">Vui lòng chờ trong giây lát</small>
                 </div>
             `;
 
-            setTimeout(() => {
+            try {
+                let result;
+                switch (selectedConverterOption) {
+                    case 'img2text':
+                        result = await performOCR();
+                        break;
+                    case 'compress':
+                        result = await compressImage();
+                        break;
+                    case 'pdf2word':
+                    case 'word2pdf':
+                        result = await mockConversion(selectedConverterOption);
+                        break;
+                }
+
+                if (result.success) {
+                    statusDiv.innerHTML = `
+                        <div class="p-3 rounded-3" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3);">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="rounded-circle bg-success bg-opacity-25 p-2">
+                                    <i class="fa-solid fa-check fa-lg text-success"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="text-success fw-bold mb-2">Hoàn tất!</div>
+                                    ${result.html || ''}
+                                    ${result.downloadUrl ? `
+                                        <a href="${result.downloadUrl}" download="${result.filename}" class="btn btn-success btn-sm mt-2">
+                                            <i class="fa-solid fa-download me-1"></i>Tải về
+                                        </a>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    addToConverterHistory(converterFile.name, selectedConverterOption, 'success');
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                console.error('[Converter] Error:', error);
                 statusDiv.innerHTML = `
-                <div class="alert alert-success bg-opacity-10 border-success text-white d-flex justify-content-between align-items-center">
-                     <div>
-                        <i class="fa-solid fa-check-circle text-success me-2"></i>Hoàn tất!
-                     </div>
-                     <button class="btn btn-sm btn-success">
-                        <i class="fa-solid fa-download me-1"></i> Tải về
-                     </button>
-                </div>
-            `;
-            }, 2000);
+                    <div class="p-3 rounded-3" style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);">
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="fa-solid fa-times-circle fa-2x text-danger"></i>
+                            <div>
+                                <div class="text-danger fw-bold">Lỗi!</div>
+                                <small class="text-white-50">${error.message}</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                addToConverterHistory(converterFile.name, selectedConverterOption, 'error');
+            }
+        }
+
+        // OCR using AI Vision
+        async function performOCR() {
+            const ext = converterFile.name.split('.').pop().toLowerCase();
+            if (!['jpg', 'jpeg', 'png', 'webp'].includes(ext)) {
+                return { success: false, message: 'Vui lòng chọn file ảnh (JPG, PNG)' };
+            }
+
+            const formData = new FormData();
+            formData.append('image', converterFile);
+            formData.append('message', 'Hãy nhận dạng và trích xuất TẤT CẢ văn bản có trong ảnh này. Giữ nguyên định dạng, xuống dòng như trong ảnh. Chỉ trả về văn bản thuần túy, không giải thích gì thêm.');
+            formData.append('username', 'converter-ocr');
+            formData.append('mode', 'answer');
+
+            const reply = await fetchAIStream(formData);
+
+            if (reply) {
+                const escapedText = reply.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                return {
+                    success: true,
+                    html: `
+                        <div class="mb-2"><small class="text-white-50">Văn bản nhận dạng được:</small></div>
+                        <div class="p-3 rounded" style="background: rgba(0,0,0,0.3); max-height: 200px; overflow-y: auto;">
+                            <pre class="text-white mb-0" style="white-space: pre-wrap; font-size: 0.9rem;">${escapedText}</pre>
+                        </div>
+                        <button class="btn btn-outline-light btn-sm mt-2" onclick="copyOCRText()">
+                            <i class="fa-solid fa-copy me-1"></i>Sao chép
+                        </button>
+                    `,
+                    text: reply
+                };
+            } else {
+                return { success: false, message: 'Không thể nhận dạng văn bản từ ảnh' };
+            }
+        }
+
+        // Store OCR result for copy
+        let lastOCRResult = '';
+        function copyOCRText() {
+            const preEl = document.querySelector('#convert-status pre');
+            if (preEl) {
+                navigator.clipboard.writeText(preEl.textContent).then(() => {
+                    toast.success('Đã sao chép văn bản!');
+                });
+            }
+        }
+
+        // Compress Image
+        async function compressImage() {
+            const ext = converterFile.name.split('.').pop().toLowerCase();
+            if (!['jpg', 'jpeg', 'png', 'webp'].includes(ext)) {
+                return { success: false, message: 'Vui lòng chọn file ảnh (JPG, PNG)' };
+            }
+
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = new Image();
+                    img.onload = function () {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+
+                        // Reduce size if too large
+                        let width = img.width;
+                        let height = img.height;
+                        const maxSize = 1920;
+                        if (width > maxSize || height > maxSize) {
+                            if (width > height) {
+                                height = (height / width) * maxSize;
+                                width = maxSize;
+                            } else {
+                                width = (width / height) * maxSize;
+                                height = maxSize;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        // Compress to JPEG with quality 0.7
+                        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                        const originalSize = converterFile.size;
+                        const compressedSize = Math.round((compressedDataUrl.length * 3) / 4);
+                        const reduction = Math.round((1 - compressedSize / originalSize) * 100);
+
+                        resolve({
+                            success: true,
+                            downloadUrl: compressedDataUrl,
+                            filename: converterFile.name.replace(/\.[^.]+$/, '_compressed.jpg'),
+                            html: `
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6">
+                                        <small class="text-white-50">Dung lượng gốc:</small>
+                                        <div class="text-white">${formatFileSize(originalSize)}</div>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-white-50">Sau nén:</small>
+                                        <div class="text-success">${formatFileSize(compressedSize)} <span class="badge bg-success">-${reduction}%</span></div>
+                                    </div>
+                                </div>
+                            `
+                        });
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(converterFile);
+            });
+        }
+
+        // Mock conversion for PDF/Word (need backend)
+        async function mockConversion(type) {
+            await new Promise(r => setTimeout(r, 2000));
+            return {
+                success: true,
+                html: `<p class="text-white-50 mb-0">Tính năng ${type === 'pdf2word' ? 'PDF → Word' : 'Word → PDF'} cần server xử lý. Vui lòng sử dụng các công cụ online như SmallPDF, ILovePDF.</p>`
+            };
+        }
+
+        // History
+        function addToConverterHistory(filename, type, status) {
+            const labels = {
+                'pdf2word': 'PDF → Word',
+                'img2text': 'OCR',
+                'word2pdf': 'Word → PDF',
+                'compress': 'Nén ảnh'
+            };
+            converterHistory.unshift({
+                filename,
+                type: labels[type] || type,
+                time: new Date().toLocaleString('vi-VN'),
+                status
+            });
+            if (converterHistory.length > 10) converterHistory.pop();
+            localStorage.setItem('converter_history', JSON.stringify(converterHistory));
+            renderConverterHistory();
+        }
+
+        function renderConverterHistory() {
+            const tbody = document.getElementById('converter-history-body');
+            if (!tbody) return;
+            if (converterHistory.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-white-50 py-4"><i class="fa-solid fa-inbox me-2"></i>Chưa có lịch sử chuyển đổi</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = converterHistory.map(h => `
+                <tr>
+                    <td class="text-white">${h.filename.length > 25 ? h.filename.substring(0, 25) + '...' : h.filename}</td>
+                    <td><span class="badge bg-primary bg-opacity-25 text-primary">${h.type}</span></td>
+                    <td class="text-white-50 small">${h.time}</td>
+                    <td>${h.status === 'success' ? '<span class="badge bg-success">Thành công</span>' : '<span class="badge bg-danger">Lỗi</span>'}</td>
+                    <td></td>
+                </tr>
+            `).join('');
+        }
+
+        // Init converter history on page load
+        document.addEventListener('DOMContentLoaded', renderConverterHistory);
+
+        // Legacy function for backward compatibility
+        function convertFile(type) {
+            selectConverterOption(type);
+            if (converterFile) startConversion();
+            else toast.warning('Vui lòng chọn file trước!');
         }
 
         // =============================================
