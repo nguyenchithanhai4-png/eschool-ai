@@ -5059,7 +5059,7 @@ console.log("Result: " + sum(10, 50));</textarea>
 
     <!-- 4. UNIVERSAL CONVERTER -->
     <div id="converter-view" class="view-section">
-        <div class="top-bar ai-premium-header mb-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div class="top-bar ai-premium-header mb-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div class="d-flex align-items-center gap-3">
                 <i class="fa-solid fa-bars mobile-toggle" onclick="toggleSidebar()"></i>
                 <div>
@@ -5068,16 +5068,16 @@ console.log("Result: " + sum(10, 50));</textarea>
                 </div>
             </div>
             <div>
-                <span class="badge bg-success bg-opacity-25 text-success px-3 py-2">
+                <span class="badge bg-success bg-opacity-25 text-success px-2 py-1" style="font-size: 0.75rem;">
                     <i class="fa-solid fa-bolt me-1"></i>Miễn phí
                 </span>
             </div>
         </div>
 
-        <div class="row g-4">
+        <div class="row g-3 pb-4" style="overflow-y: auto;">
             <!-- Upload Area -->
             <div class="col-lg-5">
-                <div class="ai-glass-card p-4" style="min-height: 400px;">
+                <div class="ai-glass-card p-3 p-lg-4" style="min-height: 280px;">
                     <h6 class="text-white fw-bold mb-3">
                         <i class="fa-solid fa-upload me-2 text-primary"></i>Tải lên file
                     </h6>
@@ -5242,7 +5242,7 @@ console.log("Result: " + sum(10, 50));</textarea>
 
     <!-- 5. MY LOCKER -->
     <div id="locker-view" class="view-section">
-        <div class="top-bar ai-premium-header mb-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div class="top-bar ai-premium-header mb-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div class="d-flex align-items-center gap-3">
                 <i class="fa-solid fa-bars mobile-toggle" onclick="toggleSidebar()"></i>
                 <div>
@@ -5253,44 +5253,50 @@ console.log("Result: " + sum(10, 50));</textarea>
 
             <div class="d-flex gap-2">
                 <button class="btn btn-sm text-white px-3 rounded-pill"
-                    style="background: linear-gradient(135deg, #8b5cf6, #a855f7);" onclick="addLockerItem()">
+                    style="background: linear-gradient(135deg, #8b5cf6, #a855f7); font-size: 0.85rem;"
+                    onclick="addLockerItem()">
                     <i class="fa-solid fa-plus me-1"></i>Thêm Mới
                 </button>
             </div>
         </div>
 
-        <div class="row g-3" id="locker-grid">
+        <div class="row g-3 pb-4" id="locker-grid" style="overflow-y: auto;">
             <!-- Locker Items (Mock) -->
-            <div class="col-md-4">
-                <div class="ai-glass-card p-4 position-relative text-center h-100 group-hover">
-                    <span class="badge bg-warning position-absolute top-0 end-0 m-3 shadow-sm">Wifi</span>
-                    <div class="rounded-circle bg-white bg-opacity-10 d-inline-flex p-3 mb-3">
-                        <i class="fa-solid fa-wifi fa-2x text-warning"></i>
+            <div class="col-6 col-md-4">
+                <div class="ai-glass-card p-3 p-lg-4 position-relative text-center h-100 group-hover">
+                    <span class="badge bg-warning position-absolute top-0 end-0 m-2 shadow-sm"
+                        style="font-size: 0.65rem;">Wifi</span>
+                    <div class="rounded-circle bg-white bg-opacity-10 d-inline-flex p-2 p-lg-3 mb-2">
+                        <i class="fa-solid fa-wifi fa-lg fa-lg-2x text-warning"></i>
                     </div>
-                    <h5 class="text-white fw-bold">Wifi Nhà</h5>
-                    <div class="bg-black bg-opacity-40 p-2 rounded text-monospace mt-2 text-white-50 small">Pass:
-                        12345678</div>
+                    <h6 class="text-white fw-bold mb-1">Wifi Nhà</h6>
+                    <div class="bg-black bg-opacity-40 p-2 rounded text-monospace text-white-50"
+                        style="font-size: 0.75rem;">Pass: 12345678</div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="ai-glass-card p-4 position-relative text-center h-100 group-hover">
-                    <span class="badge bg-success position-absolute top-0 end-0 m-3 shadow-sm">BHYT</span>
-                    <div class="rounded-circle bg-white bg-opacity-10 d-inline-flex p-3 mb-3">
-                        <i class="fa-solid fa-notes-medical fa-2x text-success"></i>
+            <div class="col-6 col-md-4">
+                <div class="ai-glass-card p-3 p-lg-4 position-relative text-center h-100 group-hover">
+                    <span class="badge bg-success position-absolute top-0 end-0 m-2 shadow-sm"
+                        style="font-size: 0.65rem;">BHYT</span>
+                    <div class="rounded-circle bg-white bg-opacity-10 d-inline-flex p-2 p-lg-3 mb-2">
+                        <i class="fa-solid fa-notes-medical fa-lg fa-lg-2x text-success"></i>
                     </div>
-                    <h5 class="text-white fw-bold">Thẻ BHYT</h5>
-                    <div class="bg-black bg-opacity-40 p-2 rounded text-monospace mt-2 text-white-50 small">
+                    <h6 class="text-white fw-bold mb-1">Thẻ BHYT</h6>
+                    <div class="bg-black bg-opacity-40 p-2 rounded text-monospace text-white-50"
+                        style="font-size: 0.75rem;">
                         DN40101239129</div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="ai-glass-card p-4 position-relative text-center h-100 group-hover">
-                    <span class="badge bg-info position-absolute top-0 end-0 m-3 shadow-sm">ID</span>
-                    <div class="rounded-circle bg-white bg-opacity-10 d-inline-flex p-3 mb-3">
-                        <i class="fa-solid fa-id-card fa-2x text-info"></i>
+            <div class="col-6 col-md-4">
+                <div class="ai-glass-card p-3 p-lg-4 position-relative text-center h-100 group-hover">
+                    <span class="badge bg-info position-absolute top-0 end-0 m-2 shadow-sm"
+                        style="font-size: 0.65rem;">ID</span>
+                    <div class="rounded-circle bg-white bg-opacity-10 d-inline-flex p-2 p-lg-3 mb-2">
+                        <i class="fa-solid fa-id-card fa-lg fa-lg-2x text-info"></i>
                     </div>
-                    <h5 class="text-white fw-bold">Mã Học Sinh</h5>
-                    <div class="bg-black bg-opacity-40 p-2 rounded text-monospace mt-2 text-white-50 small">
+                    <h6 class="text-white fw-bold mb-1">Mã Học Sinh</h6>
+                    <div class="bg-black bg-opacity-40 p-2 rounded text-monospace text-white-50"
+                        style="font-size: 0.75rem;">
                         HS2025001</div>
                 </div>
             </div>
