@@ -6282,54 +6282,54 @@ console.log("Result: " + sum(10, 50));</textarea>
                 style="background: transparent; position: relative; overflow-y: auto;">
 
                 <!-- Main Content Container with Purple Background -->
-                <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center p-4"
+                <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center p-3 p-lg-4"
                     style="background: radial-gradient(at 50% 0%, rgba(15, 12, 41, 0.98) 0%, #050510 100%);">
 
                     <!-- Fixed Screen Layout -->
                     <div class="text-center w-100 d-flex flex-column justify-content-center h-100"
-                        style="max-width: 900px; max-height: 80vh;">
+                        style="max-width: 900px;">
 
                         <!-- Icon & Title -->
-                        <div class="mb-4">
-                            <div class="mx-auto mb-3"
-                                style="width: 100px; height: 100px; background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, rgba(15, 12, 41, 0.6) 100%); border: 2px solid rgba(139, 92, 246, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <div class="mb-3 mb-lg-4">
+                            <div class="mx-auto mb-2 mb-lg-3"
+                                style="width: 70px; height: 70px; background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, rgba(15, 12, 41, 0.6) 100%); border: 2px solid rgba(139, 92, 246, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
                                 <!-- Pulsing Ring -->
                                 <div
                                     style="position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.1); animation: ping-ring 2s cubic-bezier(0, 0, 0.2, 1) infinite;">
                                 </div>
                                 <i class="fa-solid fa-car-burst"
-                                    style="font-size: 3rem; color: white; filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.8)); animation: shake-crash 3s infinite;"></i>
+                                    style="font-size: 2rem; color: white; filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.8)); animation: shake-crash 3s infinite;"></i>
                             </div>
-                            <h2 class="fw-bold mb-2 display-6"
+                            <h4 class="fw-bold mb-1"
                                 style="background: linear-gradient(90deg, #c4b5fd, #a78bfa, #8b5cf6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(139, 92, 246, 0.3);">
-                                Tra Cứu Phạt Nguội</h2>
-                            <p class="text-white-50 fs-6">Kiểm tra vi phạm giao thông nhanh chóng & chính xác</p>
+                                Tra Cứu Phạt Nguội</h4>
+                            <p class="text-white-50 small mb-0">Kiểm tra vi phạm giao thông nhanh chóng & chính xác</p>
                         </div>
 
                         <!-- Large Input Section -->
-                        <div class="mb-4 mx-auto w-100" style="max-width: 600px;">
+                        <div class="mb-3 mb-lg-4 mx-auto w-100" style="max-width: 500px;">
                             <div class="position-relative">
                                 <i class="fa-solid fa-car-side position-absolute"
-                                    style="left: 20px; top: 50%; transform: translateY(-50%); color: #d8b4fe; font-size: 1.3rem;"></i>
-                                <input id="traffic-plate-input" type="text" class="form-control text-center py-3"
-                                    placeholder="VD: 29A-12345"
-                                    style="font-size: 1.8rem; text-transform: uppercase; letter-spacing: 4px; background: rgba(10, 5, 20, 0.6); border: 2px solid rgba(167, 139, 250, 0.3); color: #ffffff; border-radius: 18px; font-weight: 700; font-family: 'Consolas', monospace; padding-left: 50px; padding-right: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);"
+                                    style="left: 15px; top: 50%; transform: translateY(-50%); color: #d8b4fe; font-size: 1rem;"></i>
+                                <input id="traffic-plate-input" type="text"
+                                    class="form-control text-center py-2 py-lg-3" placeholder="VD: 29A-1234"
+                                    style="font-size: 1.2rem; text-transform: uppercase; letter-spacing: 3px; background: rgba(10, 5, 20, 0.6); border: 2px solid rgba(167, 139, 250, 0.3); color: #ffffff; border-radius: 14px; font-weight: 700; font-family: 'Consolas', monospace; padding-left: 40px; padding-right: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);"
                                     onfocus="this.style.borderColor='rgba(167, 139, 250, 0.8)'; this.style.backgroundColor='rgba(139, 92, 246, 0.25)'; this.style.boxShadow='0 0 30px rgba(167, 139, 250, 0.3)'"
                                     onblur="this.style.borderColor='rgba(167, 139, 250, 0.3)'; this.style.backgroundColor='rgba(139, 92, 246, 0.15)'; this.style.boxShadow='0 10px 40px rgba(0,0,0,0.2)'"
                                     onkeypress="if(event.key==='Enter') openTrafficLookup()">
                             </div>
                             <!-- Helper Text -->
-                            <div class="mt-2 small" style="color: #c4b5fd;">
+                            <div class="mt-2 small" style="color: #c4b5fd; font-size: 0.75rem;">
                                 <i class="fa-solid fa-check-circle me-1" style="color: #a78bfa;"></i> Nhập biển số (VD:
                                 30G12345) và nhấn Enter
                             </div>
                         </div>
 
                         <!-- Action Buttons -->
-                        <div class="d-flex justify-content-center gap-3 mb-4">
+                        <div class="d-flex justify-content-center gap-2 mb-3 mb-lg-4">
                             <button onclick="openTrafficLookup()" id="traffic-search-btn"
-                                class="py-2 px-4 fw-bold d-flex align-items-center justify-content-center gap-2 rounded-pill"
-                                style="background: linear-gradient(135deg, #8b5cf6, #7c3aed, #6d28d9); border: none; color: white; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4); min-width: 200px;"
+                                class="py-2 px-3 fw-bold d-flex align-items-center justify-content-center gap-2 rounded-pill"
+                                style="background: linear-gradient(135deg, #8b5cf6, #7c3aed, #6d28d9); border: none; color: white; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);"
                                 onmouseover="this.style.transform='translateY(-2px) scale(1.02)'; this.style.boxShadow='0 12px 35px rgba(139, 92, 246, 0.6)'"
                                 onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 8px 25px rgba(139, 92, 246, 0.4)'">
                                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -6342,51 +6342,51 @@ console.log("Result: " + sum(10, 50));</textarea>
                                 onmouseover="this.style.background='rgba(139, 92, 246, 0.3)'; this.style.scale='1.05'; this.style.color='#fff'"
                                 onmouseout="this.style.background='rgba(139, 92, 246, 0.2)'; this.style.scale='1'; this.style.color='#e9d5ff'"
                                 title="Lưu biển số">
-                                <i class="fa-solid fa-bookmark fa-lg"></i>
+                                <i class="fa-solid fa-bookmark"></i>
                             </button>
                         </div>
 
                         <!-- Quick Actions Grid - Horizontal (Compact) -->
-                        <div class="row g-3 justify-content-center mx-auto w-100" style="max-width: 800px;">
+                        <div class="row g-2 g-lg-3 justify-content-center mx-auto w-100" style="max-width: 600px;">
                             <!-- Saved Plates -->
-                            <div class="col-md-3">
+                            <div class="col-6 col-md-3">
                                 <div onclick="showSavedPlates()"
-                                    class="py-3 px-2 rounded-4 h-100 d-flex flex-column align-items-center justify-content-center"
+                                    class="py-2 px-2 rounded-3 h-100 d-flex flex-column align-items-center justify-content-center"
                                     style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); cursor: pointer; transition: all 0.3s ease;"
                                     onmouseover="this.style.background='rgba(139, 92, 246, 0.25)'; this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(167, 139, 250, 0.5)'"
                                     onmouseout="this.style.background='rgba(139, 92, 246, 0.1)'; this.style.transform='translateY(0)'; this.style.borderColor='rgba(139, 92, 246, 0.2)'">
-                                    <i class="fa-solid fa-bookmark mb-1" style="color: #c4b5fd; font-size: 1.2rem;"></i>
-                                    <div class="fw-bold small" style="color: #e9d5ff;">Đã lưu</div>
-                                    <div style="font-size: 0.7rem; color: #a78bfa;" id="saved-plates-count">0 biển số
+                                    <i class="fa-solid fa-bookmark mb-1" style="color: #c4b5fd; font-size: 1rem;"></i>
+                                    <div class="fw-bold" style="color: #e9d5ff; font-size: 0.75rem;">Đã lưu</div>
+                                    <div style="font-size: 0.65rem; color: #a78bfa;" id="saved-plates-count">0 biển số
                                     </div>
                                 </div>
                             </div>
 
                             <!-- History -->
-                            <div class="col-md-3">
+                            <div class="col-6 col-md-3">
                                 <div onclick="showTrafficHistory()"
-                                    class="py-3 px-2 rounded-4 h-100 d-flex flex-column align-items-center justify-content-center"
+                                    class="py-2 px-2 rounded-3 h-100 d-flex flex-column align-items-center justify-content-center"
                                     style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); cursor: pointer; transition: all 0.3s ease;"
                                     onmouseover="this.style.background='rgba(139, 92, 246, 0.25)'; this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(167, 139, 250, 0.5)'"
                                     onmouseout="this.style.background='rgba(139, 92, 246, 0.1)'; this.style.transform='translateY(0)'; this.style.borderColor='rgba(139, 92, 246, 0.2)'">
                                     <i class="fa-solid fa-clock-rotate-left mb-1"
-                                        style="color: #c4b5fd; font-size: 1.2rem;"></i>
-                                    <div class="fw-bold small" style="color: #e9d5ff;">Lịch sử</div>
-                                    <div style="font-size: 0.7rem; color: #a78bfa;">Tra cứu gần đây</div>
+                                        style="color: #c4b5fd; font-size: 1rem;"></i>
+                                    <div class="fw-bold" style="color: #e9d5ff; font-size: 0.75rem;">Lịch sử</div>
+                                    <div style="font-size: 0.65rem; color: #a78bfa;">Tra cứu gần đây</div>
                                 </div>
                             </div>
 
                             <!-- Guide -->
-                            <div class="col-md-3">
+                            <div class="col-6 col-md-3">
                                 <div onclick="showTrafficGuide()"
-                                    class="py-3 px-2 rounded-4 h-100 d-flex flex-column align-items-center justify-content-center"
+                                    class="py-2 px-2 rounded-3 h-100 d-flex flex-column align-items-center justify-content-center"
                                     style="background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); cursor: pointer; transition: all 0.3s ease;"
                                     onmouseover="this.style.background='rgba(139, 92, 246, 0.25)'; this.style.transform='translateY(-3px)'; this.style.borderColor='rgba(167, 139, 250, 0.5)'"
                                     onmouseout="this.style.background='rgba(139, 92, 246, 0.1)'; this.style.transform='translateY(0)'; this.style.borderColor='rgba(139, 92, 246, 0.2)'">
                                     <i class="fa-solid fa-circle-info mb-1"
-                                        style="color: #c4b5fd; font-size: 1.2rem;"></i>
-                                    <div class="fw-bold small" style="color: #e9d5ff;">Hướng dẫn</div>
-                                    <div style="font-size: 0.7rem; color: #a78bfa;">Cách nộp phạt</div>
+                                        style="color: #c4b5fd; font-size: 1rem;"></i>
+                                    <div class="fw-bold" style="color: #e9d5ff; font-size: 0.75rem;">Hướng dẫn</div>
+                                    <div style="font-size: 0.65rem; color: #a78bfa;">Cách nộp phạt</div>
                                 </div>
                             </div>
                         </div>
