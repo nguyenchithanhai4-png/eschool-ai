@@ -4,8 +4,8 @@
 // ==========================================
 console.log('Teacher Dashboard v2.1 loaded - Ready');
 
-// Global Variables
-let cvReady = false;
+// Global Variables - use var for cvReady to avoid redeclaration issues
+if (typeof cvReady === 'undefined') var cvReady = false;
 const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
 const teacherUsername = currentUser.username || 'giaovien1';
 const teacherFullname = currentUser.fullname || 'Giáo viên';
@@ -124,50 +124,22 @@ function showView(viewId, navItem) {
 }
 
 // === POPUP NOTIFICATION SYSTEM ===
-function showPopup(message, type = 'success', autoClose = true) {
-    const icons = {
-        success: 'fa-check',
-        error: 'fa-times',
-        warning: 'fa-exclamation-triangle',
-        info: 'fa-info'
-    };
-    const titles = {
-        success: 'Thành công!',
-        error: 'Lỗi!',
-        warning: 'Chú ý!',
-        info: 'Thông báo'
-    };
-
-    const overlay = document.createElement('div');
-    overlay.style.cssText = `
-        position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-        width: 100vw !important; height: 100vh !important; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
-        display: flex !important; align-items: center !important; justify-content: center !important; z-index: 999999 !important;
-    `;
-    overlay.innerHTML = `
-        <div style="background: rgba(30, 30, 50, 0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 40px 50px; text-align: center; min-width: 300px; max-width: 400px;">
-            <div style="width: 70px; height: 70px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; ${type === 'success' ? 'background: rgba(16, 185, 129, 0.2); border: 2px solid rgba(16, 185, 129, 0.5); color: #10b981;' : type === 'error' ? 'background: rgba(239, 68, 68, 0.2); border: 2px solid rgba(239, 68, 68, 0.5); color: #ef4444;' : type === 'warning' ? 'background: rgba(245, 158, 11, 0.2); border: 2px solid rgba(245, 158, 11, 0.5); color: #f59e0b;' : 'background: rgba(99, 102, 241, 0.2); border: 2px solid rgba(99, 102, 241, 0.5); color: #6366f1;'}">
-                <i class="fa-solid ${icons[type]}"></i>
-            </div>
-            <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 10px;">${titles[type]}</div>
-            <div style="font-size: 1rem; opacity: 0.8; margin-bottom: 25px; line-height: 1.5;">${message}</div>
-            <button class="popup-btn" style="padding: 12px 40px; border-radius: 12px; border: none; font-weight: 600; font-size: 1rem; cursor: pointer; background: linear-gradient(135deg, #6366f1, #a855f7); color: white;">OK</button>
-        </div>
-    `;
-
-    document.body.appendChild(overlay);
-    const closePopup = () => overlay.remove();
-    overlay.querySelector('.popup-btn').onclick = closePopup;
-    overlay.onclick = (e) => { if (e.target === overlay) closePopup(); };
-    if (autoClose) setTimeout(closePopup, 2500);
+// Note: showPopup and toast are now defined in ui-helpers.js
+// Keeping fallback check for compatibility
+if (typeof showPopup === 'undefined') {
+    function showPopup(message, type = 'success', autoClose = true) {
+        console.log(`[Toast ${type}] ${message}`);
+        alert(message); // Fallback
+    }
 }
-
-const toast = {
-    success: (msg) => showPopup(msg, 'success'),
-    error: (msg) => showPopup(msg, 'error'),
-    warning: (msg) => showPopup(msg, 'warning', false),
-    info: (msg) => showPopup(msg, 'info')
-};
+if (typeof toast === 'undefined') {
+    var toast = {
+        success: (msg) => console.log('[Success]', msg),
+        error: (msg) => console.error('[Error]', msg),
+        warning: (msg) => console.warn('[Warning]', msg),
+        info: (msg) => console.log('[Info]', msg)
+    };
+}
 
 function showPrompt(title, placeholder = '', defaultValue = '') {
     return new Promise((resolve) => {
@@ -195,25 +167,28 @@ function showPrompt(title, placeholder = '', defaultValue = '') {
     });
 }
 
-function showConfirm(message) {
-    return new Promise((resolve) => {
-        const overlay = document.createElement('div');
-        overlay.style.cssText = `position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 999999;`;
-        overlay.innerHTML = `
-            <div style="background: rgba(30, 30, 50, 0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 30px; min-width: 350px; text-align: center;">
-                <h5 style="margin-bottom: 15px;">Xác nhận</h5>
-                <p style="margin-bottom: 25px; opacity: 0.8;">${message}</p>
-                <div style="display: flex; gap: 10px; justify-content: center;">
-                    <button class="btn-cancel" style="padding: 12px 30px; border-radius: 10px; border: none; background: rgba(255,255,255,0.1); color: white; cursor: pointer;">Hủy</button>
-                    <button class="btn-confirm" style="padding: 12px 30px; border-radius: 10px; border: none; background: linear-gradient(135deg, #6366f1, #a855f7); color: white; cursor: pointer;">Đồng ý</button>
+// Note: showConfirm is defined in ui-helpers.js, keeping fallback for compatibility
+if (typeof showConfirm === 'undefined') {
+    function showConfirm(message) {
+        return new Promise((resolve) => {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 999999;`;
+            overlay.innerHTML = `
+                <div style="background: rgba(30, 30, 50, 0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 30px; min-width: 350px; text-align: center;">
+                    <h5 style="margin-bottom: 15px;">Xác nhận</h5>
+                    <p style="margin-bottom: 25px; opacity: 0.8;">${message}</p>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <button class="btn-cancel" style="padding: 12px 30px; border-radius: 10px; border: none; background: rgba(255,255,255,0.1); color: white; cursor: pointer;">Hủy</button>
+                        <button class="btn-confirm" style="padding: 12px 30px; border-radius: 10px; border: none; background: linear-gradient(135deg, #6366f1, #a855f7); color: white; cursor: pointer;">Đồng ý</button>
+                    </div>
                 </div>
-            </div>
-        `;
-        document.body.appendChild(overlay);
-        const close = (val) => { overlay.remove(); resolve(val); };
-        overlay.querySelector('.btn-cancel').onclick = () => close(false);
-        overlay.querySelector('.btn-confirm').onclick = () => close(true);
-    });
+            `;
+            document.body.appendChild(overlay);
+            const close = (val) => { overlay.remove(); resolve(val); };
+            overlay.querySelector('.btn-cancel').onclick = () => close(false);
+            overlay.querySelector('.btn-confirm').onclick = () => close(true);
+        });
+    }
 }
 
 // === INIT DATA & UI ===
