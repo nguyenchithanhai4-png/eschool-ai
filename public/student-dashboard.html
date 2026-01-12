@@ -2881,6 +2881,78 @@
             color: white;
         }
 
+        /* Pomodoro Mobile Responsive */
+        @media (max-width: 768px) {
+            #pomodoro-view .row {
+                overflow-y: auto;
+            }
+
+            #pomo-methods {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px !important;
+            }
+
+            .pomo-method-card {
+                padding: 10px 12px;
+                border-radius: 10px;
+            }
+
+            .pomo-method-icon {
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+            }
+
+            .pomo-method-icon i {
+                font-size: 0.9rem !important;
+            }
+
+            .pomo-method-card .fw-bold {
+                font-size: 0.85rem;
+            }
+
+            .pomo-method-card .small {
+                font-size: 0.7rem;
+            }
+
+            .pomo-timer-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            .pomo-timer-time {
+                font-size: 2.5rem;
+            }
+
+            .pomo-timer-phase {
+                font-size: 0.65rem;
+                letter-spacing: 2px;
+                margin-bottom: 5px;
+            }
+
+            .pomo-timer-method {
+                font-size: 0.75rem;
+                margin-top: 5px;
+            }
+
+            .pomo-control-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+
+            .pomo-control-btn.primary {
+                width: 60px;
+                height: 60px;
+                font-size: 1.3rem;
+            }
+
+            #pomodoro-view .fs-4 {
+                font-size: 1.1rem !important;
+            }
+        }
+
         /* Countdown Premium Styles */
         .countdown-card {
             background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
@@ -5774,7 +5846,7 @@ console.log("Result: " + sum(10, 50));</textarea>
 
     <!-- POMODORO VIEW - PREMIUM REDESIGN -->
     <div id="pomodoro-view" class="view-section">
-        <div class="top-bar ai-premium-header mb-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div class="top-bar ai-premium-header mb-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div class="d-flex align-items-center gap-3">
                 <i class="fa-solid fa-bars mobile-toggle" onclick="toggleSidebar()"></i>
                 <div>
@@ -5785,11 +5857,11 @@ console.log("Result: " + sum(10, 50));</textarea>
             <!-- Badges removed for cleaner look -->
         </div>
 
-        <div class="row g-4 flex-grow-1">
+        <div class="row g-3 g-lg-4 flex-grow-1 pb-4" style="overflow-y: auto; padding: 0 12px;">
             <!-- Method Selection -->
             <div class="col-lg-4">
-                <div class="ai-glass-card p-4 h-100">
-                    <h6 class="fw-bold mb-3">Phương Pháp Học</h6>
+                <div class="ai-glass-card p-3 p-lg-4 h-100">
+                    <h6 class="fw-bold mb-2 mb-lg-3">Phương Pháp Học</h6>
                     <div id="pomo-methods" class="d-flex flex-column gap-2">
                         <div class="pomo-method-card active" onclick="selectPomoMethod('pomodoro', this)"
                             data-focus="25" data-break="5">
