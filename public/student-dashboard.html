@@ -10158,60 +10158,8 @@ console.log("Result: " + sum(10, 50));</textarea>
             });
         });
 
-        // Universal Mobile Header - Auto inject hamburger menu for all views
-        function initUniversalMobileHeader() {
-            // View sections that need mobile header (exclude those that already have it)
-            const viewConfigs = {
-                // Note: english-view excluded because it already has its own header
-                'semantic-search-view': { icon: '<i class="fa-solid fa-magnifying-glass"></i>', title: 'Tìm Kiếm Thông Minh', desc: 'Tra cứu ghi chú AI' },
-                'methods-view': { icon: '<i class="fa-solid fa-lightbulb"></i>', title: 'Phương Pháp Học', desc: 'Học hiệu quả' },
-                'library-view': { icon: '<i class="fa-solid fa-book"></i>', title: 'Thư Viện', desc: 'Tài liệu học tập' },
+        // Note: Universal Mobile Header removed - all views already have their own headers with mobile-toggle built-in
 
-                'bioclock-view': { icon: '<i class="fa-regular fa-clock"></i>', title: 'Đồng Hồ Sinh Học', desc: 'Giờ thức dậy lý tưởng' },
-                'calculator-view': { icon: '<i class="fa-solid fa-calculator"></i>', title: 'Máy Tính Khoa Học', desc: 'Tính toán nhanh' },
-
-                'translate-view': { icon: '<i class="fa-solid fa-language"></i>', title: 'Dịch Thuật 5.0', desc: 'Dịch đa ngôn ngữ' },
-                'debate-view': { icon: '<i class="fa-solid fa-users-viewfinder"></i>', title: 'Debate Partner', desc: 'Luyện tranh luận' },
-                'plagiarism-view': { icon: '<i class="fa-solid fa-magnifying-glass-chart"></i>', title: 'Kiểm Tra Đạo Văn', desc: 'Check plagiarism' },
-
-                'notes-view': { icon: '<i class="fa-solid fa-sticky-note"></i>', title: 'Ghi Chú', desc: 'Ghi chú nhanh' },
-                'myteachers-view': { icon: '<i class="fa-solid fa-chalkboard-user"></i>', title: 'Giáo Viên Của Tôi', desc: 'Danh sách giáo viên' },
-                'assignments-view': { icon: '<i class="fa-solid fa-clipboard-list"></i>', title: 'Bài Tập', desc: 'Quản lý bài tập' },
-                'traffic-view': { icon: '<i class="fa-solid fa-traffic-light"></i>', title: 'Tra Cứu Phạt Nguội', desc: 'Kiểm tra vi phạm giao thông' },
-                'ai-grading-view': { icon: '<i class="fa-solid fa-check-double"></i>', title: 'Chấm Bài AI', desc: 'Chấm điểm tự động' },
-                'pomodoro-view': { icon: '<i class="fa-solid fa-clock"></i>', title: 'Pomodoro', desc: 'Quản lý thời gian' },
-                'countdown-view': { icon: '<i class="fa-solid fa-hourglass-start"></i>', title: 'Đếm Ngược Thi', desc: 'Countdown kỳ thi' },
-                'join-school-view': { icon: '<i class="fa-solid fa-school"></i>', title: 'Tham Gia Trường', desc: 'Kết nối giáo dục' }
-            };
-
-            Object.keys(viewConfigs).forEach(viewId => {
-                const view = document.getElementById(viewId);
-                if (!view) return;
-
-                // Check if already has mobile header
-                if (view.querySelector('.universal-mobile-header')) return;
-
-                const config = viewConfigs[viewId];
-                const mobileHeader = document.createElement('div');
-                mobileHeader.className = 'universal-mobile-header d-md-none d-flex align-items-center gap-3 p-3';
-                mobileHeader.style.cssText = 'background: rgba(15,15,35,0.95); border-bottom: 1px solid rgba(255,255,255,0.1); position: relative; z-index: 10; flex: 0 0 auto;';
-                mobileHeader.innerHTML = `
-                    <button onclick="toggleSidebar()" class="btn p-2" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: white; border-radius: 10px; width: 44px; height: 44px; flex-shrink: 0;">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-                    <div style="min-width: 0;">
-                        <h5 class="fw-bold mb-0" style="font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${config.title}</h5>
-                        <small style="color: rgba(255,255,255,0.5); font-size: 0.75rem;">${config.desc}</small>
-                    </div>
-                `;
-
-                // Insert at the beginning of the view
-                view.insertBefore(mobileHeader, view.firstChild);
-            });
-        }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', initUniversalMobileHeader);
 
         // Modal
         function openUniversalModal(title, contentHTML) {
