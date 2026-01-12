@@ -3310,7 +3310,7 @@
     <div class="main-content">
         <!-- ONLINE CLASSROOM VIEW -->
         <div id="online-classroom-view" class="view-section">
-            <div class="h-100 d-flex flex-column">
+            <div class="h-100 d-flex flex-column" style="overflow-y: auto;">
                 <div
                     class="top-bar ai-premium-header d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <div class="d-flex align-items-center gap-3">
@@ -3322,44 +3322,44 @@
                     </div>
                 </div>
 
-                <div class="flex-grow-1 d-flex align-items-center justify-content-center p-4"
+                <div class="flex-grow-1 d-flex align-items-center justify-content-center p-3 p-md-4"
                     style="background: radial-gradient(ellipse at 50% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 40%);">
 
-                    <div class="row g-4 align-items-center justify-content-center"
+                    <div class="row g-3 g-md-4 align-items-center justify-content-center pb-4"
                         style="max-width: 1000px; width: 100%;">
                         <!-- Left: Join Room Card -->
                         <div class="col-lg-6">
-                            <div class="p-4 p-lg-5 position-relative overflow-hidden"
-                                style="background: rgba(15, 15, 30, 0.7); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 24px; backdrop-filter: blur(20px);">
+                            <div class="p-3 p-md-4 p-lg-5 position-relative overflow-hidden"
+                                style="background: rgba(15, 15, 30, 0.7); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 20px; backdrop-filter: blur(20px);">
 
                                 <!-- Decorative gradient orb -->
                                 <div
                                     style="position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; background: radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent 70%); pointer-events: none;">
                                 </div>
 
-                                <div class="text-center mb-4">
-                                    <div class="d-inline-flex align-items-center justify-content-center mb-3"
-                                        style="width: 80px; height: 80px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2)); border-radius: 20px; border: 1px solid rgba(129, 140, 248, 0.3);">
-                                        <i class="fa-solid fa-video fa-2x"
+                                <div class="text-center mb-3 mb-md-4">
+                                    <div class="d-inline-flex align-items-center justify-content-center mb-2 mb-md-3"
+                                        style="width: 60px; height: 60px; background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2)); border-radius: 16px; border: 1px solid rgba(129, 140, 248, 0.3);">
+                                        <i class="fa-solid fa-video fa-lg"
                                             style="background: linear-gradient(135deg, #818cf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                                     </div>
-                                    <h3 class="fw-bold mb-2" style="color: #e9d5ff;">Tham Gia Lớp Học</h3>
+                                    <h5 class="fw-bold mb-1" style="color: #e9d5ff;">Tham Gia Lớp Học</h5>
                                     <p class="text-white-50 small mb-0">Nhập mã phòng từ giáo viên để vào lớp</p>
                                 </div>
 
-                                <div class="mb-4">
+                                <div class="mb-3 mb-md-4">
                                     <label class="form-label small text-white-50 mb-2">Mã phòng học</label>
                                     <input type="text" id="student-room-code-input" class="form-control"
-                                        placeholder="VD: ABC123" maxlength="6"
-                                        style="background: rgba(99, 102, 241, 0.1); border: 2px solid rgba(129, 140, 248, 0.25); border-radius: 16px; color: white; font-size: 1.8rem; font-weight: 700; text-align: center; letter-spacing: 8px; text-transform: uppercase; padding: 20px;"
+                                        placeholder="VD: ABC1" maxlength="6"
+                                        style="background: rgba(99, 102, 241, 0.1); border: 2px solid rgba(129, 140, 248, 0.25); border-radius: 12px; color: white; font-size: 1.2rem; font-weight: 700; text-align: center; letter-spacing: 5px; text-transform: uppercase; padding: 15px;"
                                         onfocus="this.style.borderColor='rgba(129, 140, 248, 0.6)'; this.style.boxShadow='0 0 20px rgba(99, 102, 241, 0.2)'"
                                         onblur="this.style.borderColor='rgba(129, 140, 248, 0.25)'; this.style.boxShadow='none'"
                                         onkeydown="if(event.key==='Enter') joinStudentClassroom()">
                                 </div>
 
-                                <button class="btn w-100 py-3 fw-bold position-relative overflow-hidden"
+                                <button class="btn w-100 py-2 py-md-3 fw-bold position-relative overflow-hidden"
                                     onclick="joinStudentClassroom()"
-                                    style="background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7); border: none; color: white; border-radius: 16px; font-size: 1.1rem; box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);">
+                                    style="background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7); border: none; color: white; border-radius: 12px; font-size: 1rem; box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);">
                                     <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Vào Lớp Học
                                 </button>
                             </div>
