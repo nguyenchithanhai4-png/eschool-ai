@@ -4827,7 +4827,7 @@
     <!-- 2. CODE COMPILER -->
     <!-- 2. CODE COMPILER -->
     <div id="compiler-view" class="view-section">
-        <div class="top-bar ai-premium-header mb-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div class="top-bar ai-premium-header mb-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div class="d-flex align-items-center gap-3">
                 <i class="fa-solid fa-bars mobile-toggle" onclick="toggleSidebar()"></i>
                 <div>
@@ -4838,28 +4838,28 @@
                     <small class="text-white-50">Môi trường lập trình Python, C++, JavaScript</small>
                 </div>
             </div>
-            <div class="d-flex gap-2 align-items-center">
+            <div class="d-flex gap-2 align-items-center flex-wrap w-100 w-md-auto" style="max-width: 100%;">
 
-                <div class="position-relative">
+                <div class="position-relative flex-grow-1 flex-md-grow-0">
                     <i
                         class="fa-brands fa-js position-absolute top-50 start-0 translate-middle-y ms-3 text-warning"></i>
                     <select id="compiler-lang"
-                        class="form-select border-0 text-white ps-5 py-2 pe-4 shadow-none fw-bold focus-ring-0"
-                        style="background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3) !important; border-radius: 10px; cursor: pointer; min-width: 150px;">
-                        <option value="javascript" class="bg-dark text-white">JavaScript (Node)</option>
+                        class="form-select border-0 text-white ps-5 py-2 pe-3 shadow-none fw-bold focus-ring-0 w-100"
+                        style="background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3) !important; border-radius: 10px; cursor: pointer; font-size: 0.9rem;">
+                        <option value="javascript" class="bg-dark text-white">JavaScript</option>
                         <option value="python" class="bg-dark text-white">Python 3</option>
                         <option value="cpp" class="bg-dark text-white">C++</option>
                     </select>
                 </div>
-                <button id="run-code-btn" class="btn fw-bold text-white px-4 py-2"
-                    style="background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%); border-radius: 12px; border: none; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);">
-                    <i class="fa-solid fa-play me-2"></i>Run Code
+                <button id="run-code-btn" class="btn fw-bold text-white px-3 py-2 flex-grow-1 flex-md-grow-0"
+                    style="background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%); border-radius: 10px; border: none; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4); font-size: 0.9rem; white-space: nowrap;">
+                    <i class="fa-solid fa-play me-2"></i>Run
                 </button>
             </div>
         </div>
 
         <div class="row g-0 h-100 overflow-auto"
-            style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; backdrop-filter: blur(10px); min-height: 65vh;">
+            style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; backdrop-filter: blur(10px); min-height: 55vh;">
 
             <!-- Editor Section -->
             <div class="col-lg-8 d-flex flex-column border-end border-secondary border-opacity-25">
