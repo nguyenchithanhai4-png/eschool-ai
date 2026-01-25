@@ -338,6 +338,30 @@
                 /* Prevent chaining scroll */
             }
 
+            /* Lock body scroll when navbar is expanded */
+            body.menu-open {
+                overflow: hidden !important;
+                position: fixed !important;
+                width: 100% !important;
+                height: 100% !important;
+            }
+
+            /* Overlay behind expanded navbar */
+            .navbar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+
+            .navbar-overlay.show {
+                display: block;
+            }
+
             .navbar-custom.expanded .navbar-nav {
                 margin-bottom: 0 !important;
                 padding-bottom: 20px;
@@ -2655,13 +2679,11 @@
             navToggler.addEventListener('click', () => {
                 navCustom.classList.toggle('expanded');
 
-                // Lock/Unlock scroll
+                // Lock/Unlock scroll using class
                 if (navCustom.classList.contains('expanded')) {
-                    document.body.style.overflow = 'hidden';
-                    document.documentElement.style.overflow = 'hidden';
+                    document.body.classList.add('menu-open');
                 } else {
-                    document.body.style.overflow = '';
-                    document.documentElement.style.overflow = '';
+                    document.body.classList.remove('menu-open');
                 }
             });
 
@@ -2669,8 +2691,7 @@
             document.addEventListener('click', (e) => {
                 if (!navCustom.contains(e.target) && navCustom.classList.contains('expanded')) {
                     navCustom.classList.remove('expanded');
-                    document.body.style.overflow = ''; // Restore scroll
-                    document.documentElement.style.overflow = '';
+                    document.body.classList.remove('menu-open');
 
                     // Also close bootstrap collapse if open
                     const bsCollapse = bootstrap.Collapse.getInstance(document.querySelector('.navbar-collapse'));
