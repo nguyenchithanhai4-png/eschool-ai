@@ -902,3 +902,198 @@ select option:hover {
     font-size: 0.7rem !important;
   }
 }
+
+/* ========================================
+   COMPACT MOBILE LAYOUT - ALL PAGES
+   Reduces spacing and makes layout tighter
+   ======================================== */
+@media (max-width: 768px) {
+  
+  /* --- General Spacing Reduction --- */
+  .container,
+  .container-fluid {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* Reduce section padding */
+  .section-padding,
+  section {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+
+  /* Smaller headings */
+  h1, .h1 {
+    font-size: 1.75rem !important;
+  }
+  h2, .h2 {
+    font-size: 1.4rem !important;
+  }
+  h3, .h3 {
+    font-size: 1.15rem !important;
+  }
+  h4, .h4 {
+    font-size: 1rem !important;
+  }
+  h5, .h5, h6, .h6 {
+    font-size: 0.9rem !important;
+  }
+
+  /* Smaller body text */
+  body, p, span, li, a {
+    font-size: 0.9rem;
+  }
+
+  /* --- Glass Cards Compact --- */
+  .glass-card,
+  .glass-card-premium,
+  .ai-glass-card {
+    padding: 16px !important;
+    border-radius: 16px !important;
+  }
+
+  /* --- Row/Column Gaps --- */
+  .row.g-4 {
+    --bs-gutter-x: 0.75rem !important;
+    --bs-gutter-y: 0.75rem !important;
+  }
+  .row.g-3 {
+    --bs-gutter-x: 0.5rem !important;
+    --bs-gutter-y: 0.5rem !important;
+  }
+
+  /* --- Chat/Tutor Compact Layout --- */
+  .chat-container,
+  #tutor-chat-box,
+  #eng-chat-box {
+    padding: 16px !important;
+    gap: 12px !important;
+    justify-content: flex-start !important;
+  }
+
+  .msg .bubble {
+    padding: 12px 16px !important;
+    font-size: 0.92rem !important;
+    border-radius: 16px !important;
+  }
+
+  .msg-header {
+    gap: 8px !important;
+  }
+
+  .msg-header .avatar {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .msg-sender {
+    font-size: 0.85rem !important;
+  }
+
+  /* --- Top Bar Compact --- */
+  .top-bar,
+  .ai-premium-header {
+    padding: 10px 14px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .top-bar h5,
+  .ai-premium-header h5 {
+    font-size: 1rem !important;
+    margin-bottom: 0 !important;
+  }
+
+  .top-bar small,
+  .ai-premium-header small {
+    font-size: 0.75rem !important;
+  }
+
+  /* --- Input Bar Compact --- */
+  .tutor-bar,
+  .input-floating-area {
+    padding: 10px 12px !important;
+  }
+
+  .tutor-bar input,
+  .tutor-bar textarea {
+    font-size: 0.9rem !important;
+    padding: 10px 12px !important;
+  }
+
+  /* --- Buttons Smaller --- */
+  .btn {
+    padding: 8px 16px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .btn-sm {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .icon-btn {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* --- Navbar Compact --- */
+  .navbar-custom {
+    padding: 8px 16px !important;
+    margin: 10px auto !important;
+  }
+
+  .brand-logo {
+    font-size: 1.2rem !important;
+  }
+
+  /* --- View Section Padding --- */
+  .view-section {
+    padding: 8px !important;
+  }
+
+  /* --- Footer Compact --- */
+  footer {
+    padding: 40px 0 20px !important;
+  }
+
+  footer p, footer a, footer span {
+    font-size: 0.8rem !important;
+  }
+
+  /* --- Hero Section Compact --- */
+  .hero-section,
+  #view-home {
+    min-height: auto !important;
+    padding-top: 100px !important;
+    padding-bottom: 40px !important;
+  }
+
+  /* --- Floating Chat Demo Compact --- */
+  .floating-chat {
+    padding: 16px !important;
+    border-radius: 16px !important;
+    transform: none !important;
+  }
+
+  .chat-bubble {
+    padding: 10px 14px !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* --- Feature Cards Compact --- */
+  .feature-card,
+  .price-card {
+    padding: 20px !important;
+  }
+
+  .icon-box {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 1.2rem !important;
+    margin-bottom: 1rem !important;
+  }
+}
