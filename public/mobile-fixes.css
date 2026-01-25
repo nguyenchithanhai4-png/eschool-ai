@@ -1,11 +1,461 @@
 /* Mobile App Fixes for Capacitor WebView */
 /* Fix viewport rendering issues - ONLY for Mobile */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ✨ PREMIUM UI EFFECTS - Facebook/Instagram/TikTok Style
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────
+   1. TYPING INDICATOR - 3-dot bounce animation
+   ───────────────────────────────────────────── */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  width: fit-content;
+  margin: 8px 0;
+}
+
+.typing-indicator span {
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  border-radius: 50%;
+  animation: typingBounce 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typingBounce {
+
+  0%,
+  60%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+
+  30% {
+    transform: translateY(-10px) scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   2. SKELETON LOADING - Shimmer effect
+   ───────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg,
+      rgba(30, 30, 46, 1) 0%,
+      rgba(50, 50, 70, 1) 50%,
+      rgba(30, 30, 46, 1) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 12px;
+}
+
+.skeleton-text {
+  height: 16px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.skeleton-text.short {
+  width: 60%;
+}
+
+.skeleton-text.medium {
+  width: 80%;
+}
+
+.skeleton-text.long {
+  width: 100%;
+}
+
+.skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.skeleton-card {
+  padding: 20px;
+  border-radius: 20px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   3. ANIMATED MESSAGE BUBBLES - Slide up + fade
+   ───────────────────────────────────────────── */
+.msg {
+  animation: messageSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: bottom center;
+}
+
+.msg.user {
+  animation: messageSlideRight 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes messageSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes messageSlideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(20px) scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   4. ENHANCED GLASSMORPHISM - Premium card effects  
+   ───────────────────────────────────────────── */
+.glass-card-premium,
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-premium:hover,
+.glass-card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow:
+    0 16px 48px rgba(99, 102, 241, 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Gradient border effect for special cards */
+.glass-card-glow {
+  position: relative;
+}
+
+.glass-card-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #6366f1, #a855f7, #06b6d4);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.4s ease;
+}
+
+.glass-card-glow:hover::before {
+  opacity: 0.5;
+}
+
+/* ─────────────────────────────────────────────
+   5. RIPPLE EFFECT - Button press feedback
+   ───────────────────────────────────────────── */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.3s;
+}
+
+.btn-ripple:active::after {
+  transform: scale(2);
+  opacity: 1;
+  transition: 0s;
+}
+
+/* ─────────────────────────────────────────────
+   6. MOBILE BOTTOM NAVIGATION BAR
+   ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(15, 12, 41, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px 0;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+  }
+
+  .mobile-bottom-nav .nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.7rem;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-bottom-nav .nav-btn i {
+    font-size: 1.3rem;
+  }
+
+  .mobile-bottom-nav .nav-btn.active,
+  .mobile-bottom-nav .nav-btn:hover {
+    color: #6366f1;
+    background: rgba(99, 102, 241, 0.1);
+  }
+
+  .mobile-bottom-nav .nav-btn.active i {
+    transform: scale(1.1);
+  }
+
+  /* Add padding to main content when bottom nav is present */
+  body.has-bottom-nav .main-content {
+    padding-bottom: 80px;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   7. PULSE NOTIFICATION BADGE
+   ───────────────────────────────────────────── */
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  border-radius: 50%;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulseBadge 2s infinite;
+}
+
+@keyframes pulseBadge {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   8. SMOOTH PAGE TRANSITIONS
+   ───────────────────────────────────────────── */
+.view-section.active {
+  animation: pageEnter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   END PREMIUM UI EFFECTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ===================================================
+   FULLSCREEN & DYNAMIC VIEWPORT FIXES
+   Fix for mobile browser address bar and Capacitor app
+   ONLY applies to dashboard pages, NOT index/landing
+   =================================================== */
+
+/* Only apply fixed body on dashboard pages (with .main-content or .sidebar) */
+body:has(.main-content),
+body:has(.sidebar) {
+  height: 100dvh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* Landing page (index) - allow normal scrolling */
+body:not(:has(.main-content)):not(:has(.sidebar)) {
+  overflow: auto !important;
+  overflow-x: hidden !important;
+  position: static !important;
+  height: auto !important;
+}
+
+html:not(:has(.main-content)):not(:has(.sidebar)) {
+  overflow: auto !important;
+  height: auto !important;
+}
+
+/* Main content area - account for safe areas (notch, rounded corners) */
+.main-content {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  height: 100%;
+  height: 100dvh;
+  box-sizing: border-box;
+}
+
+/* Sidebar safe area padding */
+.sidebar {
+  padding-top: calc(25px + env(safe-area-inset-top, 0px));
+}
+
+/* Force GPU acceleration to prevent layout shifts */
+.view-section,
+.view-section.active {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* Prevent viewport bounce/elastic scroll on iOS */
+.view-section {
+  overscroll-behavior: contain;
+}
+
+/* ===================================================
+   FIX: Chat/Tutor Horizontal Overflow
+   Prevents horizontal scrollbar in chat messages
+   =================================================== */
+
+/* Chat container - no horizontal scroll */
+#tutor-chat-box,
+.chat-container {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* AI Response bubbles - NO SCROLLBAR on individual messages */
+.bubble,
+.bubble.ai-response,
+.msg.ai,
+.msg.user {
+  max-width: 100% !important;
+  overflow: visible !important;
+  /* NO scrollbar */
+  word-wrap: break-word !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  box-sizing: border-box !important;
+}
+
+/* Content inside bubbles */
+.bubble p,
+.bubble ul,
+.bubble ol,
+.bubble li,
+.bubble pre,
+.bubble code,
+.ai-response p,
+.ai-response ul,
+.ai-response ol,
+.ai-response li {
+  max-width: 100% !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+}
+
+/* Code blocks in chat - horizontal scroll only for code */
+.bubble pre,
+.ai-response pre {
+  overflow-x: auto !important;
+  max-width: 100% !important;
+}
+
+/* Images in chat - prevent overflow */
+.bubble img,
+.ai-response img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* ===================================================
+   END FULLSCREEN FIXES
+   =================================================== */
+
 @media (max-width: 768px) {
 
   html,
   body {
     min-height: 100vh !important;
     min-height: -webkit-fill-available !important;
+    min-height: 100dvh !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
   }

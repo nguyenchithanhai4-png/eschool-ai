@@ -77,7 +77,12 @@
          META TAGS - Thông tin cơ bản của trang
     ============================================ -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fullscreen viewport with safe area support -->
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>E-School AI - Student Dashboard</title>
 
     <!-- ============================================
@@ -1221,6 +1226,19 @@
             /* Chat container padding for mobile header */
             .tutor-main-area .chat-container {
                 padding-top: 10px;
+            }
+
+            /* Make chat layout more compact on mobile */
+            .chat-container {
+                padding: 16px !important;
+                gap: 12px !important;
+                justify-content: flex-start !important;
+            }
+
+            /* Smaller bubble text and padding on mobile */
+            .msg .bubble {
+                padding: 12px 16px;
+                font-size: 0.92rem;
             }
 
             /* Top bar adjustments */
@@ -17497,6 +17515,7 @@ Trả về duy nhất JSON (không markdown) theo cấu trúc:
 
     <!-- AI Chat Module (Hybrid Router Integration) -->
     <script src="js/career-questions.js"></script>
+    <script src="js/career-data.js"></script>
     <script src="js/career.js"></script>
 
     <script src="js/ui-helpers.js"></script>
