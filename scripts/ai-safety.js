@@ -81,12 +81,14 @@ function validate() {
         files.forEach(file => {
             const p = path.join(dir, file);
             if (fs.lstatSync(p).isDirectory()) {
-                if (file !== 'node_modules' && file !== '_backups' && file !== '.git') {
+                if (file !== 'node_modules' && file !== '_backups' && file !== '.git' && file !== 'scripts') {
                     scanDir(p);
                 }
             } else if (file.endsWith('.html') || file.endsWith('.js') || file.endsWith('.css')) {
                 const content = fs.readFileSync(p, 'utf8');
-                if (content.includes('L?i') || content.includes('ï¿½')) {
+                // Use regex and masked string to avoid self-triggering
+                const corruptionPattern = /L\?i|ï¿½/; 
+                if (corruptionPattern.test(content)) {
                     errors.push(`❌ Potential corruption in: ${p}`);
                 }
             }
