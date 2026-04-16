@@ -1,1029 +1,671 @@
-﻿<!DOCTYPE html>
-<html lang="vi">
+<!DOCTYPE html>
+<html class="dark" lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <!-- Fullscreen viewport with safe area support -->
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Đăng nhập - E-School AI</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="mobile-fixes.css">
-
-
+    <title>Đăng nhập | E-School AI</title>
+    
+    <!-- Scripts & Fonts -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#121318",
+                        "on-primary-fixed": "#1a1c1c",
+                        "on-primary": "#2f3131",
+                        "surface-variant": "#34343a",
+                        "outline": "#8e9192",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "surface-bright": "#38393e",
+                        "on-tertiary-container": "#656464",
+                        "surface-container-high": "#292a2f",
+                        "error": "#ffb4ab",
+                        "inverse-primary": "#5d5f5f",
+                        "surface-dim": "#121318",
+                        "outline-variant": "#444748",
+                        "on-background": "#e3e2e9",
+                        "primary-container": "#e2e2e2",
+                        "surface-container-lowest": "#0d0e13",
+                        "secondary": "#c4c7ca",
+                        "secondary-fixed-dim": "#c4c7ca",
+                        "tertiary-container": "#e4e2e1",
+                        "surface-container-low": "#1a1b20",
+                        "surface-container": "#1e1f24",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "tertiary-fixed": "#e4e2e1",
+                        "primary-fixed-dim": "#c6c6c7",
+                        "error-container": "#93000a",
+                        "surface-container-highest": "#34343a",
+                        "background": "#121318",
+                        "on-secondary-fixed-variant": "#44474a",
+                        "on-primary-container": "#636565",
+                        "inverse-on-surface": "#2f3035",
+                        "primary": "#ffffff",
+                        "on-surface": "#e3e2e9",
+                        "inverse-surface": "#e3e2e9",
+                        "on-primary-fixed-variant": "#454747",
+                        "on-surface-variant": "#c4c7c8",
+                        "on-tertiary": "#303030",
+                        "tertiary": "#ffffff",
+                        "surface-tint": "#c6c6c7",
+                        "tertiary-fixed-dim": "#c8c6c6",
+                        "primary-fixed": "#e2e2e2",
+                        "secondary-fixed": "#e0e3e6",
+                        "on-secondary-container": "#b3b5b8",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#44474a",
+                        "on-secondary": "#2d3133",
+                        "on-secondary-fixed": "#191c1e",
+                        "on-error": "#690005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
     <style>
-        :root {
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.6);
-            --secondary: #a855f7;
-            --secondary-glow: rgba(168, 85, 247, 0.6);
-            --accent: #06b6d4;
-            --accent-glow: rgba(6, 182, 212, 0.6);
-            --bg-dark: #0f0c29;
-            --text-light: #f8fafc;
-
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --card-radius: 24px;
-            --glass-bg-deep: rgba(15, 15, 30, 0.75);
-            --glass-border-light: rgba(255, 255, 255, 0.15);
-            --smooth-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            --input-bg: rgba(0, 0, 0, 0.2);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            background: var(--bg-dark);
-            height: 100vh;
-            width: 100vw;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
+            background-color: #121318;
+            background-image: radial-gradient(#ffffff10 1px, transparent 1px);
+            background-size: 40px 40px;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
-
-        /* --- Background Animation (Matches Index) --- */
-        .bg-fixed {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            pointer-events: none;
-            background: #0f0c29;
+        h1, h2, h3, h4, .font-headline {
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.4;
-            animation: orbFloat 20s infinite alternate ease-in-out;
-        }
-
-        .orb-1 {
-            width: 600px;
-            height: 600px;
-            background: var(--primary);
-            top: -20%;
-            left: -10%;
-        }
-
-        .orb-2 {
-            width: 500px;
-            height: 500px;
-            background: var(--secondary);
-            bottom: -10%;
-            right: -10%;
-        }
-
-        .orb-3 {
-            width: 300px;
-            height: 300px;
-            background: var(--accent);
-            top: 40%;
-            right: 10%;
-            opacity: 0.3;
-        }
-
-
-        @keyframes orbFloat {
-            from {
-                transform: translate(0, 0);
-            }
-
-            to {
-                transform: translate(50px, 70px);
-            }
-        }
-
-        /* --- Custom Scrollbar - Thin & Dark --- */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(51, 65, 85, 0.8);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(71, 85, 105, 0.9);
-        }
-
-        ::-webkit-scrollbar-corner {
-            background: transparent;
-        }
-
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(51, 65, 85, 0.8) rgba(15, 23, 42, 0.8);
-        }
-
-        /* --- Auth Card Container --- */
-        .auth-container {
-            width: 100%;
-            height: 100%;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px;
-            overflow-y: auto;
-            z-index: 10;
-        }
-
-        .auth-card {
-            width: 100%;
-            max-width: 480px;
-            /* Adjusted: Lighter dark-purple glass to avoid 'too black' look */
-            background: linear-gradient(180deg, rgba(46, 26, 95, 0.4) 0%, rgba(15, 12, 41, 0.85) 100%);
+        .glass-card {
+            background: rgba(30, 31, 36, 0.6);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-            margin: auto;
-            transform-style: preserve-3d;
-            transition: var(--smooth-transition);
         }
-
-        .auth-card:hover {
-            border-color: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 30px 60px -15px rgba(99, 102, 241, 0.15);
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-
-        /* Top Light Scan Effect */
-        .auth-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary), #fff, var(--secondary), transparent);
-            animation: scanLight 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            z-index: 10;
-        }
-
-        @keyframes scanLight {
-            0% {
-                left: -100%;
-            }
-
-            50%,
-            100% {
-                left: 100%;
-            }
-        }
-
-        .auth-header {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .brand-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 5px;
-            background: linear-gradient(to right, #fff, var(--secondary), var(--primary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
-        }
-
-        /* --- Pill Switcher (Updated) --- */
-        .auth-switch-container {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 50px;
-            padding: 5px;
-            display: flex;
-            position: relative;
-            margin-bottom: 35px;
-            border: 1px solid var(--glass-border);
-        }
-
-        .auth-switch-btn {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 2;
-            color: rgba(255, 255, 255, 0.6);
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: 0.3s;
-            position: relative;
-            border-radius: 50px;
-        }
-
-        .auth-switch-btn.active {
-            color: white;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .switch-bg {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            width: calc(50% - 5px);
-            height: calc(100% - 10px);
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50px;
-            transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            /* Bouncy effect */
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-            z-index: 1;
-        }
-
-        .auth-switch-container.right-active .switch-bg {
-            left: 50%;
-        }
-
-        /* --- Inputs --- */
-        .input-group-custom {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        .input-field {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 16px 45px 16px 50px;
-            color: white;
-            font-size: 1rem;
-            transition: 0.3s;
-            outline: none;
-            font-family: 'Be Vietnam Pro', sans-serif;
-        }
-
-        .input-field::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .input-field:focus {
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
-            transform: translateY(-2px);
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.4);
-            transition: 0.3s;
-            font-size: 1.1rem;
-        }
-
-        .input-field:focus+.input-icon {
-            color: var(--primary);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.4);
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .password-toggle:hover {
-            color: white;
-        }
-
-        /* --- Buttons --- */
-        .btn-submit {
-            width: 100%;
-            border: none;
-            padding: 16px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            font-weight: 700;
-            font-size: 1rem;
-            margin-top: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-submit::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px -10px rgba(168, 85, 247, 0.6);
-        }
-
-        .btn-submit:hover::before {
-            left: 100%;
-        }
-
-        /* --- Corner Buttons (Updated) --- */
-        .corner-btn {
-            position: absolute;
-            top: 30px;
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            color: rgba(255, 255, 255, 0.8);
-            padding: 12px 24px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: flex;
+        .form-hidden { display: none !important; }
+        .alert {
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
             align-items: center;
             gap: 10px;
-            transition: 0.3s;
         }
-
-        .corner-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-top-left {
-            left: 40px;
-        }
-
-        .btn-top-right {
-            right: 40px;
-        }
-
-
-        /* Role Option (Updated) */
-        .role-selector {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .role-option {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .role-option:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .role-option.selected {
-            background: rgba(99, 102, 241, 0.15);
-            border-color: var(--primary);
-            box-shadow: 0 0 0 1px var(--primary);
-        }
-
-        .role-icon {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-            display: block;
-            color: rgba(255, 255, 255, 0.5);
-            transition: 0.3s;
-        }
-
-        .role-option.selected .role-icon {
-            color: var(--primary);
-            transform: scale(1.1);
-        }
-
-        /* Responsive */
-        @media (max-width: 576px) {
-            .auth-card {
-                padding: 30px 20px;
-                border-radius: 20px;
-            }
-
-            .brand-title {
-                font-size: 1.8rem;
-            }
-
-            .corner-btn {
-                display: none;
-            }
-
-            .btn-top-left-mobile {
-                display: block;
-                position: absolute;
-                top: 20px;
-                left: 20px;
-                color: white;
-                font-size: 1.2rem;
-                z-index: 20;
-            }
-        }
+        .alert.show { display: flex; }
+        .alert-error { background: rgba(239, 68, 68, 0.1); color: #ffb4ab; border: 1px solid rgba(239, 68, 68, 0.2); }
+        .alert-success { background: rgba(16, 185, 129, 0.1); color: #86f898; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .alert-warning { background: rgba(245, 158, 11, 0.1); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.2); }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeInUp 0.4s ease-out forwards; }
     </style>
 </head>
 
-<body>
-    <!-- Background -->
-    <div class="bg-fixed">
-        <!-- Orbs Removed -->
-    </div>
-
-    <!-- Navigation Buttons -->
-    <a href="/" class="corner-btn btn-top-left">
-        <i class="fa-solid fa-arrow-left"></i> Quay lại Trang Chủ
-    </a>
-
-    <a href="#" class="corner-btn btn-top-right" onclick="toast.info('Liên hệ hỗ trợ: support@eschool.ai')">
-        <i class="fa-solid fa-life-ring text-warning"></i> Trung tâm Hỗ trợ
-    </a>
-
-    <!-- Mobile Back Button -->
-    <a href="/" class="d-sm-none btn-top-left-mobile"><i class="fa-solid fa-arrow-left"></i></a>
-
-    <!-- --- FORGOT PASSWORD MODAL (Hidden) --- -->
-    <div class="modal fade" id="forgotModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"
-                style="background: rgba(30, 30, 50, 0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; backdrop-filter: blur(10px);">
-                <div class="modal-body p-4 text-center">
-                    <div class="mb-4 text-warning">
-                        <i class="fa-solid fa-key fs-1 p-3 rounded-circle"
-                            style="background: rgba(245, 158, 11, 0.1);"></i>
+<body class="text-on-surface selection:bg-primary selection:text-on-primary min-h-screen flex items-center justify-center p-4 md:p-8">
+    <main class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden rounded-xl shadow-2xl shadow-white/5 border border-white/5 animate-fade-in">
+        <!-- Left Column: Branding & Messaging -->
+        <section class="relative hidden md:flex flex-col justify-between p-10 bg-surface-container-low overflow-hidden">
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+            <div class="relative z-10">
+                <div class="flex items-center gap-2 mb-16 cursor-pointer" id="logo-desktop">
+                    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-on-primary text-2xl">school</span>
                     </div>
-                    <h4 class="text-white fw-bold mb-2">Quên mật khẩu?</h4>
-                    <p class="text-white-50 small mb-4">Nhập email của bạn để nhận hướng dẫn đặt lại mật khẩu.</p>
-                    <div class="input-group-custom mb-3 text-start">
-                        <input type="email" id="forgot-email" class="input-field" placeholder="Nhập địa chỉ Email">
-                        <i class="fa-solid fa-envelope input-icon"></i>
-                    </div>
-                    <button type="button" class="btn btn-submit" onclick="checkForgotEmail()">Gửi Yêu Cầu</button>
-                    <!-- Alert Area -->
-                    <div id="forgot-alert" class="mt-3 text-start" style="display: none;"></div>
+                    <span class="text-2xl font-bold tracking-tighter text-white font-headline">E-School AI</span>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="auth-container">
-        <!-- Main Card (Static) -->
-        <div class="auth-card">
-            <div class="auth-header">
-                <div class="brand-title">
-                    <i class="fa-solid fa-atom me-2"></i>E-School AI
-                </div>
-                <p class="text-white-50 mb-0">Đăng nhập để tiếp tục hành trình tri thức</p>
-            </div>
-
-            <!-- Pill Switcher -->
-            <div class="auth-switch-container" id="tab-container">
-                <div class="switch-bg"></div>
-                <div class="auth-switch-btn active" onclick="switchTab('login')">Đăng Nhập</div>
-                <div class="auth-switch-btn" onclick="switchTab('register')">Đăng Ký</div>
-            </div>
-
-            <!-- Login Form -->
-            <form id="login-form" onsubmit="handleLogin(event)">
-                <div class="input-group-custom">
-                    <input type="text" id="login-user" class="input-field" placeholder="Email hoặc Tên đăng nhập"
-                        required>
-                    <i class="fa-solid fa-envelope input-icon"></i>
-                </div>
-                <div class="input-group-custom">
-                    <input type="password" id="login-pass" class="input-field" placeholder="Mật khẩu" required>
-                    <i class="fa-solid fa-lock input-icon"></i>
-                    <i class="fa-solid fa-eye-slash password-toggle" onclick="togglePassword('login-pass', this)"></i>
-                </div>
-
-
-                <div class="d-flex justify-content-between align-items-center mb-4" style="font-size: 0.9rem;">
-                    <div class="form-check">
-                        <input class="form-check-input bg-transparent border-secondary" type="checkbox" id="remember">
-                        <label class="form-check-label text-white-50" for="remember">Ghi nhớ đăng nhập</label>
-                    </div>
-                    <a href="#" class="text-info text-decoration-none fw-bold small hover-link" data-bs-toggle="modal"
-                        data-bs-target="#forgotModal">Quên mật khẩu?</a>
-                </div>
-
-                <button type="submit" class="btn-submit">
-                    Đăng Nhập <i class="fa-solid fa-arrow-right-to-bracket ms-2"></i>
-                </button>
-            </form>
-
-            <!-- Register Form (Initially Hidden using d-none) -->
-            <form id="register-form" class="d-none" onsubmit="handleRegister(event)">
-                <!-- Common Name Field (changes placeholder based on role) -->
-                <div class="input-group-custom" id="name-field-container">
-                    <input type="text" id="reg-name" class="input-field" placeholder="Họ và tên đầy đủ" required>
-                    <i class="fa-solid fa-user input-icon" id="name-icon"></i>
-                </div>
-
-                <div class="input-group-custom">
-                    <input type="email" id="reg-email" class="input-field" placeholder="Địa chỉ Email" required>
-                    <i class="fa-solid fa-envelope input-icon"></i>
-                </div>
-
-                <!-- Role Selection -->
-                <div class="role-selector">
-                    <input type="hidden" id="selected-role" value="student">
-                    <div class="role-option selected" onclick="selectRole('student', this)">
-                        <i class="fa-solid fa-graduation-cap role-icon"></i>
-                        <span class="role-label d-block text-white-50">Học Sinh</span>
-                    </div>
-                    <div class="role-option" onclick="selectRole('teacher', this)">
-                        <i class="fa-solid fa-chalkboard-user role-icon"></i>
-                        <span class="role-label d-block text-white-50">Giáo Viên</span>
-                    </div>
-                    <div class="role-option" onclick="selectRole('school', this)">
-                        <i class="fa-solid fa-school role-icon"></i>
-                        <span class="role-label d-block text-white-50">Nhà Trường</span>
-                    </div>
-                </div>
-
-                <!-- Dynamic Fields: Thông tin Nhà trường (Logic giản lược cho Step 1) -->
-                <div id="school-fields" class="d-none">
-                    <p class="text-white-50 small fst-italic mb-3 ms-1 border-start border-info ps-2">
-                        * Bạn đang đăng ký tài khoản Nhà trường. Sau khi tạo tài khoản, bạn sẽ cần hoàn tất hồ sơ và tải
-                        lên tài liệu xác thực.
+                <div class="space-y-6">
+                    <h1 class="text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight font-headline">
+                        Tương lai của <br />
+                        <span class="text-outline">Giáo dục số.</span>
+                    </h1>
+                    <p class="text-lg text-on-surface-variant max-w-md leading-relaxed">
+                        Khám phá sức mạnh của trí tuệ nhân tạo trong việc cá nhân hóa lộ trình học tập và tối ưu hóa quản lý giáo dục.
                     </p>
                 </div>
+            </div>
+            <div class="relative z-10">
+                <div class="aspect-square w-full max-w-sm mx-auto rounded-xl overflow-hidden shadow-2xl shadow-black/50 grayscale hover:grayscale-0 transition-all duration-700">
+                    <img alt="AI Concept" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8uriSLFN1e3DUJ1mS5l4p9Nh705oaVKi__qreM6nFh33zg4tSOOlTAeuJO1I2oGVqacHBY623uARANVLs-aQHb_1BcHe1cigC0N67sZjpuOsuVTbwB0UD1Ny-Z1HvT4x6gbkKtGs5oNHSIlxKDfBrnEGgwq8m3-gxE_emnTxJpA25ccKMI_ZghLKE5QYhpdhHX43I0bgmW7Rx55Ppq0Y2SR4438JRCazdB6Ky8Pp64g9jmn0CrD97Bpk3RE3PBVBcsxBfy-6BDnU" />
+                </div>
+                <div class="mt-12 flex gap-4 items-center">
+                    <div class="flex -space-x-3">
+                        <div class="w-10 h-10 rounded-full border-2 border-surface-container-low bg-zinc-700"></div>
+                        <div class="w-10 h-10 rounded-full border-2 border-surface-container-low bg-zinc-600"></div>
+                        <div class="w-10 h-10 rounded-full border-2 border-surface-container-low bg-zinc-500"></div>
+                    </div>
+                    <p class="text-xs uppercase tracking-widest text-outline font-medium">Hơn 50,000+ người dùng tin tưởng</p>
+                </div>
+            </div>
+        </section>
 
-                <!-- Info: Giáo viên có thể tham gia trường sau -->
-                <div id="teacher-info" class="d-none mb-3">
-                    <small class="text-info d-block" style="font-size:0.8rem;">
-                        <i class="fa-solid fa-lightbulb me-1"></i>
-                        Sau khi đăng ký, bạn có thể tham gia Nhà trường từ trang Dashboard.
-                    </small>
+        <!-- Right Column: Login/Register Form -->
+        <section class="glass-card p-6 md:p-12 flex flex-col justify-center border-l border-white/5 relative">
+            <div class="max-w-md mx-auto w-full">
+                <!-- Mobile Logo -->
+                <div class="md:hidden flex items-center gap-2 mb-12 justify-center cursor-pointer" id="logo-mobile">
+                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-on-primary text-xl">school</span>
+                    </div>
+                    <span class="text-xl font-bold tracking-tighter text-white font-headline">E-School AI</span>
                 </div>
 
-                <div class="input-group-custom">
-                    <input type="password" id="reg-pass" class="input-field" placeholder="Mật khẩu mới" required>
-                    <i class="fa-solid fa-lock input-icon"></i>
-                    <i class="fa-solid fa-eye-slash password-toggle" onclick="togglePassword('reg-pass', this)"></i>
+                <header class="mb-10 text-center md:text-left">
+                    <h2 class="text-3xl font-bold text-white mb-2 font-headline" id="page-title">Chào mừng trở lại</h2>
+                    <p class="text-on-surface-variant" id="page-subtitle">Chọn vai trò của bạn và bắt đầu hành trình.</p>
+                </header>
+
+                <!-- Status Alert -->
+                <div id="alert" class="alert"></div>
+
+                <!-- Role Selector -->
+                <div class="grid grid-cols-3 gap-3 mb-8">
+                    <button type="button" class="role-option flex flex-col items-center justify-center p-4 rounded-lg bg-primary text-on-primary shadow-lg shadow-white/5 transition-all duration-300" data-role="student">
+                        <span class="material-symbols-outlined mb-2" style="font-variation-settings: 'FILL' 1;">person</span>
+                        <span class="text-[10px] font-semibold uppercase tracking-wider">Học sinh</span>
+                    </button>
+                    <button type="button" class="role-option flex flex-col items-center justify-center p-4 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all duration-300" data-role="teacher">
+                        <span class="material-symbols-outlined mb-2">history_edu</span>
+                        <span class="text-[10px] font-semibold uppercase tracking-wider">Giáo viên</span>
+                    </button>
+                    <button type="button" class="role-option flex flex-col items-center justify-center p-4 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all duration-300" data-role="school">
+                        <span class="material-symbols-outlined mb-2">apartment</span>
+                        <span class="text-[10px] font-semibold uppercase tracking-wider">Trường học</span>
+                    </button>
+                </div>
+                <input type="hidden" id="selected-role" value="student">
+
+                <!-- Forms Container -->
+                <div id="auth-forms">
+                    <!-- Login Form -->
+                    <form id="login-form" class="space-y-5">
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold text-outline uppercase tracking-wider ml-1" for="login-email">Địa chỉ Email</label>
+                            <div class="relative group">
+                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">mail</span>
+                                <input class="w-full bg-surface-container-high border-none rounded-lg py-4 pl-12 pr-4 text-white placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary/20 transition-all outline-none" id="login-email" placeholder="name@school.edu.vn" type="text" required />
+                            </div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between items-center px-1">
+                                <label class="text-xs font-bold text-outline uppercase tracking-wider" for="login-password">Mật khẩu</label>
+                                <a class="text-xs font-semibold text-primary hover:text-white transition-colors" href="#" id="forgot-pw-link">Quên mật khẩu?</a>
+                            </div>
+                            <div class="relative group">
+                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
+                                <input class="w-full bg-surface-container-high border-none rounded-lg py-4 pl-12 pr-4 text-white placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary/20 transition-all outline-none" id="login-password" placeholder="••••••••" type="password" required />
+                                <button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-white password-toggle" type="button" data-target="login-password">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="w-full bg-primary text-on-primary font-bold py-4 rounded-full shadow-xl shadow-primary/10 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 mt-4 flex items-center justify-center gap-2" type="submit" id="login-btn">
+                            Đăng Nhập <span class="material-symbols-outlined">login</span>
+                        </button>
+                    </form>
+
+                    <!-- Register Form -->
+                    <form id="register-form" class="space-y-5 form-hidden">
+                        <div class="space-y-1.5" id="name-field">
+                            <label class="text-xs font-bold text-outline uppercase tracking-wider ml-1" for="register-name">Họ và tên</label>
+                            <div class="relative group">
+                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">person</span>
+                                <input class="w-full bg-surface-container-high border-none rounded-lg py-4 pl-12 pr-4 text-white placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary/20 transition-all outline-none" id="register-name" placeholder="Nguyễn Văn A" type="text" />
+                            </div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold text-outline uppercase tracking-wider ml-1" for="register-email">Địa chỉ Email</label>
+                            <div class="relative group">
+                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">mail</span>
+                                <input class="w-full bg-surface-container-high border-none rounded-lg py-4 pl-12 pr-4 text-white placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary/20 transition-all outline-none" id="register-email" placeholder="name@school.edu.vn" type="email" required />
+                            </div>
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold text-outline uppercase tracking-wider ml-1" for="register-password">Mật khẩu</label>
+                            <div class="relative group">
+                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
+                                <input class="w-full bg-surface-container-high border-none rounded-lg py-4 pl-12 pr-4 text-white placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary/20 transition-all outline-none" id="register-password" placeholder="••••••••" type="password" required />
+                                <button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-white password-toggle" type="button" data-target="register-password">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="space-y-1.5" id="confirm-password-field">
+                            <label class="text-xs font-bold text-outline uppercase tracking-wider ml-1" for="register-confirm-password">Nhập lại mật khẩu</label>
+                            <div class="relative group">
+                                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
+                                <input class="w-full bg-surface-container-high border-none rounded-lg py-4 pl-12 pr-4 text-white placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary/20 transition-all outline-none" id="register-confirm-password" placeholder="••••••••" type="password" required />
+                            </div>
+                        </div>
+                        
+                        <!-- Role-specific Info -->
+                        <div id="school-info" class="p-3 rounded-lg border border-primary/20 bg-primary/5 text-xs text-on-surface-variant form-hidden">
+                             <p class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">info</span> Bạn đang đăng ký tài khoản Nhà trường. Sau khi tạo tài khoản, bạn sẽ cần hoàn tất hồ sơ và tải lên tài liệu xác thực.</p>
+                        </div>
+                        <div id="teacher-info" class="p-3 rounded-lg border border-primary/20 bg-primary/5 text-xs text-on-surface-variant form-hidden">
+                             <p class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">lightbulb</span> Sau khi đăng ký, bạn có thể tham gia Nhà trường từ trang Dashboard.</p>
+                        </div>
+
+                        <button class="w-full bg-primary text-on-primary font-bold py-4 rounded-full shadow-xl shadow-primary/10 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 mt-4 flex items-center justify-center gap-2" type="submit" id="register-btn">
+                            Tạo Tài Khoản <span class="material-symbols-outlined">person_add</span>
+                        </button>
+                    </form>
                 </div>
 
-                <div class="input-group-custom">
-                    <input type="password" id="reg-pass-confirm" class="input-field" placeholder="Nhập lại mật khẩu"
-                        required>
-                    <i class="fa-solid fa-eye-slash password-toggle"
-                        onclick="togglePassword('reg-pass-confirm', this)"></i>
+                <div class="relative flex items-center my-8">
+                    <div class="flex-grow border-t border-white/5"></div>
+                    <span class="flex-shrink mx-4 text-[10px] font-bold text-outline uppercase tracking-widest opacity-60">Hoặc tiếp tục với</span>
+                    <div class="flex-grow border-t border-white/5"></div>
                 </div>
 
-                <button type="submit" class="btn-submit">
-                    Tạo Tài Khoản <i class="fa-solid fa-user-plus ms-2"></i>
+                <!-- Social Logins -->
+                <div class="grid grid-cols-2 gap-4">
+                    <button id="btn-google" class="flex items-center justify-center gap-3 py-3 px-4 rounded-full border border-white/10 hover:bg-white/5 transition-all group">
+                        <svg class="w-5 h-5" viewBox="0 0 48 48">
+                            <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+                            <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+                            <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+                            <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571 c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+                        </svg>
+                        <span class="text-xs font-bold text-white">Google</span>
+                    </button>
+                    <button id="btn-facebook" class="flex items-center justify-center gap-3 py-3 px-4 rounded-full border border-white/10 hover:bg-white/5 transition-all text-blue-400">
+                        <svg class="w-5 h-5" viewBox="0 0 48 48">
+                            <path fill="#1877F2" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z"/>
+                            <path fill="#fff" d="M26.572,29.036h4.917l0.772-4.995h-5.69v-2.73c0-2.075,0.678-3.915,2.619-3.915h3.119v-4.359c-0.548-0.074-1.707-0.236-3.897-0.236c-4.573,0-7.254,2.415-7.254,7.917v3.323h-4.701v4.995h4.701v13.729C22.089,42.905,23.032,43,24,43c0.875,0,1.729-0.08,2.572-0.194V29.036z"/>
+                        </svg>
+                        <span class="text-xs font-bold text-white">Facebook</span>
+                    </button>
+                </div>
+
+                <footer class="mt-10 text-center">
+                    <p class="text-on-surface-variant text-sm">
+                        <span id="footer-text">Chưa có tài khoản?</span>
+                        <a class="text-primary font-bold hover:underline underline-offset-4 ml-1" href="#" id="auth-switch-link">Đăng ký miễn phí</a>
+                    </p>
+                </footer>
+            </div>
+        </section>
+    </main>
+
+    <!-- Background Decoration -->
+    <div class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-40">
+        <div class="absolute top-[10%] right-[10%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[10%] left-[10%] w-[400px] h-[400px] bg-surface-container-highest/20 rounded-full blur-[100px]"></div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgot-password-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm form-hidden opacity-0 transition-opacity duration-300">
+        <div class="glass-card w-full max-w-sm p-8 rounded-[2rem] border border-white/10 shadow-2xl scale-95 transition-transform duration-300" id="modal-card">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-white font-headline">Quên mật khẩu?</h3>
+                <button type="button" class="text-outline hover:text-white transition-colors" id="close-modal-btn">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <p class="text-on-surface-variant text-sm mb-8 leading-relaxed">Nhập địa chỉ email của bạn, chúng tôi sẽ gửi liên kết đặt lại mật khẩu ngay.</p>
+            
+            <form id="forgot-password-form" class="space-y-6">
+                <div class="space-y-1.5">
+                    <label class="text-xs font-bold text-outline uppercase tracking-wider ml-1">Email khôi phục</label>
+                    <div class="relative group">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">mail</span>
+                        <input class="w-full bg-surface-container-high border-none rounded-lg py-4 pl-12 pr-4 text-white placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary/20 transition-all outline-none" id="forgot-email" placeholder="name@school.edu.vn" type="email" required />
+                    </div>
+                </div>
+                <button class="w-full bg-primary text-on-primary font-bold py-4 rounded-full shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all" type="submit" id="forgot-btn">
+                    Gửi yêu cầu
                 </button>
             </form>
-
-            <!-- Social Login Divider -->
-            <div class="d-flex align-items-center my-4">
-                <div class="flex-grow-1 border-bottom border-white border-opacity-10"></div>
-                <span class="px-3 text-white-50 small">Hoặc đăng nhập với</span>
-                <div class="flex-grow-1 border-bottom border-white border-opacity-10"></div>
-            </div>
-
-            <div class="row g-3">
-                <div class="col-6">
-                    <a href="/auth/google"
-                        class="btn btn-outline-light w-100 py-2 rounded-pill border-white border-opacity-10 text-white-50 hover-white d-flex align-items-center justify-content-center gap-2"
-                        style="font-size: 0.9rem;">
-                        <i class="fa-brands fa-google text-danger"></i> Google
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a href="/auth/facebook"
-                        class="btn btn-outline-light w-100 py-2 rounded-pill border-white border-opacity-10 text-white-50 hover-white d-flex align-items-center justify-content-center gap-2"
-                        style="font-size: 0.9rem;">
-                        <i class="fa-brands fa-facebook text-primary"></i> Facebook
-                    </a>
-                </div>
-            </div>
-
         </div>
     </div>
 
-    <!-- Bootstrap Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/ui-helpers.js"></script>
-
-    <!-- Vanilla Tilt for 3D Effect (DISABLED) -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script> -->
-
     <script>
-        // === AUTO REMOVE .html EXTENSION ===
-        (function () {
-            if (window.location.pathname.endsWith('.html')) {
-                const cleanUrl = window.location.pathname.slice(0, -5) + window.location.search + window.location.hash;
-                window.history.replaceState(null, '', cleanUrl);
+        // == UI LOGIC & THEME SWITCHING ==
+        document.addEventListener('DOMContentLoaded', () => {
+            // Role selection
+            document.querySelectorAll('.role-option').forEach(option => {
+                option.addEventListener('click', function () {
+                    selectRole(this.dataset.role, this);
+                });
+            });
+
+            // Password toggles
+            document.querySelectorAll('.password-toggle').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const inputId = this.dataset.target;
+                    const input = document.getElementById(inputId);
+                    const icon = this.querySelector('span');
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.innerText = 'visibility_off';
+                    } else {
+                        input.type = 'password';
+                        icon.innerText = 'visibility';
+                    }
+                });
+            });
+
+            // Auth switch link
+            const switchLink = document.getElementById('auth-switch-link');
+            if (switchLink) {
+                switchLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleAuthMode();
+                });
             }
-        })();
 
+            // Logos
+            const desktopLogo = document.getElementById('logo-desktop');
+            if (desktopLogo) desktopLogo.addEventListener('click', () => window.location.href = '/');
+            
+            const mobileLogo = document.getElementById('logo-mobile');
+            if (mobileLogo) mobileLogo.addEventListener('click', () => window.location.href = '/');
 
+            // Social Buttons
+            const googleBtn = document.getElementById('btn-google');
+            if (googleBtn) googleBtn.addEventListener('click', () => window.location.href = '/auth/google');
 
-        // Init Tilt (DISABLED)
-        /*
-        VanillaTilt.init(document.querySelector(".auth-card"), {
-            max: 5,
-            speed: 400,
-            glare: true,
-            "max-glare": 0.1,
-            scale: 1.02
-        });
-        */
+            const fbBtn = document.getElementById('btn-facebook');
+            if (fbBtn) fbBtn.addEventListener('click', () => window.location.href = '/auth/facebook');
 
-        // Tab Logic (Correctly handling Bootstrap d-none class)
-        function switchTab(tab) {
+            // Modal Controls
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            if (closeModalBtn) closeModalBtn.addEventListener('click', closeForgotPasswordModal);
+
+            const forgotLink = document.getElementById('forgot-pw-link');
+            if (forgotLink) {
+                forgotLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showForgotPasswordModal();
+                });
+            }
+
+            // Forms Integration
             const loginForm = document.getElementById('login-form');
-            const regForm = document.getElementById('register-form');
-            const container = document.getElementById('tab-container');
-            const btns = document.querySelectorAll('.auth-switch-btn');
+            if (loginForm) loginForm.addEventListener('submit', handleLogin);
 
-            if (tab === 'login') {
-                loginForm.classList.remove('d-none'); // Show Login
-                regForm.classList.add('d-none');    // Hide Register
+            const registerForm = document.getElementById('register-form');
+            if (registerForm) registerForm.addEventListener('submit', handleRegister);
 
-                container.classList.remove('right-active');
-                btns[0].classList.add('active');
-                btns[1].classList.remove('active');
-            } else {
-                loginForm.classList.add('d-none');     // Hide Login
-                regForm.classList.remove('d-none');  // Show Register
+            const forgotForm = document.getElementById('forgot-password-form');
+            if (forgotForm) forgotForm.addEventListener('submit', handleForgotPasswordSubmit);
 
-                container.classList.add('right-active');
-                btns[0].classList.remove('active');
-                btns[1].classList.add('active');
-            }
-        }
-
-        // Check URL for register param
-        window.addEventListener('load', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('register') === 'true') {
-                switchTab('register');
-            }
-            // Auto select role from URL if present
-            if (urlParams.get('role') === 'teacher') {
-                selectRole('teacher', document.querySelectorAll('.role-option')[1]);
+            // Check URL params
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('register') === 'true') {
+                toggleAuthMode('register');
+                
+                const emailParam = params.get('email');
+                if (emailParam) {
+                    const registerEmail = document.getElementById('register-email');
+                    if (registerEmail) registerEmail.value = emailParam;
+                }
+                
+                const roleParam = params.get('role');
+                if (roleParam) {
+                    const roleBtn = document.querySelector(`.role-option[data-role="${roleParam}"]`);
+                    if (roleBtn) selectRole(roleParam, roleBtn);
+                }
             }
         });
 
-        // Password Toggle
-        function togglePassword(inputId, icon) {
-            const input = document.getElementById(inputId);
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.replace('fa-eye-slash', 'fa-eye');
+        let currentMode = 'login';
+        function toggleAuthMode(forceMode) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const title = document.getElementById('page-title');
+            const subtitle = document.getElementById('page-subtitle');
+            const footerText = document.getElementById('footer-text');
+            const switchLink = document.getElementById('auth-switch-link');
+
+            currentMode = forceMode || (currentMode === 'login' ? 'register' : 'login');
+            hideAlert();
+
+            if (currentMode === 'login') {
+                loginForm.classList.remove('form-hidden');
+                registerForm.classList.add('form-hidden');
+                title.textContent = 'Chào mừng trở lại';
+                subtitle.textContent = 'Chọn vai trò của bạn và bắt đầu hành trình.';
+                footerText.textContent = 'Chưa có tài khoản?';
+                switchLink.textContent = 'Đăng ký miễn phí';
             } else {
-                input.type = "password";
-                icon.classList.replace('fa-eye', 'fa-eye-slash');
+                loginForm.classList.add('form-hidden');
+                registerForm.classList.remove('form-hidden');
+                title.textContent = 'Tạo tài khoản mới';
+                subtitle.textContent = 'Tham gia cùng 50,000+ người học thông minh.';
+                footerText.textContent = 'Đã có tài khoản?';
+                switchLink.textContent = 'Đăng nhập ngay';
             }
         }
 
-        // Role Selection with dynamic fields
         function selectRole(role, element) {
             document.getElementById('selected-role').value = role;
-            document.querySelectorAll('.role-selector .role-option').forEach(opt => {
-                opt.classList.remove('selected');
-                opt.querySelector('.role-label').classList.remove('text-white');
-                opt.querySelector('.role-label').classList.add('text-white-50');
+            document.querySelectorAll('.role-option').forEach(opt => {
+                opt.classList.remove('bg-primary', 'text-on-primary', 'shadow-white/5');
+                opt.classList.add('bg-surface-container-high', 'text-on-surface');
+                const icon = opt.querySelector('.material-symbols-outlined');
+                if (icon) icon.style.fontVariationSettings = "'FILL' 0";
             });
-            element.classList.add('selected');
-            element.querySelector('.role-label').classList.remove('text-white-50');
-            element.querySelector('.role-label').classList.add('text-white');
+            
+            element.classList.remove('bg-surface-container-high', 'text-on-surface');
+            element.classList.add('bg-primary', 'text-on-primary', 'shadow-white/5');
+            const icon = element.querySelector('.material-symbols-outlined');
+            if (icon) icon.style.fontVariationSettings = "'FILL' 1";
 
-            // Hide/Show fields logic
-            const schoolFields = document.getElementById('school-fields');
+            // Role-specific UI Logic
+            const nameField = document.getElementById('name-field');
+            const nameInput = document.getElementById('register-name');
+            const schoolInfo = document.getElementById('school-info');
             const teacherInfo = document.getElementById('teacher-info');
-            const nameIcon = document.getElementById('name-icon');
-            const regName = document.getElementById('reg-name');
-            const nameContainer = document.getElementById('name-field-container');
 
             if (role === 'school') {
-                schoolFields.classList.remove('d-none');
-                teacherInfo.classList.add('d-none');
-
-                // Hide Name field for School (Step 1 is Email/Pass only)
-                if (nameContainer) nameContainer.style.display = 'none';
-                regName.removeAttribute('required'); // Remove required
-                regName.disabled = true; // Disable to prevent submission/validation
-
-                toggleSocialLogin(false); // Hide Social
+                nameField.classList.add('form-hidden');
+                if (nameInput) nameInput.removeAttribute('required');
+                schoolInfo.classList.remove('form-hidden');
+                teacherInfo.classList.add('form-hidden');
             } else {
-                // Teacher or Student
-                schoolFields.classList.add('d-none');
-
-                if (role === 'teacher') {
-                    teacherInfo.classList.remove('d-none');
-                } else {
-                    // Student
-                    teacherInfo.classList.add('d-none');
-                }
-
-                if (nameContainer) nameContainer.style.display = 'flex';
-                regName.setAttribute('required', 'true');
-                regName.disabled = false; // Enable
-
-                nameIcon.className = 'fa-solid fa-user input-icon';
-                regName.placeholder = (role === 'teacher') ? 'Họ và tên giáo viên' : 'Họ và tên đầy đủ';
-                toggleSocialLogin(true); // Show Social
+                nameField.classList.remove('form-hidden');
+                if (nameInput) nameInput.setAttribute('required', 'true');
+                if (nameInput) nameInput.placeholder = (role === 'teacher') ? 'Họ và tên giáo viên' : 'Nguyễn Văn A';
+                schoolInfo.classList.add('form-hidden');
+                if (role === 'teacher') teacherInfo.classList.remove('form-hidden');
+                else teacherInfo.classList.add('form-hidden');
             }
         }
 
-        function toggleSocialLogin(show) {
-            const socialDiv = document.querySelector('.social-login');
-            if (socialDiv) socialDiv.style.display = show ? 'block' : 'none';
+        function showAlert(type, message) {
+            const alert = document.getElementById('alert');
+            alert.className = `alert alert-${type} show animate-fade-in`;
+            const iconMap = {
+                'success': 'check_circle',
+                'error': 'error',
+                'warning': 'warning'
+            };
+            alert.innerHTML = `<span class="material-symbols-outlined">${iconMap[type] || 'info'}</span> <span>${message}</span>`;
         }
 
-        function selectSocialRole(role, el) {
-            document.getElementById('social-role').value = role;
-            document.querySelectorAll('#complete-profile-form .role-option').forEach(opt => opt.classList.remove('selected'));
-            el.classList.add('selected');
+        function hideAlert() {
+            const alert = document.getElementById('alert');
+            alert.classList.remove('show');
         }
 
-        async function handleCompleteProfile(e) {
-            e.preventDefault();
-            const role = document.getElementById('social-role').value;
-            const password = document.getElementById('social-password').value;
-
-            try {
-                const res = await fetch('/api/auth/complete-profile', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ role, password })
-                });
-                const data = await res.json();
-
-                if (data.success) {
-                    toast.success('Hồ sơ đã được cập nhật!');
-                    window.location.href = data.redirect || '/';
-                } else {
-                    toast.error(data.message || 'Có lỗi xảy ra!');
-                }
-            } catch (err) {
-                console.error(err);
-                toast.error('Lỗi kết nối server!');
-            }
+        // Modal Logic
+        function showForgotPasswordModal() {
+            const modal = document.getElementById('forgot-password-modal');
+            const card = document.getElementById('modal-card');
+            modal.classList.remove('form-hidden');
+            setTimeout(() => {
+                modal.classList.replace('opacity-0', 'opacity-100');
+                card.classList.replace('scale-95', 'scale-100');
+            }, 10);
         }
 
-        // Real API Login
+        function closeForgotPasswordModal() {
+            const modal = document.getElementById('forgot-password-modal');
+            const card = document.getElementById('modal-card');
+            modal.classList.replace('opacity-100', 'opacity-0');
+            card.classList.replace('scale-100', 'scale-95');
+            setTimeout(() => modal.classList.add('form-hidden'), 300);
+        }
+
+        // == CORE AUTHENTICATION LOGIC (Ported from original login.html) ==
         async function handleLogin(e) {
             e.preventDefault();
-            const btn = e.target.querySelector('button[type="submit"]');
-            const originalText = btn.innerHTML;
-            const username = document.getElementById('login-user').value.trim();
-            const password = document.getElementById('login-pass').value;
+            const identifier = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            const btn = document.getElementById('login-btn');
+            const originalHTML = btn.innerHTML;
 
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang xử lý...';
             btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Đang xử lý...';
+            hideAlert();
 
             try {
-                const response = await fetch('/api/login', {
+                const res = await fetch('/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
+                    body: JSON.stringify({ username: identifier, password })
                 });
-                const data = await response.json();
-
+                const data = await res.json();
                 if (data.success) {
-                    localStorage.setItem('isLoggedIn', 'true');
                     localStorage.setItem('user', JSON.stringify(data.user));
-
-                    // Điều hướng theo vai trò
-                    if (data.user.role === 'school') {
-                        window.location.href = '/school-dashboard';
-                    } else if (data.user.role === 'teacher') {
-                        window.location.href = '/teacher-dashboard';
-                    } else if (data.user.role === 'admin') {
-                        window.location.href = '/system-admin';
-                    } else {
-                        window.location.href = '/student-dashboard';
-                    }
+                    localStorage.setItem('isLoggedIn', 'true');
+                    showAlert('success', 'Đăng nhập thành công! Đang chuyển hướng...');
+                    setTimeout(() => {
+                        const redirectMap = {
+                            admin: '/system-admin.html',
+                            school: '/school-dashboard.html',
+                            teacher: '/teacher-dashboard.html',
+                            student: '/student-dashboard.html'
+                        };
+                        window.location.href = redirectMap[data.user.role] || '/student-dashboard.html';
+                    }, 1000);
                 } else {
-                    if (data.pendingApproval) {
-                        toast.warning(data.message);
-                    } else {
-                        toast.error(data.message || 'Đăng nhập thất bại!');
-                    }
-                    btn.innerHTML = originalText;
+                    if (data.pendingApproval) showAlert('warning', data.message);
+                    else showAlert('error', data.message || 'Email hoặc mật khẩu không đúng');
                     btn.disabled = false;
+                    btn.innerHTML = originalHTML;
                 }
             } catch (err) {
-                toast.error('Lỗi kết nối server!');
-                btn.innerHTML = originalText;
+                showAlert('error', 'Lỗi kết nối. Vui lòng thử lại.');
                 btn.disabled = false;
+                btn.innerHTML = originalHTML;
             }
         }
 
         async function handleRegister(e) {
             e.preventDefault();
-
-            // Password Validation
-            const pass = document.getElementById('reg-pass').value;
-            const confirmPass = document.getElementById('reg-pass-confirm').value;
+            
+            const pass = document.getElementById('register-password').value;
+            const confirmPass = document.getElementById('register-confirm-password').value;
 
             if (pass !== confirmPass) {
-                toast.warning('Mật khẩu nhập lại không khớp! Vui lòng kiểm tra lại.');
+                showAlert('warning', 'Mật khẩu nhập lại không khớp!');
                 return;
             }
 
-            const btn = e.target.querySelector('button[type="submit"]');
-            const originalText = btn.innerHTML;
-
-            const nameField = document.getElementById('reg-name').value.trim();
-            const email = document.getElementById('reg-email').value.trim();
             const role = document.getElementById('selected-role').value;
+            const name = document.getElementById('register-name').value.trim();
+            const email = document.getElementById('register-email').value.trim();
+            const btn = document.getElementById('register-btn');
+            const originalHTML = btn.innerHTML;
 
-            const requestBody = {
-                username: email,
-                password: pass,
-                email,
-                role
-            };
-
-            // Role-specific handler
-            if (role === 'school') {
-                // School Step 1: Only Email & Password required
-                requestBody.schoolName = "School User (Setup Pending)";
-                requestBody.fullname = "School Admin";
-            } else {
-                if (!nameField) {
-                    toast.warning('Vui lòng nhập Họ và tên!');
-                    return;
-                }
-                requestBody.fullname = nameField;
-            }
-
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang đăng ký...';
+            hideAlert();
             btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Đang tạo...';
 
             try {
-                const response = await fetch('/api/register', {
+                const requestBody = { username: email, email, password: pass, role };
+                if (role === 'school') {
+                    requestBody.schoolName = "School User (Setup Pending)";
+                    requestBody.fullname = "School Admin";
+                } else {
+                    if (!name) { showAlert('warning', 'Vui lòng nhập họ và tên!'); btn.disabled = false; btn.innerHTML = originalHTML; return; }
+                    requestBody.fullname = name;
+                }
+
+                const res = await fetch('/api/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(requestBody)
                 });
-                const data = await response.json();
-                handleRegisterResponse(data, btn, originalText, e);
-            } catch (err) {
-                handleError(err, btn, originalText);
-            }
-        }
-
-        // Helper to handle response
-        function handleRegisterResponse(data, btn, originalText, e) {
-            if (data.success) {
-                if (data.pending) {
-                    // School chờ Admin duyệt
-                    toast.info(data.message || 'Hồ sơ đã được gửi! Vui lòng chờ Admin phê duyệt.');
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                    e.target.reset(); // Reset form
-                    // Maybe switch to login tab?
-                    setTimeout(() => switchTab('login'), 2000);
-                } else {
-                    localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('user', JSON.stringify(data.user));
-
-                    // Clear any previous session data
-                    localStorage.removeItem('schoolCode');
-                    localStorage.removeItem('schoolName');
-
-                    if (data.user.role === 'teacher') {
-                        toast.success('Đăng ký thành công!');
-                        setTimeout(() => { window.location.href = '/teacher-dashboard'; }, 1000);
-                    } else if (data.user.role === 'school') {
-                        // Pending School allowed to login for setup
-                        window.location.href = '/school-dashboard';
+                const data = await res.json();
+                if (data.success) {
+                    if (data.pending) {
+                        showAlert('success', data.message || 'Đăng ký thành công! Vui lòng chờ phê duyệt.');
+                        setTimeout(() => toggleAuthMode('login'), 3000);
                     } else {
-                        window.location.href = '/student-dashboard';
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        localStorage.setItem('isLoggedIn', 'true');
+                        showAlert('success', 'Đăng ký thành công!');
+                        setTimeout(() => {
+                            const redirectMap = {
+                                school: '/school-dashboard.html',
+                                teacher: '/teacher-dashboard.html',
+                                student: '/student-dashboard.html'
+                            };
+                            window.location.href = redirectMap[role] || '/student-dashboard.html';
+                        }, 1000);
                     }
-                }
-            } else {
-                toast.error(data.message || 'Đăng ký thất bại!');
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-            }
-        }
-
-        function handleError(err, btn, originalText) {
-            toast.error('Lỗi kết nối server!');
-            console.error(err);
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
-
-        // Quick Login Helper
-        function quickLogin(user, pass) {
-            document.getElementById('login-user').value = user;
-            document.getElementById('login-pass').value = pass;
-        }
-
-        // Forgot Password Logic with Mock DB
-        function checkForgotEmail() {
-            const emailInput = document.getElementById('forgot-email');
-            const alertBox = document.getElementById('forgot-alert');
-            const email = emailInput.value.trim();
-            const btn = document.querySelector('#forgotModal .btn-submit');
-
-            // Reset Alert
-            alertBox.style.display = 'none';
-            alertBox.className = 'mt-3 text-start';
-
-            if (!email) {
-                alertBox.className = 'mt-3 text-center text-danger small fst-italic';
-                alertBox.innerHTML = '<i class="fa-solid fa-circle-exclamation me-1"></i> Vui lòng nhập email!';
-                alertBox.style.display = 'block';
-                return;
-            }
-
-            // Mock Database
-            const mockUsers = [
-                'admin@eschool.ai',
-                'teacher@eschool.ai',
-                'student@eschool.ai',
-                'test@gmail.com'
-            ];
-
-            // Loading state
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang kiểm tra...';
-            btn.disabled = true;
-
-            setTimeout(() => {
-                if (mockUsers.includes(email)) {
-                    // Success
-                    alertBox.className = 'mt-3 text-center text-success small fw-bold';
-                    alertBox.innerHTML = '<i class="fa-solid fa-check-circle me-1"></i> Đã tìm thấy tài khoản! Email khôi phục đang được gửi...';
-                    alertBox.style.display = 'block';
-
-                    // Simulate sending mail then close
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.disabled = false;
-                        bootstrap.Modal.getInstance(document.getElementById('forgotModal')).hide();
-                        toast.success('Đã gửi hướng dẫn đến ' + email);
-                        emailInput.value = ''; // clear
-                    }, 2000);
-
                 } else {
-                    // User not found
-                    alertBox.className = 'mt-3 text-center text-danger small fw-bold';
-                    alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation me-1"></i> Email này chưa được đăng ký trong hệ thống!';
-                    alertBox.style.display = 'block';
-                    btn.innerHTML = originalText;
+                    showAlert('error', data.message || 'Đăng ký thất bại');
                     btn.disabled = false;
+                    btn.innerHTML = originalHTML;
                 }
-            }, 1500);
+            } catch (err) {
+                showAlert('error', 'Lỗi kết nối. Vui lòng thử lại.');
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
+            }
+        }
+
+        async function handleForgotPasswordSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('forgot-email').value;
+            const btn = document.getElementById('forgot-btn');
+            
+            btn.disabled = true;
+            const originalText = btn.textContent;
+            btn.textContent = 'Đang gửi...';
+
+            try {
+                // Mock Database check for internal experience if needed, but here we call the real API
+                const res = await fetch('/api/admin/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await res.json();
+                closeForgotPasswordModal();
+                if (data.success) showAlert('success', 'Đã gửi hướng dẫn đến ' + email);
+                else showAlert('error', data.message || 'Không tìm thấy tài khoản!');
+            } catch (err) {
+                showAlert('error', 'Lỗi kết nối');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
         }
     </script>
 </body>
