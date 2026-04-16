@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Đăng nhập | E-School AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#b51b15",
+                        "surface-container-highest": "#e0e3e6",
+                        "surface-container": "#ebeef2",
+                        "background": "#f7fafd",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdad5",
+                        "primary-fixed": "#d8e2ff",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#d9372b",
+                        "on-primary-fixed": "#001a41",
+                        "surface": "#f7fafd",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e0e3e6",
+                        "surface-container-high": "#e5e8ec",
+                        "outline-variant": "#c2c6d5",
+                        "tertiary-fixed-dim": "#ffb4a9",
+                        "surface-tint": "#005ac1",
+                        "on-surface-variant": "#424753",
+                        "on-tertiary-container": "#fffbff",
+                        "on-surface": "#181c1f",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#fefcff",
+                        "secondary-container": "#86f898",
+                        "on-secondary-fixed-variant": "#005320",
+                        "surface-bright": "#f7fafd",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-tertiary-fixed-variant": "#930004",
+                        "inverse-surface": "#2d3134",
+                        "secondary": "#006e2c",
+                        "on-primary-fixed-variant": "#004494",
+                        "secondary-fixed": "#89fa9b",
+                        "on-secondary-fixed": "#002108",
+                        "on-secondary-container": "#00722f",
+                        "surface-dim": "#d7dade",
+                        "primary-container": "#2771df",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#0058bd",
+                        "inverse-primary": "#adc6ff",
+                        "surface-container-low": "#f1f4f7",
+                        "on-tertiary-fixed": "#410001",
+                        "on-error": "#ffffff",
+                        "outline": "#727785",
+                        "on-primary": "#ffffff",
+                        "on-background": "#181c1f",
+                        "inverse-on-surface": "#eef1f5",
+                        "secondary-fixed-dim": "#6ddd81"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-login-hero {
+            background: linear-gradient(135deg, #0058bd 0%, #2771df 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex items-center justify-center p-4 md:p-8">
+<main class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 bg-surface-container-lowest rounded-2xl overflow-hidden shadow-2xl shadow-on-surface/5 min-h-[700px]">
+<!-- Left Column: Visual & Branding -->
+<section class="hidden md:flex flex-col justify-between p-12 bg-login-hero relative overflow-hidden">
+<!-- Decorative Elements -->
+<div class="absolute top-[-10%] right-[-10%] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+<div class="absolute bottom-[-5%] left-[-5%] w-48 h-48 bg-secondary/20 rounded-full blur-2xl"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-12">
+<span class="material-symbols-outlined text-white text-4xl" data-weight="fill">school</span>
+<span class="brand-font text-2xl font-extrabold text-white tracking-tight">E-School AI</span>
+</div>
+<h2 class="brand-font text-4xl font-bold text-white leading-tight mb-6">
+                    Mở khóa tiềm năng <br/> tri thức với AI
+                </h2>
+<p class="text-blue-100 text-lg max-w-md font-body leading-relaxed">
+                    Hệ thống quản lý học tập thông minh giúp kết nối học sinh, giáo viên và nhà trường trong một môi trường kỹ thuật số hiện đại.
+                </p>
+</div>
+<div class="relative z-10">
+<div class="bg-white/10 backdrop-blur-xl p-6 rounded-xl border border-white/10">
+<div class="flex items-center gap-4 mb-4">
+<img alt="Mentor" class="w-12 h-12 rounded-full bg-primary-fixed" data-alt="close-up portrait of a friendly digital avatar mentor with glasses and a warm smile on a soft blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCryv-QlLEV8kupjaj9RsGoiDawKRMch16pacIs3egwl58leh94xz13m6sZihl3Qv-qAwyaJ795vc2SHdNGcw_vGZHKb4RngtC4meIRjoNnJfJ-Hvb3SG8TyymRiZDoN9tB112pwYg4uL9WRq-LRI-n8X5dalnlMADlHCTodNqVaeZc-yhLuGt5thUorxXWIvUcz9mtJlpWCP1E-3PNnI58_ULRbVDtDoauAQqI2dCsUCxvEE8Gr-JgvAWwmxzC10m07kK_JosT5w"/>
+<div>
+<p class="text-white font-bold text-sm">Hỗ trợ Học tập AI</p>
+<p class="text-blue-100 text-xs">Đang trực tuyến để giúp đỡ bạn</p>
+</div>
+</div>
+<div class="space-y-2">
+<div class="h-2 w-full bg-white/20 rounded-full overflow-hidden">
+<div class="h-full w-3/4 bg-secondary-fixed shadow-[0_0_10px_rgba(137,250,155,0.5)]"></div>
+</div>
+<p class="text-white/80 text-xs font-label">Tiến độ học tập tuần này: 75%</p>
+</div>
+</div>
+</div>
+<!-- Illustration Background -->
+<div class="absolute bottom-0 right-0 w-full h-1/2 opacity-20 pointer-events-none">
+<img class="w-full h-full object-cover" data-alt="modern collaborative study space with students using laptops and digital tablets in a bright sunlit university library" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfeERUF-22XqTt89ApfbLmnL_Nzx-nHbfWUhZCrprIQZ51AAlICvjnoJBHBIVfc_xVfJzAv7gin7SFj-D00YZR3IBgw7gWWIsWEe67IJNnVkcz35mvLzivn48K6phchTak80PVIzEnAQWVpMYxK9ftqzWE83uKROTrjgubuvMV2rK2MBUpL65unRcIMnRxJKo6kIjRwWNxd6mVkCuCVzj2nDnOWStcF3AZdfAp3KY2JJlm8NAHxGW38B5MFmTSBNItRW-buB2RNqI" style="mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));"/>
+</div>
+</section>
+<!-- Right Column: Form -->
+<section class="flex flex-col p-8 md:p-16 justify-center">
+<div class="w-full max-w-md mx-auto">
+<div class="md:hidden flex items-center gap-2 mb-8 justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">school</span>
+<span class="brand-font text-xl font-bold text-primary">E-School AI</span>
+</div>
+<div class="text-center md:text-left mb-10">
+<h1 class="brand-font text-3xl font-extrabold text-on-surface mb-2">Chào mừng trở lại</h1>
+<p class="text-on-surface-variant font-body">Vui lòng đăng nhập để tiếp tục hành trình học tập.</p>
+</div>
+<!-- Role Selector -->
+<div class="mb-8">
+<p class="text-sm font-semibold text-on-surface mb-4">Bạn là ai?</p>
+<div class="grid grid-cols-3 gap-3">
+<button class="flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-primary bg-primary-fixed/30 text-primary transition-all duration-200">
+<span class="material-symbols-outlined">person</span>
+<span class="text-xs font-bold font-label">Học sinh</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-transparent bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all duration-200">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="text-xs font-bold font-label">Giáo viên</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-transparent bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all duration-200">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="text-xs font-bold font-label">Nhà trường</span>
+</button>
+</div>
+</div>
+<form class="space-y-5">
+<div>
+<label class="block text-sm font-medium text-on-surface-variant mb-1.5 ml-1" for="email">Email của bạn</label>
+<input class="w-full px-4 py-3.5 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-primary/20 text-on-surface placeholder:text-outline transition-all" id="email" placeholder="example@eschool.edu.vn" type="email"/>
+</div>
+<div>
+<div class="flex justify-between mb-1.5 ml-1">
+<label class="text-sm font-medium text-on-surface-variant" for="password">Mật khẩu</label>
+<a class="text-xs font-bold text-primary hover:underline" href="#">Quên mật khẩu?</a>
+</div>
+<input class="w-full px-4 py-3.5 rounded-xl bg-surface-container-low border-none focus:ring-2 focus:ring-primary/20 text-on-surface placeholder:text-outline transition-all" id="password" placeholder="••••••••" type="password"/>
+</div>
+<button class="w-full py-4 bg-gradient-to-r from-primary to-primary-container text-white font-bold rounded-full shadow-lg shadow-primary/20 active:scale-95 transition-all" type="submit">
+                        Đăng nhập ngay
+                    </button>
+</form>
+<div class="relative my-10">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-surface-container-highest"></div>
+</div>
+<div class="relative flex justify-center text-xs uppercase">
+<span class="bg-surface-container-lowest px-4 text-on-surface-variant font-label font-bold">Hoặc tiếp tục với</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-3 py-3 border border-outline-variant/30 rounded-xl hover:bg-surface-container-low transition-colors active:scale-95 duration-200">
+<img alt="Google" class="w-5 h-5" data-alt="official google logo icon with vibrant multicolored segments on a clean white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYJy4qwWpTv9KnNz8wU-TfCajVFh9PYuYIeBfReQ4StafkAvL6CI7BXOfDkWp56n2sKMW-3pmi426IM3rfuBtrbGoZSvMI3YQlP9-w2vMBVzwaW_ugq_SLBHvfV3spCvQ1bmBNJVFHgAmyulRfEj5rA8cSRhBnTG6sWWZasVoAu6_wmIGh99jbjyePxjxrHasGRycKAB_5yG66UWT-GVm9pCXeOdZ2DjlQtqGbrb-1jDW6Lo_G11hrQ1Epby3KaAcTgospIQPLccs"/>
+<span class="text-sm font-bold text-on-surface">Google</span>
+</button>
+<button class="flex items-center justify-center gap-3 py-3 border border-outline-variant/30 rounded-xl hover:bg-surface-container-low transition-colors active:scale-95 duration-200">
+<svg class="w-5 h-5 text-[#1877F2]" fill="currentColor" viewbox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+<span class="text-sm font-bold text-on-surface">Facebook</span>
+</button>
+</div>
+<p class="mt-10 text-center text-sm text-on-surface-variant">
+                    Chưa có tài khoản? 
+                    <a class="text-primary font-bold hover:underline" href="#">Đăng ký miễn phí</a>
+</p>
+</div>
+</section>
+</main>
+<!-- Floating Helper Bubble (Secondary Action) -->
+<button class="fixed bottom-6 right-6 w-14 h-14 bg-white text-primary rounded-full shadow-xl flex items-center justify-center hover:bg-primary hover:text-white transition-all duration-300 group">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">support_agent</span>
+</button>
+</body></html>

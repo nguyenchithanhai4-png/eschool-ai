@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-School AI - Học tập bứt phá</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#121318",
+                    "on-primary-fixed": "#1a1c1c",
+                    "on-primary": "#2f3131",
+                    "surface-variant": "#34343a",
+                    "outline": "#8e9192",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "surface-bright": "#38393e",
+                    "on-tertiary-container": "#656464",
+                    "surface-container-high": "#292a2f",
+                    "error": "#ffb4ab",
+                    "inverse-primary": "#5d5f5f",
+                    "surface-dim": "#121318",
+                    "outline-variant": "#444748",
+                    "on-background": "#e3e2e9",
+                    "primary-container": "#e2e2e2",
+                    "surface-container-lowest": "#0d0e13",
+                    "secondary": "#c4c7ca",
+                    "secondary-fixed-dim": "#c4c7ca",
+                    "tertiary-container": "#e4e2e1",
+                    "surface-container-low": "#1a1b20",
+                    "surface-container": "#1e1f24",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "tertiary-fixed": "#e4e2e1",
+                    "primary-fixed-dim": "#c6c6c7",
+                    "error-container": "#93000a",
+                    "surface-container-highest": "#34343a",
+                    "background": "#121318",
+                    "on-secondary-fixed-variant": "#44474a",
+                    "on-primary-container": "#636565",
+                    "inverse-on-surface": "#2f3035",
+                    "primary": "#ffffff",
+                    "on-surface": "#e3e2e9",
+                    "inverse-surface": "#e3e2e9",
+                    "on-primary-fixed-variant": "#454747",
+                    "on-surface-variant": "#c4c7c8",
+                    "on-tertiary": "#303030",
+                    "tertiary": "#ffffff",
+                    "surface-tint": "#c6c6c7",
+                    "tertiary-fixed-dim": "#c8c6c6",
+                    "primary-fixed": "#e2e2e2",
+                    "secondary-fixed": "#e0e3e6",
+                    "on-secondary-container": "#b3b5b8",
+                    "on-error-container": "#ffdad6",
+                    "secondary-container": "#44474a",
+                    "on-secondary": "#2d3133",
+                    "on-secondary-fixed": "#191c1e",
+                    "on-error": "#690005"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #121318;
+            color: #e3e2e9;
+            font-family: 'Inter', sans-serif;
+        }
+        .dot-grid {
+            background-image: radial-gradient(#ffffff10 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .glass-card {
+            background: rgba(30, 31, 36, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="selection:bg-primary selection:text-surface">
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-[#121318]/80 backdrop-blur-xl">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-8 h-20">
+<div class="text-xl font-bold tracking-tighter text-white">E-School AI</div>
+<div class="hidden md:flex items-center gap-8 font-['Inter'] tracking-tight text-sm font-medium">
+<a class="text-white border-b-2 border-white pb-1" href="#">Tính năng</a>
+<a class="text-[#8e9192] hover:text-white transition-colors duration-300" href="#">Cách hoạt động</a>
+<a class="text-[#8e9192] hover:text-white transition-colors duration-300" href="#">Bảng giá</a>
+<a class="text-[#8e9192] hover:text-white transition-colors duration-300" href="#">Đánh giá</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#8e9192] font-medium text-sm hover:text-white transition-all">Đăng nhập</button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-full text-sm font-bold scale-95 hover:scale-100 duration-200 ease-in-out">Bắt đầu ngay</button>
+</div>
+</div>
+</nav>
+<main class="relative pt-20">
+<!-- Background Grid -->
+<div class="fixed inset-0 dot-grid -z-10 opacity-30 pointer-events-none"></div>
+<div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/5 blur-[120px] rounded-full -z-10"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-white/5 blur-[120px] rounded-full -z-10"></div>
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-8 py-24 md:py-32 grid lg:grid-cols-2 gap-16 items-center">
+<div class="space-y-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high text-xs font-label font-medium tracking-wider uppercase text-outline">
+<span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+                    Thế hệ giáo dục mới
+                </div>
+<h1 class="text-6xl md:text-7xl font-extrabold tracking-tighter leading-[0.9] text-white">
+                    Học tập bứt phá cùng <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white/40">Gia sư AI 24/7</span>
+</h1>
+<p class="text-lg md:text-xl text-outline max-w-lg leading-relaxed">
+                    Hơn 17 công cụ AI thông minh giúp bạn làm chủ mọi môn học. Giải bài tập, chấm điểm và thảo luận kiến thức tức thì.
+                </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform">
+                        Thử ngay miễn phí
+                    </button>
+<button class="glass-card text-white px-8 py-4 rounded-full font-bold text-lg border border-white/10 hover:bg-white/10 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">play_circle</span>
+                        Xem bản demo
+                    </button>
+</div>
+</div>
+<div class="relative">
+<!-- AI Tutor Floating Interface -->
+<div class="glass-card rounded-lg border border-white/10 p-6 shadow-2xl relative z-10">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">psychology</span>
+</div>
+<div>
+<h4 class="text-white font-bold text-sm">Gia sư AI</h4>
+<p class="text-[10px] text-outline">Đang giải Toán học cao cấp</p>
+</div>
+</div>
+<div class="px-2 py-1 bg-primary/10 rounded text-[10px] font-bold text-primary">LIVE</div>
+</div>
+<div class="space-y-4 font-mono text-sm">
+<div class="text-outline">Đề bài: Giải phương trình vi phân y' + 2y = e^-x</div>
+<div class="bg-surface-container-lowest p-4 rounded-md border border-white/5">
+<p class="text-white mb-2">Bước 1: Tìm thừa số tích phân</p>
+<p class="text-primary/80">μ(x) = e^(∫2dx) = e^(2x)</p>
+</div>
+<div class="flex justify-end">
+<div class="bg-primary text-on-primary px-3 py-1.5 rounded-full text-[10px] font-bold">Xác minh hoàn tất</div>
+</div>
+</div>
+</div>
+<!-- Floating elements -->
+<div class="absolute -top-12 -right-8 glass-card p-4 rounded-lg border border-white/10 shadow-xl z-20 animate-bounce transition-all">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">functions</span>
+</div>
+<div class="absolute -bottom-8 -left-8 glass-card p-6 rounded-lg border border-white/10 shadow-xl z-20">
+<div class="flex gap-2 mb-2">
+<div class="w-2 h-2 rounded-full bg-red-400"></div>
+<div class="w-2 h-2 rounded-full bg-yellow-400"></div>
+<div class="w-2 h-2 rounded-full bg-green-400"></div>
+</div>
+<img class="w-32 h-20 object-cover rounded-md opacity-60" data-alt="clean minimal chart showing mathematical function curves with high contrast neon lines on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVMZCpjo7JRXYSsG_1CClNuNHvvAyY6fo0GhqPMLHIi_N7Do_bxv5UwfCouEjajyX2ixXN00h6Ad7gy38f87TkAPB40lo2Hh91bhBUnw2QDSq_fksotiv5e_pYb0jkXaYz8eldwXemurswAHW3R4o3OeEmBuLD2rzpzqHfJuHtn-vVEJOipndFWMjbZ66ljYfgC_UtUfHwlSL_dzQfN1nS9jbh8A2OXTS0P1xIqOSUBtMdGb1JfaxTEVhvuBKhuIgDVt6VzuZVolw"/>
+</div>
+</div>
+</section>
+<!-- Bento Grid Features -->
+<section class="max-w-7xl mx-auto px-8 py-24">
+<div class="text-center mb-16 space-y-4">
+<h2 class="text-4xl md:text-5xl font-black text-white tracking-tight">Hệ sinh thái thông minh</h2>
+<p class="text-outline">Công nghệ AI tiên phong thay đổi cách thức tiếp cận kiến thức.</p>
+</div>
+<div class="grid md:grid-cols-3 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
+<!-- AI Vision -->
+<div class="md:col-span-2 glass-card rounded-lg p-8 border border-white/10 flex flex-col justify-between overflow-hidden group">
+<div>
+<span class="material-symbols-outlined text-primary text-4xl mb-4">photo_camera</span>
+<h3 class="text-2xl font-bold text-white mb-2">Thị giác AI</h3>
+<p class="text-outline max-w-sm">Chụp ảnh bài tập của bạn và nhận lời giải chi tiết cùng các khái niệm liên quan chỉ trong 2 giây.</p>
+</div>
+<div class="mt-8 relative h-40">
+<img class="w-full h-full object-cover rounded-md opacity-40 group-hover:opacity-60 transition-opacity" data-alt="conceptual visual of a smartphone scanning a textbook page with glowing digital overlays highlighting equations" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsg13BbGGJIM-qiTRPaJKqCzE4jm2iN4gqZcCd8Y7k-TQ18hSTmNvQSv5xyE18FjCZZ8CldkgvBvnFbDqYHJFYyYPxQGiqvFm0D0FmYnPSkRfE3dSN2eLHZWr1R5XezPUbgs7l7ayih484o60SrGJCNKnlau4crdTJdLQ2UA6fGiuov-tSQ2CP-U1yjaIuAxIttoPU8T0R2tmYF9dYSAJFjACEGrLwlHDLuzFBlquN47hb3TQVEyPbz_rp2kZ-0LjQjn8rXIuMoeI"/>
+</div>
+</div>
+<!-- Auto Grading -->
+<div class="glass-card rounded-lg p-8 border border-white/10 flex flex-col justify-between group">
+<div>
+<span class="material-symbols-outlined text-primary text-4xl mb-4">edit_note</span>
+<h3 class="text-2xl font-bold text-white mb-2">Chấm điểm tự động</h3>
+<p class="text-outline">Phân tích luận văn, kiểm tra ngữ pháp và cung cấp phản hồi cải thiện chi tiết như chuyên gia.</p>
+</div>
+<div class="mt-auto pt-6 flex justify-between items-center">
+<span class="text-4xl font-black text-white/20">98%</span>
+<span class="text-xs text-primary font-bold">Chính xác</span>
+</div>
+</div>
+<!-- 24/7 Chat -->
+<div class="glass-card rounded-lg p-8 border border-white/10 flex flex-col justify-between group">
+<div>
+<span class="material-symbols-outlined text-primary text-4xl mb-4">forum</span>
+<h3 class="text-2xl font-bold text-white mb-2">Gia sư 24/7</h3>
+<p class="text-outline">Giải đáp mọi thắc mắc về Hóa, Lý, Toán, Văn bất cứ khi nào bạn cần.</p>
+</div>
+<div class="mt-4 flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-highest"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-primary flex items-center justify-center text-[10px] font-bold text-on-primary">+1k</div>
+</div>
+</div>
+<!-- Mock Exams -->
+<div class="md:col-span-2 glass-card rounded-lg p-8 border border-white/10 flex items-center gap-8 group">
+<div class="flex-1">
+<span class="material-symbols-outlined text-primary text-4xl mb-4">quiz</span>
+<h3 class="text-2xl font-bold text-white mb-2">Đề thi thử AI</h3>
+<p class="text-outline">Tự động tạo bộ đề thi dựa trên chương trình học và phân tích chính xác các mảng kiến thức bạn còn yếu.</p>
+</div>
+<div class="hidden lg:block w-48 h-32 bg-white/5 rounded-md p-4 space-y-2">
+<div class="w-full h-2 bg-white/10 rounded"></div>
+<div class="w-3/4 h-2 bg-white/10 rounded"></div>
+<div class="w-full h-2 bg-primary/20 rounded"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Social Proof Stats -->
+<section class="py-24 bg-surface-container-low/50">
+<div class="max-w-7xl mx-auto px-8">
+<div class="grid md:grid-cols-2 gap-12 items-center">
+<div>
+<h2 class="text-4xl md:text-5xl font-black text-white mb-6">Số liệu biết nói</h2>
+<p class="text-outline text-lg">Chúng tôi đang xây dựng một cộng đồng học tập thông minh nhất Việt Nam.</p>
+</div>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-2">
+<div class="text-5xl font-black text-white">15k+</div>
+<div class="text-sm text-outline font-medium">Câu hỏi mỗi ngày</div>
+</div>
+<div class="space-y-2">
+<div class="text-5xl font-black text-white">1,200+</div>
+<div class="text-sm text-outline font-medium">Học sinh đang học</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Target Audiences -->
+<section class="max-w-7xl mx-auto px-8 py-24">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-black text-white">Phù hợp cho mọi đối tượng</h2>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<!-- Students -->
+<div class="glass-card p-10 rounded-lg border border-white/10 hover:border-primary/50 transition-colors group">
+<div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl">school</span>
+</div>
+<h3 class="text-2xl font-bold text-white mb-4">Học sinh</h3>
+<p class="text-outline leading-relaxed">Cải thiện điểm số nhanh chóng, giảm bớt áp lực học tập với phương pháp cá nhân hóa từ AI.</p>
+</div>
+<!-- Teachers -->
+<div class="glass-card p-10 rounded-lg border border-white/10 hover:border-primary/50 transition-colors group">
+<div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl">co_present</span>
+</div>
+<h3 class="text-2xl font-bold text-white mb-4">Giáo viên</h3>
+<p class="text-outline leading-relaxed">Tiết kiệm thời gian chấm bài và soạn bài, dễ dàng theo dõi sát sao tiến độ của từng học sinh.</p>
+</div>
+<!-- Schools -->
+<div class="glass-card p-10 rounded-lg border border-white/10 hover:border-primary/50 transition-colors group">
+<div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl">apartment</span>
+</div>
+<h3 class="text-2xl font-bold text-white mb-4">Nhà trường</h3>
+<p class="text-outline leading-relaxed">Số hóa toàn diện giáo trình, quản lý hiệu quả qua Dashboard phân tích thông minh.</p>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="max-w-7xl mx-auto px-8 py-24">
+<div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
+<div class="max-w-xl">
+<h2 class="text-4xl font-black text-white mb-4">Trải nghiệm thực tế</h2>
+<p class="text-outline">Lắng nghe những chia sẻ từ người dùng đang sử dụng E-School AI hàng ngày.</p>
+</div>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Testimonial 1 -->
+<div class="glass-card p-8 rounded-lg border border-white/5">
+<div class="flex items-center gap-4 mb-6">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="professional portrait of a young Vietnamese student with a friendly smile, studio lighting, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3puAbWez8mgqQ8nlTNmQc04Ab4Dn3q-btP8Aawf2g0Qbh6jgx2_Tlo9bnmym2VSH1cMykw0Rz-QhOl-BvexT7WXlP7i0vh0L5CitzW4hGBs2Ix1JLC661d8sZI2jMv85pAH-QxMEsXXSD8zVutARn2yWB0ylgQQTgHgnoh4-t6q0i2WPrVNsHbF-KIwfTnUv0Md8jtU9Tvqfj-eIXR7FJZtxqdQne5OfU-jnuUGMOwB47KgdCM0tatTbTKv-9rytO4fDg0I2b0UM"/>
+<div>
+<p class="text-white font-bold">Minh Anh</p>
+<p class="text-xs text-outline">Lớp 12, Chuyên Hà Nội-Amsterdam</p>
+</div>
+</div>
+<p class="text-on-surface-variant italic">"Gia sư AI giúp em giải quyết những bài toán khó ngay lập tức vào lúc 2 giờ sáng. Không còn lo lắng khi gặp bài tập lạ nữa!"</p>
+</div>
+<!-- Testimonial 2 -->
+<div class="glass-card p-8 rounded-lg border border-white/5">
+<div class="flex items-center gap-4 mb-6">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="smiling middle-aged Vietnamese woman wearing professional attire, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEJ8_y3OHub1Bjp6ZwReo7EEwmw8GbmEL8UtUZbQfXr9bCSVtdKvs8HejMhC3dnr3AlaJG6X2TVXHSHDKgsbNN_qOznbMjfEG4mSUa8IsK3JMFDoohY8J5aafa0scsWKefOtC6c9t64Af1-JQJ3sA1HM0n6cw-L3IaAViDTSRecmlmmsGEO8BcZBYfQFaFsI_8VgvWfITN8cnYTAQM3LlFXnbaoCqaFYrumITZOw4B6itb7cYHoXXxcBvDDv1hZ-HEUfz6XcG-wWs"/>
+<div>
+<p class="text-white font-bold">Cô Thu Hà</p>
+<p class="text-xs text-outline">Giáo viên Tiếng Anh</p>
+</div>
+</div>
+<p class="text-on-surface-variant italic">"Công cụ chấm bài luận AI thực sự là cứu cánh cho tôi. Phản hồi rất chi tiết và giúp học sinh tiến bộ rõ rệt."</p>
+</div>
+<!-- Testimonial 3 -->
+<div class="glass-card p-8 rounded-lg border border-white/5">
+<div class="flex items-center gap-4 mb-6">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="confident young male student wearing a white shirt, blurred library background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBekW5i9P46GSgLWvS8GwmrefZ2MN6nsvwzgeR-uAr0bq8ylO70spJocXarGHl7XGj_7E7_8etQDzd3OjHkWnf_H-ZXvdEWTpeTnY8OJ_2KszB766vd0dTahJKTCew3Hoy_fu4cY7TA4N4bvCZ0HByjjSgkPiTq46AV3cUMlMnhNYEASzQmm1CP-vRvJq6j0ZfxDGnyzR0hYke_RM5OCdPGD5n-gde30rpQP2TV7MqxCG6JcHHiMkhCudK6jtvvXFcMoHZR0pw47DU"/>
+<div>
+<p class="text-white font-bold">Hoàng Nam</p>
+<p class="text-xs text-outline">Sinh viên Đại học Bách Khoa</p>
+</div>
+</div>
+<p class="text-on-surface-variant italic">"Khả năng tổng hợp kiến thức của AI rất ấn tượng. Nó giúp mình ôn thi cuối kỳ cực kỳ hiệu quả."</p>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="max-w-4xl mx-auto px-8 py-24">
+<h2 class="text-4xl font-black text-white text-center mb-16">Câu hỏi thường gặp</h2>
+<div class="space-y-4">
+<div class="glass-card rounded-lg border border-white/5 overflow-hidden">
+<div class="p-6 flex justify-between items-center cursor-pointer hover:bg-white/5 transition-colors">
+<span class="font-bold text-white">AI có thể giải được những môn học nào?</span>
+<span class="material-symbols-outlined text-outline">expand_more</span>
+</div>
+</div>
+<div class="glass-card rounded-lg border border-white/5 overflow-hidden">
+<div class="p-6 flex justify-between items-center cursor-pointer hover:bg-white/5 transition-colors">
+<span class="font-bold text-white">Kết quả giải bài có chính xác không?</span>
+<span class="material-symbols-outlined text-outline">expand_more</span>
+</div>
+</div>
+<div class="glass-card rounded-lg border border-white/5 overflow-hidden">
+<div class="p-6 flex justify-between items-center cursor-pointer hover:bg-white/5 transition-colors">
+<span class="font-bold text-white">Tôi có thể sử dụng miễn phí không?</span>
+<span class="material-symbols-outlined text-outline">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="max-w-7xl mx-auto px-8 py-24">
+<div class="relative rounded-lg overflow-hidden p-16 text-center border border-white/10 bg-gradient-to-br from-surface-container-low to-surface">
+<div class="absolute inset-0 opacity-10 dot-grid"></div>
+<h2 class="text-5xl font-black text-white mb-6 relative z-10">Sẵn sàng để bứt phá?</h2>
+<p class="text-outline mb-10 max-w-xl mx-auto relative z-10">Tham gia cùng hàng ngàn học sinh khác và trải nghiệm tương lai của giáo dục ngay hôm nay.</p>
+<div class="flex justify-center gap-4 relative z-10">
+<button class="bg-primary text-on-primary px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-transform">Bắt đầu học ngay</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-16 border-t border-white/15 bg-[#121318]">
+<div class="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-12 font-['Inter'] text-sm leading-relaxed">
+<div class="col-span-2 md:col-span-1 space-y-6">
+<div class="text-lg font-black text-white">E-School AI</div>
+<p class="text-[#8e9192]">Nền tảng giáo dục thông minh ứng dụng trí tuệ nhân tạo hàng đầu tại Việt Nam.</p>
+</div>
+<div class="space-y-4">
+<h4 class="text-white font-bold">Sản phẩm</h4>
+<ul class="space-y-2">
+<li><a class="text-[#8e9192] hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Tính năng</a></li>
+<li><a class="text-[#8e9192] hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Bảng giá</a></li>
+<li><a class="text-[#8e9192] hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Cộng đồng</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="text-white font-bold">Pháp lý</h4>
+<ul class="space-y-2">
+<li><a class="text-[#8e9192] hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Điều khoản</a></li>
+<li><a class="text-[#8e9192] hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Bảo mật</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="text-white font-bold">Liên hệ</h4>
+<ul class="space-y-2">
+<li><a class="text-[#8e9192] hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Hỗ trợ 24/7</a></li>
+<li><a class="text-[#8e9192] hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Về chúng tôi</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 mt-16 pt-8 border-t border-white/5 text-[#8e9192] text-center">
+            © 2024 E-School AI. Bản quyền được bảo hộ.
+        </div>
+</footer>
+</body></html>

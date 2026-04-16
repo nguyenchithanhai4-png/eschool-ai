@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>E-School AI - Premium Edition</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "primary-container": "#00eefc",
+                "on-tertiary-container": "#19001e",
+                "surface-container": "#0f1930",
+                "surface-container-lowest": "#000000",
+                "primary-fixed": "#00eefc",
+                "on-secondary": "#280067",
+                "secondary-dim": "#8455ef",
+                "tertiary": "#ec63ff",
+                "error-container": "#a70138",
+                "secondary": "#ac8aff",
+                "tertiary-fixed": "#f487ff",
+                "primary-dim": "#00deec",
+                "background": "#060e20",
+                "inverse-on-surface": "#4d556b",
+                "on-surface-variant": "#a3aac4",
+                "surface-dim": "#060e20",
+                "on-tertiary-fixed": "#300038",
+                "surface-container-high": "#141f38",
+                "tertiary-fixed-dim": "#ef6eff",
+                "error-dim": "#d73357",
+                "surface-bright": "#1f2b49",
+                "on-secondary-fixed": "#40009b",
+                "on-background": "#dee5ff",
+                "on-error": "#490013",
+                "error": "#ff6e84",
+                "on-surface": "#dee5ff",
+                "surface": "#060e20",
+                "on-primary-fixed": "#003f43",
+                "on-primary-container": "#005359",
+                "on-primary-fixed-variant": "#005e64",
+                "on-tertiary-fixed-variant": "#660075",
+                "surface-tint": "#8ff5ff",
+                "tertiary-container": "#de4bf4",
+                "inverse-primary": "#006a71",
+                "on-tertiary": "#3d0047",
+                "surface-container-highest": "#192540",
+                "primary-fixed-dim": "#00deec",
+                "on-error-container": "#ffb2b9",
+                "secondary-fixed-dim": "#ceb9ff",
+                "secondary-container": "#5516be",
+                "outline": "#6d758c",
+                "surface-container-low": "#091328",
+                "outline-variant": "#40485d",
+                "inverse-surface": "#faf8ff",
+                "surface-variant": "#192540",
+                "on-primary": "#005d63",
+                "tertiary-dim": "#ec63ff",
+                "secondary-fixed": "#dac9ff",
+                "on-secondary-container": "#d9c8ff",
+                "on-secondary-fixed-variant": "#5f28c8",
+                "primary": "#8ff5ff"
+        },
+        "borderRadius": {
+                "DEFAULT": "1rem",
+                "lg": "2rem",
+                "xl": "3rem",
+                "full": "9999px"
+        },
+        "fontFamily": {
+                "headline": [
+                        "Space Grotesk"
+                ],
+                "body": [
+                        "Inter"
+                ],
+                "label": [
+                        "Inter"
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: theme('colors.background');
+    color: theme('colors.on-background');
+  }
+  h1, h2, h3, h4, h5, h6, .font-headline {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .glass-panel {
+    background: rgba(25, 37, 64, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+  .gradient-btn {
+    background: linear-gradient(135deg, theme('colors.primary'), theme('colors.primary-dim'));
+    box-shadow: inset 0 1px 0 rgba(0, 93, 99, 0.2);
+  }
+  .ghost-border {
+    border: 1px solid rgba(64, 72, 93, 0.15);
+  }
+  .ambient-shadow {
+    box-shadow: 0 0 60px -5px rgba(143, 245, 255, 0.1);
+  }
+  .glow-line {
+    border-top: 2px solid theme('colors.tertiary');
+    box-shadow: 0 0 10px theme('colors.tertiary');
+  }
+</style>
+</head>
+<body class="min-h-screen flex flex-col bg-background overflow-x-hidden selection:bg-primary/30 selection:text-primary">
+<!-- Shared TopNavBar -->
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[1440px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap px-4 py-4 glass-panel rounded-full sticky top-4 z-50 ghost-border ambient-shadow mx-auto w-full max-w-7xl">
+<div class="flex items-center gap-4 text-on-background pl-4">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_330)">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</g>
+<defs>
+<clippath id="clip0_6_330"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-on-background text-xl font-bold leading-tight font-headline tracking-tight">E-School AI</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8 pr-2">
+<nav class="flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Features</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">How it Works</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Pricing</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Testimonials</a>
+</nav>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-full h-10 px-6 bg-surface-container-highest text-primary text-sm font-semibold tracking-wide ghost-border hover:bg-surface-container transition-all">
+<span>Sign In</span>
+</button>
+<button class="flex items-center justify-center rounded-full h-10 px-6 gradient-btn text-on-primary text-sm font-bold tracking-wide hover:scale-105 transition-transform duration-300">
+<span>Get Started Free</span>
+</button>
+</div>
+</div>
+</header>
+<div class="@container w-full mt-12 md:mt-24">
+<div class="flex flex-col gap-12 px-4 py-10 lg:flex-row lg:items-center relative">
+<!-- Decorative Glows -->
+<div class="absolute top-1/2 left-0 w-96 h-96 bg-primary/20 rounded-full blur-[120px] -translate-y-1/2 pointer-events-none"></div>
+<div class="absolute top-1/2 right-0 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[150px] -translate-y-1/2 pointer-events-none"></div>
+<div class="flex flex-col gap-8 lg:w-1/2 z-10">
+<div class="flex flex-col gap-4 text-left">
+<h1 class="text-on-background text-5xl md:text-7xl font-bold leading-[1.1] tracking-[-0.02em] font-headline">
+                      Your AI Tutor, Any Subject, Anytime.
+                    </h1>
+<p class="text-on-surface-variant text-lg md:text-xl font-normal leading-relaxed max-w-xl">
+                      Experience the future of learning with step-by-step AI problem solving and 24/7 support. Not just answers, but understanding.
+                    </p>
+</div>
+<div class="flex flex-wrap gap-4">
+<button class="flex items-center justify-center rounded-full h-14 px-8 gradient-btn text-on-primary text-lg font-bold tracking-wide hover:scale-[1.02] transition-transform duration-300 shadow-[0_0_40px_-5px_rgba(143,245,255,0.3)]">
+<span>Get Started Free</span>
+</button>
+<button class="flex items-center justify-center rounded-full h-14 px-8 bg-surface-container-low text-on-background text-lg font-semibold tracking-wide ghost-border hover:bg-surface-container transition-colors backdrop-blur-md">
+<span class="material-symbols-outlined mr-2">play_circle</span>
+<span>Watch Demo</span>
+</button>
+</div>
+<div class="flex items-center gap-4 mt-4">
+<div class="flex -space-x-3">
+<img alt="Student avatar" class="w-10 h-10 rounded-full border-2 border-background object-cover" data-alt="Portrait of a young smiling student with glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC17QPmuR9xxgXGaNgSpvTJFSIG9Tr37SniDbaXh98fWtYEn2Sd0hUpzoqq40uWhx6h3nfptByrm_60OMe1Umt7smZcWmNrxsFZpvatajd38OOkg70ewKryG-trjwDL-MZGDZwGrXcwcNHuppP-UeWSjArLYcAusmPvS3iYR8c_pJhBOH_7A4Tv0_YNz2NOf2p5T04xPCxjNYmKGZSYS8wpGPpNhMIfRXHf9Xh5IjXhsijuwOnXjWLoBcdlkFXt8pBCME4pF-gIozw"/>
+<img alt="Student avatar" class="w-10 h-10 rounded-full border-2 border-background object-cover" data-alt="Portrait of a young male student looking confident" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBWxtbKXz9rQTa3E-h1VKh7Gdf7--nbpsPA7jcuVzLpffpVNW0VoYQFJoUYQ2b4ms0lESYqmnkfj1YqrhZB2mw99-uSf-0ymgD2j_wvchZUH71B6sQwvQIOC4EHkkJ6bozJcTmhGabvayhYn1NhP9UbWu4ylnhRJzldSP2FfcU761reknp4kPrh84nZWvgZt8jWpt4nTd8QAxEQM2CQCexvipdbz6wZisxCl5c68QAbVm-hOtiD9E15CIDKcPJkEyzmQzJkN3lRFQ"/>
+<img alt="Student avatar" class="w-10 h-10 rounded-full border-2 border-background object-cover" data-alt="Portrait of a young woman smiling brightly" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLzs1mwrbFhAFfA53KVaBAfNB17ifpct07rRJjhQMNK2QjjiAnCM_AmtDFmb5YqdXXzojDWjTOvNcVMtzZgbodsG5WP1FI9jzBkbFHLZn5bBeCEnkh9jVRy7f5-EkTm4ypm7IB2gtdJ79aOnfitSA4dDMXZ0VXnu7BWld-7XfFphNjm2hPjruLBY8x8QERVTXsmMKR-R9QGiL44g9syAYADFoEk8YorNLyhdUeQgPJk4_29TyRk1lMCoEWGEFwGpAM7wLCKIkU0Iw"/>
+<div class="w-10 h-10 rounded-full border-2 border-background bg-surface-container-highest flex items-center justify-center text-xs font-bold text-primary">
++2k
+</div>
+</div>
+<p class="text-sm text-on-surface-variant"><span class="text-on-background font-semibold">Join 15,000+</span> active students.</p>
+</div>
+</div>
+<div class="lg:w-1/2 z-10 relative mt-12 lg:mt-0">
+<div class="glass-panel p-6 rounded-2xl ghost-border ambient-shadow relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-tertiary to-secondary"></div>
+<div class="flex items-center justify-between mb-6 pb-4 border-b border-outline-variant/30">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-error"></div>
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+</div>
+<div class="text-sm text-on-surface-variant font-medium">Advanced Calculus</div>
+</div>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">person</span>
+</div>
+<div class="bg-surface-container-low p-4 rounded-2xl rounded-tl-none border border-outline-variant/20 max-w-[85%] text-sm text-on-background">
+Solve the integral: ∫ x² * e^x dx
+</div>
+</div>
+<div class="flex gap-4 flex-row-reverse">
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm text-primary">smart_toy</span>
+</div>
+<div class="bg-surface-container p-4 rounded-2xl rounded-tr-none border border-primary/20 max-w-[90%] text-sm text-on-background relative">
+<div class="absolute -left-1 top-1/2 w-1 h-8 bg-tertiary blur-sm rounded-full transform -translate-y-1/2"></div>
+<p class="mb-3">To solve this, we'll use integration by parts: <br/><strong>∫ u dv = uv - ∫ v du</strong></p>
+<ol class="list-decimal pl-4 space-y-2 text-on-surface-variant">
+<li>Let <span class="text-primary font-mono">u = x²</span> and <span class="text-secondary font-mono">dv = e^x dx</span></li>
+<li>Then <span class="text-primary font-mono">du = 2x dx</span> and <span class="text-secondary font-mono">v = e^x</span></li>
+<li>Apply formula: <span class="font-mono text-on-background">x²e^x - ∫ 2xe^x dx</span></li>
+<li>Use integration by parts again for ∫ 2xe^x dx...</li>
+</ol>
+<div class="mt-4 p-3 bg-surface-container-highest rounded-xl border border-outline-variant/30 flex items-center justify-between">
+<span class="font-mono font-bold text-primary">Final: e^x(x² - 2x + 2) + C</span>
+<span class="material-symbols-outlined text-tertiary animate-pulse text-sm">auto_awesome</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Core Capabilities Bento Grid -->
+<div class="flex flex-col gap-10 px-4 py-24 max-w-7xl mx-auto w-full @container">
+<div class="flex flex-col gap-4 text-center items-center">
+<h2 class="text-primary text-sm font-bold tracking-widest uppercase mb-2">Platform Capabilities</h2>
+<h3 class="text-on-background text-4xl md:text-5xl font-bold leading-tight font-headline max-w-2xl">
+                  Everything you need to master your subjects.
+                </h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+<div class="flex flex-col gap-6 rounded-2xl bg-surface-container-low p-8 ghost-border hover:bg-surface-container transition-colors duration-300 group">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-highest flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-3xl text-primary drop-shadow-[0_0_10px_rgba(143,245,255,0.5)]">visibility</span>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="text-on-background text-xl font-bold font-headline">AI Vision</h4>
+<p class="text-on-surface-variant text-base leading-relaxed">Scan any handwritten question or diagram and get instant, step-by-step contextual help.</p>
+</div>
+</div>
+<div class="flex flex-col gap-6 rounded-2xl bg-surface-container-low p-8 ghost-border hover:bg-surface-container transition-colors duration-300 group">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-highest flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-3xl text-secondary drop-shadow-[0_0_10px_rgba(172,138,255,0.5)]">task_alt</span>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="text-on-background text-xl font-bold font-headline">Auto Grader</h4>
+<p class="text-on-surface-variant text-base leading-relaxed">Automatically grade assignments with detailed, constructive feedback on methodology.</p>
+</div>
+</div>
+<div class="flex flex-col gap-6 rounded-2xl bg-surface-container-low p-8 ghost-border hover:bg-surface-container transition-colors duration-300 group">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-highest flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-tertiary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-3xl text-tertiary drop-shadow-[0_0_10px_rgba(236,99,255,0.5)]">forum</span>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="text-on-background text-xl font-bold font-headline">24/7 Chat Tutor</h4>
+<p class="text-on-surface-variant text-base leading-relaxed">An always-available AI tutor ready to explain complex concepts in multiple ways.</p>
+</div>
+</div>
+<div class="flex flex-col gap-6 rounded-2xl bg-surface-container-low p-8 ghost-border hover:bg-surface-container transition-colors duration-300 group">
+<div class="w-14 h-14 rounded-2xl bg-surface-container-highest flex items-center justify-center shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary-dim/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-3xl text-primary-dim drop-shadow-[0_0_10px_rgba(0,222,236,0.5)]">quiz</span>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="text-on-background text-xl font-bold font-headline">Mock Exams</h4>
+<p class="text-on-surface-variant text-base leading-relaxed">Generate adaptive practice exams tailored perfectly to your specific curriculum.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Target Audiences -->
+<div class="px-4 py-24 max-w-7xl mx-auto w-full">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="relative group rounded-[2rem] overflow-hidden aspect-[4/5] md:aspect-square lg:aspect-[3/4]">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="College students studying together in a modern library with laptops" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAR3CLYt7JTVLeGbw5KZv7WsvCDJA4U3T_1hn5CgJW5cHeIAH5-A7wD_ordEp3PJvrP3FdfqgkFgG9gWCwj36RHPqtkwEHe8VJ3yuHUdBomaizLPaFo2IP9Yv67A588x_B2prKlYDXnhqTBNB-PTNMox-7GkjXXOL3MxCt0Soargv0w2Ukq_p4j2jygSFxBxl5ozv0qAEmcQRaA0T735NnXU4aFoKHshiQEy7uNrlI-3XEaeinywhCUkUf1VXL336Orh8I4yQ58ok4');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+<div class="absolute inset-0 p-8 flex flex-col justify-end">
+<h3 class="text-on-background text-3xl font-bold font-headline mb-3">For Students</h3>
+<p class="text-on-surface-variant text-base mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">Master difficult subjects at your own pace with personalized, judgment-free AI tutoring.</p>
+<button class="w-fit flex items-center gap-2 text-primary font-semibold text-sm group/btn">
+                  Explore Student Plans <span class="material-symbols-outlined transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="relative group rounded-[2rem] overflow-hidden aspect-[4/5] md:aspect-square lg:aspect-[3/4]">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Teacher explaining a concept at a whiteboard in a bright classroom" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBFNbiPMvSiohFwBcNKVFf2f9x9hiKB12Of79vPKtFOFo_tRhZ4m9BdgZKq5SR_91iGVQ7flVyEJ5JAxvaL8Rc25_XJXO0VasSvq6LF5Eou6oD4sFEkfoDWeGoLHSP7LPWSLGBH847zBPzYLOFPUra6kjrwF_N-YdaHxeNSIwA3JJwNuR-GXyknlHUMVarkPGTy23WODAh-jAd1iSDON4JLOLIxyRtAn5uMspVFaFRFQ_CbZAcCIrGPeWQZmMqdQauUUHukcTmwiHM');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+<div class="absolute inset-0 p-8 flex flex-col justify-end">
+<h3 class="text-on-background text-3xl font-bold font-headline mb-3">For Teachers</h3>
+<p class="text-on-surface-variant text-base mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">Automate grading and generate lesson plans, freeing up time for high-impact teaching.</p>
+<button class="w-fit flex items-center gap-2 text-secondary font-semibold text-sm group/btn">
+                  Explore Teacher Tools <span class="material-symbols-outlined transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="relative group rounded-[2rem] overflow-hidden aspect-[4/5] md:aspect-square lg:aspect-[3/4]">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Aerial view of a modern university campus building with green spaces" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBNRJBiRrFMSpas2EiT9DUTxVLsGTE4QzxFgCRF2cpjxjQ0uXwuZ0V0K0e_OKvkigoLuwwaaCPKhlPf2EWIUEdHkKTwNz2BtMY4-WuLifFgAEslKmWBfS-CfGut5M28y2-yb4hAdwPg5lRcH66Z6xaw4-9O3ArShm6hen3rMF3yZPdP6fFtjYDCm_xJFhWhkI1sJhrMGQ0oZIAT1sy09m6HieN1QVlpbUZGNfFNPjCa-cOORiZPTmomHTazfWveOx-ICIADacWSxNA');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+<div class="absolute inset-0 p-8 flex flex-col justify-end">
+<h3 class="text-on-background text-3xl font-bold font-headline mb-3">For Schools</h3>
+<p class="text-on-surface-variant text-base mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">Deploy scalable, equitable AI tutoring across your entire district with advanced analytics.</p>
+<button class="w-fit flex items-center gap-2 text-tertiary font-semibold text-sm group/btn">
+                  Explore Enterprise <span class="material-symbols-outlined transition-transform group-hover/btn:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

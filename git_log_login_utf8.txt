@@ -1,0 +1,2 @@
+﻿8148c75 Fix mobile chat layout - reduce padding and gaps for compact view
+79156dd feat: chuáº©n bá»‹ mĂ£ nguá»“n gá»n nháº¹ Ä‘á»ƒ triá»ƒn khai lĂªn Render

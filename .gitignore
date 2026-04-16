@@ -76,3 +76,6 @@ start_cloudflare_tunnel.bat
 start_ai_tunnel.bat
 setup_ngrok_static.bat
 
+
+# AI Safety backups
+_backups/

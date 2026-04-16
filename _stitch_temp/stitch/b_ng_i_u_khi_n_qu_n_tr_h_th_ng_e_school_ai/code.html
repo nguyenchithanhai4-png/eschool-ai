@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#1e1f24",
+                    "primary-fixed": "#e2e2e2",
+                    "secondary-fixed-dim": "#c4c7ca",
+                    "error-container": "#93000a",
+                    "tertiary": "#ffffff",
+                    "surface-dim": "#121318",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "tertiary-fixed": "#e4e2e1",
+                    "secondary": "#c4c7ca",
+                    "inverse-primary": "#5d5f5f",
+                    "secondary-fixed": "#e0e3e6",
+                    "surface-container-lowest": "#0d0e13",
+                    "on-primary": "#2f3131",
+                    "on-error": "#690005",
+                    "inverse-surface": "#e3e2e9",
+                    "on-surface-variant": "#c4c7c8",
+                    "inverse-on-surface": "#2f3035",
+                    "tertiary-container": "#e4e2e1",
+                    "on-secondary-container": "#b3b5b8",
+                    "outline": "#8e9192",
+                    "surface-variant": "#34343a",
+                    "primary": "#ffffff",
+                    "on-tertiary-container": "#656464",
+                    "secondary-container": "#44474a",
+                    "on-background": "#e3e2e9",
+                    "primary-container": "#e2e2e2",
+                    "on-surface": "#e3e2e9",
+                    "on-secondary-fixed-variant": "#44474a",
+                    "on-secondary-fixed": "#191c1e",
+                    "on-primary-fixed-variant": "#454747",
+                    "surface-container-highest": "#34343a",
+                    "surface": "#121318",
+                    "background": "#121318",
+                    "error": "#ffb4ab",
+                    "primary-fixed-dim": "#c6c6c7",
+                    "surface-tint": "#c6c6c7",
+                    "tertiary-fixed-dim": "#c8c6c6",
+                    "surface-bright": "#38393e",
+                    "surface-container-high": "#292a2f",
+                    "on-primary-fixed": "#1a1c1c",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-low": "#1a1b20",
+                    "on-tertiary-fixed-variant": "#474747",
+                    "on-primary-container": "#636565",
+                    "outline-variant": "#444748",
+                    "on-tertiary": "#303030",
+                    "on-secondary": "#2d3133"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"],
+                    "mono": ["JetBrains Mono"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #121318;
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        .glass-panel {
+            background: rgba(30, 31, 36, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="font-body text-on-surface antialiased">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-white/10 flex flex-col py-8 bg-[#121318] dark:bg-[#121318] font-['Inter'] tracking-tight text-sm shadow-[0_32px_64px_rgba(227,226,233,0.04)] z-[60]">
+<div class="px-6 mb-10">
+<h1 class="text-xl font-black text-white tracking-tighter">E-School AI</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-outline mt-1">System Controller</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-white font-bold border-r-2 border-white bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>System Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-[#8e9192] hover:text-white hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="memory">memory</span>
+<span>AI Infrastructure</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-[#8e9192] hover:text-white hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>User Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-[#8e9192] hover:text-white hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span>Security Logs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-full text-[#8e9192] hover:text-white hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-4 space-y-2 pt-6 border-t border-white/5">
+<button class="w-full bg-primary text-on-primary font-bold py-3 rounded-full scale-95 active:scale-90 transition-all mb-4">
+                Initiate Scan
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-[#8e9192] hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-[#8e9192] hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-64 h-16 z-50 bg-[#121318]/80 backdrop-blur-xl flex justify-between items-center px-12 w-auto font-['Inter'] text-xs font-medium uppercase tracking-widest text-white">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-[#c4c7ca]">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<span>Uptime: 99.9%</span>
+</div>
+<div class="flex items-center gap-2 text-[#c4c7ca]">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<span>API: Operational</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 border-r border-white/10 pr-6 mr-6">
+<button class="opacity-80 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="opacity-80 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined" data-icon="shield">shield</span>
+</button>
+</div>
+<button class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition-all flex items-center gap-2">
+                System Pulse
+            </button>
+<img alt="Admin Profile" class="w-8 h-8 rounded-full border border-white/20 object-cover" data-alt="Close up portrait of a serious male system administrator in a dark office setting with blue screen reflections on face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwtaoqTwAdyav_3Z7PTsx-ZeSUpLYEaovZgdZojr2Teay7S2NjS5f_O3-dZrJeJzywmY0IR_9KMnW-HxrElEuB562FbAktI30EgkXDRARXC5ELwM4TuQ2r-h3SpZ2cWqyIEd-0kZylGVBBgwB_87CwQfvdvi55hwtgXUQGNJq2mccMrXCMootXV0o4XO3aY0acPmDLgpUIQuMndJkxn0Ukl8xMLdWuTA3yajMMk_O8uJjDtWfkqLyT493gOUAk_y6mCsthccHUj9w"/>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 pb-12 px-12 space-y-8">
+<!-- Overall Status Metrics (Bento Cards) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-panel p-8 rounded-lg border border-white/5 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl" data-icon="groups">groups</span>
+</div>
+<h3 class="text-outline text-xs font-bold uppercase tracking-widest mb-2">Tổng người dùng</h3>
+<div class="text-4xl font-black text-white">1,284,502</div>
+<div class="mt-4 flex items-center gap-2 text-green-400 text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+<span>+12% so với tháng trước</span>
+</div>
+</div>
+<div class="glass-panel p-8 rounded-lg border border-white/5 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl" data-icon="token">token</span>
+</div>
+<h3 class="text-outline text-xs font-bold uppercase tracking-widest mb-2">Tín dụng AI</h3>
+<div class="text-4xl font-black text-white">842.5k <span class="text-sm font-normal text-outline">/ 1M</span></div>
+<div class="mt-4 h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[84%]"></div>
+</div>
+</div>
+<div class="glass-panel p-8 rounded-lg border border-white/5 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl" data-icon="warning">warning</span>
+</div>
+<h3 class="text-outline text-xs font-bold uppercase tracking-widest mb-2">Cảnh báo bảo mật</h3>
+<div class="text-4xl font-black text-error">02</div>
+<div class="mt-4 flex items-center gap-2 text-error text-sm">
+<span class="material-symbols-outlined text-sm" data-icon="gpp_maybe">gpp_maybe</span>
+<span>Yêu cầu kiểm tra ngay lập tức</span>
+</div>
+</div>
+</section>
+<!-- Server Health & AI Infrastructure -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 space-y-6">
+<div class="flex justify-between items-end mb-4">
+<div>
+<h2 class="text-2xl font-bold tracking-tight text-white">Sức khỏe Hệ thống &amp; Hạ tầng AI</h2>
+<p class="text-outline text-sm">Giám sát tài nguyên thời gian thực</p>
+</div>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-full bg-white/5 text-[10px] font-bold text-white uppercase tracking-wider border border-white/10">Real-time</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="glass-panel p-6 rounded-lg border border-white/5">
+<div class="flex justify-between items-center mb-6">
+<span class="text-sm font-medium text-white">Tải CPU (%)</span>
+<span class="text-primary text-xs font-mono">42%</span>
+</div>
+<div class="h-32 flex items-end gap-1 px-2">
+<div class="flex-1 bg-white/10 h-[20%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/10 h-[45%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/10 h-[30%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/10 h-[60%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/10 h-[55%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/10 h-[42%] rounded-t-sm bg-primary/40 border-t border-primary animate-pulse"></div>
+</div>
+</div>
+<div class="glass-panel p-6 rounded-lg border border-white/5">
+<div class="flex justify-between items-center mb-6">
+<span class="text-sm font-medium text-white">Độ trễ API (ms)</span>
+<span class="text-primary text-xs font-mono">124ms</span>
+</div>
+<div class="h-32 flex items-end gap-1 px-2">
+<div class="flex-1 bg-white/10 h-[40%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/10 h-[35%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/10 h-[20%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/10 h-[30%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/10 h-[25%] rounded-t-sm"></div>
+<div class="flex-1 bg-white/10 h-[28%] rounded-t-sm bg-primary/40 border-t border-primary animate-pulse"></div>
+</div>
+</div>
+</div>
+<div class="glass-panel p-8 rounded-lg border border-white/5">
+<h3 class="text-sm font-bold text-white mb-6 uppercase tracking-widest">So sánh Model AI</h3>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-white">Local Ollama (Llama 3)</span>
+<span class="text-outline">Latency: 45ms</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-blue-500 w-[95%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-medium">
+<span class="text-white">Cloud OpenAI (GPT-4o)</span>
+<span class="text-outline">Latency: 320ms</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-purple-500 w-[60%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Feed (Nhật ký Hệ thống) -->
+<div class="space-y-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary" data-icon="terminal">terminal</span>
+<h2 class="text-lg font-bold text-white">Nhật ký Hệ thống</h2>
+</div>
+<div class="glass-panel h-[500px] rounded-lg border border-white/5 overflow-hidden flex flex-col">
+<div class="bg-white/5 px-4 py-2 flex items-center justify-between border-b border-white/5">
+<span class="text-[10px] text-outline uppercase font-bold tracking-tighter">Hoạt động Hệ thống Thời gian thực</span>
+<div class="flex gap-1">
+<div class="w-2 h-2 rounded-full bg-error/40"></div>
+<div class="w-2 h-2 rounded-full bg-yellow-500/40"></div>
+<div class="w-2 h-2 rounded-full bg-green-500/40"></div>
+</div>
+</div>
+<div class="p-4 font-mono text-[11px] leading-relaxed overflow-y-auto space-y-3">
+<div class="flex gap-3">
+<span class="text-outline shrink-0">[14:22:01]</span>
+<span class="text-green-400">INFO: AI model updated to v2.4.1 successful.</span>
+</div>
+<div class="flex gap-3">
+<span class="text-outline shrink-0">[14:22:45]</span>
+<span class="text-error">ERROR: System Error 404 on /api/v1/user/auth</span>
+</div>
+<div class="flex gap-3">
+<span class="text-outline shrink-0">[14:23:12]</span>
+<span class="text-yellow-400">WARN: Suspicious activity detected from IP 192.168.1.45</span>
+</div>
+<div class="flex gap-3">
+<span class="text-outline shrink-0">[14:24:05]</span>
+<span class="text-white">EVENT: New Teacher registered: Prof. Nguyen Van A</span>
+</div>
+<div class="flex gap-3">
+<span class="text-outline shrink-0">[14:25:55]</span>
+<span class="text-blue-400">SYNC: Local Ollama instance restarted.</span>
+</div>
+<div class="flex gap-3">
+<span class="text-outline shrink-0">[14:26:10]</span>
+<span class="text-green-400">INFO: Backup sequence completed.</span>
+</div>
+<div class="flex gap-3">
+<span class="text-outline shrink-0">[14:28:33]</span>
+<span class="text-yellow-400">WARN: API Latency exceeded threshold (500ms)</span>
+</div>
+<div class="flex gap-3">
+<span class="text-outline shrink-0">[14:30:12]</span>
+<span class="text-white">EVENT: User "admin_01" updated security protocol</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Global User Management -->
+<section class="space-y-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="text-2xl font-bold tracking-tight text-white">Quản lý Người dùng Toàn cầu</h2>
+<p class="text-outline text-sm">Giám sát và điều phối tài khoản hệ thống</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm" data-icon="search">search</span>
+<input class="bg-surface-container-high border-none rounded-full pl-10 pr-6 py-2 text-sm text-white focus:ring-1 focus:ring-primary w-64 placeholder:text-outline" placeholder="Tìm kiếm người dùng..." type="text"/>
+</div>
+<button class="bg-white/5 hover:bg-white/10 p-2 rounded-full border border-white/5 text-white transition-all">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<div class="glass-panel rounded-lg border border-white/5 overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-white/5 border-b border-white/5">
+<tr>
+<th class="px-6 py-4"><input class="rounded bg-surface-container-high border-white/10 text-primary focus:ring-0" type="checkbox"/></th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-outline">Tên</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-outline">Vai trò</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-outline">Trạng thái</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-outline">Ngày đăng ký</th>
+<th class="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-outline text-right">Hành động</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4"><input class="rounded bg-surface-container-high border-white/10 text-primary focus:ring-0" type="checkbox"/></td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-[10px] font-bold">AL</div>
+<div>
+<div class="text-sm font-medium text-white">An Lê</div>
+<div class="text-[10px] text-outline">an.le@eschool.edu.vn</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-blue-500/10 text-blue-400 text-[10px] font-bold uppercase tracking-tighter border border-blue-500/20">Student</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+<span class="text-xs text-on-surface">Hoạt động</span>
+</div>
+</td>
+<td class="px-6 py-4 text-xs text-outline font-mono">12/05/2023</td>
+<td class="px-6 py-4 text-right">
+<button class="p-1 hover:text-white text-outline transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4"><input class="rounded bg-surface-container-high border-white/10 text-primary focus:ring-0" type="checkbox"/></td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center text-[10px] font-bold">MT</div>
+<div>
+<div class="text-sm font-medium text-white">Minh Trần</div>
+<div class="text-[10px] text-outline">m.tran@eschool.edu.vn</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-purple-500/10 text-purple-400 text-[10px] font-bold uppercase tracking-tighter border border-purple-500/20">Teacher</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+<span class="text-xs text-on-surface">Bị đình chỉ</span>
+</div>
+</td>
+<td class="px-6 py-4 text-xs text-outline font-mono">28/01/2023</td>
+<td class="px-6 py-4 text-right">
+<button class="p-1 hover:text-white text-outline transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors group">
+<td class="px-6 py-4"><input class="rounded bg-surface-container-high border-white/10 text-primary focus:ring-0" type="checkbox"/></td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-[10px] font-bold">PT</div>
+<div>
+<div class="text-sm font-medium text-white">Phan Tuyết</div>
+<div class="text-[10px] text-outline">p.tuyet@school_hcm.edu</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-tighter border border-emerald-500/20">School</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+<span class="text-xs text-on-surface">Hoạt động</span>
+</div>
+</td>
+<td class="px-6 py-4 text-xs text-outline font-mono">15/08/2023</td>
+<td class="px-6 py-4 text-right">
+<button class="p-1 hover:text-white text-outline transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-4 bg-white/5 flex items-center justify-between">
+<span class="text-xs text-outline">Hiển thị 3 trên 1,284,502 người dùng</span>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all disabled:opacity-50" disabled="">Trước</button>
+<button class="px-4 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all">Tiếp theo</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Center (Signature Shell) -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 p-2 glass-panel border border-white/10 rounded-full z-50">
+<button class="w-12 h-12 rounded-full flex items-center justify-center bg-primary text-on-primary shadow-xl hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+</button>
+<div class="h-8 w-px bg-white/10 mx-2"></div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 text-white transition-all">
+<span class="material-symbols-outlined" data-icon="search_insights">search_insights</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 text-white transition-all">
+<span class="material-symbols-outlined" data-icon="security_update_good">security_update_good</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-white/10 text-white transition-all">
+<span class="material-symbols-outlined" data-icon="troubleshoot">troubleshoot</span>
+</button>
+</div>
+</body></html>

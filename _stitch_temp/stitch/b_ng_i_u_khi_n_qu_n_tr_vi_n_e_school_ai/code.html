@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#2f1400",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-background": "#191c1e",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-surface": "#191c1e",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-container-high": "#e6e8ea",
+                        "on-primary-fixed": "#001a41",
+                        "surface-container-low": "#f2f4f6",
+                        "tertiary-fixed-dim": "#ffb780",
+                        "outline-variant": "#c2c6d5",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface": "#f7f9fb",
+                        "on-surface-variant": "#424753",
+                        "on-tertiary-fixed-variant": "#6f3800",
+                        "surface-dim": "#d8dadc",
+                        "on-error-container": "#93000a",
+                        "background": "#f7f9fb",
+                        "primary-container": "#2771df",
+                        "tertiary-container": "#b35e00",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#0058bd",
+                        "secondary-fixed": "#dae2fd",
+                        "inverse-primary": "#adc6ff",
+                        "surface-container": "#eceef0",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary-container": "#5c647a",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface-bright": "#f7f9fb",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#dae2fd",
+                        "on-primary-container": "#fefcff",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary": "#8f4a00",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed-variant": "#004494",
+                        "secondary": "#565e74",
+                        "outline": "#727785",
+                        "surface-tint": "#005ac1",
+                        "tertiary-fixed": "#ffdcc4",
+                        "primary-fixed": "#d8e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); }
+        .sidebar-active { position: relative; }
+        .sidebar-active::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 4px; background-color: #0058bd; border-radius: 4px 0 0 4px; }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-slate-50 border-r border-slate-200 flex flex-col py-6 z-50">
+<div class="px-6 mb-10 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-lg">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+</div>
+<div>
+<h2 class="font-bold text-slate-900 tracking-tight leading-none">Hệ thống E-School</h2>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-1">Quản trị viên</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-700 font-bold bg-blue-50/50 sidebar-active transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm">Tổng quan</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-blue-50/30 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="text-sm">Quản lý giáo viên</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-blue-50/30 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-sm">Phân tích học sinh</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-blue-50/30 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-sm">Thanh toán</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-blue-50/30 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm">Cài đặt</span>
+</a>
+</nav>
+<div class="px-4 mt-auto space-y-1">
+<div class="p-4 rounded-2xl bg-primary/5 mb-6">
+<p class="text-xs font-bold text-primary uppercase tracking-wider mb-2">Thông báo</p>
+<p class="text-xs text-on-surface-variant leading-relaxed">Cập nhật hệ thống AI mới đã sẵn sàng.</p>
+<button class="mt-3 text-xs font-bold text-primary flex items-center gap-1">
+                    Xem chi tiết <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-100 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span class="text-sm uppercase tracking-wider font-medium">Trợ giúp</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-error hover:bg-error-container/20 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="text-sm uppercase tracking-wider font-medium">Đăng xuất</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-40 bg-[#ffffffcc] backdrop-blur-xl flex justify-between items-center w-full px-8 py-3 shadow-[0px_20px_40px_rgba(0,88,189,0.06)]">
+<div class="flex items-center gap-6 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]" data-icon="search">search</span>
+<input class="w-full bg-slate-100/50 border-none rounded-xl py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary/20 text-sm" placeholder="Tìm kiếm dữ liệu, giáo viên..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-5 py-2 rounded-xl text-sm font-semibold flex items-center gap-2 hover:shadow-lg transition-all active:scale-95 duration-150">
+<span class="material-symbols-outlined text-[18px]" data-icon="file_download">file_download</span>
+                    Tải báo cáo
+                </button>
+<div class="flex items-center gap-2 border-l border-slate-200 pl-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-slate-100 text-slate-500 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-slate-100 text-slate-500 transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+<div class="flex items-center gap-3 ml-2 group cursor-pointer">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold text-slate-900 leading-none">Admin E-School</p>
+<p class="text-[10px] text-slate-500 font-medium mt-1">Trường THPT Amsterdam</p>
+</div>
+<img alt="Ảnh đại diện quản trị viên" class="w-10 h-10 rounded-xl object-cover ring-2 ring-slate-100 group-hover:ring-primary/20 transition-all" data-alt="professional portrait of a school administrator in business casual attire with a soft office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpzCZiUolZTnNpWhpqV02eBiwJwO7MBTwaN66B_NBSZ-R2GU9BKFYENKgWjpLxsjoGCZfq_1lFk4qor22qADWZlIoQaDiKmnzrCtyLR8HD20yjuDCYJc9r5yJ0-gnpIVP4b2-AbHgGajyilILNszZFQngC0qOtSW4I4qggbSb0FkQugGmp078u2ObVU2ZxK_O6PWsdR3_l360ylQHANBBwf7a426K-jxq_a9Acrn3cInePqh9pCUgc98klzwZY87M7yalfSsl6OOQ"/>
+</div>
+</div>
+</header>
+<!-- Analytics View -->
+<div class="p-8 max-w-[1600px] mx-auto w-full space-y-8">
+<!-- Hero Greeting -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="text-3xl font-bold tracking-tight text-slate-900">Chào mừng trở lại, Quản trị viên <span class="text-primary">E-School AI</span></h1>
+<p class="text-on-surface-variant mt-1">Hệ thống ghi nhận sự tăng trưởng 12% mức độ tương tác so với tuần trước.</p>
+</div>
+<div class="flex gap-2">
+<div class="px-4 py-2 bg-surface-container-low rounded-xl flex items-center gap-2 text-sm font-medium text-slate-600">
+<span class="material-symbols-outlined text-[18px]" data-icon="calendar_today">calendar_today</span>
+                        Học kỳ I, 2023 - 2024
+                    </div>
+</div>
+</section>
+<!-- Bento Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-slate-100 group hover:border-primary/20 transition-all">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary mb-4">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+</div>
+<p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Tổng học sinh hoạt động</p>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-3xl font-bold tracking-tight">2,450</span>
+<span class="text-xs font-bold text-emerald-600">+4.2%</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-slate-100 group hover:border-primary/20 transition-all">
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary mb-4">
+<span class="material-symbols-outlined" data-icon="neurology">neurology</span>
+</div>
+<p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Tín dụng AI đã dùng</p>
+<div class="flex items-baseline gap-2 mt-2 w-full">
+<span class="text-3xl font-bold tracking-tight">85%</span>
+<div class="flex-1 h-2 bg-slate-100 rounded-full ml-4 overflow-hidden">
+<div class="h-full bg-tertiary w-[85%] rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-slate-100 group hover:border-primary/20 transition-all">
+<div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-700 mb-4">
+<span class="material-symbols-outlined" data-icon="grade">grade</span>
+</div>
+<p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Điểm trung bình toàn trường</p>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-3xl font-bold tracking-tight">8.2</span>
+<span class="text-xs font-bold text-emerald-600">Khá giỏi</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-slate-100 group hover:border-primary/20 transition-all">
+<div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 mb-4">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+</div>
+<p class="text-sm font-bold text-slate-500 uppercase tracking-wider">Bài nộp đã chấm tự động</p>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-3xl font-bold tracking-tight">12,400</span>
+<span class="text-xs font-bold text-primary">Tiết kiệm 450 giờ</span>
+</div>
+</div>
+</div>
+<!-- Main Analytics Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Large Chart Section -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-slate-100">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-xl font-bold text-slate-900 tracking-tight">Mức độ tương tác của học sinh</h3>
+<p class="text-sm text-on-surface-variant">Thống kê dữ liệu truy cập và nộp bài trong học kỳ</p>
+</div>
+<select class="bg-slate-50 border-none rounded-lg text-sm font-medium focus:ring-primary/20">
+<option>7 ngày qua</option>
+<option>30 ngày qua</option>
+<option>Toàn học kỳ</option>
+</select>
+</div>
+<div class="relative h-[300px] w-full bg-slate-50/50 rounded-xl flex items-end justify-between px-8 pb-4 pt-12 overflow-hidden">
+<!-- Abstract Chart Representation -->
+<div class="absolute inset-0 flex items-center justify-center">
+<svg class="w-full h-full opacity-10" preserveaspectratio="none" viewbox="0 0 800 300">
+<path d="M0,250 Q100,50 200,150 T400,100 T600,200 T800,50 L800,300 L0,300 Z" fill="url(#grad)"></path>
+<defs>
+<lineargradient id="grad" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0058bd;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0058bd;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+<!-- Bar chart elements for visual rhythm -->
+<div class="w-8 bg-primary/20 rounded-t-lg transition-all hover:bg-primary" style="height: 65%;"></div>
+<div class="w-8 bg-primary/20 rounded-t-lg transition-all hover:bg-primary" style="height: 45%;"></div>
+<div class="w-8 bg-primary/20 rounded-t-lg transition-all hover:bg-primary" style="height: 85%;"></div>
+<div class="w-8 bg-primary/20 rounded-t-lg transition-all hover:bg-primary" style="height: 55%;"></div>
+<div class="w-8 bg-primary/20 rounded-t-lg transition-all hover:bg-primary" style="height: 95%;"></div>
+<div class="w-8 bg-primary/20 rounded-t-lg transition-all hover:bg-primary" style="height: 70%;"></div>
+<div class="w-8 bg-primary/20 rounded-t-lg transition-all hover:bg-primary" style="height: 80%;"></div>
+<div class="w-8 bg-primary/20 rounded-t-lg transition-all hover:bg-primary" style="height: 40%;"></div>
+<div class="w-8 bg-primary/20 rounded-t-lg transition-all hover:bg-primary" style="height: 90%;"></div>
+<div class="w-8 bg-primary/20 rounded-t-lg transition-all hover:bg-primary" style="height: 60%;"></div>
+</div>
+<div class="flex justify-between mt-4 px-8 text-xs font-bold text-slate-400 uppercase tracking-widest">
+<span>T.2</span><span>T.3</span><span>T.4</span><span>T.5</span><span>T.6</span><span>T.7</span><span>CN</span>
+</div>
+</div>
+<!-- Secondary Lists -->
+<div class="space-y-8">
+<!-- Top Performing -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm border border-slate-100 h-full">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-emerald-600" data-icon="workspace_premium">workspace_premium</span>
+<h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Lớp học tiêu biểu</h3>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">12A</div>
+<div>
+<p class="text-sm font-bold text-slate-800">Lớp 12A1 - Toán</p>
+<p class="text-[10px] text-slate-500 font-medium">GV: Nguyễn Văn A</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-slate-900">9.1</p>
+<p class="text-[10px] text-emerald-600 font-bold">+0.5</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">11B</div>
+<div>
+<p class="text-sm font-bold text-slate-800">Lớp 11B2 - Anh</p>
+<p class="text-[10px] text-slate-500 font-medium">GV: Lê Thị B</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-slate-900">8.8</p>
+<p class="text-[10px] text-emerald-600 font-bold">+0.2</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">10C</div>
+<div>
+<p class="text-sm font-bold text-slate-800">Lớp 10C5 - Lý</p>
+<p class="text-[10px] text-slate-500 font-medium">GV: Trần Văn C</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-slate-900">8.5</p>
+<p class="text-[10px] text-emerald-600 font-bold">+0.1</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Needs Intervention Section -->
+<section class="bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-slate-100">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="error_outline">error_outline</span>
+<h3 class="text-lg font-bold text-slate-900 tracking-tight">Lớp học cần hỗ trợ</h3>
+</div>
+<button class="text-sm font-bold text-primary hover:underline">Xem tất cả</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Intervention Item 1 -->
+<div class="flex flex-col p-5 rounded-2xl bg-surface-container-low/50 border border-transparent hover:border-tertiary/20 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-slate-700 font-bold">12D</div>
+<div>
+<p class="text-sm font-bold text-slate-800">Lớp 12D4 - Văn</p>
+<p class="text-[11px] text-slate-500">GV: Phạm Thu D.</p>
+</div>
+</div>
+<span class="px-2 py-1 bg-tertiary/10 text-tertiary text-[10px] font-bold rounded-md uppercase tracking-wider">Cảnh báo</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Tỷ lệ vắng mặt:</span>
+<span class="font-bold text-error">15%</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Bài tập chưa nộp:</span>
+<span class="font-bold text-tertiary">24 bài</span>
+</div>
+<div class="pt-3 border-t border-slate-200/50">
+<button class="w-full py-2 bg-white text-slate-900 text-[11px] font-bold rounded-lg border border-slate-200 hover:bg-slate-50 transition-all">Gửi thông báo cho GV</button>
+</div>
+</div>
+</div>
+<!-- Intervention Item 2 -->
+<div class="flex flex-col p-5 rounded-2xl bg-surface-container-low/50 border border-transparent hover:border-tertiary/20 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-slate-700 font-bold">11E</div>
+<div>
+<p class="text-sm font-bold text-slate-800">Lớp 11E1 - Hóa</p>
+<p class="text-[11px] text-slate-500">GV: Ngô Văn E.</p>
+</div>
+</div>
+<span class="px-2 py-1 bg-tertiary/10 text-tertiary text-[10px] font-bold rounded-md uppercase tracking-wider">Cần lưu ý</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Điểm trung bình giảm:</span>
+<span class="font-bold text-error">0.8đ</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">Tương tác AI thấp:</span>
+<span class="font-bold text-tertiary">-12%</span>
+</div>
+<div class="pt-3 border-t border-slate-200/50">
+<button class="w-full py-2 bg-white text-slate-900 text-[11px] font-bold rounded-lg border border-slate-200 hover:bg-slate-50 transition-all">Lên lịch họp chuyên môn</button>
+</div>
+</div>
+</div>
+<!-- Intervention Item 3 -->
+<div class="flex flex-col p-5 rounded-2xl bg-slate-900 text-white shadow-xl relative overflow-hidden group">
+<div class="relative z-10">
+<h4 class="text-lg font-bold leading-tight mb-2">Tối ưu hóa hiệu suất giáo dục</h4>
+<p class="text-slate-400 text-xs mb-4">AI của chúng tôi đã phân tích 45 nguồn dữ liệu để đưa ra các gợi ý cải thiện kết quả học tập cho khối 12.</p>
+<button class="px-4 py-2 bg-primary text-white rounded-lg text-xs font-bold hover:bg-primary-container transition-all">Xem đề xuất AI</button>
+</div>
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-[120px] select-none" data-icon="psychology">psychology</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="mt-auto p-8 border-t border-slate-100 flex items-center justify-between text-slate-400 text-[11px] uppercase tracking-widest font-bold">
+<div>© 2024 E-School AI Dashboard</div>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors" href="#">Điều khoản</a>
+<a class="hover:text-primary transition-colors" href="#">Bảo mật</a>
+<a class="hover:text-primary transition-colors" href="#">Hỗ trợ kỹ thuật</a>
+</div>
+</footer>
+</main>
+<!-- FAB (Suppressed as per rules for dashboard navigation) -->
+</body></html>

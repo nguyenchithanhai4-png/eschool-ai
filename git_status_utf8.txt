@@ -1,0 +1,45 @@
+﻿On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ChamThiTuDong/main.py
+	modified:   package-lock.json
+	modified:   package.json
+	modified:   public/index.html
+	modified:   public/js/teacher-dashboard.js
+	modified:   public/login.html
+	modified:   public/student-dashboard.html
+	modified:   public/teacher-dashboard.html
+	modified:   routes/auth.routes.js
+	modified:   server.js
+	modified:   services/authMiddleware.js
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	MauThuyetMinhSanPhamSangTaoCNTT.docx
+	_stitch_temp/
+	backup_grading_section.html
+	git_log.txt
+	git_log2.txt
+	git_log_login.txt
+	git_log_login_utf8.txt
+	git_status_out.txt
+	merge_tool.js
+	public/assets/
+	public/css/design-system.css
+	public/css/landing-premium.css
+	public/favicon.svg
+	public/images/
+	public/js/landing-ultimate.js
+	public/js/temp_tail.txt
+	public/js/temp_tail_utf8.txt
+	public/student-dashboard-bkup.html
+	stitch.zip
+	test_check.js
+	test_cheerio.js
+	test_each.js
+	test_head.js
+
+no changes added to commit (use "git add" and/or "git commit -a")

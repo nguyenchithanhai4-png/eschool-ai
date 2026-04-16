@@ -1,0 +1,100 @@
+﻿        if (templateId === 'thpt_50') {
+            p2Container?.classList.remove('d-none');
+            p3Container?.classList.remove('d-none');
+        } else {
+            p2Container?.classList.add('d-none');
+            p3Container?.classList.add('d-none');
+        }
+    }
+
+    // Enable next button
+    document.getElementById('btn-go-step2').disabled = false;
+
+    // Using toast.success assuming it exists
+    if (typeof toast !== 'undefined' && toast.success) {
+        toast.success(`Đã chọn: ${templates[templateId]?.name}`);
+    }
+}
+
+// ==========================================
+// FIX: REDESIGNED ANSWER GRID FUNCTIONS (UTF-8 & PREMIUM UI)
+// ==========================================
+
+function generateAnswerGridP2(numQuestions) {
+    const grid = document.getElementById('answer-grid-p2');
+    if (!grid || numQuestions === 0) {
+        if (grid) grid.innerHTML = '<div class="text-center text-white-50 py-5"><i class="fa-solid fa-file-circle-xmark fa-3x mb-3 opacity-50"></i><br>Máº«u Ä‘á» nĂ y khĂ´ng cĂ³ pháº§n ÄĂºng/Sai</div>';
+        return;
+    }
+
+    let html = '<div class="row g-3">';
+    for (let q = 1; q <= numQuestions; q++) {
+        html += `<div class="col-md-6">
+            <div class="p-3 rounded-3" style="background: rgba(245,158,11,0.05); border: 1px solid rgba(245,158,11,0.2);">
+                <div class="fw-bold text-warning mb-2" style="text-shadow: 0 0 10px rgba(245,158,11,0.3);">CĂ¢u ${q}</div>
+                <div class="d-flex flex-wrap gap-2">`;
+
+        ['a', 'b', 'c', 'd'].forEach(sub => {
+            const current = aiAnswerKeyP2[q]?.[sub];
+            html += `<div class="d-flex align-items-center gap-1 p-1 rounded ps-2 pe-1" style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05);">
+                <span class="text-white-50 small fw-bold" style="min-width: 20px;">${sub})</span>
+                <button class="btn btn-sm ${current === 'Ä' ? 'btn-success' : 'btn-glass text-white-50'} px-2 py-0 p2-btn" 
+                        data-q="${q}" data-sub="${sub}" onclick="selectP2Answer(${q}, '${sub}', 'Ä', this)"
+                        style="min-width: 30px;">Ä</button>
+                <button class="btn btn-sm ${current === 'S' ? 'btn-danger' : 'btn-glass text-white-50'} px-2 py-0 p2-btn" 
+                        data-q="${q}" data-sub="${sub}" onclick="selectP2Answer(${q}, '${sub}', 'S', this)"
+                        style="min-width: 30px;">S</button>
+            </div>`;
+        });
+        html += '</div></div></div>';
+    }
+    html += '</div>';
+    grid.innerHTML = html;
+}
+
+function generateAnswerGridP3(numQuestions) {
+    const grid = document.getElementById('answer-grid-p3');
+    if (!grid || numQuestions === 0) {
+        if (grid) grid.innerHTML = '<div class="text-center text-white-50 py-5"><i class="fa-solid fa-file-circle-xmark fa-3x mb-3 opacity-50"></i><br>Máº«u Ä‘á» nĂ y khĂ´ng cĂ³ pháº§n Ä‘iá»n Ä‘Ă¡p Ă¡n</div>';
+        return;
+    }
+
+    let html = '<div class="row g-3">';
+    for (let q = 1; q <= numQuestions; q++) {
+        const val = aiAnswerKeyP3[q] || '';
+        html += `<div class="col-md-4">
+            <div class="d-flex align-items-center gap-2 p-3 rounded-3" style="background: rgba(16,185,129,0.05); border: 1px solid rgba(16,185,129,0.2);">
+                <span class="text-success fw-bold">CĂ¢u ${q}:</span>
+                <input type="text" class="form-control form-control-sm input-glass text-center fw-bold text-success" 
+                       value="${val}" placeholder="..." 
+                       onchange="updateP3Answer(${q}, this.value)" 
+                       style="font-size: 1.1rem; letter-spacing: 1px; background: rgba(0,0,0,0.2);">
+            </div>
+        </div>`;
+    }
+    html += '</div>';
+    grid.innerHTML = html;
+}
+
+function selectP2Answer(q, sub, ans, btn) {
+    // Deselect same sub
+    document.querySelectorAll(`.p2-btn[data-q="${q}"][data-sub="${sub}"]`).forEach(b => {
+        b.classList.remove('btn-success', 'btn-danger');
+        b.classList.add('btn-glass', 'text-white-50');
+    });
+
+    btn.classList.remove('btn-glass', 'text-white-50');
+    btn.classList.add(ans === 'Ä' ? 'btn-success' : 'btn-danger');
+
+    if (!aiAnswerKeyP2[q]) aiAnswerKeyP2[q] = {};
+    aiAnswerKeyP2[q][sub] = ans;
+    updateAnswerCount();
+}
+
+function clearAllAnswers() {
+    aiAnswerKey = {};
+    aiAnswerKeyP2 = {};
+    aiAnswerKeyP3 = {};
+    initAnswerGrids();
+    toast.info('ÄĂ£ xĂ³a táº¥t cáº£ Ä‘Ă¡p Ă¡n');
+}
