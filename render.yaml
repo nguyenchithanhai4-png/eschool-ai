@@ -1,19 +1,92 @@
+# ============================================
+# E-School AI - Render Deployment Config
+# Free Tier Web Service
+# ============================================
+
 services:
   - type: web
     name: eschool-ai
-    env: node
+    runtime: node
     plan: free
-    buildCommand: npm install
+    region: singapore  # Gần Việt Nam nhất
+    buildCommand: npm install --production
     startCommand: node server.js
+    healthCheckPath: /api/health
     envVars:
+      # === CORE ===
       - key: NODE_ENV
         value: production
-      - key: LOCAL_AI_ENDPOINT
-        sync: false
-        description: "Public Static URL of your local AI (Ngrok domain)"
+      - key: RENDER
+        value: "true"
+
+      # === DATABASE (BẮT BUỘC) ===
       - key: MONGODB_URI
         sync: false
-        description: "Your MongoDB Atlas connection string"
+        description: "MongoDB Atlas connection string (required)"
+
+      # === AUTHENTICATION SECRETS ===
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
+
+      # === GOOGLE OAUTH ===
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+        description: "Google OAuth Client ID"
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+        description: "Google OAuth Client Secret"
+
+      # === FACEBOOK OAUTH ===
+      - key: FACEBOOK_APP_ID
+        sync: false
+        description: "Facebook App ID"
+      - key: FACEBOOK_APP_SECRET
+        sync: false
+        description: "Facebook App Secret"
+
+      # === AI API KEYS ===
       - key: GEMINI_KEYS
         sync: false
-        description: "Optional Google Gemini API Keys"
+        description: "Google Gemini API Keys (comma-separated)"
+      - key: GROQ_KEYS
+        sync: false
+        description: "Groq API Keys (comma-separated)"
+      - key: SAMBANOVA_KEYS
+        sync: false
+        description: "SambaNova API Keys (comma-separated)"
+      - key: COHERE_KEYS
+        sync: false
+        description: "Cohere API Keys (comma-separated)"
+      - key: MISTRAL_KEYS
+        sync: false
+        description: "Mistral API Keys (comma-separated)"
+      - key: HF_KEYS
+        sync: false
+        description: "Hugging Face API Keys (comma-separated)"
+      - key: CLOUDFLARE_KEYS
+        sync: false
+        description: "Cloudflare Workers AI Keys (comma-separated)"
+
+      # === AI CONFIGURATION ===
+      - key: AI_PROVIDER_PRIORITY
+        value: "groq,sambanova,gemini,cohere,mistral,huggingface,cloudflare"
+      - key: AI_MAX_RETRIES
+        value: "3"
+      - key: AI_TIMEOUT_MS
+        value: "30000"
+      - key: AI_ENABLE_FAILOVER
+        value: "true"
+
+      # === EMAIL SERVICE ===
+      - key: RESEND_API_KEY
+        sync: false
+        description: "Resend email API key"
+      - key: EMAIL_FROM
+        value: "E-School AI <noreply@resend.dev>"
+
+      # === LOCAL AI (Optional - for hybrid AI setup) ===
+      - key: LOCAL_AI_ENDPOINT
+        sync: false
+        description: "Public URL of your local AI (Ngrok/Cloudflare tunnel)"

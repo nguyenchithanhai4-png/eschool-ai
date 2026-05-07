@@ -1,4 +1,4 @@
-﻿<!--
+<!--
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                    TEACHER DASHBOARD - GIAO DIỆN GIÁO VIÊN                   ║
 ║                    E-School AI - Portal cho Giáo viên                        ║
@@ -154,34 +154,44 @@
         :root {
             --sidebar-width: 280px;
             /* Độ rộng sidebar */
-            --primary: #6366f1;
-            /* Màu chủ đạo (tím) */
-            --primary-glow: rgba(99, 102, 241, 0.6);
-            /* Hiệu ứng glow */
-            --secondary: #a855f7;
-            /* Màu phụ (tím hồng) */
-            --secondary-glow: rgba(168, 85, 247, 0.6);
-            --accent: #06b6d4;
-            /* Màu nhấn (cyan) */
-            --bg-dark: #0f0c29;
-            /* Màu nền tối */
-            --text-light: #f8fafc;
-            /* Màu chữ sáng */
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            /* Nền glass */
-            --glass-border: rgba(255, 255, 255, 0.08);
-            /* Viền glass */
-            --glass-border-light: rgba(255, 255, 255, 0.15);
+            --primary: #0ea5e9;
+            /* Màu chủ đạo (Sky Blue) */
+            --primary-glow: rgba(14, 165, 233, 0.2);
+            /* Hiệu ứng glow nhẹ */
+            --secondary: #3b82f6;
+            /* Màu phụ (Blue) */
+            --secondary-glow: rgba(59, 130, 246, 0.2);
+            --accent: #2563eb;
+            /* Màu nhấn (Indigo) */
+            --bg-dark: #f8fafc;
+            /* Slate 50 */
+            --text-light: #1e293b;
+            /* Slate 800 */
+            --text-main: #0f172a;
+            /* Slate 900 - For headings and important text */
+            --glass-bg: #ffffff;
+            /* White for cards */
+            --glass-border: #e2e8f0;
+            /* Viền Slate 200 */
+            --glass-border-light: rgba(226, 232, 240, 0.8);
             --card-radius: 24px;
             /* Bo góc card */
-            --smooth-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --smooth-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        /* Utility Color Classes - CRITICAL FOR LIGHT MODE */
+        .text-slate-900 { color: #0f172a !important; }
+        .text-slate-800 { color: #1e293b !important; }
+        .text-slate-700 { color: #334155 !important; }
+        .text-slate-600 { color: #475569 !important; }
+        .text-slate-500 { color: #64748b !important; }
+        .text-slate-400 { color: #94a3b8 !important; }
 
         /* Lesson Output Styling */
         #lesson-output {
             font-family: 'Be Vietnam Pro', sans-serif !important;
             font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: #334155;
         }
 
         #lesson-output h1,
@@ -191,7 +201,7 @@
         #lesson-output h5,
         #lesson-output h6 {
             font-family: 'Be Vietnam Pro', sans-serif !important;
-            color: #a5b4fc;
+            color: #0f172a;
             margin-top: 1.5em;
             margin-bottom: 0.75em;
             font-weight: 700;
@@ -199,24 +209,24 @@
 
         #lesson-output h1 {
             font-size: 1.5em;
-            color: #c4b5fd;
+            color: #1e293b;
         }
 
         #lesson-output h2 {
             font-size: 1.3em;
-            color: #a5b4fc;
-            border-bottom: 1px solid rgba(165, 180, 252, 0.3);
+            color: #1e293b;
+            border-bottom: 1px solid #e2e8f0;
             padding-bottom: 0.5em;
         }
 
         #lesson-output h3 {
             font-size: 1.15em;
-            color: #93c5fd;
+            color: #334155;
         }
 
         #lesson-output h4 {
             font-size: 1.05em;
-            color: #6ee7b7;
+            color: #475569;
         }
 
         #lesson-output p {
@@ -236,26 +246,26 @@
         }
 
         #lesson-output strong {
-            color: #fbbf24;
+            color: #0f172a;
             font-weight: 600;
         }
 
         #lesson-output em {
-            color: #a78bfa;
+            color: #475569;
             font-style: italic;
         }
 
         #lesson-output code {
-            background: rgba(99, 102, 241, 0.2);
+            background: #f1f5f9;
             padding: 2px 6px;
             border-radius: 4px;
             font-family: 'Fira Code', monospace;
             font-size: 0.9em;
-            color: #a5b4fc;
+            color: #e11d48;
         }
 
         #lesson-output pre {
-            background: rgba(15, 23, 42, 0.8);
+            background: #1e293b;
             padding: 1em;
             border-radius: 8px;
             overflow-x: auto;
@@ -266,15 +276,16 @@
         #lesson-output pre code {
             background: none;
             padding: 0;
+            color: #f8fafc;
         }
 
         #lesson-output blockquote {
             border-left: 4px solid var(--secondary);
             padding-left: 1em;
             margin: 1em 0;
-            color: rgba(255, 255, 255, 0.7);
+            color: #475569;
             font-style: italic;
-            background: rgba(168, 85, 247, 0.1);
+            background: #f1f5f9;
             padding: 1em;
             border-radius: 0 8px 8px 0;
         }
@@ -287,26 +298,26 @@
 
         #lesson-output th,
         #lesson-output td {
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid #e2e8f0;
             padding: 0.75em;
             text-align: left;
         }
 
         #lesson-output th {
-            background: rgba(99, 102, 241, 0.2);
+            background: #f8fafc;
             font-weight: 600;
         }
 
         /* KaTeX Math Styling */
         #lesson-output .katex {
             font-size: 1.1em !important;
-            color: #e0f2fe !important;
+            color: #0f172a !important;
         }
 
         #lesson-output .katex-display {
             margin: 1em 0 !important;
             padding: 12px 16px;
-            background: rgba(99, 102, 241, 0.1);
+            background: #f1f5f9;
             border-left: 3px solid var(--primary);
             border-radius: 8px;
             overflow-x: auto;
@@ -317,7 +328,7 @@
         #teacher-quiz-result {
             font-family: 'Be Vietnam Pro', sans-serif !important;
             font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: #334155;
             line-height: 1.8;
         }
 
@@ -326,7 +337,7 @@
         .ai-generated-quiz h3,
         .ai-generated-quiz h4 {
             font-family: 'Be Vietnam Pro', sans-serif !important;
-            color: #a5b4fc;
+            color: #0f172a;
             margin-top: 1.2em;
             margin-bottom: 0.6em;
             font-weight: 700;
@@ -334,12 +345,12 @@
 
         .ai-generated-quiz h2 {
             font-size: 1.3em;
-            color: #c4b5fd;
+            color: #1e293b;
         }
 
         .ai-generated-quiz h3 {
             font-size: 1.15em;
-            color: #93c5fd;
+            color: #334155;
         }
 
         .ai-generated-quiz p {
@@ -357,26 +368,26 @@
         }
 
         .ai-generated-quiz strong {
-            color: #fbbf24;
+            color: #0f172a;
             font-weight: 600;
         }
 
         .ai-generated-quiz em {
-            color: #a78bfa;
+            color: #475569;
         }
 
         /* KaTeX in Quiz */
         .ai-generated-quiz .katex,
         #teacher-quiz-result .katex {
             font-size: 1.1em !important;
-            color: #e0f2fe !important;
+            color: #0f172a !important;
         }
 
         .ai-generated-quiz .katex-display,
         #teacher-quiz-result .katex-display {
             margin: 0.8em 0 !important;
             padding: 10px 14px;
-            background: rgba(99, 102, 241, 0.1);
+            background: #f1f5f9;
             border-left: 3px solid var(--primary);
             border-radius: 8px;
             overflow-x: auto;
@@ -406,7 +417,7 @@
             height: 100%;
             z-index: -2;
             pointer-events: none;
-            background: #0f0c29;
+            background: radial-gradient(circle at 50% 50%, #f8fafc 0%, #ffffff 100%);
         }
 
         .orb {
@@ -423,6 +434,7 @@
             background: var(--primary);
             top: -20%;
             left: -10%;
+            opacity: 0.15;
         }
 
         .orb-2 {
@@ -431,15 +443,16 @@
             background: var(--secondary);
             bottom: -10%;
             right: -10%;
+            opacity: 0.1;
         }
 
         .orb-3 {
             width: 300px;
             height: 300px;
-            background: var(--accent);
+            background: var(--primary);
             top: 40%;
             right: 10%;
-            opacity: 0.3;
+            opacity: 0.05;
         }
 
         @keyframes orbFloat {
@@ -454,40 +467,42 @@
 
         /* Scrollbar - Thin & Dark */
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: rgba(15, 12, 41, 0.5);
-            border-radius: 3px;
+            background: #f1f5f9;
+            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: rgba(51, 65, 85, 0.8);
-            border-radius: 3px;
+            background: #cbd5e1;
+            border-radius: 4px;
+            border: 2px solid #f1f5f9;
+            transition: all 0.3s ease;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: rgba(71, 85, 105, 0.9);
+            background: #94a3b8;
         }
 
         ::-webkit-scrollbar-corner {
             background: transparent;
         }
 
+        /* Firefox scrollbar */
         * {
             scrollbar-width: thin;
-            scrollbar-color: rgba(51, 65, 85, 0.8) rgba(15, 23, 42, 0.8);
+            scrollbar-color: #cbd5e1 #f1f5f9;
         }
 
         /* Sidebar */
         .sidebar {
             width: var(--sidebar-width);
             height: 100%;
-            background: rgba(15, 12, 41, 0.95);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid var(--glass-border-light);
+            background: #ffffff;
+            border-right: 1px solid #e2e8f0;
             display: flex;
             flex-direction: column;
             padding: 25px 25px 0 25px;
@@ -495,6 +510,7 @@
             transition: transform 0.3s ease;
             overflow: hidden;
             flex-shrink: 0;
+            box-shadow: 4px 0 25px rgba(0,0,0,0.06);
         }
 
         .sidebar-nav {
@@ -511,7 +527,7 @@
         }
 
         .sidebar-nav::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
+            background: #e2e8f0;
             border-radius: 4px;
         }
 
@@ -527,11 +543,10 @@
         }
 
         .brand-title-text {
-            background: linear-gradient(to right, #fff, var(--secondary), var(--primary));
+            background: linear-gradient(to right, #0f172a, var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            -webkit-background-clip: text;
         }
 
         .brand-title i {
@@ -542,36 +557,41 @@
         }
 
         .category-label {
-            font-size: 0.7rem;
-            letter-spacing: 1px;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.4);
-            margin: 25px 0 10px 10px;
+            font-weight: 800;
+            color: #4b5563;
+            margin: 28px 0 12px 18px;
         }
 
         .nav-item {
-            padding: 11px 16px;
-            margin-bottom: 4px;
-            border-radius: 12px;
+            padding: 12px 18px;
+            margin: 0 8px 6px 8px;
+            border-radius: 14px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             font-weight: 500;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
-            transition: all 0.15s ease;
+            font-size: 0.92rem;
+            color: #64748b;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .nav-item:hover {
-            background: rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.9);
+            background: #f1f5f9;
+            color: var(--primary);
         }
 
         .nav-item.active {
-            background: rgba(99, 102, 241, 0.15);
-            color: white;
+            background: #ffffff;
+            color: var(--primary);
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.1);
         }
 
         .nav-item.active i {
@@ -582,11 +602,11 @@
             width: 20px;
             text-align: center;
             font-size: 1rem;
-            color: rgba(255, 255, 255, 0.5);
+            color: #94a3b8;
         }
 
         .nav-item:hover i {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--primary);
         }
 
         /* User Badge */
@@ -595,17 +615,18 @@
             align-items: center;
             gap: 12px;
             padding: 12px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--glass-border-light);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 16px;
             margin-bottom: 20px;
             cursor: pointer;
             transition: 0.3s;
             flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         .user-badge:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: #f8fafc;
             border-color: var(--primary);
         }
 
@@ -619,21 +640,23 @@
             justify-content: center;
             font-weight: 600;
             font-size: 0.9rem;
-            color: white;
+            color: #1e293b !important;
         }
 
         /* Profile View Form Inputs */
         #view-profile .form-control {
-            background: rgba(255, 255, 255, 0.08) !important;
-            color: #fff !important;
+            background: #ffffff !important;
+            color: #1e293b !important;
+            border: 1px solid #e2e8f0;
         }
 
         #view-profile .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.4) !important;
+            color: #94a3b8 !important;
         }
 
         #view-profile .input-group-text {
-            background: rgba(255, 255, 255, 0.05) !important;
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0;
         }
 
         /* Main Content */
@@ -648,18 +671,19 @@
 
         .top-bar {
             padding: 16px 28px;
-            border-bottom: 1px solid var(--glass-border);
-            background: rgba(15, 15, 30, 0.7);
+            border-bottom: 1px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
         }
 
         .top-bar h5 {
-            color: white;
-            font-weight: 600;
+            color: #0f172a;
+            font-weight: 700;
             font-size: 1.1rem;
             margin: 0;
         }
@@ -670,12 +694,13 @@
             overflow-y: auto;
             overflow-x: hidden;
             padding: 30px;
+            flex-direction: column;
         }
 
         .view-section.active {
-            display: block;
+            display: flex;
             animation: fadeIn 0.4s ease;
-            background: radial-gradient(ellipse at top, rgba(15, 12, 41, 0.98) 0%, rgba(5, 5, 16, 1) 100%);
+            background: var(--bg-dark);
         }
 
         @keyframes fadeIn {
@@ -692,40 +717,43 @@
 
         /* Components */
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border-light);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             backdrop-filter: blur(12px);
             border-radius: 24px;
             padding: 25px;
             margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border-light);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             backdrop-filter: blur(12px);
             border-radius: 20px;
             padding: 25px;
             text-align: center;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
+            background: #ffffff;
             border-color: var(--primary);
-            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 10px 40px rgba(14, 165, 233, 0.15);
         }
 
         .stat-value {
             font-size: 2.5rem;
             font-weight: 800;
             margin-bottom: 5px;
+            color: #1e293b;
         }
 
         .stat-label {
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
+            color: #64748b;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -733,6 +761,24 @@
         /* Utilities */
         .text-primary {
             color: var(--primary) !important;
+        }
+
+        .table-glass thead th {
+            background: #f1f5f9 !important;
+            color: #0f172a !important;
+            font-weight: 700;
+            padding: 15px 24px;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .table-glass tbody td {
+            padding: 15px 24px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #334155 !important;
+            vertical-align: middle;
         }
 
         .text-success {
@@ -755,32 +801,6 @@
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-        }
-
-        .table-glass thead th {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
-            color: white;
-            font-weight: 600;
-            padding: 15px;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            border: none;
-        }
-
-        .table-glass thead th:first-child {
-            border-radius: 12px 0 0 0;
-        }
-
-        .table-glass thead th:last-child {
-            border-radius: 0 12px 0 0;
-        }
-
-        .table-glass tbody td {
-            padding: 15px;
-            border-bottom: 1px solid var(--glass-border);
-            color: rgba(255, 255, 255, 0.8);
-            vertical-align: middle;
         }
 
         .table-glass tbody tr:hover {
@@ -876,19 +896,20 @@
 
         .omr-question-num {
             font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.5);
+            color: #64748b; /* Slate 500 */
             margin-bottom: 4px;
         }
 
         .btn-glass {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid var(--glass-border-light);
-            color: white;
+            color: #1e293b;
             padding: 10px 20px;
             border-radius: 12px;
             font-weight: 600;
             transition: all 0.3s;
             cursor: pointer;
+            backdrop-filter: blur(8px);
         }
 
         .btn-glass:hover {
@@ -897,7 +918,7 @@
         }
 
         .btn-primary-glow {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--primary);
             border: none;
             color: white;
             padding: 12px 24px;
@@ -905,12 +926,12 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
         }
 
         .btn-primary-glow:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.35);
         }
 
         .btn-icon {
@@ -940,11 +961,11 @@
         }
 
         .input-glass {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
             border-radius: 12px;
             padding: 12px 16px;
-            color: white;
+            color: #1e293b;
             width: 100%;
             transition: all 0.3s;
         }
@@ -952,16 +973,16 @@
         .input-glass:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
         }
 
         .input-glass::placeholder {
-            color: rgba(255, 255, 255, 0.4);
+            color: #94a3b8;
         }
 
         select.input-glass option {
-            background: #1e293b;
-            color: white;
+            background: #ffffff;
+            color: #1e293b;
         }
 
         .progress-glass {
@@ -983,14 +1004,14 @@
             bottom: 20px;
             right: 20px;
             width: 360px;
-            background: rgba(15, 23, 42, 0.95);
+            background: #ffffff;
             backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border-light);
+            border: 1px solid #e2e8f0;
             border-radius: 20px;
             overflow: hidden;
             display: none;
             z-index: 1000;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
         }
 
         .chat-widget.show {
@@ -1014,7 +1035,7 @@
             height: 280px;
             overflow-y: auto;
             padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
+            background: #f8fafc;
         }
 
         .chat-msg {
@@ -1026,7 +1047,9 @@
         }
 
         .chat-msg.received {
-            background: rgba(255, 255, 255, 0.1);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            color: #1e293b;
             border-bottom-left-radius: 4px;
         }
 
@@ -1038,18 +1061,18 @@
 
         .chat-input-area {
             padding: 15px;
-            border-top: 1px solid var(--glass-border);
+            border-top: 1px solid #e2e8f0;
             display: flex;
             gap: 10px;
         }
 
         .chat-input-area input {
             flex: 1;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
             border-radius: 20px;
             padding: 10px 16px;
-            color: white;
+            color: #1e293b;
             outline: none;
         }
 
@@ -1093,7 +1116,7 @@
             display: none;
             background: transparent;
             border: none;
-            color: white;
+            color: #334155;
             font-size: 1.3rem;
             cursor: pointer;
         }
@@ -1113,12 +1136,12 @@
             display: block;
         }
 
-        /* DataTables Overrides */
+        /* DataTables Overrides - Light Mode */
         .dataTables_wrapper .dataTables_filter input,
         .dataTables_wrapper .dataTables_length select {
-            background: rgba(255, 255, 255, 0.05) !important;
-            border: 1px solid var(--glass-border) !important;
-            color: white !important;
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #1e293b !important;
             border-radius: 8px !important;
             padding: 8px 12px !important;
         }
@@ -1126,19 +1149,20 @@
         .dataTables_wrapper .dataTables_info,
         .dataTables_wrapper .dataTables_length label,
         .dataTables_wrapper .dataTables_filter label {
-            color: rgba(255, 255, 255, 0.6) !important;
+            color: #64748b !important;
         }
 
         .dataTables_wrapper .dataTables_paginate .paginate_button {
-            background: rgba(255, 255, 255, 0.05) !important;
-            border: 1px solid var(--glass-border) !important;
-            color: white !important;
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #334155 !important;
             border-radius: 8px !important;
             margin: 0 3px !important;
         }
 
         .dataTables_wrapper .dataTables_paginate .paginate_button.current {
             background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+            color: white !important;
             border: none !important;
         }
 
@@ -1191,14 +1215,14 @@
         }
 
         .popup-box {
-            background: rgba(30, 30, 50, 0.95);
+            background: #ffffff;
             border-radius: 24px;
             padding: 40px 50px;
             text-align: center;
             min-width: 350px;
             max-width: 450px;
             animation: popupScaleIn 0.3s ease;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         }
 
         .popup-icon {
@@ -1290,27 +1314,29 @@
         }
 
         .modal-prompt {
-            background: rgba(30, 30, 50, 0.95);
-            border: 1px solid var(--glass-border-light);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 20px;
             padding: 30px;
             min-width: 400px;
             max-width: 500px;
             animation: modalSlideIn 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
 
         .modal-prompt h5 {
             margin-bottom: 20px;
-            font-weight: 600;
+            font-weight: 700;
+            color: #0f172a;
         }
 
         .modal-prompt input {
             width: 100%;
             padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
             border-radius: 12px;
-            color: white;
+            color: #1e293b;
             font-size: 1rem;
             margin-bottom: 20px;
         }
@@ -1318,6 +1344,7 @@
         .modal-prompt input:focus {
             outline: none;
             border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
         }
 
         .modal-prompt-buttons {
@@ -1336,8 +1363,12 @@
         }
 
         .modal-prompt-buttons .btn-cancel {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .modal-prompt-buttons .btn-cancel:hover {
+            background: #e2e8f0;
         }
 
         .modal-prompt-buttons .btn-confirm {
@@ -1362,7 +1393,9 @@
 <body>
     <!-- Background Orbs -->
     <div class="bg-fixed">
-        <!-- Orbs Removed -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
     </div>
 
     <!-- Mobile Overlay -->
@@ -1378,23 +1411,23 @@
         <div class="user-badge" onclick="showView('profile', this); loadTeacherProfileView()" style="cursor: pointer;">
             <div class="user-avatar" id="teacher-avatar"><i class="fa-solid fa-user"></i></div>
             <div class="overflow-hidden">
-                <div class="fw-bold text-truncate" id="teacher-name">Giáo viên</div>
-                <div class="small text-truncate" style="color: rgba(255,255,255,0.5);" id="teacher-subject">Môn học
+                <div class="fw-bold text-truncate" id="teacher-name" style="color: #1e293b;">Giáo viên</div>
+                <div class="small text-truncate" style="color: #64748b;" id="teacher-subject">Môn học
                 </div>
             </div>
-            <i class="fa-solid fa-chevron-right ms-auto" style="color: rgba(255,255,255,0.3); font-size: 0.8rem;"></i>
+            <i class="fa-solid fa-chevron-right ms-auto" style="color: #cbd5e1; font-size: 0.8rem;"></i>
         </div>
 
         <div class="sidebar-nav">
             <div class="category-label">Quản lý</div>
             <div class="nav-item active" onclick="showView('dashboard', this)">
-                <i class="fa-solid fa-chart-line"></i> Dashboard
+                <i class="fa-solid fa-chart-line"></i> <span>Dashboard</span>
             </div>
             <div class="nav-item" onclick="showView('students', this)">
-                <i class="fa-solid fa-user-graduate"></i> Quản Lý Học Sinh
+                <i class="fa-solid fa-user-graduate"></i> <span>Quản Lý Học Sinh</span>
             </div>
             <div class="nav-item" onclick="showView('assignments', this)">
-                <i class="fa-solid fa-tasks"></i> Bài Tập & Điểm
+                <i class="fa-solid fa-tasks"></i> <span>Bài Tập & Điểm</span>
             </div>
             <div class="nav-item" onclick="showView('resources', this)">
                 <i class="fa-solid fa-cloud-upload-alt"></i> Tài Liệu Học Cụ
@@ -1471,25 +1504,25 @@
                 <div class="col-md-3 col-6">
                     <div class="stat-card">
                         <div class="stat-value text-primary" id="stat-classes">0</div>
-                        <div class="stat-label">Lớp Phụ Trách</div>
+                        <div class="stat-label text-slate-500">Lớp Phụ Trách</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
                     <div class="stat-card">
                         <div class="stat-value text-success" id="stat-students">0</div>
-                        <div class="stat-label">Học Sinh</div>
+                        <div class="stat-label text-slate-500">Học Sinh</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
                     <div class="stat-card">
                         <div class="stat-value text-warning" id="stat-completion">0%</div>
-                        <div class="stat-label">Tỉ Lệ Hoàn Thành</div>
+                        <div class="stat-label text-slate-500">Tỉ Lệ Hoàn Thành</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
                     <div class="stat-card">
                         <div class="stat-value text-danger" id="stat-warnings">0</div>
-                        <div class="stat-label">Cảnh Báo Học Tập</div>
+                        <div class="stat-label text-slate-500">Cảnh Báo Học Tập</div>
                     </div>
                 </div>
             </div>
@@ -1497,8 +1530,18 @@
             <div class="row g-4">
                 <div class="col-12">
                     <div class="glass-card">
-                        <h5 class="fw-bold mb-4">Biểu Đồ Điểm Số Trung Bình</h5>
-                        <canvas id="scoreChart" height="150"></canvas>
+                        <div class="d-flex justify-content-between align-items-start mb-4">
+                            <div>
+                                <h5 class="fw-bold mb-1">Biểu Đồ Điểm Số Trung Bình</h5>
+                                <p class="text-slate-500 small mb-0">Thống kê kết quả học tập trung bình của các lớp bạn đang phụ trách.</p>
+                            </div>
+                            <div class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill small fw-bold">
+                                Học kỳ hiện tại
+                            </div>
+                        </div>
+                        <div style="height: 300px; position: relative;">
+                            <canvas id="scoreChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1513,9 +1556,17 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="glass-card">
-                        <h5 class="fw-bold mb-4">Hoạt Động Tuần Này</h5>
-                        <canvas id="activityChart" height="150"></canvas>
+                    <div class="glass-card h-100">
+                        <div class="d-flex justify-content-between align-items-start mb-4">
+                            <div>
+                                <h5 class="fw-bold mb-1">Hoạt Động Tuần Này</h5>
+                                <p class="text-slate-500 small mb-0">Tương tác của học sinh với các bài tập và thông báo trong 7 ngày qua.</p>
+                            </div>
+                            <i class="fa-solid fa-clock-rotate-left text-slate-300 fs-4"></i>
+                        </div>
+                        <div style="height: 250px; position: relative;">
+                            <canvas id="activityChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1615,15 +1666,15 @@
             </div>
 
             <div id="assignments-tab-create" class="glass-card" style="display: none;">
-                <h5 class="fw-bold mb-4"><i class="fa-solid fa-plus-circle me-2 text-success"></i>Tạo Bài Tập Mới</h5>
-                <div class="row g-4">
+                <h5 class="fw-bold mb-3"><i class="fa-solid fa-plus-circle me-2 text-success"></i>Tạo Bài Tập Mới</h5>
+                <div class="row g-3">
                     <div class="col-md-6">
-                        <label class="form-label small text-white-50">Tiêu đề bài tập</label>
+                        <label class="form-label small text-slate-500">Tiêu đề bài tập</label>
                         <input type="text" class="input-glass" id="new-assignment-title"
                             placeholder="VD: Kiểm tra 15 phút chương 1">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label small text-white-50">Môn học</label>
+                        <label class="form-label small text-slate-500">Môn học</label>
                         <select class="input-glass" id="new-assignment-subject">
                             <option>Toán</option>
                             <option>Lý</option>
@@ -1633,22 +1684,22 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label small text-white-50">Lớp</label>
+                        <label class="form-label small text-slate-500">Lớp</label>
                         <select class="input-glass" id="new-assignment-class">
                             <!-- Populated dynamically from studentsData -->
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label small text-white-50">Hạn nộp</label>
+                        <label class="form-label small text-slate-500">Hạn nộp</label>
                         <input type="datetime-local" class="input-glass" id="new-assignment-deadline">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label small text-white-50">Điểm tối đa</label>
+                        <label class="form-label small text-slate-500">Điểm tối đa</label>
                         <input type="number" class="input-glass" id="new-assignment-maxscore" value="10" min="1"
                             max="100">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label small text-white-50">Loại bài tập</label>
+                        <label class="form-label small text-slate-500">Loại bài tập</label>
                         <select class="input-glass" id="new-assignment-type">
                             <option value="homework">Bài tập về nhà</option>
                             <option value="quiz">Kiểm tra 15 phút</option>
@@ -1657,12 +1708,12 @@
                         </select>
                     </div>
                     <div class="col-12">
-                        <label class="form-label small text-white-50">Mô tả chi tiết / Yêu cầu</label>
+                        <label class="form-label small text-slate-500">Mô tả chi tiết / Yêu cầu</label>
                         <textarea class="input-glass" id="new-assignment-desc" rows="4"
                             placeholder="Nhập nội dung bài tập, yêu cầu nộp bài..."></textarea>
                     </div>
                     <div class="col-12">
-                        <label class="form-label small text-white-50">File đính kèm (đề bài)</label>
+                        <label class="form-label small text-slate-500">File đính kèm (đề bài)</label>
                         <input type="file" class="input-glass" id="new-assignment-file">
                     </div>
                     <div class="col-12">
@@ -1727,11 +1778,11 @@
                 <form onsubmit="uploadResource(event)">
                     <div class="row g-4">
                         <div class="col-md-6">
-                            <label class="form-label small text-white-50">Tiêu đề tài liệu</label>
+                            <label class="form-label small text-slate-500">Tiêu đề tài liệu</label>
                             <input type="text" class="input-glass" placeholder="VD: Đề cương ôn tập HK1">
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label small text-white-50">Môn học</label>
+                            <label class="form-label small text-slate-500">Môn học</label>
                             <select class="input-glass">
                                 <option>Toán</option>
                                 <option>Lý</option>
@@ -1742,11 +1793,11 @@
                             </select>
                         </div>
                         <div class="col-12">
-                            <label class="form-label small text-white-50">Mô tả chi tiết</label>
+                            <label class="form-label small text-slate-500">Mô tả chi tiết</label>
                             <textarea class="input-glass" rows="4" placeholder="Mô tả nội dung tài liệu..."></textarea>
                         </div>
                         <div class="col-12">
-                            <label class="form-label small text-white-50">File đính kèm</label>
+                            <label class="form-label small text-slate-500">File đính kèm</label>
                             <input type="file" class="input-glass">
                         </div>
                         <div class="col-12 text-end">
@@ -1764,47 +1815,43 @@
             <div class="glass-card">
                 <h5 class="fw-bold mb-4"><i class="fa-solid fa-wand-magic-sparkles me-2 text-warning"></i>AI Soạn Giáo
                     Án</h5>
-                <div class="row g-4">
+                <div class="row g-3">
                     <div class="col-md-4">
-                        <label class="form-label small text-white-50">Môn học</label>
-                        <select class="input-glass" id="lesson-subject">
-                            <option>Toán</option>
-                            <option>Lý</option>
-                            <option>Hóa</option>
-                            <option>Anh</option>
-                            <option>Văn</option>
+                        <label class="form-label small text-slate-500 mb-1">Môn học</label>
+                        <select class="form-select input-glass" id="lesson-subject">
+                            <option>Toán học</option>
+                            <option>Ngữ Văn</option>
+                            <option>Tiếng Anh</option>
+                            <option>Vật Lý</option>
+                            <option>Hóa Học</option>
+                            <option>Sinh Học</option>
+                            <option>Lịch Sử</option>
+                            <option>Địa Lý</option>
+                            <option>Tin Học</option>
+                            <option>Giáo dục Kinh tế và Pháp luật</option>
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label small text-white-50">Lớp</label>
-                        <select class="input-glass" id="lesson-class">
-                            <option value="1">Lớp 1</option>
-                            <option value="2">Lớp 2</option>
-                            <option value="3">Lớp 3</option>
-                            <option value="4">Lớp 4</option>
-                            <option value="5">Lớp 5</option>
-                            <option value="6">Lớp 6</option>
-                            <option value="7">Lớp 7</option>
-                            <option value="8">Lớp 8</option>
-                            <option value="9">Lớp 9</option>
-                            <option value="10">Lớp 10</option>
-                            <option value="11">Lớp 11</option>
-                            <option value="12">Lớp 12</option>
+                        <label class="form-label small text-slate-500 mb-1">Lớp</label>
+                        <select class="form-select input-glass" id="lesson-grade">
+                            <option>Lớp 10</option>
+                            <option>Lớp 11</option>
+                            <option>Lớp 12</option>
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label small text-white-50">Thời lượng (phút)</label>
-                        <input type="number" class="input-glass" id="lesson-duration" value="45">
+                        <label class="form-label small text-slate-500 mb-1">Thời lượng (phút)</label>
+                        <input type="number" class="form-control input-glass" id="lesson-duration" placeholder="45">
                     </div>
                     <div class="col-12">
-                        <label class="form-label small text-white-50">Chủ đề bài dạy</label>
-                        <input type="text" class="input-glass" id="lesson-topic"
-                            placeholder="VD: Phương trình bậc hai, Định luật Newton...">
+                        <label class="form-label small text-slate-500 mb-1">Chủ đề bài dạy</label>
+                        <input type="text" class="form-control input-glass" id="lesson-topic"
+                            placeholder="VD: Đạo hàm và các ứng dụng của đạo hàm">
                     </div>
                     <div class="col-12">
-                        <label class="form-label small text-white-50">Yêu cầu cụ thể (tùy chọn)</label>
-                        <textarea class="input-glass" id="lesson-requirements" rows="3"
-                            placeholder="Muốn tập trung vào phần nào, có bài tập thực hành không..."></textarea>
+                        <label class="form-label small text-slate-500 mb-1">Yêu cầu cụ thể (tùy chọn)</label>
+                        <textarea class="form-control input-glass" id="lesson-prompt" rows="3"
+                            placeholder="VD: Tập trung vào các ví dụ thực tế, sử dụng ngôn ngữ dễ hiểu..."></textarea>
                     </div>
                     <div class="col-12">
                         <button class="btn-primary-glow w-100" id="btn-generate-lesson"
@@ -1834,14 +1881,7 @@
         <!-- AI Grading View (Logic mới từ File 2) -->
         <div id="view-ai-grading" class="view-section">
             <div class="p-4 h-100 d-flex flex-column">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div>
-                        <h4 class="fw-bold mb-1" style="color: var(--primary);">
-                            <i class="fa-solid fa-robot me-2"></i>AI Chấm Thi Thông Minh
-                        </h4>
-                        <p class="text-white-50 mb-0 small">Hệ thống chấm điểm AI đa phương thức: Trắc Nghiệm, Tự Luận &
-                            Đề Tổng Hợp</p>
-                    </div>
+                <div class="d-flex justify-content-start align-items-center mb-3">
                     <div class="glass-card p-1 d-flex gap-1" style="border-radius: 12px;">
                         <button class="btn btn-sm btn-glass active fw-bold px-3" id="tab-btn-omr"
                             onclick="switchGradingMode('omr')">
@@ -1859,23 +1899,47 @@
                 </div>
 
                 <!-- 1. OMR Mode -->
-                <div id="grading-mode-omr" class="grading-mode-content h-100 overflow-hidden">
-                    <div class="row h-100 g-3">
-                        <div class="col-lg-4 h-100 overflow-auto">
-                            <div class="glass-card p-3 mb-3">
-                                <h6 class="fw-bold text-info mb-3"><i class="fa-solid fa-sliders me-2"></i>Cấu Hình
-                                    Thang Điểm</h6>
+                <div id="grading-mode-omr" class="grading-mode-content h-100 d-flex flex-column">
+                    <!-- WIZARD HEADER -->
+                    <div class="d-flex justify-content-center align-items-center mb-4 pt-2">
+                        <div class="wizard-step text-center" id="wizard-step-1" onclick="goToAIGradingStep('omr', 1)" style="cursor: pointer;">
+                            <div class="step-circle bg-primary text-white mx-auto d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s;">1</div>
+                            <div class="small fw-bold text-slate-800 mt-1">Cấu Hình</div>
+                        </div>
+                        <div class="step-line bg-slate-300" style="height: 3px; width: 50px; margin: -20px 8px 0 8px; transition: all 0.3s;"></div>
+                        <div class="wizard-step text-center opacity-50" id="wizard-step-2" onclick="goToAIGradingStep('omr', 2)" style="cursor: pointer;">
+                            <div class="step-circle bg-slate-200 text-slate-600 mx-auto d-flex align-items-center justify-content-center rounded-circle border" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s;">2</div>
+                            <div class="small fw-bold text-slate-600 mt-1">Đáp Án</div>
+                        </div>
+                        <div class="step-line bg-slate-300" style="height: 3px; width: 50px; margin: -20px 8px 0 8px; transition: all 0.3s;"></div>
+                        <div class="wizard-step text-center opacity-50" id="wizard-step-3" onclick="goToAIGradingStep('omr', 3)" style="cursor: pointer;">
+                            <div class="step-circle bg-slate-200 text-slate-600 mx-auto d-flex align-items-center justify-content-center rounded-circle border" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s;">3</div>
+                            <div class="small fw-bold text-slate-600 mt-1">Bài Làm</div>
+                        </div>
+                        <div class="step-line bg-slate-300" style="height: 3px; width: 50px; margin: -20px 8px 0 8px; transition: all 0.3s;"></div>
+                        <div class="wizard-step text-center opacity-50" id="wizard-step-4" onclick="goToAIGradingStep('omr', 4)" style="cursor: pointer;">
+                            <div class="step-circle bg-slate-200 text-slate-600 mx-auto d-flex align-items-center justify-content-center rounded-circle border" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s;">4</div>
+                            <div class="small fw-bold text-slate-600 mt-1">Kết Quả</div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 1 -->
+                    <div id="grading-step-1-omr" class="grading-step d-flex flex-column flex-grow-1 overflow-auto rounded bg-white p-4 border mb-2 shadow-sm">
+                        <div class="row justify-content-center flex-grow-1">
+                            <div class="col-lg-6">
+                            <div class="p-4 rounded border border-slate-200 bg-slate-50 h-100">
+                                <h6 class="fw-bold text-info mb-3"><i class="fa-solid fa-sliders me-2"></i>Cấu Hình Thang Điểm</h6>
                                 <div id="ai-score-config-rows" class="row g-2 mb-3">
                                     <!-- Part 1 -->
                                     <div class="col-4">
                                         <div class="p-2 rounded text-center h-100 d-flex flex-column justify-content-center"
-                                            style="background: rgba(255,255,255,0.05)">
-                                            <div class="small fw-bold text-info mb-1" style="font-size: 0.7rem;">P1: TN
+                                            style="background: #f1f5f9; border: 1px solid #e2e8f0;">
+                                            <div class="small fw-bold text-slate-700 mb-1" style="font-size: 0.7rem;">P1: TN
                                                 (40c)</div>
                                             <div class="d-flex align-items-center justify-content-center gap-1">
                                                 <input type="number" id="ai-point-p1"
-                                                    class="form-control input-glass text-center fw-bold text-info p-1"
-                                                    value="0.25" step="0.05" style="font-size: 0.9rem;">
+                                                    class="form-control form-control-sm text-center fw-bold text-slate-800 p-1"
+                                                    value="0.25" step="0.05" style="font-size: 0.9rem; background: #ffffff;">
                                             </div>
                                         </div>
                                     </div>
@@ -1883,13 +1947,46 @@
                                     <!-- Part 2 -->
                                     <div class="col-4">
                                         <div class="p-2 rounded text-center h-100 d-flex flex-column justify-content-center"
-                                            style="background: rgba(255,255,255,0.05)">
-                                            <div class="small fw-bold text-warning mb-1" style="font-size: 0.7rem;">P2:
+                                            style="background: #f1f5f9; border: 1px solid #e2e8f0;">
+                                            <div class="small fw-bold text-slate-700 mb-1" style="font-size: 0.7rem;">P2:
                                                 Đ/S (8c)</div>
                                             <div class="d-flex align-items-center justify-content-center gap-1">
                                                 <input type="number" id="ai-point-p2"
-                                                    class="form-control input-glass text-center fw-bold text-warning p-1"
-                                                    value="1.0" step="0.1" style="font-size: 0.9rem;">
+                                                    class="form-control form-control-sm text-center fw-bold text-slate-800 p-1"
+                                                    value="1.0" step="0.1" style="font-size: 0.9rem; background: #ffffff;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Part 3 -->
+                            <div class="col-lg-6">
+                            <div class="p-4 rounded border border-slate-200 bg-slate-50 h-100">
+                                <h6 class="fw-bold text-info mb-3"><i class="fa-solid fa-sliders me-2"></i>Cấu Hình Thang Điểm</h6>
+                                <div id="ai-score-config-rows" class="row g-2 mb-3">
+                                    <!-- Part 1 -->
+                                    <div class="col-4">
+                                        <div class="p-2 rounded text-center h-100 d-flex flex-column justify-content-center"
+                                            style="background: #f1f5f9; border: 1px solid #e2e8f0;">
+                                            <div class="small fw-bold text-slate-700 mb-1" style="font-size: 0.7rem;">P1: TN
+                                                (40c)</div>
+                                            <div class="d-flex align-items-center justify-content-center gap-1">
+                                                <input type="number" id="ai-point-p1"
+                                                    class="form-control form-control-sm text-center fw-bold text-slate-800 p-1"
+                                                    value="0.25" step="0.05" style="font-size: 0.9rem; background: #ffffff;">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Part 2 -->
+                                    <div class="col-4">
+                                        <div class="p-2 rounded text-center h-100 d-flex flex-column justify-content-center"
+                                            style="background: #f1f5f9; border: 1px solid #e2e8f0;">
+                                            <div class="small fw-bold text-slate-700 mb-1" style="font-size: 0.7rem;">P2:
+                                                Đ/S (8c)</div>
+                                            <div class="d-flex align-items-center justify-content-center gap-1">
+                                                <input type="number" id="ai-point-p2"
+                                                    class="form-control form-control-sm text-center fw-bold text-slate-800 p-1"
+                                                    value="1.0" step="0.1" style="font-size: 0.9rem; background: #ffffff;">
                                             </div>
                                         </div>
                                     </div>
@@ -1897,34 +1994,41 @@
                                     <!-- Part 3 -->
                                     <div class="col-4">
                                         <div class="p-2 rounded text-center h-100 d-flex flex-column justify-content-center"
-                                            style="background: rgba(255,255,255,0.05)">
-                                            <div class="small fw-bold text-success mb-1" style="font-size: 0.7rem;">P3:
+                                            style="background: #f1f5f9; border: 1px solid #e2e8f0;">
+                                            <div class="small fw-bold text-slate-700 mb-1" style="font-size: 0.7rem;">P3:
                                                 Điền (6c)</div>
                                             <div class="d-flex align-items-center justify-content-center gap-1">
                                                 <input type="number" id="ai-point-p3"
-                                                    class="form-control input-glass text-center fw-bold text-success p-1"
-                                                    value="0.5" step="0.1" style="font-size: 0.9rem;">
+                                                    class="form-control form-control-sm text-center fw-bold text-slate-800 p-1"
+                                                    value="0.5" step="0.1" style="font-size: 0.9rem; background: #ffffff;">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Removed Add Button -->
-                                <div class="d-flex justify-content-between align-items-center p-2 rounded bg-black-20">
-                                    <span class="small text-white-50">Tổng điểm tối đa:</span>
+                                <div class="d-flex justify-content-between align-items-center p-2 rounded bg-slate-50">
+                                    <span class="small text-slate-500">Tổng điểm tối đa:</span>
                                     <input type="number"
                                         class="form-control input-glass text-center text-warning fw-bold"
                                         id="ai-max-score" value="10" step="0.5" min="1" max="100"
                                         style="width: 70px; font-size: 0.9rem;">
                                 </div>
                             </div>
+                        </div>
+                        <div class="text-end mt-4 pt-3 border-top">
+                            <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="goToAIGradingStep('omr', 2)">Lưu Cấu Hình & Tiếp Tục <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                        </div>
+                    </div>
 
-                            <div class="glass-card p-3 mb-3">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="fw-bold text-warning mb-0"><i class="fa-solid fa-key me-2"></i>Đáp Án
-                                        Chuẩn</h6>
+                    <!-- STEP 2 -->
+                    <div id="grading-step-2-omr" class="grading-step d-flex flex-column flex-grow-1 overflow-auto rounded bg-white p-4 border mb-2 shadow-sm d-none">
+                        <div class="row justify-content-center flex-grow-1">
+                            <div class="col-lg-8">
+                                <div class="p-4 rounded border border-slate-200 bg-slate-50 h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h6 class="fw-bold text-warning mb-0"><i class="fa-solid fa-key me-2"></i>Đáp Án Chuẩn</h6>
                                     <span id="ai-answer-count" class="badge bg-warning text-dark">0 câu</span>
                                 </div>
-                                <div class="d-flex gap-1 mb-3 p-1 rounded" style="background: rgba(255,255,255,0.05);">
+                                <div class="d-flex gap-1 mb-3 p-1 rounded" style="background: #f8fafc;">
                                     <button class="btn btn-sm btn-glass flex-fill active" id="ans-tab-manual"
                                         onclick="switchAnswerInputMode('manual')"><i
                                             class="fa-solid fa-keyboard me-1"></i>Nhập tay</button>
@@ -1936,9 +2040,6 @@
                                             class="fa-solid fa-image me-1"></i>Ảnh</button>
                                 </div>
                                 <div id="ans-mode-manual">
-                                    <!-- HEADER & TABS -->
-                                    <!-- HEADER & TABS (Single Row) -->
-                                    <!-- HEADER & TABS (Row for Tabs + Separate Delete) -->
                                     <div class="mb-3">
                                         <ul class="nav nav-pills nav-pills-custom row g-2 mb-2" id="ansKeyTabs"
                                             style="border:none;">
@@ -1964,36 +2065,32 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                        <!-- Delete Button Separated -->
                                         <button
-                                            class="btn btn-sm btn-outline-danger w-100 p-1 btn-hover-effect d-flex align-items-center justify-content-center gap-1"
+                                            class="btn btn-sm btn-outline-danger w-100 p-2 fw-bold d-flex align-items-center justify-content-center gap-1"
                                             onclick="clearAllAnswers()" title="Xóa tất cả"
-                                            style="border-radius: 8px; border-style: dashed;">
+                                            style="border-radius: 8px;">
                                             <i class="fa-solid fa-eraser"></i> Xóa Tất Cả
                                         </button>
                                     </div>
 
-                                    <!-- TAB CONTENT CONTAINER -->
                                     <div id="ai-answer-grid-container"
-                                        class="rounded custom-scrollbar border border-white-10"
-                                        style="max-height: 280px; overflow-y: auto; background: rgba(0,0,0,0.2); min-height: 150px; padding: 10px;">
+                                        class="rounded custom-scrollbar border border-slate-200"
+                                        style="max-height: 280px; overflow-y: auto; background: #f8fafc; min-height: 150px; padding: 10px;">
 
-                                        <!-- STYLE FOR TABS (Inline for quick fix, better in CSS file) -->
                                         <style>
                                             .nav-pills-custom .nav-link {
-                                                background: rgba(255, 255, 255, 0.05);
-                                                color: rgba(255, 255, 255, 0.6);
-                                                border: 1px solid rgba(255, 255, 255, 0.05);
+                                                background: #f1f5f9;
+                                                color: #64748b;
+                                                border: 1px solid #e2e8f0;
                                                 border-radius: 8px;
                                                 padding: 8px 16px;
                                                 font-size: 0.85rem;
                                                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                                                backdrop-filter: blur(5px);
                                             }
 
                                             .nav-pills-custom .nav-link:hover {
-                                                background: rgba(255, 255, 255, 0.15);
-                                                color: white;
+                                                background: #e2e8f0;
+                                                color: #1e293b;
                                                 transform: translateY(-1px);
                                             }
 
@@ -2014,31 +2111,25 @@
                                             }
                                         </style>
 
-                                        <!-- PART 1: TRẮC NGHIỆM (40 Câu) -->
                                         <div id="ai-key-p1" class="d-flex flex-wrap gap-1 p-2">
-                                            <!-- Generated via JS -->
                                         </div>
 
-                                        <!-- PART 2: ĐÚNG SAI (4 Câu lớn x 4 ý) -->
                                         <div id="ai-key-p2" class="p-2 d-none">
-                                            <!-- Generated via JS -->
                                         </div>
 
-                                        <!-- PART 3: TRẢ LỜI NGẮN (6 Câu) -->
                                         <div id="ai-key-p3" class="d-flex flex-wrap gap-2 p-2 d-none">
-                                            <!-- Generated via JS -->
                                         </div>
                                     </div>
                                 </div>
                                 <div id="ans-mode-file" class="d-none">
                                     <div class="border-dashed p-4 text-center rounded position-relative"
-                                        style="border: 2px dashed rgba(255,255,255,0.2);">
+                                        style="border: 2px dashed #cbd5e1;">
                                         <input type="file" id="ai-answer-file-input"
                                             class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer"
                                             accept=".txt,.csv" onchange="importAnswerFile(this)">
                                         <i class="fa-solid fa-file-lines text-info fa-2x mb-2"></i>
-                                        <p class="text-white-50 small mb-1">Kéo thả file .txt hoặc .csv</p>
-                                        <p class="text-white-50 small mb-0">Định dạng: ABCDABCD... hoặc mỗi dòng 1 đáp
+                                        <p class="text-slate-500 small mb-1">Kéo thả file .txt hoặc .csv</p>
+                                        <p class="text-slate-500 small mb-0">Định dạng: ABCDABCD... hoặc mỗi dòng 1 đáp
                                             án</p>
                                     </div>
                                     <div id="ai-file-status" class="mt-2 small text-success d-none"><i
@@ -2046,13 +2137,13 @@
                                 </div>
                                 <div id="ans-mode-image" class="d-none">
                                     <div class="border-dashed p-3 text-center rounded position-relative"
-                                        style="border: 2px dashed rgba(255,255,255,0.2); min-height: 100px;">
+                                        style="border: 2px dashed #cbd5e1; min-height: 100px;">
                                         <input type="file" id="ai-answer-image-input"
                                             class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer"
                                             accept="image/*" onchange="previewAnswerKeyImage(this)">
                                         <div id="ai-answer-image-placeholder">
                                             <i class="fa-solid fa-camera text-warning fa-2x mb-2"></i>
-                                            <p class="text-white-50 small mb-0">Upload ảnh phiếu đáp án chuẩn</p>
+                                            <p class="text-slate-500 small mb-0">Upload ảnh phiếu đáp án chuẩn</p>
                                         </div>
                                         <img id="ai-answer-image-preview" src="" class="rounded d-none"
                                             style="max-height: 120px; max-width: 100%; object-fit: contain;">
@@ -2060,9 +2151,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="d-flex justify-content-between mt-4 pt-3 border-top mx-auto" style="max-width: 800px;">
+                            <button class="btn btn-outline-slate px-4 fw-bold" onclick="goToAIGradingStep('omr', 1)" style="border: 1px solid #cbd5e1; color: #64748b;"><i class="fa-solid fa-arrow-left me-2"></i> Cấu Hình Điểm</button>
+                            <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="goToAIGradingStep('omr', 3)">Lưu Đáp Án & Tiếp Tục <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                        </div>
+                    </div>
 
-                        <div class="col-lg-4 h-100 overflow-auto">
-                            <div class="glass-card p-2 h-100 d-flex flex-column">
+                    <!-- STEP 4 -->
+                    <div id="grading-step-3-omr" class="grading-step d-flex flex-column flex-grow-1 overflow-auto rounded bg-white p-4 border mb-2 shadow-sm d-none">
+                        <div class="row justify-content-center flex-grow-1">
+                            <div class="col-lg-8 h-100">
+                                <div class="p-4 rounded border border-slate-200 bg-slate-50 d-flex flex-column h-100">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <h6 class="fw-bold text-success mb-0 small"><i
                                             class="fa-solid fa-users me-1"></i>Bài Làm Học Sinh</h6>
@@ -2071,16 +2170,16 @@
                                 </div>
                                 <div class="mb-2">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <small class="text-white-50" style="font-size: 0.7rem;"><i
+                                        <small class="text-slate-500" style="font-size: 0.7rem;"><i
                                                 class="fa-solid fa-list me-1"></i>Danh sách</small>
                                         <button class="btn btn-outline-danger px-1 py-0" style="font-size: 0.65rem;"
                                             onclick="clearAllStudents()" title="Xóa tất cả"><i
                                                 class="fa-solid fa-trash"></i></button>
                                     </div>
                                     <div class="rounded-2 p-1" id="ai-student-list-container"
-                                        style="background: rgba(0,0,0,0.2); border: 1px solid rgba(16,185,129,0.2); min-height: 50px; max-height: 140px; overflow-y: auto;">
+                                        style="background: #f8fafc; border: 1px solid rgba(16,185,129,0.2); min-height: 50px; max-height: 140px; overflow-y: auto;">
                                         <div id="ai-student-list" class="vstack gap-1">
-                                            <div class="text-center text-white-50 py-2" id="ai-student-empty">
+                                            <div class="text-center text-slate-500 py-2" id="ai-student-empty">
                                                 <i class="fa-solid fa-inbox opacity-50"></i>
                                                 <p class="mb-0" style="font-size: 0.7rem;">Chưa có học sinh</p>
                                             </div>
@@ -2091,30 +2190,16 @@
                                 <div class="rounded-2 p-2 mb-2"
                                     style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);">
                                     <div class="mb-1">
-                                        <label class="form-label text-white-50 mb-0" style="font-size: 0.7rem;"><i
+                                        <label class="form-label text-slate-500 mb-0" style="font-size: 0.7rem;"><i
                                                 class="fa-solid fa-user me-1"></i>Tên học sinh</label>
-                                        <input type="text" class="form-control form-control-sm input-glass py-1"
-                                            id="ai-new-student-name" placeholder="Nguyễn Văn A"
-                                            style="font-size: 0.8rem;">
+                                        <input type="text" class="input-glass" id="ai-student-name"
+                                            placeholder="Tên học sinh...">
                                     </div>
                                     <div class="mb-2">
-                                        <label class="form-label text-white-50 mb-0" style="font-size: 0.7rem;"><i
+                                        <label class="form-label text-slate-500 mb-1" style="font-size: 0.75rem;"><i
                                                 class="fa-solid fa-image me-1"></i>Ảnh bài làm</label>
-                                        <div class="border-dashed p-1 text-center rounded position-relative"
-                                            style="border: 1px dashed rgba(16,185,129,0.4);"
-                                            ondragover="this.style.borderColor='#10b981'; this.style.background='rgba(16,185,129,0.15)'"
-                                            ondragleave="this.style.borderColor='rgba(16,185,129,0.4)'; this.style.background='transparent'">
-                                            <input type="file" id="ai-new-student-file"
-                                                class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer"
-                                                accept="image/*" onchange="previewNewStudentFile(this)">
-                                            <div id="ai-new-student-placeholder">
-                                                <i class="fa-solid fa-cloud-arrow-up text-success"></i>
-                                                <span class="text-white-50 ms-1" style="font-size: 0.7rem;">Click hoặc
-                                                    kéo thả</span>
-                                            </div>
-                                            <img id="ai-new-student-preview" src="" class="rounded d-none"
-                                                style="max-height: 40px; max-width: 100%; object-fit: contain;">
-                                        </div>
+                                        <input type="file" class="form-control form-control-sm"
+                                            id="ai-student-file" accept="image/*" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px;">
                                     </div>
                                     <button class="btn btn-success btn-sm w-100 py-1" onclick="addNewStudent()"
                                         id="ai-add-student-btn" disabled style="font-size: 0.8rem;">
@@ -2127,12 +2212,18 @@
                                     style="font-size: 0.85rem;">
                                     <i class="fa-solid fa-wand-magic-sparkles me-1"></i>Chấm Tất Cả (<span
                                         id="ai-grade-count">0</span> bài)
-                                </button>
+                                                               </button>
                             </div>
                         </div>
+                        <div class="d-flex justify-content-between mt-4 pt-3 border-top mx-auto" style="max-width: 600px;">
+                            <button class="btn btn-outline-slate px-4 fw-bold" onclick="goToAIGradingStep('omr', 2)" style="border: 1px solid #cbd5e1; color: #64748b;"><i class="fa-solid fa-arrow-left me-2"></i> Trở Lại</button>
+                            <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="goToAIGradingStep('omr', 4)">Xem Kết Quả <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                        </div>
+                    </div>
 
-                        <div class="col-lg-4 h-100">
-                            <div class="glass-card p-3 h-100 d-flex flex-column bg-black-50">
+                    <!-- STEP 4 -->
+                    <div id="grading-step-4-omr" class="grading-step d-flex flex-column flex-grow-1 overflow-auto rounded bg-white p-4 border mb-2 shadow-sm d-none">
+                            <div class="p-4 rounded border border-slate-200 bg-slate-50 d-flex flex-column h-100">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <h6 class="fw-bold text-primary mb-0"><i
                                             class="fa-solid fa-chart-simple me-2"></i>Kết Quả Chấm</h6>
@@ -2151,30 +2242,30 @@
                                         <div class="p-2 rounded text-center"
                                             style="background: rgba(16, 185, 129, 0.15);">
                                             <div class="h5 fw-bold text-success mb-0" id="ai-stats-avg">--</div>
-                                            <small class="text-white-50" style="font-size: 10px;">ĐTB</small>
+                                            <small class="text-slate-500" style="font-size: 10px;">ĐTB</small>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="p-2 rounded text-center"
                                             style="background: rgba(99, 102, 241, 0.15);">
                                             <div class="h5 fw-bold text-primary mb-0" id="ai-stats-max">--</div>
-                                            <small class="text-white-50" style="font-size: 10px;">Cao nhất</small>
+                                            <small class="text-slate-500" style="font-size: 10px;">Cao nhất</small>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="p-2 rounded text-center"
                                             style="background: rgba(239, 68, 68, 0.15);">
                                             <div class="h5 fw-bold text-danger mb-0" id="ai-stats-min">--</div>
-                                            <small class="text-white-50" style="font-size: 10px;">Thấp nhất</small>
+                                            <small class="text-slate-500" style="font-size: 10px;">Thấp nhất</small>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="flex-grow-1 overflow-auto rounded" style="background: rgba(0,0,0,0.2);">
-                                    <table class="table table-dark table-hover table-sm mb-0"
+                                <div class="flex-grow-1 overflow-auto rounded" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                                    <table class="table table-hover table-sm mb-0"
                                         style="font-size: 0.85rem;">
-                                        <thead style="position: sticky; top: 0; background: rgba(30,30,50,0.98);">
-                                            <tr>
+                                        <thead style="position: sticky; top: 0; background: #f1f5f9; box-shadow: 0 1px 0 #e2e8f0;">
+                                            <tr style="color: #475569;">
                                                 <th style="width: 40px;">#</th>
                                                 <th>Tên</th>
                                                 <th style="width: 60px;" class="text-center">Đúng</th>
@@ -2183,7 +2274,7 @@
                                         </thead>
                                         <tbody id="ai-results-table">
                                             <tr id="ai-results-empty">
-                                                <td colspan="4" class="text-center text-white-50 py-4">
+                                                <td colspan="4" class="text-center text-slate-500 py-4">
                                                     <i class="fa-solid fa-clipboard-list fa-2x mb-2 opacity-50"></i>
                                                     <p class="small mb-0">Chưa có kết quả</p>
                                                 </td>
@@ -2191,27 +2282,27 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <small class="text-white-50 mt-2 d-block"><i
+                                <small class="text-slate-500 mt-2 d-block"><i
                                         class="fa-solid fa-hand-pointer me-1"></i>Click vào học sinh để xem chi
                                     tiết</small>
 
                                 <div id="ai-grading-progress" class="mt-3 d-none">
                                     <div class="d-flex justify-content-between small mb-1">
-                                        <span class="text-white-50">Đang chấm...</span>
+                                        <span class="text-slate-500">Đang chấm...</span>
                                         <span id="ai-progress-text" class="text-primary">0/0</span>
                                     </div>
-                                    <div class="progress" style="height: 8px; background: rgba(255,255,255,0.1);">
+                                    <div class="progress" style="height: 8px; background: #e2e8f0;">
                                         <div id="ai-progress-bar"
                                             class="progress-bar bg-primary progress-bar-striped progress-bar-animated"
                                             style="width: 0%"></div>
                                     </div>
-                                </div>
-                            </div>
+                                                               </div>
+                        <div class="d-flex justify-content-start mt-4 pt-3 border-top">
+                            <button class="btn btn-outline-slate px-4 fw-bold" onclick="goToAIGradingStep('omr', 3)" style="border: 1px solid #cbd5e1; color: #64748b;"><i class="fa-solid fa-arrow-left me-2"></i> Trở Lại Tải Bài</button>
                         </div>
                     </div>
                 </div>
-
-                <!-- Modal Removed from here and moved to bottom of body -->
+                <!-- Modal Removed/ from here and moved to bottom of body -->
 
                 <!-- 2. Essay Mode (Tự Luận) -->
                 <div id="grading-mode-essay" class="grading-mode-content h-100 d-none">
@@ -2221,7 +2312,7 @@
                                 <h6 class="fw-bold text-warning mb-2 small"><i class="fa-solid fa-scroll me-1"></i>Đề
                                     Bài & Tiêu Chí</h6>
                                 <div class="mb-2">
-                                    <label class="form-label text-white-50 mb-1" style="font-size: 0.7rem;"><i
+                                    <label class="form-label text-slate-500 mb-1" style="font-size: 0.7rem;"><i
                                             class="fa-solid fa-question me-1"></i>Đề bài <span
                                             class="text-danger">*</span></label>
                                     <textarea id="essay-question" class="form-control form-control-sm input-glass"
@@ -2229,14 +2320,14 @@
                                         style="font-size: 0.8rem;"></textarea>
                                 </div>
                                 <div class="mb-2">
-                                    <label class="form-label text-white-50 mb-1" style="font-size: 0.7rem;"><i
+                                    <label class="form-label text-slate-500 mb-1" style="font-size: 0.7rem;"><i
                                             class="fa-solid fa-star me-1"></i>Thang điểm</label>
                                     <input type="number" id="essay-max-score"
                                         class="form-control form-control-sm input-glass" value="10" min="1" max="100"
                                         style="font-size: 0.8rem;">
                                 </div>
                                 <div class="mb-2 flex-grow-1">
-                                    <label class="form-label text-white-50 mb-1" style="font-size: 0.7rem;"><i
+                                    <label class="form-label text-slate-500 mb-1" style="font-size: 0.7rem;"><i
                                             class="fa-solid fa-lightbulb me-1"></i>Đáp án mẫu / Tiêu chí chấm (tùy
                                         chọn)</label>
                                     <div class="nav nav-tabs nav-tabs-sm mb-1" style="font-size: 0.7rem;">
@@ -2260,7 +2351,7 @@
                                                     accept="image/*" onchange="previewEssayRubricImage(this)">
                                                 <div id="essay-rubric-placeholder">
                                                     <i class="fa-solid fa-image text-warning"></i>
-                                                    <span class="text-white-50 ms-1" style="font-size: 0.7rem;">Upload
+                                                    <span class="text-slate-500 ms-1" style="font-size: 0.7rem;">Upload
                                                         ảnh đáp án mẫu</span>
                                                 </div>
                                                 <img id="essay-rubric-preview" src="" class="rounded d-none"
@@ -2282,15 +2373,15 @@
                                 </div>
                                 <div class="mb-2">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <small class="text-white-50" style="font-size: 0.7rem;"><i
+                                        <small class="text-slate-500" style="font-size: 0.7rem;"><i
                                                 class="fa-solid fa-list me-1"></i>Danh sách</small>
                                         <button class="btn btn-outline-danger px-1 py-0" style="font-size: 0.65rem;"
                                             onclick="clearAllEssayStudents()"><i class="fa-solid fa-trash"></i></button>
                                     </div>
                                     <div class="rounded-2 p-1"
-                                        style="background: rgba(0,0,0,0.2); border: 1px solid rgba(16,185,129,0.2); min-height: 50px; max-height: 120px; overflow-y: auto;">
+                                        style="background: #f8fafc; border: 1px solid rgba(16,185,129,0.2); min-height: 50px; max-height: 120px; overflow-y: auto;">
                                         <div id="essay-student-list" class="vstack gap-1">
-                                            <div class="text-center text-white-50 py-2" id="essay-student-empty">
+                                            <div class="text-center text-slate-500 py-2" id="essay-student-empty">
                                                 <i class="fa-solid fa-inbox opacity-50"></i>
                                                 <p class="mb-0" style="font-size: 0.7rem;">Chưa có học sinh</p>
                                             </div>
@@ -2301,14 +2392,14 @@
                                 <div class="rounded-2 p-2 mb-2"
                                     style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);">
                                     <div class="mb-1">
-                                        <label class="form-label text-white-50 mb-0" style="font-size: 0.7rem;"><i
+                                        <label class="form-label text-slate-500 mb-0" style="font-size: 0.7rem;"><i
                                                 class="fa-solid fa-user me-1"></i>Tên học sinh</label>
                                         <input type="text" class="form-control form-control-sm input-glass py-1"
                                             id="essay-new-student-name" placeholder="Tên học sinh"
                                             style="font-size: 0.8rem;">
                                     </div>
                                     <div class="mb-2">
-                                        <label class="form-label text-white-50 mb-0" style="font-size: 0.7rem;"><i
+                                        <label class="form-label text-slate-500 mb-0" style="font-size: 0.7rem;"><i
                                                 class="fa-solid fa-image me-1"></i>Ảnh bài làm</label>
                                         <div class="border-dashed p-1 text-center rounded position-relative"
                                             style="border: 1px dashed rgba(16,185,129,0.4);"
@@ -2317,7 +2408,7 @@
                                                 accept="image/*" onchange="previewEssayStudentFile(this)">
                                             <div id="essay-new-student-placeholder">
                                                 <i class="fa-solid fa-cloud-arrow-up text-success"></i>
-                                                <span class="text-white-50 ms-1" style="font-size: 0.7rem;">Click để
+                                                <span class="text-slate-500 ms-1" style="font-size: 0.7rem;">Click để
                                                     upload</span>
                                             </div>
                                             <img id="essay-new-student-preview" src="" class="rounded d-none"
@@ -2334,11 +2425,17 @@
                                     style="font-size: 0.85rem;">
                                     <i class="fa-solid fa-wand-magic-sparkles me-1"></i>Chấm Tự Luận (<span
                                         id="essay-grade-count">0</span> bài)
-                                </button>
+                                                               </button>
                             </div>
                         </div>
+                        <div class="d-flex justify-content-between mt-4 pt-3 border-top mx-auto" style="max-width: 600px;">
+                            <button class="btn btn-outline-slate px-4 fw-bold" onclick="goToAIGradingStep('omr', 2)" style="border: 1px solid #cbd5e1; color: #64748b;"><i class="fa-solid fa-arrow-left me-2"></i> Trở Lại</button>
+                            <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="goToAIGradingStep('omr', 4)">Xem Kết Quả <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                        </div>
+                    </div>
 
-                        <div class="col-lg-4 h-100">
+                    <!-- STEP 4 -->
+                    <div id="grading-step-4-omr" class="grading-step d-flex flex-column flex-grow-1 overflow-auto rounded bg-white p-4 border mb-2 shadow-sm d-none">
                             <div class="glass-card p-2 h-100 d-flex flex-column">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <h6 class="fw-bold text-primary mb-0 small"><i
@@ -2358,7 +2455,7 @@
                                             style="background: rgba(16, 185, 129, 0.15);">
                                             <div class="fw-bold text-success" id="essay-stats-avg"
                                                 style="font-size: 1rem;">--</div>
-                                            <small class="text-white-50" style="font-size: 0.6rem;">ĐTB</small>
+                                            <small class="text-slate-500" style="font-size: 0.6rem;">ĐTB</small>
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -2366,7 +2463,7 @@
                                             style="background: rgba(99, 102, 241, 0.15);">
                                             <div class="fw-bold text-primary" id="essay-stats-max"
                                                 style="font-size: 1rem;">--</div>
-                                            <small class="text-white-50" style="font-size: 0.6rem;">Max</small>
+                                            <small class="text-slate-500" style="font-size: 0.6rem;">Max</small>
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -2374,15 +2471,15 @@
                                             style="background: rgba(239, 68, 68, 0.15);">
                                             <div class="fw-bold text-danger" id="essay-stats-min"
                                                 style="font-size: 1rem;">--</div>
-                                            <small class="text-white-50" style="font-size: 0.6rem;">Min</small>
+                                            <small class="text-slate-500" style="font-size: 0.6rem;">Min</small>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex-grow-1 overflow-auto rounded" style="background: rgba(0,0,0,0.2);">
-                                    <table class="table table-dark table-hover table-sm mb-0"
+                                <div class="flex-grow-1 overflow-auto rounded" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                                    <table class="table table-hover table-sm mb-0"
                                         style="font-size: 0.75rem;">
-                                        <thead style="position: sticky; top: 0; background: rgba(30,30,50,0.98);">
-                                            <tr>
+                                        <thead style="position: sticky; top: 0; background: #f1f5f9; box-shadow: 0 1px 0 #e2e8f0;">
+                                            <tr style="color: #475569;">
                                                 <th style="width: 30px;">#</th>
                                                 <th>Tên</th>
                                                 <th style="width: 55px;" class="text-center">Điểm</th>
@@ -2390,7 +2487,7 @@
                                         </thead>
                                         <tbody id="essay-results-table">
                                             <tr id="essay-results-empty">
-                                                <td colspan="3" class="text-center text-white-50 py-3">
+                                                <td colspan="3" class="text-center text-slate-500 py-3">
                                                     <i class="fa-solid fa-clipboard-list mb-1 opacity-50"></i>
                                                     <p class="small mb-0">Chưa có kết quả</p>
                                                 </td>
@@ -2398,7 +2495,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <small class="text-white-50 mt-1 d-block" style="font-size: 0.65rem;"><i
+                                <small class="text-slate-500 mt-1 d-block" style="font-size: 0.65rem;"><i
                                         class="fa-solid fa-hand-pointer me-1"></i>Click để xem chi tiết</small>
                             </div>
                         </div>
@@ -2413,7 +2510,7 @@
                                 <h5 class="fw-bold mb-4"><i class="fa-solid fa-calculator me-2 text-primary"></i>Cấu
                                     Hình Chấm Toàn Bài</h5>
                                 <div class="mb-4">
-                                    <label class="form-label small text-white-50">Tỉ lệ điểm phân bổ:</label>
+                                    <label class="form-label small text-slate-500">Tỉ lệ điểm phân bổ:</label>
                                     <div class="row g-2">
                                         <div class="col-6">
                                             <div class="p-3 rounded border border-info"
@@ -2426,7 +2523,7 @@
                                                     <input type="number" id="full-omr-ratio"
                                                         class="form-control input-glass text-center" value="40" min="0"
                                                         max="100">
-                                                    <span class="input-group-text bg-transparent text-white-50">%</span>
+                                                    <span class="input-group-text bg-transparent text-slate-500">%</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -2441,14 +2538,14 @@
                                                     <input type="number" id="full-essay-ratio"
                                                         class="form-control input-glass text-center" value="60" min="0"
                                                         max="100">
-                                                    <span class="input-group-text bg-transparent text-white-50">%</span>
+                                                    <span class="input-group-text bg-transparent text-slate-500">%</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mb-4">
-                                    <label class="form-label small text-white-50">Điểm thành phần (đã chấm):</label>
+                                    <label class="form-label small text-slate-500">Điểm thành phần (đã chấm):</label>
                                     <div class="vstack gap-2">
                                         <div class="d-flex align-items-center justify-content-between p-2 rounded"
                                             style="background: rgba(255,255,255,0.03);">
@@ -2458,20 +2555,6 @@
                                                 <span id="full-omr-score-display" class="badge bg-info">--/10</span>
                                                 <button class="btn btn-sm btn-outline-info px-2"
                                                     onclick="switchGradingMode('omr')"><i
-                                                        class="fa-solid fa-arrow-right"></i></button>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between p-2 rounded"
-                                            style="background: rgba(255,255,255,0.03);">
-                                            <span class="small"><i
-                                                    class="fa-solid fa-pen-nib text-warning me-2"></i>Essay (Tự
-                                                luận)</span>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <span id="full-essay-score-display"
-                                                    class="badge bg-warning text-dark">--/10</span>
-                                                <button class="btn btn-sm btn-outline-warning px-2"
-                                                    onclick="switchGradingMode('essay')"><i
-                                                        class="fa-solid fa-arrow-right"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -2487,14 +2570,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="text-end mt-4 pt-3 border-top">
+                            <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="goToAIGradingStep('omr', 2)">Lưu Cấu Hình & Tiếp Tục <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                        </div>
+                    </div>
 
-                        <div class="col-lg-7">
+                    <!-- STEP 4 -->
+                    <div id="grading-step-4-omr" class="grading-step d-flex flex-column flex-grow-1 overflow-auto rounded bg-white p-4 border mb-2 shadow-sm d-none">
+                        <div class="row justify-content-center flex-grow-1">
+                            <div class="col-lg-8">
                             <div class="glass-card p-4 h-100 d-flex flex-column" id="full-result-area">
                                 <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center text-center"
                                     id="full-result-placeholder">
-                                    <i class="fa-solid fa-layer-group fa-4x text-white-10 mb-4"></i>
-                                    <h5 class="text-white-50 mb-2">Chế Độ Chấm Toàn Bài</h5>
-                                    <p class="text-white-50 small mb-4" style="max-width: 400px;">
+                                    <i class="fa-solid fa-layer-group fa-4x text-slate-500 mb-4"></i>
+                                    <h5 class="text-slate-500 mb-2">Chế Độ Chấm Toàn Bài</h5>
+                                    <p class="text-slate-500 small mb-4" style="max-width: 400px;">
                                         1. Chấm phần <strong class="text-info">Trắc Nghiệm (OMR)</strong> ở tab đầu
                                         tiên<br>
                                         2. Chấm phần <strong class="text-warning">Tự Luận (AI)</strong> ở tab thứ
@@ -2504,27 +2594,27 @@
                                 </div>
                                 <div id="full-result-content" class="d-none text-center">
                                     <div class="mb-4">
-                                        <div class="small text-white-50 mb-1">ĐIỂM TỔNG</div>
+                                        <div class="small text-slate-500 mb-1">ĐIỂM TỔNG</div>
                                         <div class="display-3 fw-bold" id="full-total-score"
                                             style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                                             --</div>
-                                        <div class="text-white-50">/ 10</div>
+                                        <div class="text-slate-500">/ 10</div>
                                     </div>
                                     <div class="row g-3 mb-4">
                                         <div class="col-6">
                                             <div class="p-3 rounded border border-info"
                                                 style="background: rgba(6, 182, 212, 0.1);">
-                                                <div class="small text-white-50">Trắc nghiệm</div>
+                                                <div class="small text-slate-500">Trắc nghiệm</div>
                                                 <div class="h4 fw-bold text-info mb-0" id="full-omr-final">--</div>
-                                                <div class="small text-white-50" id="full-omr-weight">(--% x --)</div>
+                                                <div class="small text-slate-500" id="full-omr-weight">(--% x --)</div>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="p-3 rounded border border-warning"
                                                 style="background: rgba(245, 158, 11, 0.1);">
-                                                <div class="small text-white-50">Tự luận</div>
+                                                <div class="small text-slate-500">Tự luận</div>
                                                 <div class="h4 fw-bold text-warning mb-0" id="full-essay-final">--</div>
-                                                <div class="small text-white-50" id="full-essay-weight">(--% x --)</div>
+                                                <div class="small text-slate-500" id="full-essay-weight">(--% x --)</div>
                                             </div>
                                         </div>
                                     </div>
@@ -2549,7 +2639,7 @@
             <div class="glass-card">
                 <h5 class="fw-bold mb-4"><i class="fa-solid fa-user-plus me-2 text-info"></i>Yêu Cầu Kết Nối Từ Học Sinh
                 </h5>
-                <p class="text-white-50 mb-4">Khi học sinh gửi yêu cầu kết nối đến email của bạn, bạn có thể chấp nhận
+                <p class="text-slate-500 mb-4">Khi học sinh gửi yêu cầu kết nối đến email của bạn, bạn có thể chấp nhận
                     hoặc từ chối. Học sinh đã kết nối sẽ thấy được tài liệu bạn đăng lên.</p>
                 <div class="row g-4">
                     <div class="col-lg-6">
@@ -2558,7 +2648,7 @@
                             <h6 class="fw-bold mb-3"><i class="fa-solid fa-clock text-warning me-2"></i>Yêu Cầu Đang Chờ
                             </h6>
                             <div id="teacher-pending-list">
-                                <div class="text-center text-white-50 py-4">
+                                <div class="text-center text-slate-500 py-4">
                                     <i class="fa-solid fa-inbox fa-2x mb-2"></i>
                                     <p class="mb-0 small">Không có yêu cầu nào</p>
                                 </div>
@@ -2571,7 +2661,7 @@
                             <h6 class="fw-bold mb-3"><i class="fa-solid fa-users text-success me-2"></i>Học Sinh Đã Kết
                                 Nối</h6>
                             <div id="teacher-connected-list">
-                                <div class="text-center text-white-50 py-4">
+                                <div class="text-center text-slate-500 py-4">
                                     <i class="fa-solid fa-user-slash fa-2x mb-2"></i>
                                     <p class="mb-0 small">Chưa có học sinh nào</p>
                                 </div>
@@ -2589,7 +2679,7 @@
                     <div>
                         <h5 class="fw-bold mb-1"><i class="fa-solid fa-book-open me-2" style="color: #a855f7;"></i>Sổ
                             Đầu Bài Điện Tử</h5>
-                        <p class="text-white-50 mb-0 small">Quản lý tiết học và điểm danh (dữ liệu chung với Nhà trường)
+                        <p class="text-slate-500 mb-0 small">Quản lý tiết học và điểm danh (dữ liệu chung với Nhà trường)
                         </p>
                     </div>
                     <div class="d-flex gap-2 align-items-center">
@@ -2600,7 +2690,7 @@
                 <!-- Class Tabs -->
                 <div class="glass-card mb-4 p-3" style="background: rgba(255,255,255,0.02);">
                     <div class="d-flex flex-wrap gap-2" id="teacherSdbClassTabs">
-                        <div class="text-white-50 d-flex align-items-center"><i
+                        <div class="text-slate-500 d-flex align-items-center"><i
                                 class="fas fa-spinner fa-spin me-2"></i>Đang tải lớp...</div>
                     </div>
                 </div>
@@ -2622,7 +2712,7 @@
                         </thead>
                         <tbody id="teacherSdbEntriesBody">
                             <tr>
-                                <td colspan="8" class="text-center text-white-50 py-4">
+                                <td colspan="8" class="text-center text-slate-500 py-4">
                                     <i class="fas fa-info-circle me-2"></i>Chọn lớp để xem sổ đầu bài
                                 </td>
                             </tr>
@@ -2652,7 +2742,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <label class="text-white-50 mb-1 small">Tiết *</label>
+                                <label class="text-slate-500 mb-1 small">Tiết *</label>
                                 <select id="teacherEntryPeriod" class="input-glass">
                                     <option value="1">Tiết 1</option>
                                     <option value="2">Tiết 2</option>
@@ -2662,26 +2752,26 @@
                                 </select>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label class="text-white-50 mb-1 small">Môn học *</label>
+                                <label class="text-slate-500 mb-1 small">Môn học *</label>
                                 <input type="text" id="teacherEntrySubject" class="input-glass"
                                     placeholder="VD: Toán, Văn...">
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label class="text-white-50 mb-1 small">Giáo viên</label>
+                                <label class="text-slate-500 mb-1 small">Giáo viên</label>
                                 <input type="text" id="teacherEntryTeacher" class="input-glass" placeholder="Tên GV">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <label class="text-white-50 mb-1 small">Sĩ số</label>
+                                <label class="text-slate-500 mb-1 small">Sĩ số</label>
                                 <input type="number" id="teacherEntryAttendees" class="input-glass" value="40">
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label class="text-white-50 mb-1 small">Vắng</label>
+                                <label class="text-slate-500 mb-1 small">Vắng</label>
                                 <input type="number" id="teacherEntryAbsent" class="input-glass" value="0">
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label class="text-white-50 mb-1 small">Xếp loại</label>
+                                <label class="text-slate-500 mb-1 small">Xếp loại</label>
                                 <select id="teacherEntryQuality" class="input-glass">
                                     <option value="Tốt">Tốt</option>
                                     <option value="Khá">Khá</option>
@@ -2690,12 +2780,12 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="text-white-50 mb-1 small">Nội dung bài dạy</label>
+                            <label class="text-slate-500 mb-1 small">Nội dung bài dạy</label>
                             <textarea id="teacherEntryContent" class="input-glass" rows="2"
                                 placeholder="Nội dung bài học..."></textarea>
                         </div>
                         <div class="mb-3">
-                            <label class="text-white-50 mb-1 small">Ghi chú / Nhận xét</label>
+                            <label class="text-slate-500 mb-1 small">Ghi chú / Nhận xét</label>
                             <textarea id="teacherEntryNote" class="input-glass" rows="2"
                                 placeholder="Ghi chú..."></textarea>
                         </div>
@@ -2717,7 +2807,7 @@
                     <div>
                         <h5 class="fw-bold mb-1"><i class="fa-solid fa-file-circle-question me-2 text-warning"></i>Tạo
                             Quiz AI</h5>
-                        <p class="text-white-50 mb-0 small">Nhập chủ đề hoặc văn bản → AI tự động tạo câu hỏi trắc
+                        <p class="text-slate-500 mb-0 small">Nhập chủ đề hoặc văn bản → AI tự động tạo câu hỏi trắc
                             nghiệm</p>
                     </div>
                 </div>
@@ -2730,7 +2820,7 @@
                             <textarea id="teacher-quiz-input" class="input-glass flex-grow-1 mb-3" rows="8"
                                 placeholder="Nhập chủ đề (VD: cấp số cộng, phương trình bậc 2...) hoặc dán đoạn văn bản dài..."></textarea>
                             <div class="d-flex gap-2 mb-3 align-items-center">
-                                <span class="text-white-50 small">Số câu:</span>
+                                <span class="text-slate-500 small">Số câu:</span>
                                 <select id="teacher-quiz-num" class="input-glass" style="max-width: 100px;">
                                     <option value="3">3 câu</option>
                                     <option value="5" selected>5 câu</option>
@@ -2751,7 +2841,7 @@
                             <h6 class="fw-bold mb-3"><i
                                     class="fa-solid fa-clipboard-question me-2 text-success"></i>Quiz Được Tạo</h6>
                             <div id="teacher-quiz-result">
-                                <div class="text-center text-white-50 py-5">
+                                <div class="text-center text-slate-500 py-5">
                                     <i class="fa-solid fa-clipboard-question fa-3x mb-3 opacity-50"></i>
                                     <p class="mb-0">Quiz sẽ hiển thị ở đây</p>
                                 </div>
@@ -2783,7 +2873,7 @@
                 <h5 class="fw-bold mb-4"><i class="fa-solid fa-bullhorn me-2 text-danger"></i>Gửi Thông Báo Đến Lớp</h5>
                 <div class="row g-4">
                     <div class="col-md-6">
-                        <label class="form-label small text-white-50">Chọn lớp nhận</label>
+                        <label class="form-label small text-slate-500">Chọn lớp nhận</label>
                         <select class="input-glass" id="notify-class">
                             <option>Tất cả lớp</option>
                             <option>10A1 - Toán Nâng Cao</option>
@@ -2791,7 +2881,7 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label small text-white-50">Loại thông báo</label>
+                        <label class="form-label small text-slate-500">Loại thông báo</label>
                         <select class="input-glass" id="notify-type">
                             <option>📢 Thông báo chung</option>
                             <option>📝 Bài tập về nhà</option>
@@ -2800,12 +2890,12 @@
                         </select>
                     </div>
                     <div class="col-12">
-                        <label class="form-label small text-white-50">Tiêu đề</label>
+                        <label class="form-label small text-slate-500">Tiêu đề</label>
                         <input type="text" class="input-glass" id="notify-title"
                             placeholder="VD: Lịch kiểm tra 15 phút tuần sau">
                     </div>
                     <div class="col-12">
-                        <label class="form-label small text-white-50">Nội dung thông báo</label>
+                        <label class="form-label small text-slate-500">Nội dung thông báo</label>
                         <textarea class="input-glass" id="notify-content" rows="4"
                             placeholder="Nhập nội dung thông báo chi tiết..."></textarea>
                     </div>
@@ -2833,7 +2923,7 @@
                 </div>
 
                 <div id="inbox-list" class="d-flex flex-column gap-3">
-                    <div class="text-center text-white-50 py-4">
+                    <div class="text-center text-slate-500 py-4">
                         <i class="fa-solid fa-spinner fa-spin me-2"></i>Đang tải...
                     </div>
                 </div>
@@ -2849,7 +2939,7 @@
                         <div class="lobby-header">
                             <i class="fa-solid fa-video text-primary" style="font-size: 3rem;"></i>
                             <h3>Phòng Học Online</h3>
-                            <p class="text-white-50">Học trực tuyến với video call chất lượng cao</p>
+                            <p class="text-slate-500">Học trực tuyến với video call chất lượng cao</p>
                         </div>
 
                         <div class="lobby-actions">
@@ -2861,7 +2951,7 @@
                             </div>
 
                             <div class="join-room-form">
-                                <label class="form-label small text-white-50">Nhập mã phòng</label>
+                                <label class="form-label small text-slate-500">Nhập mã phòng</label>
                                 <div class="d-flex gap-2">
                                     <input type="text" id="room-code-input" class="input-glass" placeholder="VD: ABC123"
                                         maxlength="6"
@@ -2875,9 +2965,9 @@
                         </div>
 
                         <div class="lobby-tips mt-4">
-                            <p class="small text-white-50 mb-1"><i
+                            <p class="small text-slate-500 mb-1"><i
                                     class="fa-solid fa-lightbulb me-2 text-warning"></i>Mẹo:</p>
-                            <ul class="small text-white-50 ps-4 mb-0">
+                            <ul class="small text-slate-500 ps-4 mb-0">
                                 <li>Cho phép trình duyệt truy cập camera và mic</li>
                                 <li>Sử dụng tai nghe để tránh tiếng vọng</li>
                                 <li>Đảm bảo kết nối internet ổn định</li>
@@ -2892,7 +2982,7 @@
         <div id="view-join-school" class="view-section">
             <div class="glass-card">
                 <h5 class="fw-bold mb-4"><i class="fa-solid fa-school-flag me-2 text-info"></i>Tham Gia Trường Học</h5>
-                <p class="text-white-50 small mb-4">Tìm kiếm và tham gia vào trường học để bắt đầu giảng dạy và quản lý
+                <p class="text-slate-500 small mb-4">Tìm kiếm và tham gia vào trường học để bắt đầu giảng dạy và quản lý
                     lớp học.</p>
 
                 <!-- STATUS SECTION -->
@@ -2900,7 +2990,7 @@
                     <!-- JS will populate this -->
                     <div class="text-center">
                         <div class="spinner-border text-primary" role="status"></div>
-                        <p class="mt-2 text-white-50">Đang tải thông tin...</p>
+                        <p class="mt-2 text-slate-500">Đang tải thông tin...</p>
                     </div>
                 </div>
 
@@ -2994,8 +3084,8 @@
                                 class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2 rounded-pill mb-4">Giáo
                                 viên</span>
 
-                            <div class="w-100 text-start mt-auto p-3 rounded-3" style="background: rgba(0,0,0,0.2);">
-                                <small class="text-white-50 d-block mb-2">Trạng thái hồ sơ</small>
+                            <div class="w-100 text-start mt-auto p-3 rounded-3" style="background: #f8fafc;">
+                                <small class="text-slate-500 d-block mb-2">Trạng thái hồ sơ</small>
                                 <div class="d-flex align-items-center gap-2 mb-1">
                                     <div class="progress flex-grow-1"
                                         style="height: 6px; background: rgba(255,255,255,0.1);">
@@ -3018,13 +3108,13 @@
                             <div class="row g-4">
                                 <!-- Họ và tên -->
                                 <div class="col-md-6">
-                                    <label class="small text-white-50 mb-2 fw-medium">Họ và tên</label>
+                                    <label class="small text-slate-500 mb-2 fw-medium">Họ và tên</label>
                                     <div class="input-group">
-                                        <span class="input-group-text border-0 text-white-50"
-                                            style="background: rgba(0,0,0,0.2);"><i class="fa-solid fa-user"></i></span>
+                                        <span class="input-group-text border-0 text-slate-500"
+                                            style="background: #f8fafc;"><i class="fa-solid fa-user"></i></span>
                                         <input type="text" id="teacher-view-fullname"
                                             class="form-control border-0 text-white shadow-none py-2"
-                                            style="background: rgba(0,0,0,0.2); transition: all 0.3s;"
+                                            style="background: #f8fafc; transition: all 0.3s;"
                                             onfocus="this.style.background='rgba(255,255,255,0.05)'"
                                             onblur="this.style.background='rgba(0,0,0,0.2)'"
                                             placeholder="Nhập họ tên...">
@@ -3033,14 +3123,14 @@
 
                                 <!-- Email -->
                                 <div class="col-md-6">
-                                    <label class="small text-white-50 mb-2 fw-medium">Email</label>
+                                    <label class="small text-slate-500 mb-2 fw-medium">Email</label>
                                     <div class="input-group">
-                                        <span class="input-group-text border-0 text-white-50"
-                                            style="background: rgba(0,0,0,0.2);"><i
+                                        <span class="input-group-text border-0 text-slate-500"
+                                            style="background: #f8fafc;"><i
                                                 class="fa-solid fa-envelope"></i></span>
                                         <input type="email" id="teacher-view-email"
                                             class="form-control border-0 text-white shadow-none py-2"
-                                            style="background: rgba(0,0,0,0.2); transition: all 0.3s;"
+                                            style="background: #f8fafc; transition: all 0.3s;"
                                             onfocus="this.style.background='rgba(255,255,255,0.05)'"
                                             onblur="this.style.background='rgba(0,0,0,0.2)'"
                                             placeholder="email@example.com">
@@ -3049,14 +3139,14 @@
 
                                 <!-- Điện thoại -->
                                 <div class="col-md-6">
-                                    <label class="small text-white-50 mb-2 fw-medium">Điện thoại</label>
+                                    <label class="small text-slate-500 mb-2 fw-medium">Điện thoại</label>
                                     <div class="input-group">
-                                        <span class="input-group-text border-0 text-white-50"
-                                            style="background: rgba(0,0,0,0.2);"><i
+                                        <span class="input-group-text border-0 text-slate-500"
+                                            style="background: #f8fafc;"><i
                                                 class="fa-solid fa-phone"></i></span>
                                         <input type="tel" id="teacher-view-phone"
                                             class="form-control border-0 text-white shadow-none py-2"
-                                            style="background: rgba(0,0,0,0.2); transition: all 0.3s;"
+                                            style="background: #f8fafc; transition: all 0.3s;"
                                             onfocus="this.style.background='rgba(255,255,255,0.05)'"
                                             onblur="this.style.background='rgba(0,0,0,0.2)'" placeholder="09xx...">
                                     </div>
@@ -3064,13 +3154,13 @@
 
                                 <!-- Môn giảng dạy -->
                                 <div class="col-md-6">
-                                    <label class="small text-white-50 mb-2 fw-medium">Môn giảng dạy</label>
+                                    <label class="small text-slate-500 mb-2 fw-medium">Môn giảng dạy</label>
                                     <div class="input-group">
-                                        <span class="input-group-text border-0 text-white-50"
-                                            style="background: rgba(0,0,0,0.2);"><i class="fa-solid fa-book"></i></span>
+                                        <span class="input-group-text border-0 text-slate-500"
+                                            style="background: #f8fafc;"><i class="fa-solid fa-book"></i></span>
                                         <input type="text" id="teacher-view-subject"
                                             class="form-control border-0 text-white shadow-none py-2"
-                                            style="background: rgba(0,0,0,0.2); transition: all 0.3s;"
+                                            style="background: #f8fafc; transition: all 0.3s;"
                                             onfocus="this.style.background='rgba(255,255,255,0.05)'"
                                             onblur="this.style.background='rgba(0,0,0,0.2)'"
                                             placeholder="VD: Toán, Lý, Hóa...">
@@ -3079,14 +3169,14 @@
 
                                 <!-- Trường -->
                                 <div class="col-md-6">
-                                    <label class="small text-white-50 mb-2 fw-medium">Trường</label>
+                                    <label class="small text-slate-500 mb-2 fw-medium">Trường</label>
                                     <div class="input-group">
-                                        <span class="input-group-text border-0 text-white-50"
-                                            style="background: rgba(0,0,0,0.2);"><i
+                                        <span class="input-group-text border-0 text-slate-500"
+                                            style="background: #f8fafc;"><i
                                                 class="fa-solid fa-school"></i></span>
                                         <input type="text" id="teacher-view-school"
                                             class="form-control border-0 text-white shadow-none py-2"
-                                            style="background: rgba(0,0,0,0.2); transition: all 0.3s;"
+                                            style="background: #f8fafc; transition: all 0.3s;"
                                             onfocus="this.style.background='rgba(255,255,255,0.05)'"
                                             onblur="this.style.background='rgba(0,0,0,0.2)'"
                                             placeholder="Tên trường...">
@@ -3095,14 +3185,14 @@
 
                                 <!-- Số năm kinh nghiệm -->
                                 <div class="col-md-6">
-                                    <label class="small text-white-50 mb-2 fw-medium">Số năm kinh nghiệm</label>
+                                    <label class="small text-slate-500 mb-2 fw-medium">Số năm kinh nghiệm</label>
                                     <div class="input-group">
-                                        <span class="input-group-text border-0 text-white-50"
-                                            style="background: rgba(0,0,0,0.2);"><i
+                                        <span class="input-group-text border-0 text-slate-500"
+                                            style="background: #f8fafc;"><i
                                                 class="fa-solid fa-briefcase"></i></span>
                                         <input type="number" id="teacher-view-experience"
                                             class="form-control border-0 text-white shadow-none py-2"
-                                            style="background: rgba(0,0,0,0.2); transition: all 0.3s;"
+                                            style="background: #f8fafc; transition: all 0.3s;"
                                             onfocus="this.style.background='rgba(255,255,255,0.05)'"
                                             onblur="this.style.background='rgba(0,0,0,0.2)'" placeholder="VD: 5">
                                     </div>
@@ -3160,19 +3250,19 @@
                 <h5 class="fw-bold mb-4"><i class="fa-solid fa-cog me-2 text-primary"></i>Cài Đặt Tài Khoản</h5>
                 <div class="row g-4">
                     <div class="col-md-6">
-                        <label class="form-label small text-white-50">Họ và tên</label>
+                        <label class="form-label small text-slate-500">Họ và tên</label>
                         <input type="text" class="input-glass" id="setting-fullname" placeholder="Nhập họ và tên">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label small text-white-50">Email (dùng để học sinh kết nối)</label>
+                        <label class="form-label small text-slate-500">Email (dùng để học sinh kết nối)</label>
                         <input type="email" class="input-glass" id="setting-email" placeholder="email@eschool.edu.vn">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label small text-white-50">Số điện thoại</label>
+                        <label class="form-label small text-slate-500">Số điện thoại</label>
                         <input type="text" class="input-glass" id="setting-phone" placeholder="0901234567">
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label small text-white-50">Môn giảng dạy</label>
+                        <label class="form-label small text-slate-500">Môn giảng dạy</label>
                         <input type="text" class="input-glass" id="setting-subject" placeholder="VD: Toán, Lý, Hóa...">
                     </div>
                     <div class="col-12">
@@ -3183,7 +3273,7 @@
                                 style="background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);">
                                 <div>
                                     <span class="fw-bold">Xác thực 2 lớp (2FA)</span>
-                                    <p class="small text-white-50 mb-0">Bảo vệ tài khoản bằng mã OTP qua email</p>
+                                    <p class="small text-slate-500 mb-0">Bảo vệ tài khoản bằng mã OTP qua email</p>
                                 </div>
                                 <label class="form-check form-switch mb-0">
                                     <input class="form-check-input" type="checkbox" id="teacher-2fa-toggle"
@@ -3191,7 +3281,7 @@
                                 </label>
                             </div>
                             <div id="teacher-2fa-setup" style="display: none;" class="mt-3 p-3 rounded"
-                                style="background: rgba(0,0,0,0.2);">
+                                style="background: #f8fafc;">
                                 <div class="d-flex gap-2">
                                     <input type="text" class="input-glass" id="teacher-2fa-otp"
                                         placeholder="Nhập mã OTP 6 số..." maxlength="6"
@@ -3216,7 +3306,7 @@
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                     <div>
                         <h5 class="fw-bold mb-1"><i class="fa-solid fa-chair me-2 text-info"></i>Sắp Xếp Chỗ Ngồi</h5>
-                        <p class="text-white-50 mb-0 small">Xáo trộn vị trí học sinh cho thi cử hoặc xếp chỗ ngồi phù
+                        <p class="text-slate-500 mb-0 small">Xáo trộn vị trí học sinh cho thi cử hoặc xếp chỗ ngồi phù
                             hợp</p>
                     </div>
                     <div class="d-flex gap-2 align-items-center">
@@ -3256,12 +3346,12 @@
                 <!-- Grid Config -->
                 <div class="row g-3 mb-4">
                     <div class="col-auto">
-                        <label class="small text-white-50">Số hàng bàn:</label>
+                        <label class="small text-slate-500">Số hàng bàn:</label>
                         <input type="number" class="input-glass" id="seating-rows" value="5" min="2" max="10"
                             style="width: 70px;" onchange="updateSeatingGrid()">
                     </div>
                     <div class="col-auto">
-                        <label class="small text-white-50">Số bàn/hàng:</label>
+                        <label class="small text-slate-500">Số bàn/hàng:</label>
                         <input type="number" class="input-glass" id="seating-cols" value="4" min="2" max="8"
                             style="width: 70px;" onchange="updateSeatingGrid()">
                     </div>
@@ -3269,16 +3359,16 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="seating-double-desk" checked
                                 onchange="updateSeatingGrid()">
-                            <label class="form-check-label small text-white-50" for="seating-double-desk">Bàn đôi (2
+                            <label class="form-check-label small text-slate-500" for="seating-double-desk">Bàn đôi (2
                                 người/bàn)</label>
                         </div>
                     </div>
                     <div class="col-auto d-flex align-items-end">
-                        <div class="p-2 rounded" style="background: rgba(255,255,255,0.05);">
-                            <span class="small text-white-50">Tổng chỗ: </span>
+                        <div class="p-2 rounded" style="background: #f1f5f9;">
+                            <span class="small text-slate-500">Tổng chỗ: </span>
                             <span class="fw-bold text-info" id="seating-total-seats">40</span>
                             <span class="mx-2">|</span>
-                            <span class="small text-white-50">Học sinh: </span>
+                            <span class="small text-slate-500">Học sinh: </span>
                             <span class="fw-bold text-success" id="seating-total-students">0</span>
                         </div>
                     </div>
@@ -3294,43 +3384,43 @@
 
                 <!-- Seating Grid -->
                 <div id="seating-grid-container" class="p-4 rounded"
-                    style="background: rgba(0,0,0,0.2); overflow-x: auto;">
+                    style="background: #f1f5f9; overflow-x: auto;">
                     <div id="seating-grid" class="d-flex flex-column gap-2" style="min-width: fit-content;">
                         <!-- Grid will be generated by JS -->
                     </div>
                 </div>
 
                 <!-- Legend -->
-                <div class="d-flex flex-wrap gap-4 mt-4 pt-3" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                <div class="d-flex flex-wrap gap-4 mt-4 pt-3" style="border-top: 1px solid #e2e8f0;">
                     <div class="d-flex align-items-center gap-2">
                         <div
                             style="width: 20px; height: 20px; background: rgba(16,185,129,0.3); border: 2px solid #10b981; border-radius: 4px;">
                         </div>
-                        <span class="small text-white-50">Học sinh giỏi (ĐTB ≥ 8)</span>
+                        <span class="small text-slate-500">Học sinh giỏi (ĐTB ≥ 8)</span>
                     </div>
                     <div class="d-flex align-items-center gap-2">
                         <div
                             style="width: 20px; height: 20px; background: rgba(99,102,241,0.3); border: 2px solid #6366f1; border-radius: 4px;">
                         </div>
-                        <span class="small text-white-50">Học sinh khá (ĐTB ≥ 6.5)</span>
+                        <span class="small text-slate-500">Học sinh khá (ĐTB ≥ 6.5)</span>
                     </div>
                     <div class="d-flex align-items-center gap-2">
                         <div
                             style="width: 20px; height: 20px; background: rgba(245,158,11,0.3); border: 2px solid #f59e0b; border-radius: 4px;">
                         </div>
-                        <span class="small text-white-50">Học sinh TB (ĐTB ≥ 5)</span>
+                        <span class="small text-slate-500">Học sinh TB (ĐTB ≥ 5)</span>
                     </div>
                     <div class="d-flex align-items-center gap-2">
                         <div
                             style="width: 20px; height: 20px; background: rgba(239,68,68,0.3); border: 2px solid #ef4444; border-radius: 4px;">
                         </div>
-                        <span class="small text-white-50">Học sinh yếu (ĐTB < 5)</span>
+                        <span class="small text-slate-500">Học sinh yếu (ĐTB < 5)</span>
                     </div>
                     <div class="d-flex align-items-center gap-2">
                         <div
-                            style="width: 20px; height: 20px; background: rgba(255,255,255,0.05); border: 2px dashed rgba(255,255,255,0.2); border-radius: 4px;">
+                            style="width: 20px; height: 20px; background: #f1f5f9; border: 2px dashed #cbd5e1; border-radius: 4px;">
                         </div>
-                        <span class="small text-white-50">Chỗ trống</span>
+                        <span class="small text-slate-500">Chỗ trống</span>
                     </div>
                 </div>
             </div>
@@ -3345,7 +3435,7 @@
                         <i class="fa-solid fa-car-burst" style="font-size: 40px; color: #f59e0b;"></i>
                     </div>
                     <h3 class="fw-bold mb-2">Tra Cứu Vi Phạm Giao Thông</h3>
-                    <p class="text-white-50">Dữ liệu được cập nhật trực tiếp từ Cục Cảnh sát giao thông</p>
+                    <p class="text-slate-500">Dữ liệu được cập nhật trực tiếp từ Cục Cảnh sát giao thông</p>
                 </div>
 
                 <div class="row justify-content-center">
@@ -3374,16 +3464,16 @@
 
                         <!-- Plate Input -->
                         <div class="mb-4">
-                            <label class="form-label fw-bold small text-white-50">Biển số xe <span
+                            <label class="form-label fw-bold small text-slate-500">Biển số xe <span
                                     class="text-danger">*</span></label>
                             <input id="traffic-plate-page" type="text" class="input-glass" placeholder="VD: 29A-12345"
-                                style="font-size: 1.2rem; text-transform: uppercase; text-align: center; letter-spacing: 2px; border: 1px solid rgba(255,255,255,0.2);">
+                                style="font-size: 1.2rem; text-transform: uppercase; text-align: center; letter-spacing: 2px;">
                         </div>
 
                         <!-- Captcha -->
                         <div class="mb-4 d-flex gap-3 align-items-end">
                             <div class="flex-grow-1">
-                                <label class="form-label fw-bold small text-white-50">Mã xác thực <span
+                                <label class="form-label fw-bold small text-slate-500">Mã xác thực <span
                                         class="text-danger">*</span></label>
                                 <input id="traffic-captcha-input-page" type="text" class="input-glass"
                                     placeholder="Nhập mã...">
@@ -3407,7 +3497,7 @@
                         <div class="mb-4 d-flex align-items-center justify-content-center gap-2">
                             <input type="checkbox" id="save-plate-page"
                                 style="width: 16px; height: 16px; accent-color: #6366f1;">
-                            <label for="save-plate-page" class="small text-white-50" style="cursor: pointer;">Lưu biển
+                            <label for="save-plate-page" class="small text-slate-500" style="cursor: pointer;">Lưu biển
                                 số này</label>
                         </div>
 
@@ -3468,48 +3558,48 @@
     <!-- Avatar Crop Modal -->
     <div id="resultDetailModal" class="modal fade" tabindex="-1" style="z-index: 1060;">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content bg-dark border border-white-10"
-                style="background: linear-gradient(135deg, rgba(30,30,60,0.98), rgba(20,20,40,0.98)) !important;">
-                <div class="modal-header border-bottom border-white-10">
-                    <h5 class="modal-title text-white"><i class="fa-solid fa-clipboard-check text-primary me-2"></i>Chi
+            <div class="modal-content border" 
+                style="background: #ffffff !important; border-color: #e2e8f0 !important;">
+                <div class="modal-header" style="border-bottom: 1px solid #e2e8f0;">
+                    <h5 class="modal-title" style="color: #0f172a;"><i class="fa-solid fa-clipboard-check text-primary me-2"></i>Chi
                         Tiết Kết Quả</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="d-flex align-items-center gap-3 mb-4 p-3 rounded"
                         style="background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);">
                         <div class="text-center">
                             <div id="detail-score" class="display-4 fw-bold text-primary">0</div>
-                            <small class="text-white-50">điểm</small>
+                            <small class="text-slate-500">điểm</small>
                         </div>
-                        <div class="vr bg-white-10"></div>
+                        <div class="vr" style="background: #e2e8f0;"></div>
                         <div class="flex-grow-1">
-                            <h5 id="detail-name" class="text-white mb-1">Tên học sinh</h5>
+                            <h5 id="detail-name" class="mb-1" style="color: #0f172a;">Tên học sinh</h5>
                             <div class="d-flex gap-3">
                                 <span class="text-success"><i class="fa-solid fa-check me-1"></i><span
                                         id="detail-correct">0</span> đúng</span>
                                 <span class="text-danger"><i class="fa-solid fa-xmark me-1"></i><span
                                         id="detail-wrong">0</span> sai</span>
-                                <span class="text-white-50"><i class="fa-solid fa-list me-1"></i><span
+                                <span class="text-slate-500"><i class="fa-solid fa-list me-1"></i><span
                                         id="detail-total">0</span> câu</span>
                             </div>
                         </div>
                     </div>
                     <!-- SBD and Ma de from Python YOLO -->
                     <div id="detail-sbd-made" class="d-none"></div>
-                    <div class="mb-4 p-3 rounded" style="background: rgba(255,255,255,0.05);">
+                    <div class="mb-4 p-3 rounded" style="background: #f1f5f9;">
                         <h6 class="text-warning mb-2"><i class="fa-solid fa-comment me-2"></i>Nhận xét</h6>
-                        <p id="detail-feedback" class="text-white-50 mb-0 small">Không có nhận xét</p>
+                        <p id="detail-feedback" class="text-slate-500 mb-0 small">Không có nhận xét</p>
                     </div>
                     <!-- Processed OMR Image -->
                     <div id="detail-processed-image" class="mb-4 text-center"></div>
 
-                    <h6 class="text-white mb-3"><i class="fa-solid fa-list-check me-2 text-info"></i>Chi Tiết Từng Câu
+                    <h6 class="mb-3" style="color: #0f172a;"><i class="fa-solid fa-list-check me-2 text-info"></i>Chi Tiết Từng Câu
                     </h6>
                     <div id="detail-questions" class="row g-2" style="max-height: 300px; overflow-y: auto;">
                     </div>
                 </div>
-                <div class="modal-footer border-top border-white-10">
+                <div class="modal-footer" style="border-top: 1px solid #e2e8f0;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                 </div>
             </div>
@@ -3517,29 +3607,29 @@
     </div>
 
     <div id="avatar-crop-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; 
-        background:rgba(0,0,0,0.8); backdrop-filter:blur(10px); z-index:999999; 
+        background:rgba(0,0,0,0.5); backdrop-filter:blur(10px); z-index:999999; 
         display:none; justify-content:center; align-items:center;">
-        <div style="background:linear-gradient(145deg, rgba(30,30,50,0.98), rgba(20,20,35,0.98)); 
-            border:1px solid rgba(255,255,255,0.1); border-radius:20px; 
-            width:90%; max-width:500px; padding:24px; box-shadow:0 25px 60px rgba(0,0,0,0.5);">
+        <div style="background:#ffffff; 
+            border:1px solid #e2e8f0; border-radius:20px; 
+            width:90%; max-width:500px; padding:24px; box-shadow:0 25px 60px rgba(0,0,0,0.15);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                <h5 style="color:white; margin:0; font-weight:700;">
+                <h5 style="color:#0f172a; margin:0; font-weight:700;">
                     <i class="fa-solid fa-crop-simple text-primary me-2"></i>Cắt ảnh đại diện
                 </h5>
-                <button onclick="closeAvatarCropModal()" style="background:rgba(255,255,255,0.1); border:none; 
-                    color:white; width:32px; height:32px; border-radius:50%; cursor:pointer;">
+                <button onclick="closeAvatarCropModal()" style="background:#f1f5f9; border:none; 
+                    color:#334155; width:32px; height:32px; border-radius:50%; cursor:pointer;">
                     <i class="fa-solid fa-times"></i>
                 </button>
             </div>
-            <div style="margin-bottom:20px; max-height:400px; overflow:hidden; border-radius:12px; background:#000;">
+            <div style="margin-bottom:20px; max-height:400px; overflow:hidden; border-radius:12px; background:#f1f5f9;">
                 <img id="crop-image-preview" src="" style="max-width:100%; display:block;">
             </div>
             <div style="display:flex; justify-content:flex-end; gap:12px;">
-                <button onclick="closeAvatarCropModal()" style="background:rgba(255,255,255,0.1); border:none; 
-                    color:white; padding:10px 20px; border-radius:10px; cursor:pointer;">
+                <button onclick="closeAvatarCropModal()" style="background:#f1f5f9; border:none; 
+                    color:#475569; padding:10px 20px; border-radius:10px; cursor:pointer;">
                     Hủy
                 </button>
-                <button onclick="savecroppedAvatar()" style="background:linear-gradient(135deg, #6366f1, #a855f7); 
+                <button onclick="savecroppedAvatar()" style="background:linear-gradient(135deg, var(--primary), var(--secondary)); 
                     border:none; color:white; padding:10px 24px; border-radius:10px; cursor:pointer; font-weight:600;">
                     <i class="fa-solid fa-check me-2"></i>Lưu Avatar
                 </button>
@@ -3577,22 +3667,21 @@
         .universal-header {
             margin: -30px -30px 20px -30px;
             padding: 15px 25px;
-            /* Reduced padding for slimmer look */
 
-            /* Dynamic Background Animation */
+            /* Light Mode Gradient */
             background: linear-gradient(90deg,
-                    rgba(20, 20, 35, 0.95) 0%,
-                    rgba(192, 132, 252, 0.1) 20%,
-                    rgba(168, 85, 247, 0.15) 50%,
-                    rgba(192, 132, 252, 0.1) 80%,
-                    rgba(20, 20, 35, 0.95) 100%);
+                    rgba(248, 250, 252, 0.98) 0%,
+                    rgba(14, 165, 233, 0.08) 20%,
+                    rgba(59, 130, 246, 0.12) 50%,
+                    rgba(14, 165, 233, 0.08) 80%,
+                    rgba(248, 250, 252, 0.98) 100%);
             background-size: 200% 100%;
             animation: premium-header-flow 4s linear infinite;
 
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(14, 165, 233, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             position: relative;
             z-index: 10;
         }
@@ -3601,7 +3690,7 @@
         .universal-header-title {
             font-size: 1.25rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #fff 0%, #c084fc 50%, #a855f7 100%);
+            background: linear-gradient(135deg, #0f172a 0%, var(--primary) 50%, var(--secondary) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -3657,14 +3746,14 @@
                 // Inline styles removed in favor of CSS class
 
                 header.innerHTML = `
-                    <button onclick="toggleSidebar()" class="btn p-2 d-lg-none" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: white; border-radius: 10px; width: 44px; height: 44px; flex-shrink: 0;">
+                    <button onclick="toggleSidebar()" class="btn p-2 d-lg-none" style="background: #f1f5f9; border: 1px solid #e2e8f0; color: #334155; border-radius: 10px; width: 44px; height: 44px; flex-shrink: 0;">
                         <i class="fa-solid fa-bars"></i>
                     </button>
                     <div style="min-width: 0;">
                         <h5 class="universal-header-title">
                             ${config.title}
                         </h5>
-                        <small style="color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 500;">${config.desc}</small>
+                        <small style="color: #64748b; font-size: 0.85rem; font-weight: 500;">${config.desc}</small>
                     </div>
                 `;
 
@@ -3742,7 +3831,7 @@
                     }
                 } else {
                     container.innerHTML = `
-                        <div class="text-white-50">
+                        <div class="text-slate-500">
                             <i class="fas fa-info-circle me-2"></i>Chưa có lớp nào. Liên hệ nhà trường để thêm lớp.
                         </div>
                     `;
@@ -3762,8 +3851,8 @@
 
             // Update button styles
             document.querySelectorAll('#teacherSdbClassTabs button').forEach(btn => {
-                btn.style.background = 'rgba(255, 255, 255, 0.1)';
-                btn.style.border = '1px solid var(--glass-border-light)';
+                btn.style.background = '#f1f5f9';
+                btn.style.border = '1px solid #e2e8f0';
             });
             if (btnElement) {
                 btnElement.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
@@ -3779,7 +3868,7 @@
 
         async function loadTeacherDiaryEntries(classId) {
             const tbody = document.getElementById('teacherSdbEntriesBody');
-            tbody.innerHTML = '<tr><td colspan="8" class="text-center text-white-50 py-4"><i class="fas fa-spinner fa-spin me-2"></i>Đang tải...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center text-slate-500 py-4"><i class="fas fa-spinner fa-spin me-2"></i>Đang tải...</td></tr>';
 
             try {
                 const userData = JSON.parse(localStorage.getItem('user'));
@@ -3795,10 +3884,10 @@
                         <tr>
                             <td><span class="badge-glass badge-primary">${e.period}</span></td>
                             <td>${e.subject || '-'}</td>
-                            <td class="text-white-50">${e.teacher || '-'}</td>
+                            <td class="text-slate-500">${e.teacher || '-'}</td>
                             <td>${e.attendeesCount || '-'}</td>
                             <td class="text-warning">${e.absentCount || 0}</td>
-                            <td class="text-white-50" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${e.content || '-'}</td>
+                            <td class="text-slate-500" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${e.content || '-'}</td>
                             <td>
                                 <span class="badge-glass ${e.quality === 'Tốt' ? 'badge-success' : e.quality === 'Khá' ? 'badge-primary' : 'badge-warning'}">${e.quality || '-'}</span>
                             </td>
@@ -3812,7 +3901,7 @@
                     teacherLoadedEntries = [];
                     tbody.innerHTML = `
                         <tr>
-                            <td colspan="8" class="text-center text-white-50 py-4">
+                            <td colspan="8" class="text-center text-slate-500 py-4">
                                 <i class="fas fa-calendar-day me-2"></i>Chưa có tiết học nào trong ngày này
                             </td>
                         </tr>

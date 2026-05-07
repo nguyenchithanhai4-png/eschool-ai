@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "server.js",
   "bin": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start": "node server.js",
     "safety": "node scripts/ai-safety.js"
@@ -41,7 +44,7 @@
     "bytes": "^3.1.2",
     "call-bind-apply-helpers": "^1.0.2",
     "call-bound": "^1.0.4",
-    "cheerio": "^1.0.0-rc.12",
+    "cheerio": "^1.2.0",
     "compression": "^1.8.1",
     "concat-stream": "^2.0.0",
     "content-disposition": "^1.0.1",

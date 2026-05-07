@@ -38,6 +38,10 @@ tests/
 
 # Archive and backups
 _archive/
+_backup_*/
+_backups/
+_legacy/
+_stitch_temp/
 *.bak
 
 # Hugging Face project (separate)
@@ -45,37 +49,78 @@ huggingface-omr/
 
 # Large test images
 ChamThiTuDong/ảnh bài thi/
+ChamThiTuDong/test_images/
+ChamThiTuDong/bubble_dataset/
 
 # Python utility scripts (not needed in production)
 fix_*.py
+fix_*.js
 delete_*.py
 upgrade_*.py
+patch_*.py
+merge_*.py
+merge_*.js
+apply_*.py
+apply_*.js
+rebuild_*.py
+refine_*.py
+comprehensive_*.py
+final_*.py
+clean_*.py
+dump_blocks.js
+test_lines.js
+test_login.py
+append_api.js
 
 # Log files
 *.log
 logs/
+out.txt
+git_log*.txt
+git_status*.txt
 
 # Tunneling & Deployment Binaries
 tool.exe
 ngrok.exe
 ngrok.zip
 temp_tool.exe
-start_cloudflare_tunnel.bat
-start_ai_tunnel.bat
-setup_ngrok_static.bat
+*.bat
 
-# AI Models & Heavy Binaries
-AI/
+# AI Models & Heavy Binaries (too large for Render free)
+*.pt
 *.gguf
 *.dll
 *.exe
-public/downloads/*.apk
+*.apk
+AI/
+AI_CheatingDetection/
+
+# Large backup HTML files
+public/student-dashboard-bkup.html
+public/student-dashboard-modern-attempt.html
+public/student-dashboard-restored.html
+public/teacher-dashboard-bkup.html
+public/index_backup.html
+
+# Upload directory (user content)
 public/uploads/*
 !public/uploads/.gitkeep
-start_cloudflare_tunnel.bat
-start_ai_tunnel.bat
-setup_ngrok_static.bat
+public/downloads/*.apk
 
+# Scratch/temp files
+public/scratch/
+server_cleaned.js
+stitch.zip
+*.json.json
+backup_*.html
 
-# AI Safety backups
-_backups/
+# Result images
+OMR_*.jpg
+ChamThiTuDong/OMR_*.jpg
+result_*.json
+
+# Gemini agent data
+.agent/skills/ui-ux-pro-max-skill/
+
+# Capacitor/Android (not needed for web deploy)
+android/

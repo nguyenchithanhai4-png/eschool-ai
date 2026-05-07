@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ╔══════════════════════════════════════════════════════════════════════════════╗
  * ║                         E-SCHOOL AI SERVER                                    ║
  * ║                         Backend chính của hệ thống                           ║
@@ -40,6 +40,8 @@ if (process.platform === 'win32') {
 // Express: Framework web phổ biến nhất cho Node.js
 const express = require('express');
 
+const { exec } = require('child_process');
+
 // HTTP: Module tích hợp sẵn để tạo HTTP server
 const http = require('http');
 
@@ -76,6 +78,79 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 
 // Bcrypt: Mã hóa password an toàn (hash + salt)
 const bcrypt = require('bcryptjs');
+
+// Auth Middleware: Xác thực và phân quyền người dùng
+
+// ============================================
+// AI PERSISTENT PROCESS (FOR MONITORING)
+// Skip on Render/production (no Python/YOLO available)
+// ============================================
+let aiProcess = null;
+const { spawn } = require('child_process');
+const pendingAIRequests = new Map();
+const readline = require('readline');
+
+const IS_RENDER = process.env.RENDER === 'true' || process.env.IS_RENDER === 'true';
+
+function startAIProcess() {
+    if (IS_RENDER) {
+        console.log('[AI] Skipping AI Monitoring on Render (no Python/YOLO).');
+        return;
+    }
+    const scriptPath = path.join(__dirname, 'AI_CheatingDetection', 'AI_Server.py');
+    if (!fs.existsSync(scriptPath)) {
+        console.log('[AI] AI_Server.py not found, skipping AI process.');
+        return;
+    }
+    console.log('[AI] Starting persistent AI Monitoring process...');
+    
+    try {
+        aiProcess = spawn('python', ['-u', scriptPath]);
+        
+        aiProcess.stderr.on('data', (data) => {
+            console.log(`[AI Server Log]: ${data}`);
+        });
+
+        aiProcess.on('error', (err) => {
+            console.warn('[AI] Failed to start AI process:', err.message);
+            aiProcess = null;
+        });
+
+        aiProcess.on('close', (code) => {
+            console.log(`[AI] Process exited with code ${code}. Restarting in 5s...`);
+            aiProcess = null;
+            setTimeout(startAIProcess, 5000);
+        });
+
+        // Read AI process output
+        const rl = readline.createInterface({
+            input: aiProcess.stdout,
+            terminal: false
+        });
+
+        rl.on('line', (line) => {
+            if (!line.trim()) return;
+            try {
+                const result = JSON.parse(line);
+                const { req_id } = result;
+                
+                if (req_id && pendingAIRequests.has(req_id)) {
+                    const res = pendingAIRequests.get(req_id);
+                    res.json(result);
+                    pendingAIRequests.delete(req_id);
+                }
+            } catch (e) {
+                console.error('[AI] JSON Parse Error from Python:', e, line.substring(0, 100));
+            }
+        });
+    } catch (err) {
+        console.warn('[AI] Could not start AI process:', err.message);
+        aiProcess = null;
+    }
+}
+
+// Start AI on boot (only locally)
+startAIProcess();
 
 // Dotenv: Đọc biến môi trường từ file .env
 require('dotenv').config();
@@ -143,7 +218,8 @@ const ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     process.env.FRONTEND_URL, // Cho phép set từ .env
-    process.env.PRODUCTION_URL
+    process.env.PRODUCTION_URL,
+    process.env.RENDER_EXTERNAL_URL // Render tự cung cấp URL
 ].filter(Boolean); // Loại bỏ undefined
 
 const io = new Server(server, {
@@ -154,7 +230,7 @@ const io = new Server(server, {
 
             // Production: kiểm tra whitelist
             if (process.env.NODE_ENV === 'production') {
-                if (ALLOWED_ORIGINS.includes(origin)) {
+                if (ALLOWED_ORIGINS.includes(origin) || origin.endsWith('.onrender.com')) {
                     callback(null, true);
                 } else {
                     console.warn(`[Socket.io] Blocked origin: ${origin}`);
@@ -1026,100 +1102,10 @@ const OLLAMA_CONFIG = {
     timeout: 120000
 };
 
-// Legacy askSmartAI wrapper  
-async function askSmartAI(userQuestion, username = 'anonymous', type = 'default', systemPrompt = null) {
-    const result = await aiRouter.handleRequest({
-        type: 'text',
-        task: type === 'chat' ? 'gia_su' : type,
-        content: userQuestion,
-        meta: { username, systemPrompt }
-    });
-    return { success: true, data: result.response, provider: result.provider };
-}
-
-// Legacy askSmartVision wrapper
-async function askSmartVision(imageBuffer, prompt, mimeType = 'image/jpeg') {
-    const result = await aiRouter.handleRequest({
-        type: 'image',
-        task: 'giai_toan',
-        content: prompt,
-        image: imageBuffer.toString('base64'),
-        meta: { mimeType }
-    });
-    return { success: true, data: result.response, provider: result.provider };
-}
-
-// AI_SYSTEM_PROMPT kept for legacy routes
-// AI_SYSTEM_PROMPT kept for legacy routes
-const AI_SYSTEM_PROMPT = `Bạn là Gia sư E-School, một người bạn học tập thông minh và cởi mở.
-Hãy gạt bỏ mọi sự cứng nhắc. Nhiệm vụ của bạn là giúp đỡ học sinh một cách nhiệt tình nhất.
-
-[KHI ĐƯỢC HỎI VỀ BẠN]:
-Hãy trả lời tự tin và thân thiện: "Mình là hệ thống AI được phát triển bởi E-School để giúp bạn học tập hiệu quả hơn."
-Bạn không cần phải xin lỗi hay giải thích dài dòng về kỹ thuật. Cứ tự nhiên như đang nói chuyện với bạn bè.`;
-
-// ============================================
-// 6. FILE UPLOAD CONFIGURATION
-// ============================================
-const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads', 'books');
-if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, UPLOADS_DIR),
-    filename: (req, file, cb) => {
-        const safeName = 'book_' + Date.now() + '_' + file.originalname.replace(/[^a-zA-Z0-9.]/g, '_');
-        cb(null, safeName);
-    }
-});
-
-const upload = multer({
-    storage: storage,
-    limits: { fileSize: 50 * 1024 * 1024 },
-    fileFilter: (req, file, cb) => {
-        const allowedTypes = [
-            'application/pdf',
-            'application/msword',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'application/vnd.ms-excel',
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'application/vnd.ms-powerpoint',
-            'application/vnd.openxmlformats-officedocument.presentationml.presentation'
-        ];
-        if (allowedTypes.includes(file.mimetype)) {
-            cb(null, true);
-        } else {
-            cb(new Error('Chấp nhận: PDF, Word, Excel, PowerPoint'), false);
-        }
-    }
-});
-
-const uploadGeneral = multer({
-    storage: multer.diskStorage({
-        destination: (req, file, cb) => {
-            const uploadPath = './public/uploads/';
-            if (!fs.existsSync(uploadPath)) fs.mkdirSync(uploadPath, { recursive: true });
-            cb(null, uploadPath);
-        },
-        filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
-    })
-});
-
 const uploadAI = multer({ storage: multer.memoryStorage() });
 
-// Validation File Storage
-const VERIFICATION_DIR = path.join(__dirname, 'public', 'uploads', 'verification');
-if (!fs.existsSync(VERIFICATION_DIR)) fs.mkdirSync(VERIFICATION_DIR, { recursive: true });
-
-const verificationStorage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, VERIFICATION_DIR),
-    filename: (req, file, cb) => {
-        const safeName = 'verify_' + Date.now() + '_' + file.originalname.replace(/[^a-zA-Z0-9.]/g, '_');
-        cb(null, safeName);
-    }
-});
-
 // ============================================
-// AI GRADING API via OpenRouter (Gemini 2.5 Flash Lite)
+// AI GRADING API via OpenRouter (Gemini 2.0 Flash Lite)
 // ============================================
 app.post('/api/ai-grading/extract-answers', uploadAI.single('image'), async (req, res) => {
     try {
@@ -1207,7 +1193,6 @@ app.post('/api/ai-grading/extract-answers', uploadAI.single('image'), async (req
         }
 
         const content = json.choices[0].message.content;
-        // Clean markdown if present
         const jsonStr = content.replace(/```json/g, '').replace(/```/g, '').trim();
 
         try {
@@ -1223,6 +1208,102 @@ app.post('/api/ai-grading/extract-answers', uploadAI.single('image'), async (req
         res.status(500).json({ success: false, message: error.message });
     }
 });
+
+// Legacy askSmartAI wrapper  
+async function askSmartAI(userQuestion, username = 'anonymous', type = 'default', systemPrompt = null) {
+    const result = await aiRouter.handleRequest({
+        type: 'text',
+        task: type === 'chat' ? 'gia_su' : type,
+        content: userQuestion,
+        meta: { username, systemPrompt }
+    });
+    return { success: true, data: result.response, provider: result.provider };
+}
+
+// Legacy askSmartVision wrapper
+async function askSmartVision(imageBuffer, prompt, mimeType = 'image/jpeg') {
+    const result = await aiRouter.handleRequest({
+        type: 'image',
+        task: 'giai_toan',
+        content: prompt,
+        image: imageBuffer.toString('base64'),
+        meta: { mimeType }
+    });
+    return { success: true, data: result.response, provider: result.provider };
+}
+
+// AI_SYSTEM_PROMPT kept for legacy routes
+// AI_SYSTEM_PROMPT kept for legacy routes
+const AI_SYSTEM_PROMPT = `Bạn là Gia sư E-School, một người bạn học tập thông minh và cởi mở.
+Hãy gạt bỏ mọi sự cứng nhắc. Nhiệm vụ của bạn là giúp đỡ học sinh một cách nhiệt tình nhất.
+
+[KHI ĐƯỢC HỎI VỀ BẠN]:
+Hãy trả lời tự tin và thân thiện: "Mình là hệ thống AI được phát triển bởi E-School để giúp bạn học tập hiệu quả hơn."
+Bạn không cần phải xin lỗi hay giải thích dài dòng về kỹ thuật. Cứ tự nhiên như đang nói chuyện với bạn bè.`;
+
+// ============================================
+// 6. FILE UPLOAD CONFIGURATION
+// ============================================
+const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads', 'books');
+if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, UPLOADS_DIR),
+    filename: (req, file, cb) => {
+        const safeName = 'book_' + Date.now() + '_' + file.originalname.replace(/[^a-zA-Z0-9.]/g, '_');
+        cb(null, safeName);
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 50 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = [
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'application/vnd.ms-powerpoint',
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+        ];
+        if (allowedTypes.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Chấp nhận: PDF, Word, Excel, PowerPoint'), false);
+        }
+    }
+});
+
+const uploadGeneral = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            const uploadPath = './public/uploads/';
+            if (!fs.existsSync(uploadPath)) fs.mkdirSync(uploadPath, { recursive: true });
+            cb(null, uploadPath);
+        },
+        filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
+    })
+});
+
+
+// Validation File Storage
+const VERIFICATION_DIR = path.join(__dirname, 'public', 'uploads', 'verification');
+if (!fs.existsSync(VERIFICATION_DIR)) fs.mkdirSync(VERIFICATION_DIR, { recursive: true });
+
+const verificationStorage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, VERIFICATION_DIR),
+    filename: (req, file, cb) => {
+        const safeName = 'verify_' + Date.now() + '_' + file.originalname.replace(/[^a-zA-Z0-9.]/g, '_');
+        cb(null, safeName);
+    }
+});
+
+// ============================================
+// 22. AI CHEATING DETECTION API (Optimized)
+// ============================================
+// REMOVED DUPLICATE
 
 const uploadVerification = multer({
     storage: verificationStorage,
@@ -1369,7 +1450,7 @@ function loadSchoolData(level) {
 app.get('/api/schools/search', async (req, res) => {
     try {
         const { query } = req.query;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const schools = await SchoolModel.find({
             isActive: true,
@@ -2441,12 +2522,72 @@ app.get('/index', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ind
 // OAuth routes
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-    res.redirect('/social-success');
+    
+    // === VÌ FRONTEND DÙNG LOCALSTORAGE, TA PHẢI TRẢ VỀ SCRIPT ĐỂ LƯU TOKEN TRƯỚC KHI REDIRECT ===
+    const role = req.user.role || 'student';
+    let target = 'student-dashboard.html';
+    if(role === 'admin' || role === 'system_admin') target = 'system-admin.html';
+    else if(role === 'teacher') target = 'teacher-dashboard.html';
+    else if(role === 'school') target = 'school-dashboard.html';
+
+    const userDump = {
+        username: req.user.username,
+        fullname: req.user.fullname,
+        role: role,
+        avatarUrl: req.user.avatarUrl,
+        email: req.user.email
+    };
+
+    res.send(`
+        <html><head><title>Authenticating...</title></head><body style="background:#f8fafc;display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;">
+        <div style="text-align:center;">
+            <h2>Đang đồng bộ đăng nhập...</h2><p>Vui lòng chờ giây lát.</p>
+        </div>
+        <script>
+            try {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userRole', '${role}');
+                localStorage.setItem('user', JSON.stringify(${JSON.stringify(userDump)}));
+            } catch(e) { console.error('Lỗi khi lưu localStorage:', e); }
+            window.location.href = '/${target}';
+        </script>
+        </body></html>
+    `);
 });
 
 app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), (req, res) => {
-    res.redirect('/social-success');
+    
+    // === VÌ FRONTEND DÙNG LOCALSTORAGE, TA PHẢI TRẢ VỀ SCRIPT ĐỂ LƯU TOKEN TRƯỚC KHI REDIRECT ===
+    const role = req.user.role || 'student';
+    let target = 'student-dashboard.html';
+    if(role === 'admin' || role === 'system_admin') target = 'system-admin.html';
+    else if(role === 'teacher') target = 'teacher-dashboard.html';
+    else if(role === 'school') target = 'school-dashboard.html';
+
+    const userDump = {
+        username: req.user.username,
+        fullname: req.user.fullname,
+        role: role,
+        avatarUrl: req.user.avatarUrl,
+        email: req.user.email
+    };
+
+    res.send(`
+        <html><head><title>Authenticating...</title></head><body style="background:#f8fafc;display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;">
+        <div style="text-align:center;">
+            <h2>Đang đồng bộ đăng nhập...</h2><p>Vui lòng chờ giây lát.</p>
+        </div>
+        <script>
+            try {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userRole', '${role}');
+                localStorage.setItem('user', JSON.stringify(${JSON.stringify(userDump)}));
+            } catch(e) { console.error('Lỗi khi lưu localStorage:', e); }
+            window.location.href = '/${target}';
+        </script>
+        </body></html>
+    `);
 });
 
 // Logout route - xóa session
@@ -2482,7 +2623,7 @@ app.post('/api/upload-book', upload.single('book'), (req, res) => {
 // Lấy danh sách trường (cho dropdown đăng ký giáo viên)
 app.get('/api/schools', async (req, res) => {
     try {
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
         const schools = await SchoolModel.find({ isActive: true }).select('name schoolCode address');
         res.json({ success: true, schools });
     } catch (err) {
@@ -2492,93 +2633,60 @@ app.get('/api/schools', async (req, res) => {
 
 // API: Register (Single Step with File Upload)
 app.post('/api/register', async (req, res) => {
-    // Note: multer processes form-data. If it's pure JSON request (Student/Teacher), 
-    // req.body will still be populated if the client sends standard form-data or if we allow JSON.
-    // However, multer handles multipart/form-data. For JSON, we might need a separate handler or body-parser helper?
-    // Actually, 'uploadVerification' will handle multipart. If content-type is json, multer might ignore or just pass body if configured?
-    // Express 4.x: we need `express.json()` (already used). 
-    // BUT: if client sends JSON, multer middleware with `.single()` might just pass through if no boundary? 
-    // Let's assume Client sends JSON for students (fetch header content-type json) and FormData for school.
-    // Multer single() might hang or error if content-type is json?
-    // FIX: Client for Student/Teacher also sending JSON? 
-    // We can use a helper middleware or just rely on 'uploadVerification' handling both? 
-    // Actually, safest is to check Content-Type header or just use multer `none()` for others?
-
-    // Simplest: The route handles both. 
-    // If Headers is application/json -> req.body is already parsed by express.json() BEFORE multer?
-    // NO, usually middleware order matters.
-    // Let's rely on standard behavior: For School, it's Multipart. For others, it's JSON.
-    // If it is JSON, req.file is undefined, req.body is set by express.json().
-    // If Multipart, req.body is set by Multer.
-
-    const { username, password, fullname, email, role, schoolName, schoolCode, schoolAddress, schoolPhone } = req.body;
-    const verificationFile = req.file;
+    const { username, password, fullname, email, role } = req.body;
 
     try {
-        if (!isMongoConnected()) {
-            return res.json({ success: false, message: 'MongoDB không kết nối, vui lòng thử lại sau' });
+        if (!username || !password) {
+            return res.json({ success: false, error: 'Vui lòng nhập tên đăng nhập và mật khẩu' });
         }
 
-        const existing = await UserModel.findOne({ username });
-        if (existing) return res.json({ success: false, message: 'Tên tài khoản đã tồn tại!' });
+        if (!isMongoConnected()) {
+            return res.json({ success: false, error: 'MongoDB không kết nối, vui lòng thử lại sau' });
+        }
 
-        // Hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // Use countDocuments instead of findOne for faster existence check
+        const existingCount = await UserModel.countDocuments({ username });
+        if (existingCount > 0) return res.json({ success: false, error: 'Tên tài khoản đã tồn tại!' });
 
-        // Xử lý theo vai trò
-        if (role === 'school') {
-            // FIXED: Only create user account during registration
-            // School will be created LATER after verification wizard Step 3
-            const newUser = new UserModel({
-                username,
-                password: hashedPassword,
-                fullname: fullname || 'School Admin',
-                email,
-                role: 'school',
-                schoolId: null,  // NO schoolId until verification is complete
-                approvalStatus: 'pending'
-            });
-            await newUser.save();
+        // Hash password (salt rounds 8 instead of 10 for ~2x faster hashing, still secure)
+        const hashedPassword = await bcrypt.hash(password, 8);
 
-            // DO NOT create placeholder school here!
-            // School is created via /api/school/register after Step 3 verification
+        const userRole = role || 'student';
+        const approvalStatus = (userRole === 'school') ? 'pending' : 'approved';
 
+        const newUser = new UserModel({
+            username,
+            password: hashedPassword,
+            fullname: fullname || username,
+            email,
+            role: userRole,
+            schoolId: null,
+            approvalStatus
+        });
+        await newUser.save();
+
+        const safeUser = {
+            _id: newUser._id,
+            username: newUser.username,
+            fullname: newUser.fullname,
+            email: newUser.email,
+            role: newUser.role,
+            approvalStatus: newUser.approvalStatus
+        };
+
+        if (userRole === 'school') {
             res.json({
                 success: true,
-                message: 'Tài khoản đã được tạo! Đang chuyển hướng...',
-                user: newUser,
-                redirect: '/school-dashboard.html' // Redirect to Setup Wizard
+                message: 'Tài khoản đã được tạo!',
+                user: safeUser,
+                redirect: '/school-dashboard.html'
             });
-
-        } else if (role === 'teacher') {
-            // ... teacher code (Student/Teacher code remains similar)
-            const newUser = new UserModel({
-                username,
-                password: hashedPassword,
-                fullname: fullname || username,
-                email,
-                role: 'teacher',
-                schoolId: null,
-                approvalStatus: 'approved'
-            });
-            await newUser.save();
-            res.json({ success: true, user: newUser });
         } else {
-            // Student
-            const newUser = new UserModel({
-                username,
-                password: hashedPassword,
-                fullname: fullname || username,
-                email,
-                role: 'student',
-                schoolId: null,
-                approvalStatus: 'approved'
-            });
-            await newUser.save();
-            res.json({ success: true, user: newUser });
+            res.json({ success: true, user: safeUser });
         }
     } catch (err) {
-        res.json({ success: false, message: err.message });
+        console.error('[Register] Error:', err.message);
+        res.json({ success: false, error: err.message });
     }
 });
 
@@ -2634,59 +2742,64 @@ app.post('/api/login', async (req, res) => {
     // Admin check (Super Admin) - Hardcoded admin account
     if (username === 'admin' && password === 'admin123') {
         clearLoginAttempts(clientIP);
-        return res.json({ success: true, user: { username: 'admin', role: 'admin', isVip: true, approvalStatus: 'approved' } });
+        return res.json({ success: true, user: { username: 'admin', fullname: 'System Admin', role: 'admin', isVip: true, approvalStatus: 'approved' } });
     }
 
     try {
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
-        const user = await UserModel.findOne({ username });
+        const user = await UserModel.findOne({ username }).lean();
 
-        if (user) {
-            // Check password (support both hashed and legacy plain text)
-            let isMatch = false;
-            // Check if stored password is a hash (bcrypt starts with $2a$ or similar)
-            if (user.password && user.password.startsWith('$2')) {
-                isMatch = await bcrypt.compare(password, user.password);
-            } else {
-                isMatch = user.password === password;
-            }
-
-            if (!isMatch) {
-                recordFailedLogin(clientIP);
-                return res.json({ success: false, message: 'Sai thông tin đăng nhập!' });
-            }
-
-            // CHECK STATUS Pending/Rejected
-            if (user.approvalStatus === 'pending') {
-                // School users allowed to login to complete setup (handled in Dashboard)
-                if (user.role === 'teacher') {
-                    // Waiting for School Admin
-                    return res.json({ success: false, pendingApproval: true, message: 'Tài khoản đang chờ Nhà trường phê duyệt!' });
-                }
-            }
-            if (user.approvalStatus === 'rejected') {
-                return res.json({ success: false, message: 'Tài khoản đã bị từ chối!' });
-            }
-            if (user.isBlocked) {
-                return res.json({ success: false, message: 'Tài khoản đã bị khóa!' });
-            }
-
-            user.lastLogin = new Date();
-            await user.save();
-
-            // Log login via Passport for session if needed (optional for pure API)
-            clearLoginAttempts(clientIP);
-            req.login(user, (err) => {
-                if (err) console.error(err);
-                res.json({ success: true, user });
-            });
-
-        } else {
+        if (!user) {
             recordFailedLogin(clientIP);
-            res.json({ success: false, message: 'Sai thông tin đăng nhập!' });
+            return res.json({ success: false, message: 'Sai thông tin đăng nhập!' });
         }
+
+        // Check password (support both hashed and legacy plain text)
+        let isMatch = false;
+        if (user.password && user.password.startsWith('$2')) {
+            isMatch = await bcrypt.compare(password, user.password);
+        } else {
+            isMatch = user.password === password;
+        }
+
+        if (!isMatch) {
+            recordFailedLogin(clientIP);
+            return res.json({ success: false, message: 'Sai thông tin đăng nhập!' });
+        }
+
+        // CHECK STATUS Pending/Rejected
+        if (user.approvalStatus === 'pending' && user.role === 'teacher') {
+            return res.json({ success: false, pendingApproval: true, message: 'Tài khoản đang chờ Nhà trường phê duyệt!' });
+        }
+        if (user.approvalStatus === 'rejected') {
+            return res.json({ success: false, message: 'Tài khoản đã bị từ chối!' });
+        }
+        if (user.isBlocked) {
+            return res.json({ success: false, message: 'Tài khoản đã bị khóa!' });
+        }
+
+        clearLoginAttempts(clientIP);
+
+        // Respond IMMEDIATELY - don't wait for lastLogin save or session
+        const safeUser = {
+            _id: user._id,
+            username: user.username,
+            fullname: user.fullname,
+            email: user.email,
+            role: user.role,
+            avatarUrl: user.avatarUrl,
+            isVip: user.isVip,
+            schoolId: user.schoolId,
+            approvalStatus: user.approvalStatus
+        };
+        res.json({ success: true, user: safeUser });
+
+        // Non-blocking: Update lastLogin in background (don't await)
+        UserModel.updateOne({ _id: user._id }, { $set: { lastLogin: new Date() } }).catch(e => console.error('[Login] lastLogin update err:', e));
+
     } catch (err) {
+        console.error('[Login] Error:', err.message);
         res.json({ success: false, message: err.message });
     }
 });
@@ -2699,7 +2812,7 @@ app.post('/api/login', async (req, res) => {
 app.get('/api/school/info', async (req, res) => {
     try {
         const { adminId } = req.query;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const school = await SchoolModel.findOne({ adminId });
         if (!school) return res.json({ success: false, message: 'Không tìm thấy trường' });
@@ -2714,7 +2827,7 @@ app.get('/api/school/info', async (req, res) => {
 app.get('/api/school/check-status', async (req, res) => {
     try {
         const { code } = req.query;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         if (!code) return res.status(400).json({ success: false, message: 'Thiếu schoolCode' });
 
@@ -2807,7 +2920,7 @@ app.post('/api/school/register',
 app.post('/api/school/update', async (req, res) => {
     try {
         const { schoolId, ...updates } = req.body;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const school = await SchoolModel.findByIdAndUpdate(schoolId, updates, { new: true });
         if (!school) return res.json({ success: false, message: 'Không tìm thấy trường' });
@@ -2822,7 +2935,7 @@ app.post('/api/school/update', async (req, res) => {
 app.get('/api/school/pending-teachers', async (req, res) => {
     try {
         const { schoolId } = req.query;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const teachers = await UserModel.find({
             schoolId,
@@ -2840,7 +2953,7 @@ app.get('/api/school/pending-teachers', async (req, res) => {
 app.post('/api/school/approve-teacher/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const teacher = await UserModel.findByIdAndUpdate(
             id,
@@ -2861,7 +2974,7 @@ app.post('/api/school/reject-teacher/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { deleteAccount } = req.body;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         if (deleteAccount) {
             await UserModel.findByIdAndDelete(id);
@@ -2884,7 +2997,7 @@ app.post('/api/school/reject-teacher/:id', async (req, res) => {
 app.get('/api/school/members', async (req, res) => {
     try {
         const { schoolId, role } = req.query;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const query = { schoolId, approvalStatus: 'approved' };
         if (role) query.role = role;
@@ -2903,7 +3016,7 @@ app.get('/api/school/members', async (req, res) => {
 app.get('/api/school/stats', async (req, res) => {
     try {
         const { schoolId } = req.query;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const [teacherCount, studentCount, pendingCount] = await Promise.all([
             UserModel.countDocuments({ schoolId, role: 'teacher', approvalStatus: 'approved' }),
@@ -2937,7 +3050,7 @@ app.get('/api/school/stats', async (req, res) => {
 app.post('/api/school/toggle-block/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const user = await UserModel.findById(id);
         if (!user) return res.json({ success: false, message: 'Không tìm thấy user' });
@@ -2959,7 +3072,7 @@ app.post('/api/school/toggle-block/:id', async (req, res) => {
 app.post('/api/school/reset-password/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const user = await UserModel.findByIdAndUpdate(
             id,
@@ -3089,7 +3202,7 @@ app.post('/api/school/setup', uploadVerification.single('verificationFile'), asy
 app.get('/api/school/config', async (req, res) => {
     try {
         const { schoolId } = req.query;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         if (!schoolId) return res.status(400).json({ success: false, message: 'Thiếu schoolId' });
 
@@ -3122,7 +3235,7 @@ app.get('/api/school/config', async (req, res) => {
 app.get('/api/school/activities', async (req, res) => {
     try {
         const { schoolId } = req.query;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
         if (!schoolId) return res.status(400).json({ success: false, message: 'Thiếu schoolId' });
 
         // Get recent activities from ActivityLog
@@ -3153,7 +3266,7 @@ app.get('/api/school/activities', async (req, res) => {
 app.get('/api/school/classes', async (req, res) => {
     try {
         const { schoolId } = req.query;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
         if (!schoolId) return res.status(400).json({ success: false, message: 'Thiếu schoolId' });
 
         const classes = await ClassModel.find({ schoolId, isActive: true }).sort({ grade: 1, name: 1 });
@@ -3167,7 +3280,7 @@ app.get('/api/school/classes', async (req, res) => {
 app.post('/api/school/classes', async (req, res) => {
     try {
         const { schoolId, name, grade, homeroomTeacherId, homeroomTeacherName } = req.body;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
         if (!schoolId || !name) return res.status(400).json({ success: false, message: 'Thiếu thông tin' });
 
         const newClass = new ClassModel({
@@ -3199,7 +3312,7 @@ app.post('/api/school/classes', async (req, res) => {
 app.get('/api/school/sodaubai', async (req, res) => {
     try {
         const { schoolId, classId, date } = req.query;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
         if (!schoolId) return res.status(400).json({ success: false, message: 'Thiếu schoolId' });
 
         let query = { schoolId };
@@ -3224,7 +3337,7 @@ app.post('/api/school/sodaubai', async (req, res) => {
     try {
         const { schoolId, classId, period, subject, teacher, teacherId, date,
             attendeesCount, absentCount, absentList, content, note, quality } = req.body;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
         if (!schoolId || !classId || !period) return res.status(400).json({ success: false, message: 'Thiếu thông tin bắt buộc' });
 
         const entry = new ClassDiaryModel({
@@ -3255,7 +3368,7 @@ app.put('/api/school/sodaubai/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const updates = req.body;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const entry = await ClassDiaryModel.findByIdAndUpdate(id, updates, { new: true });
         if (!entry) return res.status(404).json({ success: false, message: 'Không tìm thấy mục nhật ký' });
@@ -3270,7 +3383,7 @@ app.put('/api/school/sodaubai/:id', async (req, res) => {
 app.post('/api/school/join-request', async (req, res) => {
     try {
         const { userId, schoolId } = req.body;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const user = await UserModel.findById(userId);
         if (!user) return res.json({ success: false, message: 'Không tìm thấy user' });
@@ -3300,7 +3413,7 @@ app.post('/api/school/join-request', async (req, res) => {
 app.get('/api/school/join-requests', async (req, res) => {
     try {
         const { schoolId } = req.query;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const requests = await UserModel.find({
             schoolId,
@@ -3317,7 +3430,7 @@ app.get('/api/school/join-requests', async (req, res) => {
 app.post('/api/school/approve-join/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const user = await UserModel.findByIdAndUpdate(
             id,
@@ -3337,7 +3450,7 @@ app.post('/api/school/approve-join/:id', async (req, res) => {
 app.post('/api/school/reject-join/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         // Xóa schoolId và reset status
         const user = await UserModel.findByIdAndUpdate(
@@ -3358,7 +3471,7 @@ app.post('/api/school/reject-join/:id', async (req, res) => {
 app.get('/api/user/school-status', async (req, res) => {
     try {
         const { userId } = req.query;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const user = await UserModel.findById(userId).populate('schoolId');
         if (!user) return res.json({ success: false, message: 'Không tìm thấy user' });
@@ -3380,7 +3493,7 @@ app.get('/api/user/school-status', async (req, res) => {
 app.post('/api/user-info', async (req, res) => {
     try {
         const { username } = req.body;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const user = await UserModel.findOne({ username });
         if (user) {
@@ -3415,7 +3528,7 @@ app.post('/api/update-profile', async (req, res) => {
 app.post('/api/change-password', async (req, res) => {
     try {
         const { username, currentPassword, newPassword } = req.body;
-        if (!isMongoConnected()) return res.json({ success: false, message: 'MongoDB không kết nối' });
+        if (!isMongoConnected()) return res.json({ success: false, error: 'MongoDB không kết nối', message: 'MongoDB không kết nối' });
 
         const user = await UserModel.findOne({ username });
         if (user && user.password === currentPassword) {
@@ -4362,6 +4475,21 @@ app.get('/api/connections', (req, res) => {
     }
 });
 
+// GET connections for a specific teacher by email
+app.get('/api/connections/teacher/:email', (req, res) => {
+    try {
+        const teacherEmail = decodeURIComponent(req.params.email).toLowerCase();
+        const connections = readDB('connections');
+        const filtered = connections.filter(c => 
+            (c.teacherEmail || '').toLowerCase() === teacherEmail
+        );
+        res.json({ success: true, connections: filtered });
+    } catch (err) {
+        console.error('[Connections] Teacher filter error:', err);
+        res.json({ success: true, connections: [] });
+    }
+});
+
 app.post('/api/connections', (req, res) => {
     try {
         const { studentUsername, studentName, studentEmail, teacherEmail, teacherName } = req.body;
@@ -4424,7 +4552,13 @@ app.delete('/api/connections/:id', (req, res) => {
 });
 
 // ============================================
+// ============================================
+// 22. AI CHEATING DETECTION API
+// ============================================
+// REMOVED DUPLICATE
+
 // 22. QUIZZES API
+
 // ============================================
 app.get('/api/quizzes', (req, res) => res.json(readDB('quizzes')));
 
@@ -5126,7 +5260,7 @@ app.post('/api/ocr-math', uploadAI.single('image'), async (req, res) => {
 
         const result = await callGeminiWithRetry([prompt, imageData]);
         let text = result.text();
-        text = text.replace(/```json/g, '').replace(/```/g, '').trim();
+        text = text.replace(/\`\`\`json/g, '').replace(/\`\`\`/g, '').trim();
 
         const startIdx = text.indexOf('{');
         const endIdx = text.lastIndexOf('}');
@@ -5195,6 +5329,14 @@ app.post('/api/ai/exam-prediction', uploadAI.single('syllabus'), async (req, res
 // 24. OMR GRADING API (Python YOLO + AI Vision Fallback)
 // ============================================
 app.post('/api/grade-omr', uploadGeneral.single('image'), async (req, res) => {
+    const fs = require('fs');
+    const path = require('path');
+    const logFile = path.join(__dirname, 'omr_debug.log');
+    const log = (m) => fs.appendFileSync(logFile, `[${new Date().toISOString()}] ${m}\n`);
+    log('--- NEW REQUEST ---');
+    if (req.file) log('File: ' + req.file.path);
+    else log('No file uploaded');
+
     try {
         const { answer_key } = req.body;
 
@@ -5224,7 +5366,6 @@ app.post('/api/grade-omr', uploadGeneral.single('image'), async (req, res) => {
         }
 
         // --- EXECUTE PYTHON OMR (NATIVE) ---
-        // Path to main.py
         const pythonOMRPath = path.join(__dirname, 'ChamThiTuDong', 'main.py');
 
         if (!fs.existsSync(pythonOMRPath)) {
@@ -5232,25 +5373,38 @@ app.post('/api/grade-omr', uploadGeneral.single('image'), async (req, res) => {
         }
 
         const { spawn } = require('child_process');
-        const answerKeyString = JSON.stringify(answerKeyObj);
+        
+        // The Python script expects a flat dict of question:answer
+        // If frontend sends {p1: {...}}, extract p1.
+        const flatAnswerKey = answerKeyObj.p1 || answerKeyObj; 
+        const answerKeyString = JSON.stringify(flatAnswerKey);
 
-        // Run Python
+        console.log(`[OMR] Answer Key length: ${Object.keys(flatAnswerKey).length}`);
+
+        // Run Python with timeout
         const omrResult = await new Promise((resolve, reject) => {
-            const pythonProcess = spawn('python', [pythonOMRPath, absoluteImagePath, answerKeyString], {
-                cwd: path.join(__dirname, 'ChamThiTuDong')
+            console.log(`[OMR] Spawning Python: python ${pythonOMRPath}`);
+            const pythonProcess = spawn('python', [`"${pythonOMRPath}"`, `"${absoluteImagePath}"`, `'${answerKeyString}'`], {
+                cwd: path.join(__dirname, 'ChamThiTuDong'),
+                shell: true
             });
 
             let stdout = '';
             let stderr = '';
 
+            // Set a timeout of 60 seconds
+            const timeout = setTimeout(() => {
+                pythonProcess.kill();
+                reject(new Error('Python processing timed out (60s)'));
+            }, 60000);
+
             pythonProcess.stdout.on('data', (data) => stdout += data.toString());
             pythonProcess.stderr.on('data', (data) => stderr += data.toString());
 
-            pythonProcess.on('close', (code) => {
+            pythonProcess.on('close', (code) => { log('Python closed with code ' + code); 
+                clearTimeout(timeout);
                 if (code === 0) {
-                    // Success, look for result file
                     try {
-                        // main.py saves result as result_{filename}.json
                         const baseName = path.basename(absoluteImagePath, path.extname(absoluteImagePath));
                         const jsonPath = path.join(__dirname, 'ChamThiTuDong', `result_${baseName}.json`);
 
@@ -5259,18 +5413,27 @@ app.post('/api/grade-omr', uploadGeneral.single('image'), async (req, res) => {
                             fs.unlinkSync(jsonPath); // Clean up
                             resolve(result);
                         } else {
-                            // Success
-                            reject(new Error('Python completed but no result file generated.'));
+                            // If file not found but script success, maybe it output to stdout?
+                            // Try parsing stdout as fallback
+                            try {
+                                const parsed = JSON.parse(stdout.substring(stdout.indexOf('{')));
+                                resolve(parsed);
+                            } catch(e) {
+                                reject(new Error('Python completed but no result file or valid JSON output found.'));
+                            }
                         }
                     } catch (e) {
                         reject(new Error(`Failed to parse Python output: ${e.message}`));
                     }
                 } else {
-                    reject(new Error(`Python script exited with code ${code}. Error: ${stderr}`));
+                    reject(new Error(`Python script exited with code ${code}. Error: ${stderr || stdout}`));
                 }
             });
 
-            pythonProcess.on('error', (err) => reject(err));
+            pythonProcess.on('error', (err) => { log('Python error: ' + err.message); 
+                clearTimeout(timeout);
+                reject(err);
+            });
         });
 
         // --- RETURN RESULT (CLEAN) ---
@@ -6938,134 +7101,119 @@ app.delete('/api/school/teachers/:id', (req, res) => {
     }
 });
 
-// === STUDENTS API ===
 
-// GET all students (with optional class filter)
-app.get('/api/school/students', (req, res) => {
-    const data = loadSchoolData(SCHOOL_STUDENTS_FILE);
-    if (!data) {
-        return res.json({ success: true, students: [], classes: [] });
+// ============================================
+// REAL DATA APIs FOR TEACHER DASHBOARD
+// ============================================
+
+// 1. GET Students
+app.get('/api/teacher/students', async (req, res) => {
+    try {
+        const students = await UserModel.find({ role: 'student' }).select('-password');
+        res.json({ success: true, students: students });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
     }
+});
 
-    let students = data.students || [];
-    const { classFilter, search } = req.query;
-
-    if (classFilter && classFilter !== 'all') {
-        students = students.filter(s => s.class === classFilter);
+// 2. GET Schedule
+app.get('/api/teacher/schedule', async (req, res) => {
+    try {
+        // Find class diary or schedule for teacher
+        const diaries = await ClassDiaryModel.find({}); // Get all for now
+        res.json({ success: true, schedule: diaries });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
     }
+});
 
-    if (search) {
-        const keyword = search.toLowerCase();
-        students = students.filter(s =>
-            s.name.toLowerCase().includes(keyword) ||
-            s.studentId.toLowerCase().includes(keyword)
-        );
+// 3. GET Assignments & Grades
+app.get('/api/teacher/assignments/grades', async (req, res) => {
+    try {
+        const assignments = await AssignmentModel.find({}); // Get all for now
+        res.json({ success: true, assignments });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
     }
+});
 
-    res.json({
-        success: true,
-        students,
-        classes: data.classes || [],
-        total: (data.students || []).length
-    });
+
+
+// === STUDENTS API (MongoDB version) ===
+
+// GET all students
+app.get('/api/school/students', async (req, res) => {
+    try {
+        const students = await UserModel.find({ role: 'student' }).select('-password');
+        const classes = await ClassModel.find({});
+        res.json({ success: true, students, classes, total: students.length });
+    } catch(err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
 });
 
 // GET single student
-app.get('/api/school/students/:id', (req, res) => {
-    const data = loadSchoolData(SCHOOL_STUDENTS_FILE);
-    if (!data) return res.status(404).json({ success: false, message: 'Data not found' });
-
-    const student = (data.students || []).find(s => s.id === req.params.id);
-    if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
-
-    res.json({ success: true, student });
+app.get('/api/school/students/:id', async (req, res) => {
+    try {
+        const student = await UserModel.findById(req.params.id).select('-password');
+        if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
+        res.json({ success: true, student });
+    } catch(err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
 });
 
 // POST add student
-app.post('/api/school/students', (req, res) => {
-    const data = loadSchoolData(SCHOOL_STUDENTS_FILE) || { students: [], classes: [] };
-    const { name, studentId, class: className, email, phone, parentPhone, gender, dob, address } = req.body;
-
-    if (!name || !studentId) {
-        return res.status(400).json({ success: false, message: 'Name and student ID are required' });
-    }
-
-    // Check duplicate studentId
-    if (data.students.some(s => s.studentId === studentId)) {
-        return res.status(400).json({ success: false, message: 'Student ID already exists' });
-    }
-
-    const newStudent = {
-        id: 's' + Date.now(),
-        name,
-        studentId,
-        class: className || '',
-        email: email || '',
-        phone: phone || '',
-        parentPhone: parentPhone || '',
-        gender: gender || '',
-        dob: dob || '',
-        address: address || '',
-        status: 'active',
-        enrollDate: new Date().toISOString().split('T')[0]
-    };
-
-    data.students.push(newStudent);
-
-    if (saveSchoolData(SCHOOL_STUDENTS_FILE, data)) {
+app.post('/api/school/students', async (req, res) => {
+    try {
+        const { name, studentId, class: className, email, phone, gender, dob, address } = req.body;
+        
+        // generate a username based on studentId or name
+        const username = studentId || name.toLowerCase().replace(/\s+/g, '') + Date.now();
+        
+        const newStudent = new UserModel({
+            username: username,
+            fullname: name,
+            email: email,
+            phone: phone,
+            studentClass: className,
+            gender: gender,
+            birthday: dob,
+            address: address,
+            role: 'student'
+        });
+        await newStudent.save();
         res.json({ success: true, student: newStudent, message: 'Student added successfully' });
-    } else {
-        res.status(500).json({ success: false, message: 'Failed to save data' });
+    } catch(err) {
+        res.status(500).json({ success: false, message: err.message });
     }
 });
 
 // PUT update student
-app.put('/api/school/students/:id', (req, res) => {
-    const data = loadSchoolData(SCHOOL_STUDENTS_FILE);
-    if (!data) return res.status(404).json({ success: false, message: 'Data not found' });
-
-    const index = (data.students || []).findIndex(s => s.id === req.params.id);
-    if (index === -1) return res.status(404).json({ success: false, message: 'Student not found' });
-
-    const updates = req.body;
-    data.students[index] = { ...data.students[index], ...updates };
-
-    if (saveSchoolData(SCHOOL_STUDENTS_FILE, data)) {
-        res.json({ success: true, student: data.students[index], message: 'Student updated successfully' });
-    } else {
-        res.status(500).json({ success: false, message: 'Failed to save data' });
+app.put('/api/school/students/:id', async (req, res) => {
+    try {
+        const updates = req.body;
+        // Map frontend fields to backend fields if necessary
+        if(updates.name) updates.fullname = updates.name;
+        if(updates.class) updates.studentClass = updates.class;
+        
+        const updated = await UserModel.findByIdAndUpdate(req.params.id, { $set: updates }, { new: true });
+        res.json({ success: true, student: updated, message: 'Student updated successfully' });
+    } catch(err) {
+        res.status(500).json({ success: false, message: err.message });
     }
 });
 
 // DELETE student
-app.delete('/api/school/students/:id', (req, res) => {
-    const data = loadSchoolData(SCHOOL_STUDENTS_FILE);
-    if (!data) return res.status(404).json({ success: false, message: 'Data not found' });
-
-    // Try finding by internal ID first
-    let index = (data.students || []).findIndex(s => s.id === req.params.id);
-
-    // Fallback: Try finding by studentId (visible ID) if internal ID lookup fails
-    if (index === -1) {
-        console.log(`[Delete Student] ID '${req.params.id}' not found via 'id'. Trying 'studentId' match...`);
-        index = (data.students || []).findIndex(s => s.studentId === req.params.id);
-    }
-
-    // Debug logging for troubleshooting
-    if (index === -1) {
-        console.log(`[Delete Student] Failed to find student. ID: ${req.params.id}`);
-    }
-
-    if (index === -1) return res.status(404).json({ success: false, message: 'Student not found' });
-
-    const deleted = data.students.splice(index, 1)[0];
-
-    if (saveSchoolData(SCHOOL_STUDENTS_FILE, data)) {
+app.delete('/api/school/students/:id', async (req, res) => {
+    try {
+        const deleted = await UserModel.findByIdAndDelete(req.params.id);
         res.json({ success: true, message: 'Student deleted successfully', student: deleted });
-    } else {
-        res.status(500).json({ success: false, message: 'Failed to save data' });
+    } catch(err) {
+        res.status(500).json({ success: false, message: err.message });
     }
 });
+
 
 // === STATS API ===
 app.get('/api/school/stats', (req, res) => {
@@ -7826,4 +7974,109 @@ server.listen(PORT, () => {
 
     // Run validation in background
     setTimeout(validateAIKeys, 2000);
+});
+
+// ============================================
+// SCHEDULE MODEL & APIs
+// ============================================
+const teacherScheduleSchema = new mongoose.Schema({
+    teacherId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    day: String,
+    period: String,
+    subject: String,
+    class: String,
+    room: String
+});
+const TeacherScheduleModel = mongoose.models.TeacherSchedule || mongoose.model('TeacherSchedule', teacherScheduleSchema);
+
+app.get('/api/teacher/schedule-real', async (req, res) => {
+    try {
+        const schedule = await TeacherScheduleModel.find({});
+        res.json({ success: true, schedule: schedule.map(s => ({
+            id: s._id,
+            day: s.day,
+            period: s.period,
+            subject: s.subject,
+            class: s.class,
+            room: s.room
+        }))});
+    } catch(err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
+app.post('/api/teacher/schedule-real', async (req, res) => {
+    try {
+        const newSched = new TeacherScheduleModel({
+            ...req.body,
+            // teacherId removed - no auth
+        });
+        await newSched.save();
+        res.json({ success: true, schedule: {
+            id: newSched._id,
+            day: newSched.day,
+            period: newSched.period,
+            subject: newSched.subject,
+            class: newSched.class,
+            room: newSched.room
+        }});
+    } catch(err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
+app.delete('/api/teacher/schedule-real/:id', async (req, res) => {
+    try {
+        await TeacherScheduleModel.findByIdAndDelete(req.params.id);
+        res.json({ success: true });
+    } catch(err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
+// ============================================
+// AI CHEATING DETECTION API (Optimized)
+// ============================================
+app.post('/api/ai/cheat-detect', async (req, res) => {
+    try {
+        const { image } = req.body;
+        if (!image) return res.json({ success: false, message: 'No image provided' });
+
+        if (!aiProcess || aiProcess.killed) {
+            return res.json({ success: false, message: 'AI Engine is starting, please wait...' });
+        }
+
+        // Strict concurrency: only 1 request at a time
+        if (pendingAIRequests.size > 0) {
+            // Watchdog: if busy for > 5s, something might be stuck. Force clear it.
+            const now = Date.now();
+            const oldestRequest = Array.from(pendingAIRequests.values())[0];
+            if (now - (oldestRequest._startTime || now) > 5000) {
+                console.warn('[AI] Process stuck detected, clearing queue...');
+                pendingAIRequests.clear();
+            }
+            return res.json({ success: false, message: 'AI_BUSY' });
+        }
+
+        const base64Data = image.substring(image.indexOf(',') + 1);
+        const requestId = 'req_' + Date.now() + '_' + Math.random().toString(36).substring(2, 9);
+        
+        const reqObj = res;
+        reqObj._startTime = Date.now();
+        pendingAIRequests.set(requestId, reqObj);
+
+        // Send structured JSON to Python
+        const payload = JSON.stringify({ id: requestId, image: base64Data });
+        aiProcess.stdin.write(payload + '\n');
+        
+        setTimeout(() => {
+            if (pendingAIRequests.has(requestId)) {
+                pendingAIRequests.delete(requestId);
+                if (!res.headersSent) res.json({ success: false, message: 'AI_TIMEOUT' });
+            }
+        }, 10000); // 10s timeout
+    } catch (err) {
+        console.error(err);
+        if (!res.headersSent) res.json({ success: false, message: 'Server error' });
+    }
 });

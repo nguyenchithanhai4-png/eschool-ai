@@ -524,31 +524,37 @@ function initCharts() {
         new Chart(ctxScore, {
             type: 'bar',
             data: {
-                labels: labels,
+                labels: labels.length > 0 ? labels : ['Chưa có dữ liệu'],
                 datasets: [{
                     label: 'Điểm TB',
-                    data: scores,
-                    backgroundColor: 'rgba(99, 102, 241, 0.8)',
-                    borderColor: 'rgba(99, 102, 241, 1)',
+                    data: scores.length > 0 ? scores : [0],
+                    backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
                     borderWidth: 0,
-                    borderRadius: 4,
-                    barThickness: 80
+                    borderRadius: 8,
+                    barThickness: 40
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display: true,
                         position: 'top',
                         align: 'end',
                         labels: {
-                            color: 'rgba(255,255,255,0.8)',
+                            color: '#64748b', // Slate 500
                             usePointStyle: true,
-                            pointStyle: 'rect',
-                            boxWidth: 15
+                            pointStyle: 'circle',
+                            boxWidth: 8,
+                            font: { family: "'Be Vietnam Pro', sans-serif", size: 12 }
                         }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        titleFont: { family: "'Be Vietnam Pro', sans-serif" },
+                        bodyFont: { family: "'Be Vietnam Pro', sans-serif" }
                     }
                 },
                 scales: {
@@ -557,14 +563,17 @@ function initCharts() {
                         min: 0,
                         max: 10,
                         ticks: {
-                            stepSize: 1,
-                            color: 'rgba(255,255,255,0.5)'
+                            stepSize: 2,
+                            color: '#94a3b8' // Slate 400
                         },
-                        grid: { color: 'rgba(255,255,255,0.08)' }
+                        grid: { color: '#f1f5f9' } // Very light slate
                     },
                     x: {
                         grid: { display: false },
-                        ticks: { color: 'rgba(255,255,255,0.7)' }
+                        ticks: { 
+                            color: '#64748b', // Slate 500
+                            font: { weight: '500' }
+                        }
                     }
                 }
             }
@@ -605,22 +614,28 @@ function initCharts() {
                 labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
                 datasets: [{
                     data: activityData,
-                    borderColor: 'rgba(99, 102, 241, 1)',
+                    borderColor: '#3b82f6',
                     backgroundColor: gradient,
                     tension: 0.4,
                     fill: true,
                     pointRadius: 4,
-                    pointBackgroundColor: 'rgba(99, 102, 241, 1)',
+                    pointBackgroundColor: '#3b82f6',
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
-                    borderWidth: 2
+                    borderWidth: 3
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
                 plugins: {
-                    legend: { display: false }
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        padding: 12,
+                        titleFont: { family: "'Be Vietnam Pro', sans-serif" },
+                        bodyFont: { family: "'Be Vietnam Pro', sans-serif" }
+                    }
                 },
                 scales: {
                     y: {
@@ -628,14 +643,14 @@ function initCharts() {
                         min: 0,
                         max: 4,
                         ticks: {
-                            stepSize: 0.5,
-                            color: 'rgba(255,255,255,0.5)'
+                            stepSize: 1,
+                            color: '#94a3b8'
                         },
-                        grid: { color: 'rgba(255,255,255,0.08)' }
+                        grid: { color: '#f1f5f9' }
                     },
                     x: {
                         grid: { display: false },
-                        ticks: { color: 'rgba(255,255,255,0.7)' }
+                        ticks: { color: '#64748b' }
                     }
                 }
             }
@@ -1185,7 +1200,7 @@ function generateP1Grid() {
     for (let q = 1; q <= 40; q++) {
         const row = document.createElement('div');
         row.className = 'd-flex align-items-center gap-1 mb-1';
-        row.innerHTML = `<span class="text-white-50 small" style="width: 28px;">${q}.</span>`;
+        row.innerHTML = `<span class="text-slate-600 fw-bold small" style="width: 28px;">${q}.</span>`;
 
         ['A', 'B', 'C', 'D'].forEach(opt => {
             const btn = document.createElement('button');
@@ -1217,9 +1232,10 @@ function generateP2Grid() {
     for (let q = 1; q <= 4; q++) {
         const card = document.createElement('div');
         card.className = 'mb-3 p-2 rounded';
-        card.style.background = 'rgba(255,255,255,0.05)';
+        card.style.background = '#f8fafc';
+        card.style.border = '1px solid #e2e8f0';
 
-        let html = `<div class="fw-bold text-warning mb-2" style="font-size: 0.8rem;">Câu ${q}</div>`;
+        let html = `<div class="fw-bold text-slate-800 mb-2" style="font-size: 0.8rem;">Câu ${q}</div>`;
         html += `<div class="d-flex flex-wrap gap-2">`;
 
         ['a', 'b', 'c', 'd'].forEach(sub => {
@@ -1229,7 +1245,7 @@ function generateP2Grid() {
 
             html += `
                 <div class="d-flex align-items-center gap-1">
-                    <span class="text-white-50" style="font-size: 0.75rem; width: 16px;">${sub})</span>
+                    <span class="text-slate-600 fw-bold" style="font-size: 0.75rem; width: 16px;">${sub})</span>
                     <button class="btn btn-sm ${isD ? 'btn-success' : 'btn-outline-success'} px-2 py-0 p2-btn" 
                             data-q="${q}" data-sub="${sub}" data-ans="Đ"
                             onclick="selectP2Answer(${q}, '${sub}', 'Đ', this)"
@@ -1278,7 +1294,7 @@ function generateP3Grid() {
         const row = document.createElement('div');
         row.className = 'd-flex align-items-center gap-2 mb-2';
         row.innerHTML = `
-            <span class="text-white-50 small" style="width: 50px;">Câu ${q}:</span>
+            <span class="text-slate-600 fw-bold small" style="width: 50px;">Câu ${q}:</span>
             <input type="text" 
                    class="form-control form-control-sm input-glass text-center p3-input" 
                    data-q="${q}"
@@ -2052,6 +2068,44 @@ function switchGradingMode(mode) {
     document.getElementById(`tab-btn-${mode}`).classList.add('active');
     document.querySelectorAll('.grading-mode-content').forEach(c => c.classList.add('d-none'));
     document.getElementById(`grading-mode-${mode}`).classList.remove('d-none');
+    
+    // Restore wizard step if applicable
+    if (mode === 'omr') {
+        const savedStep = localStorage.getItem('aiGradingStep_omr') || 1;
+        goToAIGradingStep('omr', parseInt(savedStep));
+    }
+}
+
+function goToAIGradingStep(mode, step) {
+    if(!['omr', 'essay', 'full'].includes(mode)) return;
+    
+    // Hide all steps
+    for (let i = 1; i <= 4; i++) {
+        const stepEl = document.getElementById(`grading-step-${i}-${mode}`);
+        if(stepEl) stepEl.classList.add('d-none');
+        
+        // Update wizard UI
+        const wizardStep = document.querySelector(`#grading-mode-${mode} #wizard-step-${i}`);
+        if(wizardStep) {
+            const circle = wizardStep.querySelector('.step-circle');
+            if (i === step) {
+                wizardStep.classList.remove('opacity-50');
+                if (circle) circle.className = 'step-circle bg-primary text-white mx-auto d-flex align-items-center justify-content-center rounded-circle shadow-sm border-0';
+            } else if (i < step) {
+                // Completed step
+                wizardStep.classList.remove('opacity-50');
+                if (circle) circle.className = 'step-circle bg-success text-white mx-auto d-flex align-items-center justify-content-center rounded-circle shadow-sm border-0';
+            } else {
+                wizardStep.classList.add('opacity-50');
+                if (circle) circle.className = 'step-circle bg-slate-200 text-slate-500 mx-auto d-flex align-items-center justify-content-center rounded-circle border';
+            }
+        }
+    }
+    const currentStepEl = document.getElementById(`grading-step-${step}-${mode}`);
+    if(currentStepEl) currentStepEl.classList.remove('d-none');
+
+    // Save to localStorage
+    localStorage.setItem(`aiGradingStep_${mode}`, step);
 }
 
 // === NOTIFICATIONS SYSTEM ===
