@@ -1,6 +1,6 @@
 {
   "student": {
-    "date": "2026-01-02",
+    "date": "2026-04-17",
     "count": 1
   },
   "admin": {
@@ -42,5 +42,9 @@
   "teststudent": {
     "date": "2026-01-16",
     "count": 6
+  },
+  "njknk": {
+    "date": "2026-04-17",
+    "count": 1
   }
 }

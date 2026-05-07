@@ -60,9 +60,12 @@ function renderBooks(books) {
 
     if (books.length === 0) {
         list.innerHTML = `
-            <div class="col-12 text-center text-white-50 py-5">
-                <i class="fa-solid fa-book-open fa-3x mb-3"></i>
-                <p>Chưa có tài liệu nào trong thư viện.</p>
+            <div class="col-12 text-center text-slate-400 py-5">
+                <div class="mb-4">
+                    <i class="fa-solid fa-book-open fa-4x opacity-20"></i>
+                </div>
+                <h5 class="text-slate-900 mb-2">Thư viện trống</h5>
+                <p>Chưa có tài liệu nào trong danh mục này.</p>
             </div>
         `;
         return;
@@ -77,26 +80,37 @@ function renderBooks(books) {
         'default': 'fa-book-open'
     };
 
+    // Color mapping for category circles
+    const colorMap = {
+        'SGK': '#3b82f6',
+        'Truyện': '#f59e0b',
+        'Tài liệu': '#ef4444',
+        'Đề thi': '#10b981',
+        'default': '#6366f1'
+    };
+
     books.forEach(book => {
         const category = book.category || 'Tài liệu';
         const icon = iconMap[category] || iconMap['default'];
-        const tagClass = category === 'SGK' ? 'sgk' : (category === 'Truyện' ? 'truyen' : 'tailieu');
+        const color = colorMap[category] || colorMap['default'];
 
         const card = `
             <div class="col-6 col-md-4 col-xl-3">
-                <div class="ebook-card" style="position: relative;">
-                    <div class="ebook-cover">
-                        <i class="fa-solid ${icon}"></i>
+                <div class="ebook-card">
+                    <div class="ebook-cover" style="background: linear-gradient(135deg, ${color}20 0%, ${color}10 100%);">
                         <div class="ebook-tag">${category.toUpperCase()}</div>
+                        <div class="ebook-icon-circle" style="background: ${color}20; border: 1px solid ${color}40;">
+                            <i class="fa-solid ${icon}" style="color: ${color}"></i>
+                        </div>
                     </div>
-                    <div class="px-3 pb-2">
-                        <div class="fw-bold mb-1" style="color: var(--primary); font-size: 0.95rem;">${book.title}</div>
-                        <p class="text-white-50 mb-2" style="font-size: 0.75rem; line-height: 1.3;">${book.description || ''}</p>
-                        <div class="d-flex gap-2 justify-content-center">
-                            <button class="btn btn-sm btn-primary rounded-pill px-3" onclick="previewBook('${book.url || ''}', '${book.fileType || 'pdf'}'); event.stopPropagation();">
+                    <div class="p-3">
+                        <div class="fw-bold mb-1 text-slate-900" style="font-size: 0.95rem; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">${book.title}</div>
+                        <p class="text-slate-500 mb-3" style="font-size: 0.75rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 32px;">${book.description || 'Tài liệu học tập hữu ích cho học sinh.'}</p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-primary flex-grow-1 rounded-pill" onclick="previewBook('${book.url || ''}', '${book.fileType || 'pdf'}'); event.stopPropagation();">
                                 <i class="fa-solid fa-eye me-1"></i>Xem
                             </button>
-                            <button class="btn btn-sm btn-outline-light rounded-pill px-3" onclick="downloadBook('${book.url || ''}', '${book.title}'); event.stopPropagation();">
+                            <button class="btn btn-sm btn-outline-primary flex-grow-1 rounded-pill" onclick="downloadBook('${book.url || ''}', '${book.title}'); event.stopPropagation();">
                                 <i class="fa-solid fa-download me-1"></i>Tải
                             </button>
                         </div>

@@ -62,7 +62,7 @@ function renderExamResult(exam) {
                     <div class="row g-2">
                         ${q.a.map((ans, idx) => `
                             <div class="col-6">
-                                <div class="p-2 rounded border border-white border-opacity-10 small ${idx === q.correct ? 'bg-success bg-opacity-25' : ''}">
+                                <div class="p-2 rounded border border-slate-200 small ${idx === q.correct ? 'bg-success bg-opacity-20' : 'bg-slate-50'}">
                                     ${String.fromCharCode(65 + idx)}. ${ans}
                                 </div>
                             </div>
@@ -261,7 +261,7 @@ function loadLockerItems() {
                     <button class="btn btn-sm btn-icon position-absolute top-0 end-0 m-2 text-danger" onclick="removeLockerItem(${item.id})">&times;</button>
                     <i class="fa-solid fa-file-lines fa-3x mb-3 text-info"></i>
                     <h6 class="text-truncate">${item.name}</h6>
-                    <small class="text-white-50">${new Date(item.date).toLocaleDateString()}</small>
+                    <small class="text-slate-500">${new Date(item.date).toLocaleDateString()}</small>
                 </div>
             </div>
         `;
@@ -275,7 +275,7 @@ function loadLockerItems() {
                     <button class="btn btn-sm btn-icon position-absolute top-0 end-0 m-2 text-danger" onclick="removeLockerNote(${note.id})">&times;</button>
                     <i class="fa-solid fa-sticky-note fa-2x mb-2 text-warning"></i>
                     <h6 class="fw-bold mb-1">${note.title}</h6>
-                    <p class="small text-white-50 text-truncate-3" style="font-size: 0.8rem;">${note.content}</p>
+                    <p class="small text-slate-500 text-truncate-3" style="font-size: 0.8rem;">${note.content}</p>
                 </div>
             </div>
         `;
@@ -343,7 +343,7 @@ async function loadMentors() {
                     <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/icons/person-circle.svg" class="rounded-circle me-3" width="50" height="50">
                     <div class="flex-grow-1">
                         <h6 class="fw-bold mb-0">${m.name} <i class="fa-solid fa-circle-check text-primary small"></i></h6>
-                        <div class="small text-white-50">Chuyên môn: ${m.subject} • ⭐ ${m.rating}</div>
+                        <div class="small text-slate-500">Chuyên môn: ${m.subject} • ⭐ ${m.rating}</div>
                     </div>
                     <div class="text-end">
                         <div class="fw-bold text-warning">${m.price} Coin/h</div>
@@ -535,7 +535,7 @@ function addAiMessage(text) {
                  style="width: 36px; height: 36px; background: linear-gradient(135deg, #a855f7, #ec4899);">
                  <i class="fa-solid fa-robot text-white" style="font-size: 0.8rem;"></i>
             </div>
-            <div class="msg-bubble-ai text-white p-3 shadow-sm" style="max-width: 80%; line-height: 1.6;">
+            <div class="msg-bubble-ai text-slate-800 p-3 shadow-sm" style="max-width: 80%; line-height: 1.6;">
                 ${text}
             </div>
         </div>
@@ -548,7 +548,7 @@ function addSystemMessage(text) {
     const chatBox = document.getElementById('interview-chat-box');
     const html = `
         <div class="text-center mb-4">
-            <span class="badge bg-white bg-opacity-10 text-white-50 fw-normal border border-white border-opacity-10 px-3 py-2 rounded-pill">
+            <span class="badge bg-slate-100 text-slate-600 fw-normal border border-slate-200 px-3 py-2 rounded-pill">
                 ${text}
             </span>
         </div>

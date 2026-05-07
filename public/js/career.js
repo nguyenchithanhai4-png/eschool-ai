@@ -17,7 +17,7 @@ function renderCareerIntro() {
                 50% { background-position: 100% 50%; }
             }
             .gradient-text {
-                background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7, #6366f1);
+                background: linear-gradient(135deg, #1d4ed8, #2563eb, #3b82f6, #1d4ed8);
                 background-size: 300% 300%;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
@@ -25,51 +25,54 @@ function renderCareerIntro() {
                 animation: gradient-shift 4s ease infinite;
             }
             .feature-card-compact {
-                background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.04) 100%);
-                border: 1px solid rgba(99, 102, 241, 0.15);
-                border-radius: 16px;
-                padding: 16px;
-                transition: all 0.3s ease;
+                background: #f1f5f9;
+                border: 1px solid #e2e8f0;
+                border-radius: 24px;
+                padding: 24px;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             }
             .feature-card-compact:hover {
                 transform: translateY(-5px);
-                border-color: rgba(99, 102, 241, 0.35);
-                box-shadow: 0 15px 30px rgba(99, 102, 241, 0.1);
+                border-color: #2563eb;
+                box-shadow: 0 15px 30px rgba(37, 99, 235, 0.08);
             }
             .feature-icon-box {
-                width: 40px;
-                height: 40px;
-                border-radius: 12px;
+                width: 48px;
+                height: 48px;
+                border-radius: 14px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-bottom: 10px;
+                margin-bottom: 16px;
             }
             .cta-btn-compact {
-                background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
-                color: white;
-                font-weight: 600;
+                background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+                color: #ffffff !important;
+                font-weight: 700;
                 border: none;
-                padding: 14px 40px;
+                padding: 16px 50px;
                 border-radius: 50px;
-                font-size: 1rem;
+                font-size: 1.1rem;
                 transition: all 0.3s ease;
-                box-shadow: 0 8px 30px rgba(99, 102, 241, 0.35);
+                box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
             }
             .cta-btn-compact:hover {
                 transform: translateY(-3px) scale(1.02);
-                box-shadow: 0 12px 40px rgba(99, 102, 241, 0.45);
+                box-shadow: 0 15px 40px rgba(37, 99, 235, 0.5);
+                filter: brightness(1.1);
             }
             .stats-badge-sm {
                 display: inline-flex;
                 align-items: center;
-                gap: 6px;
-                background: rgba(99, 102, 241, 0.1);
-                border: 1px solid rgba(99, 102, 241, 0.2);
-                padding: 6px 14px;
-                border-radius: 20px;
-                font-size: 0.8rem;
-                color: #a5b4fc;
+                gap: 8px;
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                padding: 8px 18px;
+                border-radius: 30px;
+                font-size: 0.9rem;
+                color: #2563eb;
+                font-weight: 600;
             }
             .career-intro-container {
                 display: flex;
@@ -77,40 +80,26 @@ function renderCareerIntro() {
                 align-items: center;
                 justify-content: center;
                 text-align: center;
-                height: 100%;
-                padding: 20px;
-            }
-            @media (max-width: 768px) {
-                .career-intro-container { 
-                    padding: 15px 10px; 
-                    min-height: 100%;
-                }
-                .cta-btn-compact { padding: 12px 32px; font-size: 0.95rem; }
-                .stats-badge-sm { padding: 5px 10px; font-size: 0.7rem; gap: 4px; }
-                .mobile-title { font-size: 1.6rem !important; }
-                .mobile-desc { font-size: 0.85rem !important; }
-                .feature-card-compact { padding: 12px; }
-                .feature-icon-box { width: 36px; height: 36px; margin-bottom: 8px; }
-                .feature-card-compact h6 { font-size: 0.75rem !important; }
-                .feature-card-compact small { font-size: 0.65rem !important; }
+                min-height: 100%;
+                padding: 40px 20px;
             }
         </style>
         
-        <div class="career-intro-container position-relative">
+        <div class="career-intro-container">
             <!-- Title -->
-            <h1 class="mb-2 mobile-title" style="font-size: 2.2rem; font-weight: 700; letter-spacing: -1px; line-height: 1.15;">
+            <h1 class="mb-3" style="font-size: 3rem; font-weight: 800; letter-spacing: -1.5px;">
                 <span class="gradient-text">Khám Phá</span>
-                <span class="text-white"> Nghề Nghiệp</span>
+                <span style="color: #1e293b;"> Nghề Nghiệp</span>
             </h1>
             
             <!-- Description -->
-            <p class="text-white-50 mb-3 mx-auto mobile-desc" style="max-width: 500px; font-size: 0.95rem; line-height: 1.6;">
-                Hệ thống AI phân tích <strong class="text-white">60 chiều dữ liệu</strong> để tìm 
-                <span class="gradient-text fw-bold">nghề nghiệp phù hợp</span> nhất với bạn.
+            <p class="text-muted mb-4 mx-auto" style="max-width: 600px; font-size: 1.1rem; line-height: 1.6;">
+                Hệ thống AI phân tích <strong>60 chiều dữ liệu</strong> để tìm 
+                <span style="color: #2563eb; font-weight: 700;">nghề nghiệp phù hợp</span> nhất với bạn.
             </p>
             
             <!-- Stats Badges -->
-            <div class="d-flex justify-content-center gap-2 flex-wrap mb-3">
+            <div class="d-flex justify-content-center gap-3 flex-wrap mb-5">
                 <div class="stats-badge-sm">
                     <i class="fa-solid fa-brain"></i>
                     <span>AI Phân Tích</span>
@@ -126,32 +115,32 @@ function renderCareerIntro() {
             </div>
             
             <!-- Feature Cards -->
-            <div class="row g-2 g-md-3 mb-4 text-start justify-content-center w-100" style="max-width: 800px;">
-                <div class="col-4">
+            <div class="row g-4 mb-5 text-start justify-content-center w-100" style="max-width: 1000px;">
+                <div class="col-md-4">
                     <div class="feature-card-compact h-100">
-                        <div class="feature-icon-box" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(99, 102, 241, 0.1));">
-                            <i class="fa-solid fa-brain" style="color: #818cf8;"></i>
+                        <div class="feature-icon-box" style="background: rgba(37, 99, 235, 0.1);">
+                            <i class="fa-solid fa-brain" style="color: #2563eb; font-size: 1.2rem;"></i>
                         </div>
-                        <h6 class="text-white fw-bold mb-1" style="font-size: 0.85rem;">AI Phân Tích Sâu</h6>
-                        <small class="text-white-50" style="font-size: 0.7rem;">Pattern Matching phân tích 7 chiều năng lực.</small>
+                        <h5 class="fw-bold mb-2" style="color: #1e293b;">AI Phân Tích Sâu</h5>
+                        <p class="text-muted small mb-0">Pattern Matching phân tích 7 chiều năng lực.</p>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                     <div class="feature-card-compact h-100">
-                        <div class="feature-icon-box" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(139, 92, 246, 0.1));">
-                            <i class="fa-solid fa-chart-pie" style="color: #a78bfa;"></i>
+                        <div class="feature-icon-box" style="background: rgba(59, 130, 246, 0.1);">
+                            <i class="fa-solid fa-chart-pie" style="color: #3b82f6; font-size: 1.2rem;"></i>
                         </div>
-                        <h6 class="text-white fw-bold mb-1" style="font-size: 0.85rem;">Biểu Đồ Năng Lực</h6>
-                        <small class="text-white-50" style="font-size: 0.7rem;">Trực quan hóa điểm mạnh, yếu qua 60 câu hỏi.</small>
+                        <h5 class="fw-bold mb-2" style="color: #1e293b;">Biểu Đồ Năng Lực</h5>
+                        <p class="text-muted small mb-0">Trực quan hóa điểm mạnh, yếu qua 60 câu hỏi.</p>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                     <div class="feature-card-compact h-100">
-                        <div class="feature-icon-box" style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(168, 85, 247, 0.1));">
-                            <i class="fa-solid fa-route" style="color: #c084fc;"></i>
+                        <div class="feature-icon-box" style="background: rgba(37, 99, 235, 0.1);">
+                            <i class="fa-solid fa-route" style="color: #2563eb; font-size: 1.2rem;"></i>
                         </div>
-                        <h6 class="text-white fw-bold mb-1" style="font-size: 0.85rem;">Lộ Trình 5 Năm</h6>
-                        <small class="text-white-50" style="font-size: 0.7rem;">Kế hoạch hành động từ học tập đến sự nghiệp.</small>
+                        <h5 class="fw-bold mb-2" style="color: #1e293b;">Lộ Trình 5 Năm</h5>
+                        <p class="text-muted small mb-0">Kế hoạch hành động từ học tập đến sự nghiệp.</p>
                     </div>
                 </div>
             </div>
@@ -188,7 +177,7 @@ function renderCareerQuestion() {
                 height: 10px;
                 -webkit-appearance: none;
                 appearance: none;
-                background: linear-gradient(to right, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.5));
+                background: linear-gradient(to right, rgba(37, 99, 235, 0.3), rgba(59, 130, 246, 0.5));
                 border-radius: 5px;
                 outline: none;
                 cursor: pointer;
@@ -200,16 +189,16 @@ function renderCareerQuestion() {
                 appearance: none;
                 width: 28px;
                 height: 28px;
-                background: linear-gradient(135deg, #6366f1, #a855f7);
+                background: linear-gradient(135deg, #2563eb, #3b82f6);
                 border-radius: 50%;
                 cursor: grab;
-                box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+                box-shadow: 0 4px 15px rgba(37, 99, 235, 0.5);
                 border: 3px solid white;
                 transition: transform 0.2s ease, box-shadow 0.2s ease;
             }
             .custom-range-lg::-webkit-slider-thumb:hover {
                 transform: scale(1.15);
-                box-shadow: 0 6px 20px rgba(99, 102, 241, 0.7);
+                box-shadow: 0 6px 20px rgba(37, 99, 235, 0.7);
             }
             .custom-range-lg::-webkit-slider-thumb:active {
                 cursor: grabbing;
@@ -218,14 +207,14 @@ function renderCareerQuestion() {
             .custom-range-lg::-moz-range-thumb {
                 width: 28px;
                 height: 28px;
-                background: linear-gradient(135deg, #6366f1, #a855f7);
+                background: linear-gradient(135deg, #2563eb, #3b82f6);
                 border-radius: 50%;
                 cursor: grab;
-                box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+                box-shadow: 0 4px 15px rgba(37, 99, 235, 0.5);
                 border: 3px solid white;
             }
             .custom-range-lg::-moz-range-track {
-                background: linear-gradient(to right, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.5));
+                background: linear-gradient(to right, rgba(37, 99, 235, 0.3), rgba(59, 130, 246, 0.5));
                 height: 10px;
                 border-radius: 5px;
             }
@@ -239,22 +228,22 @@ function renderCareerQuestion() {
             <div class="flex-grow-1 d-flex flex-column position-relative overflow-hidden" style="z-index: 1;">
                 
                 <!-- Header / Progress -->
-                <div class="p-3 p-md-4 d-flex justify-content-between align-items-center flex-shrink-0" style="background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.08);">
+                <div class="p-3 p-md-4 d-flex justify-content-between align-items-center flex-shrink-0" style="background: #ffffff; border-bottom: 1px solid #e2e8f0;">
                     <div class="d-flex align-items-center gap-2 gap-md-3">
-                        <span class="badge text-white px-2 px-md-3 py-1 py-md-2 rounded-pill font-monospace" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem;">
+                        <span class="badge text-dark px-2 px-md-3 py-1 py-md-2 rounded-pill font-monospace" style="background: #f1f5f9; border: 1px solid #e2e8f0; font-size: 0.8rem;">
                             ${currentQuestionIndex + 1} / ${TOTAL_QUESTIONS}
                         </span>
-                        <span class="text-white-50 small text-uppercase fw-bold d-none d-md-inline">${q.category}</span>
+                        <span class="text-muted small text-uppercase fw-bold d-none d-md-inline" style="color: #64748b !important;">${q.category}</span>
                     </div>
                     <!-- Mini progress bar -->
-                    <div style="width: 100px; height: 5px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+                    <div style="width: 100px; height: 5px; background: #f1f5f9; border-radius: 3px; overflow: hidden;">
                         <div class="bg-gradient-primary h-100" style="width: ${progressPercent}%; transition: width 0.5s ease;"></div>
                     </div>
                 </div>
 
                 <!-- Content Body - Fixed height, centered -->
                 <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center p-3 p-md-5 overflow-hidden">
-                    <h3 class="text-white mb-3 mb-md-5 lh-base fw-semibold animate-slide-up" style="font-size: clamp(1rem, 4vw, 1.8rem); max-width: 95%;">
+                    <h3 class="text-dark mb-3 mb-md-5 lh-base fw-semibold animate-slide-up" style="color: #1e293b !important; font-size: clamp(1rem, 4vw, 1.8rem); max-width: 95%;">
                         "${q.text}"
                     </h3>
 
@@ -264,7 +253,7 @@ function renderCareerQuestion() {
                             id="q-slider" oninput="updateSliderUI(this.value)">
                         
                         <!-- 0-10 Scale Labels -->
-                        <div class="d-flex justify-content-between px-1 mt-2 mb-3 text-white-50 font-monospace" style="font-size: 0.85rem;">
+                        <div class="d-flex justify-content-between px-1 mt-2 mb-3 text-muted font-monospace" style="font-size: 0.85rem;">
                             <span style="flex: 1; text-align: center;">0</span>
                             <span style="flex: 1; text-align: center;">1</span>
                             <span style="flex: 1; text-align: center;">2</span>
@@ -278,7 +267,7 @@ function renderCareerQuestion() {
                             <span style="flex: 1; text-align: center;">10</span>
                         </div>
 
-                        <div class="position-relative mt-2 text-white-50 fw-medium small text-uppercase w-100" style="height: 30px;">
+                        <div class="position-relative mt-2 text-muted fw-medium small text-uppercase w-100" style="height: 30px;">
                             <!-- Left Label -->
                             <span id="label-left" class="position-absolute start-0 top-50 translate-middle-y" style="transition: all 0.3s ease;">
                                 <i class="fa-regular fa-face-frown me-1"></i><span class="d-none d-md-inline">Ghét</span>
@@ -286,7 +275,7 @@ function renderCareerQuestion() {
                             
                             <!-- Center Score -->
                             <div class="position-absolute top-50 start-50 translate-middle text-center">
-                                <span class="text-white fw-bold fs-4 d-inline-block" id="score-display" style="transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);">${currentValue}</span>
+                                <span class="text-dark fw-bold fs-4 d-inline-block" style="color: #1e293b !important;" id="score-display" style="transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);">${currentValue}</span>
                             </div>
 
                             <!-- Right Label -->
@@ -298,8 +287,8 @@ function renderCareerQuestion() {
                 </div>
 
                 <!-- Footer Navigation - Fixed at bottom -->
-                <div class="p-2 p-md-4 d-flex justify-content-between align-items-center flex-shrink-0" style="background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.08);">
-                    <button class="btn btn-link text-white-50 text-decoration-none hover-white btn-sm" 
+                <div class="p-2 p-md-4 d-flex justify-content-between align-items-center flex-shrink-0" style="background: #ffffff; border-top: 1px solid #e2e8f0;">
+                    <button class="btn btn-link text-muted text-decoration-none hover-white btn-sm" 
                         onclick="prevQuestion()" ${currentQuestionIndex === 0 ? 'disabled style="opacity:0; pointer-events:none;"' : ''}>
                         <i class="fa-solid fa-arrow-left me-1 me-md-2"></i><span class="d-none d-md-inline">Quay lại</span>
                     </button>
@@ -341,18 +330,16 @@ function updateSliderUI(val) {
             6: { color: '#84cc16', shadow: 'none' },                            // Lime
             7: { color: '#22c55e', shadow: '0 0 8px rgba(34,197,94,0.3)' },    // Green
             8: { color: '#14b8a6', shadow: '0 0 10px rgba(20,184,166,0.4)' },  // Teal
-            9: { color: '#8b5cf6', shadow: '0 0 12px rgba(139,92,246,0.5)' },  // Violet
-            10: { color: '#a855f7', shadow: '0 0 15px rgba(168,85,247,0.6)' }  // Purple - Passion
+            9: { color: '#3b82f6', shadow: '0 0 12px rgba(139,92,246,0.5)' },  // Violet
+            10: { color: '#3b82f6', shadow: '0 0 15px rgba(168,85,247,0.6)' }  // Purple - Passion
         };
 
         const scoreStyle = scoreColors[val] || scoreColors[5];
         display.style.color = scoreStyle.color;
         display.style.textShadow = scoreStyle.shadow;
     }
-
-    // Label Logic - Highlight extremes (0-10 scale)
+    
     if (leftLabel && rightLabel) {
-        // Reset default state
         leftLabel.style.opacity = '0.4';
         leftLabel.style.transform = 'translateY(-50%) scale(0.9)';
         leftLabel.style.color = '#94a3b8';
@@ -362,28 +349,24 @@ function updateSliderUI(val) {
         rightLabel.style.color = '#94a3b8';
 
         if (val <= 2) {
-            // Activate Left (Dislike)
             leftLabel.style.opacity = '1';
             leftLabel.style.transform = 'translateY(-50%) scale(1.1)';
             leftLabel.style.color = '#ef4444';
             leftLabel.innerHTML = '<i class="fa-solid fa-face-frown text-danger me-1"></i><span class="d-none d-md-inline">Ghét</span>';
         } else if (val >= 8) {
-            // Activate Right (Love)
             rightLabel.style.opacity = '1';
             rightLabel.style.transform = 'translateY(-50%) scale(1.1)';
-            rightLabel.style.color = '#a855f7';
+            rightLabel.style.color = '#2563eb';
             rightLabel.innerHTML = '<span class="d-none d-md-inline">Yêu thích</span><i class="fa-solid fa-fire text-warning ms-1"></i>';
         } else {
-            // Neutral
             leftLabel.innerHTML = '<i class="fa-regular fa-face-frown me-1"></i><span class="d-none d-md-inline">Ghét</span>';
             rightLabel.innerHTML = '<span class="d-none d-md-inline">Yêu thích</span><i class="fa-solid fa-fire ms-1"></i>';
         }
     }
 
-    // Update slider background gradient (0-10 scale = val * 10%)
     if (slider) {
         const percent = val * 10;
-        slider.style.background = `linear-gradient(to right, #6366f1 0%, #a855f7 ${percent}%, rgba(255,255,255,0.1) ${percent}%, rgba(255,255,255,0.1) 100%)`;
+        slider.style.background = `linear-gradient(to right, #1d4ed8 0%, #2563eb ${percent}%, rgba(0,0,0,0.1) ${percent}%, rgba(0,0,0,0.1) 100%)`;
     }
 
     careerAnswers[CAREER_QUESTIONS[currentQuestionIndex].id] = parseInt(val);
@@ -412,7 +395,6 @@ function nextQuestion() {
 }
 
 // CAREER_DATASET is now loaded from career-data.js
-`;
 
 async function submitCareerTest() {
     const container = document.getElementById('career-content');
@@ -422,9 +404,9 @@ async function submitCareerTest() {
         <div class="h-100 d-flex flex-column align-items-center justify-content-center text-center animate-fade-in">
             <div class="glass-card p-5" style="max-width: 600px; width: 100%;">
                 <div class="spinner-border text-primary mb-4" style="width: 3rem; height: 3rem;" role="status"></div>
-                <h3 class="text-white mb-3">AI Đang Quét Nghề Nghiệp...</h3>
+                <h3 class="text-dark mb-3" style="color: #1e293b !important; color: #1e293b !important;">AI Đang Quét Nghề Nghiệp...</h3>
                 
-                <div class="text-start bg-black rounded-3 p-3 font-monospace small text-success border border-white border-opacity-10" style="min-height: 150px; opacity: 0.9;">
+                <div class="text-start bg-light rounded-3 p-3 font-monospace small text-success border border-dark border-opacity-10" style="min-height: 150px; opacity: 0.9;">
                     <div id="loading-log">
                         > Accessing Global Job Database... OK<br>
                         > Loading Dataset (2000+ entries)... OK<br>
@@ -655,15 +637,15 @@ Cảm ơn bạn đã sử dụng Định Hướng Nghề Nghiệp AI!
         // Switch to result view
         container.innerHTML = `
             <div class="h-100 w-100 animate-fade-in d-flex flex-column">
-                <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-white border-opacity-10">
-                    <h3 class="text-white mb-0"><i class="fa-solid fa-compass-drafting text-primary me-2"></i> Kết Quả Định Hướng</h3>
+                <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-dark border-opacity-10">
+                    <h3 class="text-dark mb-0" style="color: #1e293b !important; color: #1e293b !important;"><i class="fa-solid fa-compass-drafting text-primary me-2"></i> Kết Quả Định Hướng</h3>
                     <button class="btn btn-outline-light btn-sm rounded-pill px-3" onclick="initCareer()">
                         <i class="fa-solid fa-rotate-left me-2"></i>Làm Lại
                     </button>
                 </div>
                 <div class="flex-grow-1 overflow-auto custom-scrollbar p-2">
                     <div class="glass-card p-4">
-                        <div id="ai-result-markdown" class="markdown-body text-white"></div>
+                        <div id="ai-result-markdown" class="markdown-body text-dark"></div>
                     </div>
                 </div>
             </div>
@@ -689,8 +671,8 @@ Cảm ơn bạn đã sử dụng Định Hướng Nghề Nghiệp AI!
             <div class="h-100 d-flex flex-column align-items-center justify-content-center text-center">
                 <div class="glass-card p-5 border-danger border-opacity-25">
                     <i class="fa-solid fa-triangle-exclamation text-danger fa-3x mb-3"></i>
-                    <h4 class="text-white">Đã xảy ra lỗi!</h4>
-                    <p class="text-white-50">Không thể kết nối với AI Server.</p>
+                    <h4 style="color: #1e293b !important;">Đã xảy ra lỗi!</h4>
+                    <p class="text-muted" style="color: #64748b !important;">Không thể kết nối với AI Server.</p>
                     <button class="btn btn-primary rounded-pill mt-3" onclick="initCareer()">Thử lại</button>
                 </div>
             </div>
@@ -704,8 +686,8 @@ if (!document.getElementById('career-css')) {
     const style = document.createElement('style');
     style.id = 'career-css';
     style.textContent = `
-        .text-gradient { background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .bg-gradient-primary { background: linear-gradient(90deg, #6366f1, #a855f7); }
+        .text-gradient { background: linear-gradient(135deg, #fff 0%, #60a5fa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .bg-gradient-primary { background: linear-gradient(90deg, #2563eb, #3b82f6); }
         
         .animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .animate-slide-up { animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; transform: translateY(20px); }
@@ -713,21 +695,21 @@ if (!document.getElementById('career-css')) {
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
 
-        .feature-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
-        .feature-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-5px); border-color: rgba(99,102,241,0.3); }
+        .feature-card { background: #ffffff; border: 1px solid #e2e8f0; transition: 0.3s; }
+        .feature-card:hover { background: #f8fafc; transform: translateY(-5px); border-color: rgba(99,102,241,0.3); }
 
         .custom-range-lg {
             -webkit-appearance: none; width: 100%; height: 8px; border-radius: 4px; outline: none; transition: 0.2s;
         }
         .custom-range-lg::-webkit-slider-thumb {
             -webkit-appearance: none; width: 28px; height: 28px; background: #fff; border-radius: 50%; cursor: pointer;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.3), 0 4px 10px rgba(0,0,0,0.3); transition: 0.2s; margin-top: -10px;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.3), 0 4px 10px rgba(0,0,0,0.3); transition: 0.2s; margin-top: -10px;
         }
-        .custom-range-lg::-webkit-slider-thumb:hover { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.2), 0 4px 15px rgba(0,0,0,0.4); }
+        .custom-range-lg::-webkit-slider-thumb:hover { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.2), 0 4px 15px rgba(0,0,0,0.4); }
         .custom-range-lg::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; border-radius: 4px; }
 
         .hover-scale { transition: 0.3s cubic-bezier(0.3, 2, 0.6, 1); }
-        .hover-scale:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4) !important; }
+        .hover-scale:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(37, 99, 235, 0.4) !important; }
         .hover-white:hover { color: #fff !important; }
         .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
         
@@ -736,29 +718,29 @@ if (!document.getElementById('career-css')) {
             width: 100%;
             border-collapse: collapse;
             margin: 1rem 0;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(0, 0, 0, 0.02);
             display: block;
             overflow-x: auto;
             white-space: nowrap;
         }
         .markdown-body table th,
         .markdown-body table td {
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid #e2e8f0;
             padding: 8px 10px;
             text-align: left;
             font-size: 0.85rem;
         }
         .markdown-body table th {
-            background: rgba(99, 102, 241, 0.2);
+            background: rgba(37, 99, 235, 0.05);
             font-weight: 600;
-            color: #a5b4fc;
+            color: #1e293b;
             white-space: nowrap;
         }
         .markdown-body table tr:nth-child(even) {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(0, 0, 0, 0.01);
         }
         .markdown-body table tr:hover {
-            background: rgba(99, 102, 241, 0.1);
+            background: rgba(37, 99, 235, 0.1);
         }
         
         /* Mobile Responsive for Career Results */

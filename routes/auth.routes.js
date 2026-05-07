@@ -235,16 +235,70 @@ module.exports = function (deps) {
         }));
 
         router.get('/google/callback',
-            passport.authenticate('google', { failureRedirect: '/login.html' }),
+            passport.authenticate('google', { failureRedirect: '/login.html?error=oauth_failed' }),
             (req, res) => {
                 const role = req.user.role || 'student';
-                const dashboards = {
-                    admin: '/system-admin.html',
-                    school: '/school-dashboard.html',
-                    teacher: '/teacher-dashboard.html',
-                    student: '/student-dashboard.html'
+                const userDump = {
+                    username: req.user.username,
+                    fullname: req.user.fullname,
+                    role: role,
+                    avatarUrl: req.user.avatarUrl,
+                    email: req.user.email
                 };
-                res.redirect(dashboards[role] || '/student-dashboard.html');
+                
+                const targetRoute = 'index.html';
+                
+                res.send(`
+                    <html><head><title>Authenticating...</title></head><body style="background:#f8fafc;display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;">
+                    <div style="text-align:center;">
+                        <h2>Đang đồng bộ đăng nhập...</h2><p>Vui lòng chờ giây lát.</p>
+                    </div>
+                    <script>
+                        try {
+                            localStorage.setItem('isLoggedIn', 'true');
+                            localStorage.setItem('userRole', '${role}');
+                            localStorage.setItem('user', JSON.stringify(${JSON.stringify(userDump)}));
+                        } catch(e) { console.error('Lỗi khi lưu localStorage:', e); }
+                        window.location.href = '/${targetRoute}';
+                    </script>
+                    </body></html>
+                `);
+            }
+        );
+
+        // Thêm bắt sự kiện Facebook OAuth
+        router.get('/facebook', passport.authenticate('facebook', {
+            scope: ['email', 'public_profile']
+        }));
+
+        router.get('/facebook/callback',
+            passport.authenticate('facebook', { failureRedirect: '/login.html?error=oauth_failed' }),
+            (req, res) => {
+                const role = req.user.role || 'student';
+                const userDump = {
+                    username: req.user.username,
+                    fullname: req.user.fullname,
+                    role: role,
+                    avatarUrl: req.user.avatarUrl,
+                    email: req.user.email
+                };
+                
+                const targetRoute = 'index.html';
+                res.send(`
+                    <html><head><title>Authenticating...</title></head><body style="background:#f8fafc;display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;">
+                    <div style="text-align:center;">
+                        <h2>Đang đồng bộ Facebook...</h2><p>Vui lòng chờ giây lát.</p>
+                    </div>
+                    <script>
+                        try {
+                            localStorage.setItem('isLoggedIn', 'true');
+                            localStorage.setItem('userRole', '${role}');
+                            localStorage.setItem('user', JSON.stringify(${JSON.stringify(userDump)}));
+                        } catch(e) { console.error('Lỗi khi lưu localStorage:', e); }
+                        window.location.href = '/${targetRoute}';
+                    </script>
+                    </body></html>
+                `);
             }
         );
     }

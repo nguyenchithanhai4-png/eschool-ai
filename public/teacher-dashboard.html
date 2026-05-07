@@ -68,7 +68,12 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>E-School AI - Teacher Portal</title>
+    <title>Teacher Dashboard | E-School.</title>
+
+    <!-- MediaPipe for Advanced Head Pose Detection -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 
     <!-- ============================================
          GOOGLE FONTS - Font chữ Be Vietnam Pro
@@ -401,7 +406,7 @@
 
         body {
             font-family: 'Be Vietnam Pro', sans-serif;
-            background: var(--bg-dark);
+            background: #f8fafc;
             color: var(--text-light);
             height: 100vh;
             overflow: hidden;
@@ -700,7 +705,7 @@
         .view-section.active {
             display: flex;
             animation: fadeIn 0.4s ease;
-            background: var(--bg-dark);
+            background: #f8fafc;
         }
 
         @keyframes fadeIn {
@@ -1387,6 +1392,79 @@
                 opacity: 1;
             }
         }
+
+        /* AI Monitoring HUD */
+        @keyframes flash-red {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+        .flash-alert {
+            animation: flash-red 1s infinite;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+        }
+        .scanning-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #00ff88, transparent);
+            box-shadow: 0 0 15px #00ff88;
+            z-index: 5;
+            animation: scan 3s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+        .monitoring-container {
+            border: 2px solid #e2e8f0;
+            background: #000;
+        }
+        .incident-card {
+            padding: 12px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+        .incident-card:hover {
+            border-color: #ef4444;
+            background: #fff;
+        }
+        .target-corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            z-index: 6;
+            opacity: 0.6;
+        }
+        .tc-tl { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
+        .tc-tr { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
+        .tc-bl { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
+        .tc-br { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+        
+        .heartbeat-blink {
+            animation: heartbeat 0.2s ease-in-out;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+
+    <style id="saas-contrast-patch">
+        .view-section.active { background-color: #f8fafc !important; color: #1e293b !important; display: flex !important; min-height: 100vh; }
+        .glass-card { background: #ffffff !important; border: 1px solid #e2e8f0 !important; color: #1e293b !important; }
+        .text-white:not(.btn-primary-glow):not(.btn):not(.badge) { color: #1e293b !important; }
+        .input-glass { background: #ffffff !important; color: #1e293b !important; border: 1px solid #cbd5e1 !important; }
+        .input-glass::placeholder { color: #94a3b8 !important; }
+        .modal-content { background: #ffffff !important; color: #1e293b !important; border: 1px solid #e2e8f0 !important; }
+        .modal-title { color: #0f172a !important; font-weight: 700 !important; }
+        .text-slate-500 { color: #64748b !important; }
     </style>
 </head>
 
@@ -1408,7 +1486,7 @@
             <span class="brand-title-text">E-School AI</span>
         </div>
 
-        <div class="user-badge" onclick="showView('profile', this); loadTeacherProfileView()" style="cursor: pointer;">
+        <div class="user-badge" onclick="showView('profile', this); loadTeacherProfileView()" >
             <div class="user-avatar" id="teacher-avatar"><i class="fa-solid fa-user"></i></div>
             <div class="overflow-hidden">
                 <div class="fw-bold text-truncate" id="teacher-name" style="color: #1e293b;">Giáo viên</div>
@@ -1450,6 +1528,9 @@
             <div class="nav-item" onclick="showView('ai-quiz', this)">
                 <i class="fa-solid fa-file-circle-question"></i> Tạo Quiz AI
             </div>
+            <div class="nav-item" onclick="showView('ai-monitoring', this)">
+                <i class="fa-solid fa-eye"></i> <span>Giám Sát AI</span>
+            </div>
             <div class="nav-item" onclick="showView('schedule', this)">
                 <i class="fa-solid fa-calendar-days"></i> Lịch Dạy
             </div>
@@ -1486,7 +1567,7 @@
             <div class="nav-item" onclick="showView('settings', this)">
                 <i class="fa-solid fa-bell"></i> Cài Đặt Thông Báo
             </div>
-            <div class="nav-item text-danger" onclick="logoutTeacher()" style="cursor: pointer;">
+            <div class="nav-item text-danger" onclick="logoutTeacher()" >
                 <i class="fa-solid fa-sign-out-alt"></i> Đăng Xuất
             </div>
         </div>
@@ -1499,7 +1580,7 @@
         </button>
 
         <!-- Dashboard View -->
-        <div id="view-dashboard" class="view-section active">
+        <div id="view-dashboard" class="view-section active bg-white">
             <div class="row g-4 mb-4">
                 <div class="col-md-3 col-6">
                     <div class="stat-card">
@@ -1572,8 +1653,82 @@
             </div>
         </div>
 
+        <!-- AI Monitoring View -->
+        <div id="view-ai-monitoring" class="view-section bg-white">
+            <div class="glass-card">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h5 class="fw-bold mb-1">Giám Sát Phòng Thi Pro</h5>
+                        <p class="text-slate-500 small mb-0">AI giám thị coi thi: phát hiện quay trái/phải, nhìn lên trời, quay ra sau, nghiêng đầu, rời vị trí.</p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn-primary-glow" id="btn-start-monitoring" onclick="startMonitoring()">
+                            <i class="fa-solid fa-play me-2"></i>Bắt Đầu Giám Sát
+                        </button>
+                        <button class="btn-glass text-danger" id="btn-stop-monitoring" onclick="stopMonitoring()" style="display:none;">
+                            <i class="fa-solid fa-stop me-2"></i>Dừng Giám Sát
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Video Feed Column -->
+                    <div class="col-lg-8">
+                        <div class="monitoring-container position-relative rounded-4 overflow-hidden shadow-sm" style="min-height: 500px; background: #000;">
+                            <video id="monitoring-video" class="w-100 h-100" style="object-fit: contain; display:none; position: relative; z-index: 1;" autoplay muted playsinline></video>
+                            <canvas id="monitoring-canvas" class="w-100 h-100 position-absolute top-0 start-0" style="object-fit: contain; pointer-events: none; z-index: 5;"></canvas>
+                            
+                            <div id="monitoring-placeholder" class="d-flex flex-column align-items-center justify-content-center h-100 text-slate-400 p-5 text-center" style="position: absolute; inset: 0; z-index: 0;">
+                                <div class="bg-primary bg-opacity-10 p-4 rounded-circle mb-4">
+                                    <i class="fa-solid fa-face-viewfinder fs-1 text-primary"></i>
+                                </div>
+                                <h5>AI Giám Thị Coi Thi</h5>
+                                <p class="small text-slate-500">Nhấn "Bắt đầu" để kích hoạt AI giám thị.<br>Hệ thống phát hiện: quay đầu trái/phải, nhìn lên trời, quay ra đằng sau, nghiêng đầu bất thường, rời vị trí.<br><span class="text-primary fw-medium">Hoạt động như giám thị coi thi thực thụ.</span></p>
+                            </div>
+
+                            <!-- Target Corners -->
+
+                            <!-- HUD Overlay -->
+                            <div class="monitoring-hud position-absolute top-0 start-0 w-100 p-3 d-flex justify-content-between align-items-start" style="z-index: 10; pointer-events: none;">
+                                <div class="badge bg-danger p-2 px-3 rounded-pill d-flex align-items-center gap-2 flash-alert" id="active-alert" style="display:none;">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    <span class="fw-bold">PHÁT HIỆN BẤT THƯỜNG</span>
+                                </div>
+                                <div class="monitoring-stats d-flex flex-column gap-1 text-end">
+                                    <div class="badge bg-dark bg-opacity-50 text-white" id="monitoring-fps">POSE: OK</div>
+                                    <div class="badge bg-primary bg-opacity-50 text-white" id="monitoring-status">Status: Standby</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Log Column -->
+                    <div class="col-lg-4">
+                        <div class="glass-card h-100 m-0 d-flex flex-column border-0 p-0" style="background: transparent !important; box-shadow: none !important;">
+                            <h6 class="fw-bold mb-3 d-flex align-items-center gap-2 px-2">
+                                <i class="fa-solid fa-list-ul text-primary"></i> Nhật Ký Hành Vi
+                            </h6>
+                            <div id="incident-log" class="overflow-y-auto pe-2 flex-grow-1" style="max-height: 450px;">
+                                <div id="no-incidents" class="text-center py-5 text-slate-400">
+                                    <i class="fa-solid fa-clipboard-check fs-2 mb-3 d-block"></i>
+                                    <p class="small">Chưa có vi phạm tư thế</p>
+                                </div>
+                                <div id="incident-list"></div>
+                            </div>
+                            
+                            <div class="mt-3 px-2">
+                                <button class="btn btn-outline-secondary btn-sm w-100 rounded-3" onclick="clearIncidentLog()">
+                                    <i class="fa-solid fa-trash-can me-2"></i>Xóa Nhật Ký
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Students View -->
-        <div id="view-students" class="view-section">
+        <div id="view-students" class="view-section bg-white">
             <div class="glass-card">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                     <h5 class="fw-bold mb-0">Danh Sách Học Sinh Toàn Trường</h5>
@@ -1602,7 +1757,7 @@
         </div>
 
         <!-- Assignments View -->
-        <div id="view-assignments" class="view-section">
+        <div id="view-assignments" class="view-section bg-white">
             <div class="row g-4 mb-4">
                 <div class="col-md-3 col-6">
                     <div class="stat-card">
@@ -1772,7 +1927,7 @@
         </div>
 
         <!-- Resources View -->
-        <div id="view-resources" class="view-section">
+        <div id="view-resources" class="view-section bg-white">
             <div class="glass-card">
                 <h5 class="fw-bold mb-4">Kho Tài Liệu Giảng Dạy</h5>
                 <form onsubmit="uploadResource(event)">
@@ -1811,7 +1966,7 @@
         </div>
 
         <!-- AI Lesson View -->
-        <div id="view-ai-lesson" class="view-section">
+        <div id="view-ai-lesson" class="view-section bg-white">
             <div class="glass-card">
                 <h5 class="fw-bold mb-4"><i class="fa-solid fa-wand-magic-sparkles me-2 text-warning"></i>AI Soạn Giáo
                     Án</h5>
@@ -1870,7 +2025,7 @@
                                         <i class="fa-solid fa-copy me-1"></i>Sao Chép
                                     </button>
                                 </div>
-                                <div id="lesson-output" class="text-white" style="line-height: 1.8;"></div>
+                                <div id="lesson-output" class="text-slate-800" style="line-height: 1.8;"></div>
                             </div>
                         </div>
                     </div>
@@ -1878,930 +2033,326 @@
             </div>
         </div>
 
+        
+        
         <!-- AI Grading View (Logic mới từ File 2) -->
-        <div id="view-ai-grading" class="view-section">
+        <div id="view-ai-grading" class="view-section bg-white">
             <div class="p-4 h-100 d-flex flex-column">
                 <div class="d-flex justify-content-start align-items-center mb-3">
-                    <div class="glass-card p-1 d-flex gap-1" style="border-radius: 12px;">
-                        <button class="btn btn-sm btn-glass active fw-bold px-3" id="tab-btn-omr"
-                            onclick="switchGradingMode('omr')">
-                            <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Trắc Nghiệm (AI)
+                    <div class="glass-card p-1 d-flex gap-1" style="border-radius: 12px; background: #ffffff; border: 1px solid #e2e8f0;">
+                        <button class="btn btn-sm btn-glass active fw-bold px-3" id="tab-btn-omr" onclick="switchGradingMode('omr')">
+                            <i class="fa-solid fa-wand-magic-sparkles me-2 text-primary"></i>Trắc Nghiệm (AI)
                         </button>
-                        <button class="btn btn-sm btn-glass fw-bold px-3" id="tab-btn-essay"
-                            onclick="switchGradingMode('essay')">
-                            <i class="fa-solid fa-pen-nib me-2"></i>Tự Luận (AI)
+                        <button class="btn btn-sm btn-glass fw-bold px-3" id="tab-btn-essay" onclick="switchGradingMode('essay')">
+                            <i class="fa-solid fa-pen-nib me-2 text-warning"></i>Tự Luận (AI)
                         </button>
-                        <button class="btn btn-sm btn-glass fw-bold px-3" id="tab-btn-full"
-                            onclick="switchGradingMode('full')">
-                            <i class="fa-solid fa-layer-group me-2"></i>Toàn Bài
+                        <button class="btn btn-sm btn-glass fw-bold px-3" id="tab-btn-full" onclick="switchGradingMode('full')">
+                            <i class="fa-solid fa-layer-group me-2 text-info"></i>Toàn Bài
                         </button>
                     </div>
                 </div>
 
                 <!-- 1. OMR Mode -->
                 <div id="grading-mode-omr" class="grading-mode-content h-100 d-flex flex-column">
-                    <!-- WIZARD HEADER -->
-                    <div class="d-flex justify-content-center align-items-center mb-4 pt-2">
-                        <div class="wizard-step text-center" id="wizard-step-1" onclick="goToAIGradingStep('omr', 1)" style="cursor: pointer;">
-                            <div class="step-circle bg-primary text-white mx-auto d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s;">1</div>
+                    <div class="d-flex justify-content-center align-items-center mb-4 pt-2" id="omr-wizard-nav">
+                        <div class="wizard-step text-center" id="omr-wizard-step-1">
+                            <div class="step-circle bg-primary text-white mx-auto d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem;">1</div>
                             <div class="small fw-bold text-slate-800 mt-1">Cấu Hình</div>
                         </div>
-                        <div class="step-line bg-slate-300" style="height: 3px; width: 50px; margin: -20px 8px 0 8px; transition: all 0.3s;"></div>
-                        <div class="wizard-step text-center opacity-50" id="wizard-step-2" onclick="goToAIGradingStep('omr', 2)" style="cursor: pointer;">
-                            <div class="step-circle bg-slate-200 text-slate-600 mx-auto d-flex align-items-center justify-content-center rounded-circle border" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s;">2</div>
-                            <div class="small fw-bold text-slate-600 mt-1">Đáp Án</div>
+                        <div class="step-line bg-slate-200" style="height: 3px; width: 40px; margin: -20px 8px 0 8px;"></div>
+                        <div class="wizard-step text-center opacity-50" id="omr-wizard-step-2">
+                            <div class="step-circle bg-slate-100 text-slate-400 mx-auto d-flex align-items-center justify-content-center rounded-circle border" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem;">2</div>
+                            <div class="small fw-bold text-slate-400 mt-1">Đáp Án</div>
                         </div>
-                        <div class="step-line bg-slate-300" style="height: 3px; width: 50px; margin: -20px 8px 0 8px; transition: all 0.3s;"></div>
-                        <div class="wizard-step text-center opacity-50" id="wizard-step-3" onclick="goToAIGradingStep('omr', 3)" style="cursor: pointer;">
-                            <div class="step-circle bg-slate-200 text-slate-600 mx-auto d-flex align-items-center justify-content-center rounded-circle border" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s;">3</div>
-                            <div class="small fw-bold text-slate-600 mt-1">Bài Làm</div>
+                        <div class="step-line bg-slate-200" style="height: 3px; width: 40px; margin: -20px 8px 0 8px;"></div>
+                        <div class="wizard-step text-center opacity-50" id="omr-wizard-step-3">
+                            <div class="step-circle bg-slate-100 text-slate-400 mx-auto d-flex align-items-center justify-content-center rounded-circle border" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem;">3</div>
+                            <div class="small fw-bold text-slate-400 mt-1">Bài Làm</div>
                         </div>
-                        <div class="step-line bg-slate-300" style="height: 3px; width: 50px; margin: -20px 8px 0 8px; transition: all 0.3s;"></div>
-                        <div class="wizard-step text-center opacity-50" id="wizard-step-4" onclick="goToAIGradingStep('omr', 4)" style="cursor: pointer;">
-                            <div class="step-circle bg-slate-200 text-slate-600 mx-auto d-flex align-items-center justify-content-center rounded-circle border" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s;">4</div>
-                            <div class="small fw-bold text-slate-600 mt-1">Kết Quả</div>
-                        </div>
-                    </div>
-
-                    <!-- STEP 1 -->
-                    <div id="grading-step-1-omr" class="grading-step d-flex flex-column flex-grow-1 overflow-auto rounded bg-white p-4 border mb-2 shadow-sm">
-                        <div class="row justify-content-center flex-grow-1">
-                            <div class="col-lg-6">
-                            <div class="p-4 rounded border border-slate-200 bg-slate-50 h-100">
-                                <h6 class="fw-bold text-info mb-3"><i class="fa-solid fa-sliders me-2"></i>Cấu Hình Thang Điểm</h6>
-                                <div id="ai-score-config-rows" class="row g-2 mb-3">
-                                    <!-- Part 1 -->
-                                    <div class="col-4">
-                                        <div class="p-2 rounded text-center h-100 d-flex flex-column justify-content-center"
-                                            style="background: #f1f5f9; border: 1px solid #e2e8f0;">
-                                            <div class="small fw-bold text-slate-700 mb-1" style="font-size: 0.7rem;">P1: TN
-                                                (40c)</div>
-                                            <div class="d-flex align-items-center justify-content-center gap-1">
-                                                <input type="number" id="ai-point-p1"
-                                                    class="form-control form-control-sm text-center fw-bold text-slate-800 p-1"
-                                                    value="0.25" step="0.05" style="font-size: 0.9rem; background: #ffffff;">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Part 2 -->
-                                    <div class="col-4">
-                                        <div class="p-2 rounded text-center h-100 d-flex flex-column justify-content-center"
-                                            style="background: #f1f5f9; border: 1px solid #e2e8f0;">
-                                            <div class="small fw-bold text-slate-700 mb-1" style="font-size: 0.7rem;">P2:
-                                                Đ/S (8c)</div>
-                                            <div class="d-flex align-items-center justify-content-center gap-1">
-                                                <input type="number" id="ai-point-p2"
-                                                    class="form-control form-control-sm text-center fw-bold text-slate-800 p-1"
-                                                    value="1.0" step="0.1" style="font-size: 0.9rem; background: #ffffff;">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Part 3 -->
-                            <div class="col-lg-6">
-                            <div class="p-4 rounded border border-slate-200 bg-slate-50 h-100">
-                                <h6 class="fw-bold text-info mb-3"><i class="fa-solid fa-sliders me-2"></i>Cấu Hình Thang Điểm</h6>
-                                <div id="ai-score-config-rows" class="row g-2 mb-3">
-                                    <!-- Part 1 -->
-                                    <div class="col-4">
-                                        <div class="p-2 rounded text-center h-100 d-flex flex-column justify-content-center"
-                                            style="background: #f1f5f9; border: 1px solid #e2e8f0;">
-                                            <div class="small fw-bold text-slate-700 mb-1" style="font-size: 0.7rem;">P1: TN
-                                                (40c)</div>
-                                            <div class="d-flex align-items-center justify-content-center gap-1">
-                                                <input type="number" id="ai-point-p1"
-                                                    class="form-control form-control-sm text-center fw-bold text-slate-800 p-1"
-                                                    value="0.25" step="0.05" style="font-size: 0.9rem; background: #ffffff;">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Part 2 -->
-                                    <div class="col-4">
-                                        <div class="p-2 rounded text-center h-100 d-flex flex-column justify-content-center"
-                                            style="background: #f1f5f9; border: 1px solid #e2e8f0;">
-                                            <div class="small fw-bold text-slate-700 mb-1" style="font-size: 0.7rem;">P2:
-                                                Đ/S (8c)</div>
-                                            <div class="d-flex align-items-center justify-content-center gap-1">
-                                                <input type="number" id="ai-point-p2"
-                                                    class="form-control form-control-sm text-center fw-bold text-slate-800 p-1"
-                                                    value="1.0" step="0.1" style="font-size: 0.9rem; background: #ffffff;">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Part 3 -->
-                                    <div class="col-4">
-                                        <div class="p-2 rounded text-center h-100 d-flex flex-column justify-content-center"
-                                            style="background: #f1f5f9; border: 1px solid #e2e8f0;">
-                                            <div class="small fw-bold text-slate-700 mb-1" style="font-size: 0.7rem;">P3:
-                                                Điền (6c)</div>
-                                            <div class="d-flex align-items-center justify-content-center gap-1">
-                                                <input type="number" id="ai-point-p3"
-                                                    class="form-control form-control-sm text-center fw-bold text-slate-800 p-1"
-                                                    value="0.5" step="0.1" style="font-size: 0.9rem; background: #ffffff;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center p-2 rounded bg-slate-50">
-                                    <span class="small text-slate-500">Tổng điểm tối đa:</span>
-                                    <input type="number"
-                                        class="form-control input-glass text-center text-warning fw-bold"
-                                        id="ai-max-score" value="10" step="0.5" min="1" max="100"
-                                        style="width: 70px; font-size: 0.9rem;">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-end mt-4 pt-3 border-top">
-                            <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="goToAIGradingStep('omr', 2)">Lưu Cấu Hình & Tiếp Tục <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                        <div class="step-line bg-slate-200" style="height: 3px; width: 40px; margin: -20px 8px 0 8px;"></div>
+                        <div class="wizard-step text-center opacity-50" id="omr-wizard-step-4">
+                            <div class="step-circle bg-slate-100 text-slate-400 mx-auto d-flex align-items-center justify-content-center rounded-circle border" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem;">4</div>
+                            <div class="small fw-bold text-slate-400 mt-1">Kết Quả</div>
                         </div>
                     </div>
 
-                    <!-- STEP 2 -->
-                    <div id="grading-step-2-omr" class="grading-step d-flex flex-column flex-grow-1 overflow-auto rounded bg-white p-4 border mb-2 shadow-sm d-none">
-                        <div class="row justify-content-center flex-grow-1">
-                            <div class="col-lg-8">
-                                <div class="p-4 rounded border border-slate-200 bg-slate-50 h-100">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h6 class="fw-bold text-warning mb-0"><i class="fa-solid fa-key me-2"></i>Đáp Án Chuẩn</h6>
-                                    <span id="ai-answer-count" class="badge bg-warning text-dark">0 câu</span>
-                                </div>
-                                <div class="d-flex gap-1 mb-3 p-1 rounded" style="background: #f8fafc;">
-                                    <button class="btn btn-sm btn-glass flex-fill active" id="ans-tab-manual"
-                                        onclick="switchAnswerInputMode('manual')"><i
-                                            class="fa-solid fa-keyboard me-1"></i>Nhập tay</button>
-                                    <button class="btn btn-sm btn-glass flex-fill" id="ans-tab-file"
-                                        onclick="switchAnswerInputMode('file')"><i
-                                            class="fa-solid fa-file-import me-1"></i>File</button>
-                                    <button class="btn btn-sm btn-glass flex-fill" id="ans-tab-image"
-                                        onclick="switchAnswerInputMode('image')"><i
-                                            class="fa-solid fa-image me-1"></i>Ảnh</button>
-                                </div>
-                                <div id="ans-mode-manual">
-                                    <div class="mb-3">
-                                        <ul class="nav nav-pills nav-pills-custom row g-2 mb-2" id="ansKeyTabs"
-                                            style="border:none;">
-                                            <li class="nav-item col-4">
-                                                <a class="nav-link active d-flex align-items-center justify-content-center gap-1 w-100 p-2"
-                                                    onclick="switchKeyTab('p1')" id="tab-p1" href="javascript:void(0)"
-                                                    style="font-size: 0.8rem;">
-                                                    <i class="fa-solid fa-list-ol"></i> P1 (40c)
-                                                </a>
-                                            </li>
-                                            <li class="nav-item col-4">
-                                                <a class="nav-link d-flex align-items-center justify-content-center gap-1 w-100 p-2"
-                                                    onclick="switchKeyTab('p2')" id="tab-p2" href="javascript:void(0)"
-                                                    style="font-size: 0.8rem;">
-                                                    <i class="fa-solid fa-check-double"></i> P2 (Đ/S)
-                                                </a>
-                                            </li>
-                                            <li class="nav-item col-4">
-                                                <a class="nav-link d-flex align-items-center justify-content-center gap-1 w-100 p-2"
-                                                    onclick="switchKeyTab('p3')" id="tab-p3" href="javascript:void(0)"
-                                                    style="font-size: 0.8rem;">
-                                                    <i class="fa-solid fa-pen-to-square"></i> P3 (Điền)
-                                                </a>
-                                            </li>
-                                        </ul>
-                                        <button
-                                            class="btn btn-sm btn-outline-danger w-100 p-2 fw-bold d-flex align-items-center justify-content-center gap-1"
-                                            onclick="clearAllAnswers()" title="Xóa tất cả"
-                                            style="border-radius: 8px;">
-                                            <i class="fa-solid fa-eraser"></i> Xóa Tất Cả
-                                        </button>
+                    <div id="grading-step-1-omr" class="grading-step d-flex flex-column flex-grow-1 bg-white p-4 rounded border shadow-sm h-100">
+                        <h6 class="fw-bold mb-3"><i class="fa-solid fa-gear me-2 text-primary"></i>Thiết Lập Thang Điểm (OMR)</h6>
+                        <div class="row g-3 justify-content-center">
+                            <div class="col-lg-10">
+                                <div class="row g-3">
+                                    <div class="col-md-3">
+                                        <label class="small text-slate-500">P1: TN (40c)</label>
+                                        <input type="number" id="ai-point-p1" class="input-glass text-center" value="0.25" step="0.05">
                                     </div>
-
-                                    <div id="ai-answer-grid-container"
-                                        class="rounded custom-scrollbar border border-slate-200"
-                                        style="max-height: 280px; overflow-y: auto; background: #f8fafc; min-height: 150px; padding: 10px;">
-
-                                        <style>
-                                            .nav-pills-custom .nav-link {
-                                                background: #f1f5f9;
-                                                color: #64748b;
-                                                border: 1px solid #e2e8f0;
-                                                border-radius: 8px;
-                                                padding: 8px 16px;
-                                                font-size: 0.85rem;
-                                                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                                            }
-
-                                            .nav-pills-custom .nav-link:hover {
-                                                background: #e2e8f0;
-                                                color: #1e293b;
-                                                transform: translateY(-1px);
-                                            }
-
-                                            .nav-pills-custom .nav-link.active {
-                                                background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
-                                                color: #000;
-                                                font-weight: 700;
-                                                border: none;
-                                                box-shadow: 0 4px 10px rgba(255, 193, 7, 0.3);
-                                            }
-
-                                            .btn-hover-effect {
-                                                transition: all 0.2s;
-                                            }
-
-                                            .btn-hover-effect:hover {
-                                                transform: scale(1.05);
-                                            }
-                                        </style>
-
-                                        <div id="ai-key-p1" class="d-flex flex-wrap gap-1 p-2">
-                                        </div>
-
-                                        <div id="ai-key-p2" class="p-2 d-none">
-                                        </div>
-
-                                        <div id="ai-key-p3" class="d-flex flex-wrap gap-2 p-2 d-none">
-                                        </div>
+                                    <div class="col-md-3">
+                                        <label class="small text-slate-500">P2: Đ/S (8c)</label>
+                                        <input type="number" id="ai-point-p2" class="input-glass text-center" value="1.0" step="0.1">
                                     </div>
-                                </div>
-                                <div id="ans-mode-file" class="d-none">
-                                    <div class="border-dashed p-4 text-center rounded position-relative"
-                                        style="border: 2px dashed #cbd5e1;">
-                                        <input type="file" id="ai-answer-file-input"
-                                            class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer"
-                                            accept=".txt,.csv" onchange="importAnswerFile(this)">
-                                        <i class="fa-solid fa-file-lines text-info fa-2x mb-2"></i>
-                                        <p class="text-slate-500 small mb-1">Kéo thả file .txt hoặc .csv</p>
-                                        <p class="text-slate-500 small mb-0">Định dạng: ABCDABCD... hoặc mỗi dòng 1 đáp
-                                            án</p>
+                                    <div class="col-md-3">
+                                        <label class="small text-slate-500">P3: Điền (6c)</label>
+                                        <input type="number" id="ai-point-p3" class="input-glass text-center" value="0.5" step="0.1">
                                     </div>
-                                    <div id="ai-file-status" class="mt-2 small text-success d-none"><i
-                                            class="fa-solid fa-check me-1"></i>Đã import!</div>
-                                </div>
-                                <div id="ans-mode-image" class="d-none">
-                                    <div class="border-dashed p-3 text-center rounded position-relative"
-                                        style="border: 2px dashed #cbd5e1; min-height: 100px;">
-                                        <input type="file" id="ai-answer-image-input"
-                                            class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer"
-                                            accept="image/*" onchange="previewAnswerKeyImage(this)">
-                                        <div id="ai-answer-image-placeholder">
-                                            <i class="fa-solid fa-camera text-warning fa-2x mb-2"></i>
-                                            <p class="text-slate-500 small mb-0">Upload ảnh phiếu đáp án chuẩn</p>
-                                        </div>
-                                        <img id="ai-answer-image-preview" src="" class="rounded d-none"
-                                            style="max-height: 120px; max-width: 100%; object-fit: contain;">
+                                    <div class="col-md-3">
+                                        <label class="small text-slate-500">Tổng điểm</label>
+                                        <input type="number" id="ai-max-score" class="input-glass text-center" value="10">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between mt-4 pt-3 border-top mx-auto" style="max-width: 800px;">
-                            <button class="btn btn-outline-slate px-4 fw-bold" onclick="goToAIGradingStep('omr', 1)" style="border: 1px solid #cbd5e1; color: #64748b;"><i class="fa-solid fa-arrow-left me-2"></i> Cấu Hình Điểm</button>
-                            <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="goToAIGradingStep('omr', 3)">Lưu Đáp Án & Tiếp Tục <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                        <div class="mt-auto pt-4 text-end">
+                            <button class="btn btn-primary px-5 fw-bold" onclick="goToAIGradingStep('omr', 2)">Tiếp Theo <i class="fa-solid fa-arrow-right ms-2"></i></button>
                         </div>
                     </div>
 
-                    <!-- STEP 4 -->
-                    <div id="grading-step-3-omr" class="grading-step d-flex flex-column flex-grow-1 overflow-auto rounded bg-white p-4 border mb-2 shadow-sm d-none">
-                        <div class="row justify-content-center flex-grow-1">
-                            <div class="col-lg-8 h-100">
-                                <div class="p-4 rounded border border-slate-200 bg-slate-50 d-flex flex-column h-100">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="fw-bold text-success mb-0 small"><i
-                                            class="fa-solid fa-users me-1"></i>Bài Làm Học Sinh</h6>
-                                    <span id="ai-student-count" class="badge bg-success" style="font-size: 0.7rem;">0
-                                        bài</span>
-                                </div>
-                                <div class="mb-2">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <small class="text-slate-500" style="font-size: 0.7rem;"><i
-                                                class="fa-solid fa-list me-1"></i>Danh sách</small>
-                                        <button class="btn btn-outline-danger px-1 py-0" style="font-size: 0.65rem;"
-                                            onclick="clearAllStudents()" title="Xóa tất cả"><i
-                                                class="fa-solid fa-trash"></i></button>
-                                    </div>
-                                    <div class="rounded-2 p-1" id="ai-student-list-container"
-                                        style="background: #f8fafc; border: 1px solid rgba(16,185,129,0.2); min-height: 50px; max-height: 140px; overflow-y: auto;">
-                                        <div id="ai-student-list" class="vstack gap-1">
-                                            <div class="text-center text-slate-500 py-2" id="ai-student-empty">
-                                                <i class="fa-solid fa-inbox opacity-50"></i>
-                                                <p class="mb-0" style="font-size: 0.7rem;">Chưa có học sinh</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div id="grading-step-2-omr" class="grading-step d-none flex-column flex-grow-1 bg-white p-4 rounded border shadow-sm">
+                        <h6 class="fw-bold mb-3 text-warning"><i class="fa-solid fa-key me-2"></i>Đáp Án Chuẩn</h6>
+                        <div id="ai-answer-grid-container" class="flex-grow-1 overflow-auto border rounded p-3 bg-slate-50">
+                            <div id="ai-key-p1" class="d-flex flex-wrap gap-1"></div>
+                            <div id="ai-key-p2" class="d-none"></div>
+                            <div id="ai-key-p3" class="d-none"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-4">
+                            <button class="btn btn-outline-secondary" onclick="goToAIGradingStep('omr', 1)">Trở Lại</button>
+                            <button class="btn btn-primary px-4 fw-bold" onclick="goToAIGradingStep('omr', 3)">Lưu & Tiếp Tục</button>
+                        </div>
+                    </div>
 
-                                <div class="rounded-2 p-2 mb-2"
-                                    style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);">
-                                    <div class="mb-1">
-                                        <label class="form-label text-slate-500 mb-0" style="font-size: 0.7rem;"><i
-                                                class="fa-solid fa-user me-1"></i>Tên học sinh</label>
-                                        <input type="text" class="input-glass" id="ai-student-name"
-                                            placeholder="Tên học sinh...">
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label text-slate-500 mb-1" style="font-size: 0.75rem;"><i
-                                                class="fa-solid fa-image me-1"></i>Ảnh bài làm</label>
-                                        <input type="file" class="form-control form-control-sm"
-                                            id="ai-student-file" accept="image/*" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px;">
-                                    </div>
-                                    <button class="btn btn-success btn-sm w-100 py-1" onclick="addNewStudent()"
-                                        id="ai-add-student-btn" disabled style="font-size: 0.8rem;">
-                                        <i class="fa-solid fa-plus me-1"></i>Thêm Học Sinh
-                                    </button>
-                                </div>
+                    <div id="grading-step-3-omr" class="grading-step d-none flex-column flex-grow-1 bg-white p-4 rounded border shadow-sm">
+                       <h6 class="fw-bold mb-3"><i class="fa-solid fa-cloud-arrow-up me-2 text-info"></i>Tải Bài Làm Học Sinh</h6>
+                       <p class="text-slate-500 small mb-3">Tải ảnh chụp phiếu trả lời OMR của học sinh. Hỗ trợ JPG, PNG. Có thể tải nhiều file cùng lúc.</p>
+                       
+                       <!-- Upload Zone -->
+                       <div id="omr-upload-zone" class="border border-2 border-dashed rounded-3 p-5 text-center mb-3" 
+                            style="border-color: #cbd5e1; background: #f8fafc; cursor: pointer; transition: all 0.3s;"
+                            ondragover="event.preventDefault(); this.style.borderColor='#3b82f6'; this.style.background='#eff6ff';"
+                            ondragleave="this.style.borderColor='#cbd5e1'; this.style.background='#f8fafc';"
+                            ondrop="event.preventDefault(); this.style.borderColor='#cbd5e1'; this.style.background='#f8fafc'; handleOMRFileDrop(event);"
+                            onclick="document.getElementById('omr-file-input').click();">
+                           <i class="fa-solid fa-cloud-arrow-up fa-3x text-slate-300 mb-3"></i>
+                           <p class="fw-bold text-slate-700 mb-1">Kéo thả file vào đây</p>
+                           <p class="text-slate-400 small mb-2">hoặc nhấn để chọn file từ máy tính</p>
+                           <span class="badge bg-slate-100 text-slate-500 px-3 py-2">JPG, PNG — Tối đa 10MB/file</span>
+                       </div>
+                       <input type="file" id="omr-file-input" accept="image/*" multiple style="display:none;" onchange="handleOMRFileSelect(event)">
+                       
+                       <!-- Or use Camera -->
+                       <div class="d-flex justify-content-center mb-3">
+                           <button class="btn btn-outline-primary btn-sm px-4" onclick="document.getElementById('omr-camera-input').click();">
+                               <i class="fa-solid fa-camera me-2"></i>Chụp từ Camera
+                           </button>
+                           <input type="file" id="omr-camera-input" accept="image/*" capture="environment" style="display:none;" onchange="handleOMRFileSelect(event)">
+                       </div>
 
-                                <button class="btn btn-primary-glow w-100 py-2 fw-bold mt-auto"
-                                    onclick="processAIBatchGrading()" id="ai-grade-btn" disabled
-                                    style="font-size: 0.85rem;">
-                                    <i class="fa-solid fa-wand-magic-sparkles me-1"></i>Chấm Tất Cả (<span
-                                        id="ai-grade-count">0</span> bài)
-                                                               </button>
+                       <!-- File List -->
+                       <div id="omr-file-list" class="mb-3"></div>
+                       
+                       <!-- Status -->
+                       <div id="omr-upload-status" class="text-center text-slate-500 small mb-3"></div>
+
+                       <div class="d-flex justify-content-between mt-auto pt-4">
+                            <button class="btn btn-outline-secondary" onclick="goToAIGradingStep('omr', 2)">Trở Lại</button>
+                            <button class="btn btn-primary px-4 fw-bold" id="btn-start-omr-grading" onclick="startOMRGrading()">
+                                <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Chấm Bài Ngay
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="grading-step-4-omr" class="grading-step d-none flex-column flex-grow-1 bg-white p-4 rounded border shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h6 class="fw-bold m-0 text-success"><i class="fa-solid fa-square-poll-vertical me-2"></i>Kết Quả Chấm Bài (OMR)</h6>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-outline-primary btn-sm" onclick="exportOMRResults()"><i class="fa-solid fa-file-export me-1"></i>Xuất Excel</button>
+                                <button class="btn btn-primary btn-sm" onclick="saveOMRGrading()"><i class="fa-solid fa-floppy-disk me-1"></i>Lưu Điểm</button>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between mt-4 pt-3 border-top mx-auto" style="max-width: 600px;">
-                            <button class="btn btn-outline-slate px-4 fw-bold" onclick="goToAIGradingStep('omr', 2)" style="border: 1px solid #cbd5e1; color: #64748b;"><i class="fa-solid fa-arrow-left me-2"></i> Trở Lại</button>
-                            <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="goToAIGradingStep('omr', 4)">Xem Kết Quả <i class="fa-solid fa-arrow-right ms-2"></i></button>
+
+                        <!-- Progress Section -->
+                        <div id="omr-grading-progress" class="mb-4 d-none">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="small text-slate-600">Đang chấm bài... <span id="omr-progress-text">0/0</span></span>
+                                <span id="omr-progress-percent" class="small fw-bold text-primary">0%</span>
+                            </div>
+                            <div class="progress" style="height: 8px;">
+                                <div id="omr-progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- STEP 4 -->
-                    <div id="grading-step-4-omr" class="grading-step d-flex flex-column flex-grow-1 overflow-auto rounded bg-white p-4 border mb-2 shadow-sm d-none">
-                            <div class="p-4 rounded border border-slate-200 bg-slate-50 d-flex flex-column h-100">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="fw-bold text-primary mb-0"><i
-                                            class="fa-solid fa-chart-simple me-2"></i>Kết Quả Chấm</h6>
-                                    <div class="d-flex gap-1">
-                                        <button class="btn btn-sm btn-outline-info px-2"
-                                            onclick="exportGradingResults()" title="Xuất Excel"><i
-                                                class="fa-solid fa-file-excel"></i></button>
-                                        <button class="btn btn-sm btn-outline-danger px-2"
-                                            onclick="clearGradingResults()" title="Xóa tất cả"><i
-                                                class="fa-solid fa-trash"></i></button>
-                                    </div>
+                        <!-- Stats Cards -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-3">
+                                <div class="p-3 rounded-3 bg-slate-50 border text-center">
+                                    <div class="small text-slate-500 mb-1">Tổng số bài</div>
+                                    <div id="omr-stat-total" class="h4 fw-bold mb-0">0</div>
                                 </div>
-
-                                <div class="row g-2 mb-3">
-                                    <div class="col-4">
-                                        <div class="p-2 rounded text-center"
-                                            style="background: rgba(16, 185, 129, 0.15);">
-                                            <div class="h5 fw-bold text-success mb-0" id="ai-stats-avg">--</div>
-                                            <small class="text-slate-500" style="font-size: 10px;">ĐTB</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="p-2 rounded text-center"
-                                            style="background: rgba(99, 102, 241, 0.15);">
-                                            <div class="h5 fw-bold text-primary mb-0" id="ai-stats-max">--</div>
-                                            <small class="text-slate-500" style="font-size: 10px;">Cao nhất</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="p-2 rounded text-center"
-                                            style="background: rgba(239, 68, 68, 0.15);">
-                                            <div class="h5 fw-bold text-danger mb-0" id="ai-stats-min">--</div>
-                                            <small class="text-slate-500" style="font-size: 10px;">Thấp nhất</small>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="p-3 rounded-3 bg-green-50 border border-green-100 text-center">
+                                    <div class="small text-green-600 mb-1">Điểm TB</div>
+                                    <div id="omr-stat-avg" class="h4 fw-bold text-green-700 mb-0">0.0</div>
                                 </div>
-
-                                <div class="flex-grow-1 overflow-auto rounded" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                                    <table class="table table-hover table-sm mb-0"
-                                        style="font-size: 0.85rem;">
-                                        <thead style="position: sticky; top: 0; background: #f1f5f9; box-shadow: 0 1px 0 #e2e8f0;">
-                                            <tr style="color: #475569;">
-                                                <th style="width: 40px;">#</th>
-                                                <th>Tên</th>
-                                                <th style="width: 60px;" class="text-center">Đúng</th>
-                                                <th style="width: 70px;" class="text-center">Điểm</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="ai-results-table">
-                                            <tr id="ai-results-empty">
-                                                <td colspan="4" class="text-center text-slate-500 py-4">
-                                                    <i class="fa-solid fa-clipboard-list fa-2x mb-2 opacity-50"></i>
-                                                    <p class="small mb-0">Chưa có kết quả</p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="p-3 rounded-3 bg-blue-50 border border-blue-100 text-center">
+                                    <div class="small text-blue-600 mb-1">Cao nhất</div>
+                                    <div id="omr-stat-max" class="h4 fw-bold text-blue-700 mb-0">0.0</div>
                                 </div>
-                                <small class="text-slate-500 mt-2 d-block"><i
-                                        class="fa-solid fa-hand-pointer me-1"></i>Click vào học sinh để xem chi
-                                    tiết</small>
-
-                                <div id="ai-grading-progress" class="mt-3 d-none">
-                                    <div class="d-flex justify-content-between small mb-1">
-                                        <span class="text-slate-500">Đang chấm...</span>
-                                        <span id="ai-progress-text" class="text-primary">0/0</span>
-                                    </div>
-                                    <div class="progress" style="height: 8px; background: #e2e8f0;">
-                                        <div id="ai-progress-bar"
-                                            class="progress-bar bg-primary progress-bar-striped progress-bar-animated"
-                                            style="width: 0%"></div>
-                                    </div>
-                                                               </div>
-                        <div class="d-flex justify-content-start mt-4 pt-3 border-top">
-                            <button class="btn btn-outline-slate px-4 fw-bold" onclick="goToAIGradingStep('omr', 3)" style="border: 1px solid #cbd5e1; color: #64748b;"><i class="fa-solid fa-arrow-left me-2"></i> Trở Lại Tải Bài</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal Removed/ from here and moved to bottom of body -->
-
-                <!-- 2. Essay Mode (Tự Luận) -->
-                <div id="grading-mode-essay" class="grading-mode-content h-100 d-none">
-                    <div class="row h-100 g-3">
-                        <div class="col-lg-4 h-100">
-                            <div class="glass-card p-2 h-100 d-flex flex-column">
-                                <h6 class="fw-bold text-warning mb-2 small"><i class="fa-solid fa-scroll me-1"></i>Đề
-                                    Bài & Tiêu Chí</h6>
-                                <div class="mb-2">
-                                    <label class="form-label text-slate-500 mb-1" style="font-size: 0.7rem;"><i
-                                            class="fa-solid fa-question me-1"></i>Đề bài <span
-                                            class="text-danger">*</span></label>
-                                    <textarea id="essay-question" class="form-control form-control-sm input-glass"
-                                        rows="3" placeholder="Nhập đề bài tự luận..."
-                                        style="font-size: 0.8rem;"></textarea>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label text-slate-500 mb-1" style="font-size: 0.7rem;"><i
-                                            class="fa-solid fa-star me-1"></i>Thang điểm</label>
-                                    <input type="number" id="essay-max-score"
-                                        class="form-control form-control-sm input-glass" value="10" min="1" max="100"
-                                        style="font-size: 0.8rem;">
-                                </div>
-                                <div class="mb-2 flex-grow-1">
-                                    <label class="form-label text-slate-500 mb-1" style="font-size: 0.7rem;"><i
-                                            class="fa-solid fa-lightbulb me-1"></i>Đáp án mẫu / Tiêu chí chấm (tùy
-                                        chọn)</label>
-                                    <div class="nav nav-tabs nav-tabs-sm mb-1" style="font-size: 0.7rem;">
-                                        <button class="nav-link active py-1 px-2" data-bs-toggle="tab"
-                                            data-bs-target="#essay-rubric-text">Nhập tay</button>
-                                        <button class="nav-link py-1 px-2" data-bs-toggle="tab"
-                                            data-bs-target="#essay-rubric-image">Ảnh</button>
-                                    </div>
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade show active" id="essay-rubric-text">
-                                            <textarea id="essay-rubric" class="form-control form-control-sm input-glass"
-                                                rows="4"
-                                                placeholder="Nhập tiêu chí chấm, ý chính cần có, hoặc đáp án mẫu..."
-                                                style="font-size: 0.75rem;"></textarea>
-                                        </div>
-                                        <div class="tab-pane fade" id="essay-rubric-image">
-                                            <div class="border-dashed p-2 text-center rounded position-relative"
-                                                style="border: 1px dashed rgba(245,158,11,0.4);">
-                                                <input type="file" id="essay-rubric-file"
-                                                    class="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer"
-                                                    accept="image/*" onchange="previewEssayRubricImage(this)">
-                                                <div id="essay-rubric-placeholder">
-                                                    <i class="fa-solid fa-image text-warning"></i>
-                                                    <span class="text-slate-500 ms-1" style="font-size: 0.7rem;">Upload
-                                                        ảnh đáp án mẫu</span>
-                                                </div>
-                                                <img id="essay-rubric-preview" src="" class="rounded d-none"
-                                                    style="max-height: 60px; max-width: 100%; object-fit: contain;">
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="p-3 rounded-3 bg-orange-50 border border-orange-100 text-center">
+                                    <div class="small text-orange-600 mb-1">Thấp nhất</div>
+                                    <div id="omr-stat-min" class="h4 fw-bold text-orange-700 mb-0">0.0</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-lg-4 h-100">
-                            <div class="glass-card p-2 h-100 d-flex flex-column">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="fw-bold text-success mb-0 small"><i
-                                            class="fa-solid fa-users me-1"></i>Bài Làm Học Sinh</h6>
-                                    <span id="essay-student-count" class="badge bg-success" style="font-size: 0.7rem;">0
-                                        bài</span>
-                                </div>
-                                <div class="mb-2">
-                                    <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <small class="text-slate-500" style="font-size: 0.7rem;"><i
-                                                class="fa-solid fa-list me-1"></i>Danh sách</small>
-                                        <button class="btn btn-outline-danger px-1 py-0" style="font-size: 0.65rem;"
-                                            onclick="clearAllEssayStudents()"><i class="fa-solid fa-trash"></i></button>
-                                    </div>
-                                    <div class="rounded-2 p-1"
-                                        style="background: #f8fafc; border: 1px solid rgba(16,185,129,0.2); min-height: 50px; max-height: 120px; overflow-y: auto;">
-                                        <div id="essay-student-list" class="vstack gap-1">
-                                            <div class="text-center text-slate-500 py-2" id="essay-student-empty">
-                                                <i class="fa-solid fa-inbox opacity-50"></i>
-                                                <p class="mb-0" style="font-size: 0.7rem;">Chưa có học sinh</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="rounded-2 p-2 mb-2"
-                                    style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);">
-                                    <div class="mb-1">
-                                        <label class="form-label text-slate-500 mb-0" style="font-size: 0.7rem;"><i
-                                                class="fa-solid fa-user me-1"></i>Tên học sinh</label>
-                                        <input type="text" class="form-control form-control-sm input-glass py-1"
-                                            id="essay-new-student-name" placeholder="Tên học sinh"
-                                            style="font-size: 0.8rem;">
-                                    </div>
-                                    <div class="mb-2">
-                                        <label class="form-label text-slate-500 mb-0" style="font-size: 0.7rem;"><i
-                                                class="fa-solid fa-image me-1"></i>Ảnh bài làm</label>
-                                        <div class="border-dashed p-1 text-center rounded position-relative"
-                                            style="border: 1px dashed rgba(16,185,129,0.4);"
-                                            onclick="document.getElementById('essay-new-student-file').click()">
-                                            <input type="file" id="essay-new-student-file" class="d-none"
-                                                accept="image/*" onchange="previewEssayStudentFile(this)">
-                                            <div id="essay-new-student-placeholder">
-                                                <i class="fa-solid fa-cloud-arrow-up text-success"></i>
-                                                <span class="text-slate-500 ms-1" style="font-size: 0.7rem;">Click để
-                                                    upload</span>
-                                            </div>
-                                            <img id="essay-new-student-preview" src="" class="rounded d-none"
-                                                style="max-height: 40px;">
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-success btn-sm w-100 py-1" onclick="addEssayStudent()"
-                                        id="essay-add-student-btn" disabled style="font-size: 0.8rem;">
-                                        <i class="fa-solid fa-plus me-1"></i>Thêm
-                                    </button>
-                                </div>
-                                <button class="btn btn-primary-glow w-100 py-2 fw-bold mt-auto"
-                                    onclick="processEssayBatchGrading()" id="essay-grade-btn" disabled
-                                    style="font-size: 0.85rem;">
-                                    <i class="fa-solid fa-wand-magic-sparkles me-1"></i>Chấm Tự Luận (<span
-                                        id="essay-grade-count">0</span> bài)
-                                                               </button>
+                        <!-- Results Table -->
+                        <div class="table-responsive flex-grow-1 mb-3">
+                            <table class="table table-hover align-middle border">
+                                <thead class="bg-slate-50">
+                                    <tr>
+                                        <th class="ps-3" style="width: 60px">STT</th>
+                                        <th>Học Sinh</th>
+                                        <th class="text-center">Số câu đúng</th>
+                                        <th class="text-center">Điểm số</th>
+                                        <th class="text-end pe-3">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="omr-results-table">
+                                    <!-- Results injected here -->
+                                </tbody>
+                            </table>
+                            <div id="omr-results-empty" class="text-center py-5 text-slate-400">
+                                <i class="fa-solid fa-magnifying-glass fa-3x opacity-20 mb-3"></i>
+                                <p>Đang chờ kết quả chấm bài...</p>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between mt-4 pt-3 border-top mx-auto" style="max-width: 600px;">
-                            <button class="btn btn-outline-slate px-4 fw-bold" onclick="goToAIGradingStep('omr', 2)" style="border: 1px solid #cbd5e1; color: #64748b;"><i class="fa-solid fa-arrow-left me-2"></i> Trở Lại</button>
-                            <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="goToAIGradingStep('omr', 4)">Xem Kết Quả <i class="fa-solid fa-arrow-right ms-2"></i></button>
-                        </div>
-                    </div>
 
-                    <!-- STEP 4 -->
-                    <div id="grading-step-4-omr" class="grading-step d-flex flex-column flex-grow-1 overflow-auto rounded bg-white p-4 border mb-2 shadow-sm d-none">
-                            <div class="glass-card p-2 h-100 d-flex flex-column">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="fw-bold text-primary mb-0 small"><i
-                                            class="fa-solid fa-chart-simple me-1"></i>Kết Quả Chấm</h6>
-                                    <div class="d-flex gap-1">
-                                        <button class="btn btn-outline-info px-1 py-0" style="font-size: 0.65rem;"
-                                            onclick="exportEssayResults()" title="Xuất"><i
-                                                class="fa-solid fa-file-excel"></i></button>
-                                        <button class="btn btn-outline-danger px-1 py-0" style="font-size: 0.65rem;"
-                                            onclick="clearEssayResults()" title="Xóa"><i
-                                                class="fa-solid fa-trash"></i></button>
-                                    </div>
-                                </div>
-                                <div class="row g-1 mb-2">
-                                    <div class="col-4">
-                                        <div class="p-1 rounded text-center"
-                                            style="background: rgba(16, 185, 129, 0.15);">
-                                            <div class="fw-bold text-success" id="essay-stats-avg"
-                                                style="font-size: 1rem;">--</div>
-                                            <small class="text-slate-500" style="font-size: 0.6rem;">ĐTB</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="p-1 rounded text-center"
-                                            style="background: rgba(99, 102, 241, 0.15);">
-                                            <div class="fw-bold text-primary" id="essay-stats-max"
-                                                style="font-size: 1rem;">--</div>
-                                            <small class="text-slate-500" style="font-size: 0.6rem;">Max</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="p-1 rounded text-center"
-                                            style="background: rgba(239, 68, 68, 0.15);">
-                                            <div class="fw-bold text-danger" id="essay-stats-min"
-                                                style="font-size: 1rem;">--</div>
-                                            <small class="text-slate-500" style="font-size: 0.6rem;">Min</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex-grow-1 overflow-auto rounded" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                                    <table class="table table-hover table-sm mb-0"
-                                        style="font-size: 0.75rem;">
-                                        <thead style="position: sticky; top: 0; background: #f1f5f9; box-shadow: 0 1px 0 #e2e8f0;">
-                                            <tr style="color: #475569;">
-                                                <th style="width: 30px;">#</th>
-                                                <th>Tên</th>
-                                                <th style="width: 55px;" class="text-center">Điểm</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="essay-results-table">
-                                            <tr id="essay-results-empty">
-                                                <td colspan="3" class="text-center text-slate-500 py-3">
-                                                    <i class="fa-solid fa-clipboard-list mb-1 opacity-50"></i>
-                                                    <p class="small mb-0">Chưa có kết quả</p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <small class="text-slate-500 mt-1 d-block" style="font-size: 0.65rem;"><i
-                                        class="fa-solid fa-hand-pointer me-1"></i>Click để xem chi tiết</small>
-                            </div>
+                        <div class="d-flex justify-content-between pt-3 border-top">
+                             <button class="btn btn-outline-secondary" onclick="goToAIGradingStep('omr', 3)">Quay Lại Tải Bài</button>
+                             <button class="btn btn-outline-primary" onclick="resetOMRGrading()">Chấm Tiếp Lớp Khác</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- 3. Full Mode (Toàn Bài) -->
-                <div id="grading-mode-full" class="grading-mode-content h-100 d-none">
-                    <div class="row g-4 h-100">
-                        <div class="col-lg-5">
-                            <div class="glass-card p-4 h-100">
-                                <h5 class="fw-bold mb-4"><i class="fa-solid fa-calculator me-2 text-primary"></i>Cấu
-                                    Hình Chấm Toàn Bài</h5>
-                                <div class="mb-4">
-                                    <label class="form-label small text-slate-500">Tỉ lệ điểm phân bổ:</label>
-                                    <div class="row g-2">
-                                        <div class="col-6">
-                                            <div class="p-3 rounded border border-info"
-                                                style="background: rgba(6, 182, 212, 0.1);">
-                                                <div class="d-flex align-items-center gap-2 mb-2">
-                                                    <i class="fa-solid fa-list-check text-info"></i>
-                                                    <span class="small fw-bold">Trắc Nghiệm</span>
-                                                </div>
-                                                <div class="input-group input-group-sm">
-                                                    <input type="number" id="full-omr-ratio"
-                                                        class="form-control input-glass text-center" value="40" min="0"
-                                                        max="100">
-                                                    <span class="input-group-text bg-transparent text-slate-500">%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="p-3 rounded border border-warning"
-                                                style="background: rgba(245, 158, 11, 0.1);">
-                                                <div class="d-flex align-items-center gap-2 mb-2">
-                                                    <i class="fa-solid fa-pen-nib text-warning"></i>
-                                                    <span class="small fw-bold">Tự Luận</span>
-                                                </div>
-                                                <div class="input-group input-group-sm">
-                                                    <input type="number" id="full-essay-ratio"
-                                                        class="form-control input-glass text-center" value="60" min="0"
-                                                        max="100">
-                                                    <span class="input-group-text bg-transparent text-slate-500">%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label small text-slate-500">Điểm thành phần (đã chấm):</label>
-                                    <div class="vstack gap-2">
-                                        <div class="d-flex align-items-center justify-content-between p-2 rounded"
-                                            style="background: rgba(255,255,255,0.03);">
-                                            <span class="small"><i class="fa-solid fa-list-check text-info me-2"></i>OMR
-                                                (Trắc nghiệm)</span>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <span id="full-omr-score-display" class="badge bg-info">--/10</span>
-                                                <button class="btn btn-sm btn-outline-info px-2"
-                                                    onclick="switchGradingMode('omr')"><i
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="vstack gap-2">
-                                    <button class="btn btn-primary-glow w-100 py-2 fw-bold"
-                                        onclick="calculateFullScore()">
-                                        <i class="fa-solid fa-calculator me-2"></i>Tổng Hợp Kết Quả
-                                    </button>
-                                    <button class="btn btn-glass w-100" onclick="resetFullGrading()">
-                                        <i class="fa-solid fa-rotate-left me-2"></i>Reset
-                                    </button>
-                                </div>
-                            </div>
+                <!-- 2. Essay Mode -->
+                <div id="grading-mode-essay" class="grading-mode-content h-100 d-none flex-column">
+                    <div class="d-flex justify-content-center align-items-center mb-4 pt-2" id="essay-wizard-nav">
+                        <div class="wizard-step text-center" id="essay-wizard-step-1">
+                            <div class="step-circle bg-primary text-white mx-auto d-flex align-items-center justify-content-center rounded-circle shadow-sm" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem;">1</div>
+                            <div class="small fw-bold text-slate-800 mt-1">Thiết Lập</div>
                         </div>
-                        <div class="text-end mt-4 pt-3 border-top">
-                            <button class="btn btn-primary px-4 fw-bold shadow-sm" onclick="goToAIGradingStep('omr', 2)">Lưu Cấu Hình & Tiếp Tục <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                        <div class="step-line bg-slate-200" style="height: 3px; width: 40px; margin: -20px 8px 0 8px;"></div>
+                        <div class="wizard-step text-center opacity-50" id="essay-wizard-step-2">
+                            <div class="step-circle bg-slate-100 text-slate-400 mx-auto d-flex align-items-center justify-content-center rounded-circle border" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem;">2</div>
+                            <div class="small fw-bold text-slate-400 mt-1">Tiêu Chí AI</div>
+                        </div>
+                        <div class="step-line bg-slate-200" style="height: 3px; width: 40px; margin: -20px 8px 0 8px;"></div>
+                        <div class="wizard-step text-center opacity-50" id="essay-wizard-step-3">
+                            <div class="step-circle bg-slate-100 text-slate-400 mx-auto d-flex align-items-center justify-content-center rounded-circle border" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem;">3</div>
+                            <div class="small fw-bold text-slate-400 mt-1">Bài Làm</div>
+                        </div>
+                        <div class="step-line bg-slate-200" style="height: 3px; width: 40px; margin: -20px 8px 0 8px;"></div>
+                        <div class="wizard-step text-center opacity-50" id="essay-wizard-step-4">
+                            <div class="step-circle bg-slate-100 text-slate-400 mx-auto d-flex align-items-center justify-content-center rounded-circle border" style="width: 36px; height: 36px; font-weight: bold; font-size: 1.1rem;">4</div>
+                            <div class="small fw-bold text-slate-400 mt-1">Kết Quả</div>
                         </div>
                     </div>
 
-                    <!-- STEP 4 -->
-                    <div id="grading-step-4-omr" class="grading-step d-flex flex-column flex-grow-1 overflow-auto rounded bg-white p-4 border mb-2 shadow-sm d-none">
-                        <div class="row justify-content-center flex-grow-1">
-                            <div class="col-lg-8">
-                            <div class="glass-card p-4 h-100 d-flex flex-column" id="full-result-area">
-                                <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center text-center"
-                                    id="full-result-placeholder">
-                                    <i class="fa-solid fa-layer-group fa-4x text-slate-500 mb-4"></i>
-                                    <h5 class="text-slate-500 mb-2">Chế Độ Chấm Toàn Bài</h5>
-                                    <p class="text-slate-500 small mb-4" style="max-width: 400px;">
-                                        1. Chấm phần <strong class="text-info">Trắc Nghiệm (OMR)</strong> ở tab đầu
-                                        tiên<br>
-                                        2. Chấm phần <strong class="text-warning">Tự Luận (AI)</strong> ở tab thứ
-                                        hai<br>
-                                        3. Quay lại đây và nhấn <strong class="text-primary">Tổng Hợp Kết Quả</strong>
-                                    </p>
-                                </div>
-                                <div id="full-result-content" class="d-none text-center">
-                                    <div class="mb-4">
-                                        <div class="small text-slate-500 mb-1">ĐIỂM TỔNG</div>
-                                        <div class="display-3 fw-bold" id="full-total-score"
-                                            style="background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                                            --</div>
-                                        <div class="text-slate-500">/ 10</div>
-                                    </div>
-                                    <div class="row g-3 mb-4">
-                                        <div class="col-6">
-                                            <div class="p-3 rounded border border-info"
-                                                style="background: rgba(6, 182, 212, 0.1);">
-                                                <div class="small text-slate-500">Trắc nghiệm</div>
-                                                <div class="h4 fw-bold text-info mb-0" id="full-omr-final">--</div>
-                                                <div class="small text-slate-500" id="full-omr-weight">(--% x --)</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="p-3 rounded border border-warning"
-                                                style="background: rgba(245, 158, 11, 0.1);">
-                                                <div class="small text-slate-500">Tự luận</div>
-                                                <div class="h4 fw-bold text-warning mb-0" id="full-essay-final">--</div>
-                                                <div class="small text-slate-500" id="full-essay-weight">(--% x --)</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex gap-2 justify-content-center">
-                                        <button class="btn btn-outline-light" onclick="copyFullResult()">
-                                            <i class="fa-solid fa-copy me-2"></i>Copy Kết Quả
-                                        </button>
-                                        <button class="btn btn-outline-success" onclick="saveFullResult()">
-                                            <i class="fa-solid fa-save me-2"></i>Lưu Điểm
-                                        </button>
-                                    </div>
-                                </div>
+                    <div id="grading-step-1-essay" class="grading-step d-flex flex-column flex-grow-1 bg-white p-4 rounded border shadow-sm">
+                        <h6 class="fw-bold mb-3"><i class="fa-solid fa-gear me-2 text-warning"></i>Cấu Hình Chấm Tự Luận</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="small text-slate-500">Thang điểm</label>
+                                <select id="essay-config-scale" class="input-glass"><option value="10">Thang điểm 10</option><option value="100">Thang điểm 100</option></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small text-slate-500">Môn học</label>
+                                <input type="text" id="essay-config-subject" class="input-glass" placeholder="VD: Ngữ Văn">
                             </div>
                         </div>
+                        <div class="mt-auto pt-4 text-end">
+                            <button class="btn btn-primary px-5 fw-bold" onclick="goToAIGradingStep('essay', 2)">Tiếp Theo <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                        </div>
+                    </div>
+
+                    <div id="grading-step-2-essay" class="grading-step d-none flex-column flex-grow-1 bg-white p-4 rounded border shadow-sm">
+                        <h6 class="fw-bold mb-3"><i class="fa-solid fa-robot me-2 text-primary"></i>Yêu Cầu & Tiêu Chí AI (Rubric)</h6>
+                        <textarea id="essay-config-rubric" class="input-glass flex-grow-1 mb-3" rows="8" placeholder="Dán nội dung đáp án mẫu hoặc tiêu chí chấm chi tiết để AI căn cứ vào đó chấm bài..."></textarea>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-outline-secondary" onclick="goToAIGradingStep('essay', 1)">Trở Lại</button>
+                            <button class="btn btn-primary px-4" onclick="goToAIGradingStep('essay', 3)">Lưu & Tiếp Tục <i class="fa-solid fa-arrow-right ms-2"></i></button>
+                        </div>
+                    </div>
+
+                    <div id="grading-step-3-essay" class="grading-step d-none flex-column flex-grow-1 bg-white p-4 rounded border shadow-sm">
+                       <h6 class="fw-bold mb-3"><i class="fa-solid fa-file-signature me-2 text-primary"></i>Tải Bài Tự Luận</h6>
+                       <p class="text-slate-500 small mb-3">Tải ảnh chụp hoặc file PDF bài làm tự luận của học sinh. AI sẽ nhận diện chữ viết và chấm theo tiêu chí đã thiết lập.</p>
+                       
+                       <!-- Upload Zone -->
+                       <div id="essay-upload-zone" class="border border-2 border-dashed rounded-3 p-5 text-center mb-3" 
+                            style="border-color: #cbd5e1; background: #f8fafc; cursor: pointer; transition: all 0.3s;"
+                            ondragover="event.preventDefault(); this.style.borderColor='#3b82f6'; this.style.background='#eff6ff';"
+                            ondragleave="this.style.borderColor='#cbd5e1'; this.style.background='#f8fafc';"
+                            ondrop="event.preventDefault(); this.style.borderColor='#cbd5e1'; this.style.background='#f8fafc'; handleEssayFileDrop(event);"
+                            onclick="document.getElementById('essay-file-input').click();">
+                           <i class="fa-solid fa-file-circle-plus fa-3x text-slate-300 mb-3"></i>
+                           <p class="fw-bold text-slate-700 mb-1">Kéo thả bài làm vào đây</p>
+                           <p class="text-slate-400 small mb-2">hoặc nhấn để chọn file (JPG, PNG, PDF)</p>
+                       </div>
+                       <input type="file" id="essay-file-input" accept="image/*,application/pdf" multiple style="display:none;" onchange="handleEssayFileSelect(event)">
+
+                       <!-- File List -->
+                       <div id="essay-file-list" class="mb-3"></div>
+                       
+                       <!-- Status -->
+                       <div id="essay-upload-status" class="text-center text-slate-500 small mb-3"></div>
+
+                       <div class="d-flex justify-content-between mt-auto pt-4">
+                            <button class="btn btn-outline-secondary" onclick="goToAIGradingStep('essay', 2)">Trở Lại</button>
+                            <button class="btn btn-primary px-4 fw-bold" id="btn-start-essay-grading" onclick="startEssayGrading()">
+                                <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Bắt Đầu Chấm Essay
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="grading-step-4-essay" class="grading-step d-none flex-column flex-grow-1 bg-white p-4 rounded border shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h6 class="fw-bold m-0 text-primary"><i class="fa-solid fa-graduation-cap me-2"></i>Kết Quả Chấm Essay AI</h6>
+                            <button class="btn btn-primary btn-sm" onclick="saveEssayResults()"><i class="fa-solid fa-floppy-disk me-1"></i>Lưu Tất Cả</button>
+                        </div>
+
+                        <!-- Results List -->
+                        <div id="essay-results-list" class="flex-grow-1 overflow-auto mb-3" style="max-height: 500px;">
+                            <!-- Essay results cards will be injected here -->
+                            <div id="essay-results-empty" class="text-center py-5 text-slate-400">
+                                <i class="fa-solid fa-robot fa-3x opacity-20 mb-3"></i>
+                                <p>Đang chờ AI chấm bài tự luận...</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between pt-3 border-top">
+                             <button class="btn btn-outline-secondary" onclick="goToAIGradingStep('essay', 3)">Quay Lại Tải Bài</button>
+                             <button class="btn btn-outline-primary" onclick="resetEssayGrading()">Chấm Tiếp Lớp Khác</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Full System Mode -->
+                <div id="grading-mode-full" class="grading-mode-content h-100 d-none flex-column">
+                    <div class="glass-card p-4 h-100 d-flex flex-column justify-content-center align-items-center text-center">
+                        <i class="fa-solid fa-layer-group fa-4x text-info opacity-20 mb-4"></i>
+                        <h5>Cấu Hình Chấm Tổng Hợp</h5>
+                        <p class="text-slate-500 mb-4">Kết hợp điểm Trắc Nghiệm (OMR) và Tự Luận (Essay) để có điểm toàn bài.</p>
+                        <button class="btn btn-primary-glow px-5 mt-4" onclick="calculateFullScore()">TÍNH ĐIỂM TOÀN BÀI</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Connections View -->
-        <div id="view-connections" class="view-section">
-            <div class="glass-card">
-                <h5 class="fw-bold mb-4"><i class="fa-solid fa-user-plus me-2 text-info"></i>Yêu Cầu Kết Nối Từ Học Sinh
-                </h5>
-                <p class="text-slate-500 mb-4">Khi học sinh gửi yêu cầu kết nối đến email của bạn, bạn có thể chấp nhận
-                    hoặc từ chối. Học sinh đã kết nối sẽ thấy được tài liệu bạn đăng lên.</p>
-                <div class="row g-4">
-                    <div class="col-lg-6">
-                        <div class="p-4"
-                            style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 16px;">
-                            <h6 class="fw-bold mb-3"><i class="fa-solid fa-clock text-warning me-2"></i>Yêu Cầu Đang Chờ
-                            </h6>
-                            <div id="teacher-pending-list">
-                                <div class="text-center text-slate-500 py-4">
-                                    <i class="fa-solid fa-inbox fa-2x mb-2"></i>
-                                    <p class="mb-0 small">Không có yêu cầu nào</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="p-4"
-                            style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 16px;">
-                            <h6 class="fw-bold mb-3"><i class="fa-solid fa-users text-success me-2"></i>Học Sinh Đã Kết
-                                Nối</h6>
-                            <div id="teacher-connected-list">
-                                <div class="text-center text-slate-500 py-4">
-                                    <i class="fa-solid fa-user-slash fa-2x mb-2"></i>
-                                    <p class="mb-0 small">Chưa có học sinh nào</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sổ Đầu Bài View (Teachers only when approved) -->
-        <div id="view-sodaubai" class="view-section">
-            <div class="glass-card">
-                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-                    <div>
-                        <h5 class="fw-bold mb-1"><i class="fa-solid fa-book-open me-2" style="color: #a855f7;"></i>Sổ
-                            Đầu Bài Điện Tử</h5>
-                        <p class="text-slate-500 mb-0 small">Quản lý tiết học và điểm danh (dữ liệu chung với Nhà trường)
-                        </p>
-                    </div>
-                    <div class="d-flex gap-2 align-items-center">
-                        <input type="date" id="teacherSdbDatePicker" class="input-glass" style="max-width: 180px;">
-                    </div>
-                </div>
-
-                <!-- Class Tabs -->
-                <div class="glass-card mb-4 p-3" style="background: rgba(255,255,255,0.02);">
-                    <div class="d-flex flex-wrap gap-2" id="teacherSdbClassTabs">
-                        <div class="text-slate-500 d-flex align-items-center"><i
-                                class="fas fa-spinner fa-spin me-2"></i>Đang tải lớp...</div>
-                    </div>
-                </div>
-
-                <!-- Diary Entries Table -->
-                <div class="glass-card p-0" style="overflow: hidden; background: rgba(255,255,255,0.02);">
-                    <table class="table-glass" style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th>Tiết</th>
-                                <th>Môn học</th>
-                                <th>Giáo viên</th>
-                                <th>Sĩ số</th>
-                                <th>Vắng</th>
-                                <th>Nội dung</th>
-                                <th>Xếp loại</th>
-                                <th class="text-end">Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody id="teacherSdbEntriesBody">
-                            <tr>
-                                <td colspan="8" class="text-center text-slate-500 py-4">
-                                    <i class="fas fa-info-circle me-2"></i>Chọn lớp để xem sổ đầu bài
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Add Entry Button -->
-                <div class="mt-3 text-end">
-                    <button class="btn-primary-glow" onclick="openTeacherDiaryEntryModal()" id="btnTeacherAddEntry"
-                        style="display: none;">
-                        <i class="fas fa-plus me-2"></i>Thêm tiết học
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Teacher Diary Entry Modal -->
-        <div class="modal fade" id="teacherDiaryEntryModal" tabindex="-1">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content"
-                    style="background: rgba(30, 41, 59, 0.98); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;">
-                    <div class="modal-header border-0">
-                        <h5 class="modal-title text-white">Thêm tiết học</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label class="text-slate-500 mb-1 small">Tiết *</label>
-                                <select id="teacherEntryPeriod" class="input-glass">
-                                    <option value="1">Tiết 1</option>
-                                    <option value="2">Tiết 2</option>
-                                    <option value="3">Tiết 3</option>
-                                    <option value="4">Tiết 4</option>
-                                    <option value="5">Tiết 5</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="text-slate-500 mb-1 small">Môn học *</label>
-                                <input type="text" id="teacherEntrySubject" class="input-glass"
-                                    placeholder="VD: Toán, Văn...">
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="text-slate-500 mb-1 small">Giáo viên</label>
-                                <input type="text" id="teacherEntryTeacher" class="input-glass" placeholder="Tên GV">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label class="text-slate-500 mb-1 small">Sĩ số</label>
-                                <input type="number" id="teacherEntryAttendees" class="input-glass" value="40">
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="text-slate-500 mb-1 small">Vắng</label>
-                                <input type="number" id="teacherEntryAbsent" class="input-glass" value="0">
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label class="text-slate-500 mb-1 small">Xếp loại</label>
-                                <select id="teacherEntryQuality" class="input-glass">
-                                    <option value="Tốt">Tốt</option>
-                                    <option value="Khá">Khá</option>
-                                    <option value="Trung bình">Trung bình</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="text-slate-500 mb-1 small">Nội dung bài dạy</label>
-                            <textarea id="teacherEntryContent" class="input-glass" rows="2"
-                                placeholder="Nội dung bài học..."></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="text-slate-500 mb-1 small">Ghi chú / Nhận xét</label>
-                            <textarea id="teacherEntryNote" class="input-glass" rows="2"
-                                placeholder="Ghi chú..."></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer border-0">
-                        <button type="button" class="btn-glass" data-bs-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn-primary-glow" onclick="saveTeacherDiaryEntry()">
-                            <i class="fas fa-save me-2"></i>Lưu
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- AI Quiz View -->
-        <div id="view-ai-quiz" class="view-section">
+        <div id="view-ai-quiz" class="view-section bg-white">
             <div class="glass-card">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                     <div>
@@ -2853,7 +2404,7 @@
         </div>
 
         <!-- Schedule View -->
-        <div id="view-schedule" class="view-section">
+        <div id="view-schedule" class="view-section bg-white">
             <div class="glass-card">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h5 class="fw-bold mb-0"><i class="fa-solid fa-calendar-days me-2 text-primary"></i>Lịch Dạy Tuần
@@ -2868,7 +2419,7 @@
         </div>
 
         <!-- Notify View -->
-        <div id="view-notify" class="view-section">
+        <div id="view-notify" class="view-section bg-white">
             <div class="glass-card">
                 <h5 class="fw-bold mb-4"><i class="fa-solid fa-bullhorn me-2 text-danger"></i>Gửi Thông Báo Đến Lớp</h5>
                 <div class="row g-4">
@@ -2913,7 +2464,7 @@
         </div>
 
         <!-- Inbox View (Hòm Thư Đến) -->
-        <div id="view-inbox" class="view-section">
+        <div id="view-inbox" class="view-section bg-white">
             <div class="glass-card">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h5 class="fw-bold mb-0"><i class="fa-solid fa-inbox me-2 text-info"></i>Hòm Thư Đến</h5>
@@ -2931,7 +2482,7 @@
         </div>
 
         <!-- Online Classroom View -->
-        <div id="view-online-class" class="view-section">
+        <div id="view-online-class" class="view-section bg-white">
             <div id="classroom-container">
                 <!-- Lobby UI will be rendered here by JS -->
                 <div class="classroom-lobby">
@@ -2979,7 +2530,7 @@
         </div>
 
         <!-- JOIN SCHOOL VIEW (Teacher) -->
-        <div id="view-join-school" class="view-section">
+        <div id="view-join-school" class="view-section bg-white">
             <div class="glass-card">
                 <h5 class="fw-bold mb-4"><i class="fa-solid fa-school-flag me-2 text-info"></i>Tham Gia Trường Học</h5>
                 <p class="text-slate-500 small mb-4">Tìm kiếm và tham gia vào trường học để bắt đầu giảng dạy và quản lý
@@ -3016,36 +2567,89 @@
             </div>
         </div>
 
+        <!-- Connections View (NEW) -->
+        <div id="view-connections" class="view-section bg-white">
+            <div class="h-100 d-flex flex-column p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h4 class="fw-bold mb-1 text-slate-900">
+                            <i class="fa-solid fa-user-plus me-2 text-primary"></i>Yêu Cầu Kết Nối
+                        </h4>
+                        <p class="text-slate-500 mb-0">Quản lý các yêu cầu kết nối từ học sinh và phụ huynh.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card flex-grow-1 d-flex flex-column p-0 overflow-hidden">
+                    <div class="p-3 border-bottom bg-slate-50 d-flex justify-content-between align-items-center">
+                        <div class="input-group" style="max-width: 300px;">
+                            <span class="input-group-text bg-white border-end-0 text-slate-400"><i class="fa-solid fa-search"></i></span>
+                            <input type="text" class="form-control border-start-0 ps-0 text-slate-800" placeholder="Tìm kiếm tên..." id="search-connections">
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-outline-primary fw-bold" onclick="loadTeacherConnections()">
+                                <i class="fa-solid fa-sync me-1"></i>Làm mới
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive flex-grow-1">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-slate-50 text-slate-500 small fw-bold">
+                                <tr>
+                                    <th class="ps-4">NGƯỜI GỬI</th>
+                                    <th>VAI TRÒ</th>
+                                    <th>LỚP/THÔNG TIN</th>
+                                    <th>THỜI GIAN</th>
+                                    <th class="text-end pe-4">HÀNH ĐỘNG</th>
+                                </tr>
+                            </thead>
+                            <tbody id="connections-tbody">
+                                <!-- Populated by JS -->
+                                <tr>
+                                    <td colspan="5" class="text-center py-5">
+                                        <div class="py-4">
+                                            <i class="fa-solid fa-user-slash fa-3x text-slate-200 mb-3"></i>
+                                            <p class="text-slate-400">Đang tải danh sách yêu cầu...</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Profile View (NEW - like student dashboard) -->
-        <div id="view-profile" class="view-section">
+        <div id="view-profile" class="view-section bg-white">
             <!-- Teacher Avatar Crop Modal -->
             <div id="teacher-avatar-crop-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; 
                 background:rgba(0,0,0,0.8); backdrop-filter:blur(10px); z-index:999999; 
                 justify-content:center; align-items:center;">
-                <div style="background:linear-gradient(145deg, rgba(30,30,50,0.98), rgba(20,20,35,0.98)); 
-                    border:1px solid rgba(255,255,255,0.1); border-radius:20px; 
-                    width:90%; max-width:500px; padding:24px; box-shadow:0 25px 60px rgba(0,0,0,0.5);">
+                <div style="background: #ffffff; 
+                    border: 1px solid #e2e8f0; border-radius: 20px; 
+                    width: 90%; max-width: 500px; padding: 24px; box-shadow: 0 25px 60px rgba(0,0,0,0.1);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                        <h5 style="color:white; margin:0; font-weight:700;">
+                        <h5 style="color: #0f172a; margin:0; font-weight:700;">
                             <i class="fa-solid fa-crop-simple text-primary me-2"></i>Cắt ảnh đại diện
                         </h5>
-                        <button onclick="closeTeacherAvatarCropModal()" style="background:rgba(255,255,255,0.1); border:none; 
-                            color:white; width:32px; height:32px; border-radius:50%; cursor:pointer;">
+                        <button onclick="closeTeacherAvatarCropModal()" style="background: #f1f5f9; border:none; 
+                            color: #475569; width: 32px; height: 32px; border-radius: 50%; cursor: pointer;">
                             <i class="fa-solid fa-times"></i>
                         </button>
                     </div>
                     <div
-                        style="margin-bottom:20px; max-height:400px; overflow:hidden; border-radius:12px; background:#000;">
+                        style="margin-bottom:20px; max-height:400px; overflow:hidden; border-radius:12px; background:#f8fafc; border: 1px solid #e2e8f0;">
                         <img id="teacher-crop-image-preview" src="" style="max-width:100%; display:block;">
                     </div>
                     <div style="display:flex; justify-content:flex-end; gap:12px;">
-                        <button onclick="closeTeacherAvatarCropModal()" style="background:rgba(255,255,255,0.1); border:none; 
-                            color:white; padding:10px 20px; border-radius:10px; cursor:pointer;">
+                        <button onclick="closeTeacherAvatarCropModal()" style="background: #f1f5f9; border:none; 
+                            color: #475569; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600;">
                             Hủy
                         </button>
                         <button onclick="saveTeacherCroppedAvatar()"
-                            style="background:linear-gradient(135deg, #6366f1, #a855f7); 
-                            border:none; color:white; padding:10px 24px; border-radius:10px; cursor:pointer; font-weight:600;">
+                            style="background: var(--primary); 
+                            border:none; color:white; padding:10px 24px; border-radius:10px; cursor:pointer; font-weight:600; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);">
                             <i class="fa-solid fa-check me-2"></i>Lưu Avatar
                         </button>
                     </div>
@@ -3057,8 +2661,7 @@
                 <div class="row g-4 flex-grow-1">
                     <!-- Left Column: Avatar & Summary -->
                     <div class="col-lg-4 col-xl-3">
-                        <div class="p-4 h-100 rounded-4 d-flex flex-column align-items-center text-center"
-                            style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);">
+                        <div class="glass-card p-4 h-100 rounded-4 d-flex flex-column align-items-center text-center">
 
                             <div class="position-relative mb-4 mt-2">
                                 <div id="teacher-profile-avatar" style="width: 150px; height: 150px; border-radius: 50%; 
@@ -3079,7 +2682,7 @@
                                 </label>
                             </div>
 
-                            <h5 class="text-white fw-bold mb-1 fs-4" id="teacher-profile-name">Giáo viên</h5>
+                            <h5 class="text-slate-900 fw-bold mb-1 fs-4" id="teacher-profile-name">Giáo viên</h5>
                             <span id="teacher-role-badge"
                                 class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 px-3 py-2 rounded-pill mb-4">Giáo
                                 viên</span>
@@ -3100,9 +2703,8 @@
 
                     <!-- Right Column: Form Fields -->
                     <div class="col-lg-8 col-xl-9">
-                        <div class="p-4 h-100 rounded-4"
-                            style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);">
-                            <h5 class="text-white fw-bold mb-4"><i
+                        <div class="glass-card p-4 h-100 rounded-4">
+                            <h5 class="text-slate-800 fw-bold mb-4"><i
                                     class="fa-solid fa-circle-info text-primary me-2"></i>Thông tin chi tiết</h5>
 
                             <div class="row g-4">
@@ -3113,10 +2715,8 @@
                                         <span class="input-group-text border-0 text-slate-500"
                                             style="background: #f8fafc;"><i class="fa-solid fa-user"></i></span>
                                         <input type="text" id="teacher-view-fullname"
-                                            class="form-control border-0 text-white shadow-none py-2"
+                                            class="form-control border-0 text-slate-800 shadow-none py-2"
                                             style="background: #f8fafc; transition: all 0.3s;"
-                                            onfocus="this.style.background='rgba(255,255,255,0.05)'"
-                                            onblur="this.style.background='rgba(0,0,0,0.2)'"
                                             placeholder="Nhập họ tên...">
                                     </div>
                                 </div>
@@ -3129,7 +2729,7 @@
                                             style="background: #f8fafc;"><i
                                                 class="fa-solid fa-envelope"></i></span>
                                         <input type="email" id="teacher-view-email"
-                                            class="form-control border-0 text-white shadow-none py-2"
+                                            class="form-control border-0 text-slate-800 shadow-none py-2"
                                             style="background: #f8fafc; transition: all 0.3s;"
                                             onfocus="this.style.background='rgba(255,255,255,0.05)'"
                                             onblur="this.style.background='rgba(0,0,0,0.2)'"
@@ -3145,7 +2745,7 @@
                                             style="background: #f8fafc;"><i
                                                 class="fa-solid fa-phone"></i></span>
                                         <input type="tel" id="teacher-view-phone"
-                                            class="form-control border-0 text-white shadow-none py-2"
+                                            class="form-control border-0 text-slate-800 shadow-none py-2"
                                             style="background: #f8fafc; transition: all 0.3s;"
                                             onfocus="this.style.background='rgba(255,255,255,0.05)'"
                                             onblur="this.style.background='rgba(0,0,0,0.2)'" placeholder="09xx...">
@@ -3159,7 +2759,7 @@
                                         <span class="input-group-text border-0 text-slate-500"
                                             style="background: #f8fafc;"><i class="fa-solid fa-book"></i></span>
                                         <input type="text" id="teacher-view-subject"
-                                            class="form-control border-0 text-white shadow-none py-2"
+                                            class="form-control border-0 text-slate-800 shadow-none py-2"
                                             style="background: #f8fafc; transition: all 0.3s;"
                                             onfocus="this.style.background='rgba(255,255,255,0.05)'"
                                             onblur="this.style.background='rgba(0,0,0,0.2)'"
@@ -3175,7 +2775,7 @@
                                             style="background: #f8fafc;"><i
                                                 class="fa-solid fa-school"></i></span>
                                         <input type="text" id="teacher-view-school"
-                                            class="form-control border-0 text-white shadow-none py-2"
+                                            class="form-control border-0 text-slate-800 shadow-none py-2"
                                             style="background: #f8fafc; transition: all 0.3s;"
                                             onfocus="this.style.background='rgba(255,255,255,0.05)'"
                                             onblur="this.style.background='rgba(0,0,0,0.2)'"
@@ -3191,7 +2791,7 @@
                                             style="background: #f8fafc;"><i
                                                 class="fa-solid fa-briefcase"></i></span>
                                         <input type="number" id="teacher-view-experience"
-                                            class="form-control border-0 text-white shadow-none py-2"
+                                            class="form-control border-0 text-slate-800 shadow-none py-2"
                                             style="background: #f8fafc; transition: all 0.3s;"
                                             onfocus="this.style.background='rgba(255,255,255,0.05)'"
                                             onblur="this.style.background='rgba(0,0,0,0.2)'" placeholder="VD: 5">
@@ -3217,12 +2817,12 @@
         </div>
 
         <!-- Join School View -->
-        <div id="view-join-school" class="view-section">
+        <div id="view-join-school" class="view-section bg-white">
             <div class="glass-card mb-4">
                 <h5 class="fw-bold mb-3"><i class="fa-solid fa-school-flag me-2 text-info"></i>Trạng Thái Tham Gia</h5>
                 <div id="current-school-status">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="spinner-border text-light spinner-border-sm" role="status"></div>
+                        <div class="spinner-border text-primary spinner-border-sm" role="status"></div>
                         <span>Đang kiểm tra trạng thái...</span>
                     </div>
                 </div>
@@ -3245,7 +2845,7 @@
         </div>
 
         <!-- Settings View -->
-        <div id="view-settings" class="view-section">
+        <div id="view-settings" class="view-section bg-white">
             <div class="glass-card">
                 <h5 class="fw-bold mb-4"><i class="fa-solid fa-cog me-2 text-primary"></i>Cài Đặt Tài Khoản</h5>
                 <div class="row g-4">
@@ -3301,7 +2901,7 @@
         </div>
 
         <!-- Seating Arrangement View -->
-        <div id="view-seating" class="view-section">
+        <div id="view-seating" class="view-section bg-white">
             <div class="glass-card">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                     <div>
@@ -3427,7 +3027,7 @@
         </div>
 
         <!-- Traffic Violation View (New) -->
-        <div id="view-traffic" class="view-section">
+        <div id="view-traffic" class="view-section bg-white">
             <div class="glass-card" style="max-width: 800px; margin: 0 auto;">
                 <div class="text-center mb-5">
                     <div
@@ -3444,17 +3044,17 @@
                         <div class="mb-4 d-flex justify-content-center gap-4">
                             <i class="fa-solid fa-car text-primary fs-5 mt-1"></i>
                             <div class="d-flex gap-4">
-                                <label class="d-flex align-items-center gap-2 cursor-pointer" style="cursor: pointer;">
+                                <label class="d-flex align-items-center gap-2 cursor-pointer" >
                                     <input type="radio" name="traffic-vehicle-type-page" value="1" checked
                                         style="accent-color: #f59e0b; width: 18px; height: 18px;">
                                     <span>Ô tô</span>
                                 </label>
-                                <label class="d-flex align-items-center gap-2 cursor-pointer" style="cursor: pointer;">
+                                <label class="d-flex align-items-center gap-2 cursor-pointer" >
                                     <input type="radio" name="traffic-vehicle-type-page" value="2"
                                         style="accent-color: #f59e0b; width: 18px; height: 18px;">
                                     <span>Xe máy</span>
                                 </label>
-                                <label class="d-flex align-items-center gap-2 cursor-pointer" style="cursor: pointer;">
+                                <label class="d-flex align-items-center gap-2 cursor-pointer" >
                                     <input type="radio" name="traffic-vehicle-type-page" value="3"
                                         style="accent-color: #f59e0b; width: 18px; height: 18px;">
                                     <span>Xe máy điện</span>
@@ -3497,7 +3097,7 @@
                         <div class="mb-4 d-flex align-items-center justify-content-center gap-2">
                             <input type="checkbox" id="save-plate-page"
                                 style="width: 16px; height: 16px; accent-color: #6366f1;">
-                            <label for="save-plate-page" class="small text-slate-500" style="cursor: pointer;">Lưu biển
+                            <label for="save-plate-page" class="small text-slate-500" >Lưu biển
                                 số này</label>
                         </div>
 
@@ -3637,7 +3237,6 @@
         </div>
     </div>
     <script src="js/ai-chat.js"></script>
-    <script src="js/teacher-dashboard.js" charset="utf-8"></script>
 
     <style>
         /* Exact Student Dashboard Animations */
@@ -3669,12 +3268,7 @@
             padding: 15px 25px;
 
             /* Light Mode Gradient */
-            background: linear-gradient(90deg,
-                    rgba(248, 250, 252, 0.98) 0%,
-                    rgba(14, 165, 233, 0.08) 20%,
-                    rgba(59, 130, 246, 0.12) 50%,
-                    rgba(14, 165, 233, 0.08) 80%,
-                    rgba(248, 250, 252, 0.98) 100%);
+            background: #ffffff; border-bottom: 1px solid #e2e8f0;
             background-size: 200% 100%;
             animation: premium-header-flow 4s linear infinite;
 
@@ -3721,6 +3315,7 @@
                 'view-ai-lesson': { icon: '<i class="fa-solid fa-wand-magic-sparkles"></i>', title: 'AI Soạn Bài', desc: 'Trợ lý giáo án' },
                 'view-ai-grading': { icon: '<i class="fa-solid fa-robot"></i>', title: 'AI Chấm Bài', desc: 'Chấm thi tự động' },
                 'view-ai-quiz': { icon: '<i class="fa-solid fa-file-circle-question"></i>', title: 'Tạo Quiz AI', desc: 'Ngân hàng đề thi' },
+                'view-ai-monitoring': { icon: '<i class="fa-solid fa-eye"></i>', title: 'Giám Sát AI', desc: 'Theo dõi phòng thi' },
                 'view-schedule': { icon: '<i class="fa-solid fa-calendar-days"></i>', title: 'Lịch Dạy', desc: 'Thời khóa biểu' },
                 'view-notify': { icon: '<i class="fa-solid fa-bullhorn"></i>', title: 'Thông Báo', desc: 'Gửi tin nhắn lớp' },
                 'view-seating': { icon: '<i class="fa-solid fa-chair"></i>', title: 'Sơ Đồ Lớp', desc: 'Sắp xếp chỗ ngồi' },
@@ -4033,8 +3628,9 @@
     <!-- UI Helpers -->
     <script src="js/ui-helpers.js"></script>
 
-    <!-- MAIN CONTROLLER (Run last to ensure deps ready) -->
-    <script src="js/teacher-dashboard.js?v=2"></script>
+    <!-- MAIN CONTROLLER -->
+    <script src="js/monitoring-pro.js"></script>
+    <script src="js/teacher-dashboard.js"></script>
 </body>
 
 </html>

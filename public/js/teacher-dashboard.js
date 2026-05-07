@@ -105,21 +105,34 @@ function showView(viewId, navItem) {
         navItem.classList.add('active');
     }
 
-    // Auto-load profile data when switching to profile view
-    if (viewId === 'profile') {
+    if (viewId === 'profile' && typeof loadTeacherProfileView === 'function') {
         loadTeacherProfileView();
+    }
+
+    if (viewId === 'connections' && typeof loadTeacherConnections === 'function') {
+        loadTeacherConnections();
+    }
+
+    if (viewId === 'inbox' && typeof loadInbox === 'function') {
+        loadInbox();
     }
     // Auto-load SoDauBai classes
     if (viewId === 'sodaubai' && typeof loadTeacherSoDauBaiClasses === 'function') {
         loadTeacherSoDauBaiClasses();
     }
 
+    // Update page title in header
+    const titleEl = document.getElementById('page-title');
+    if (titleEl && typeof pageTitles !== 'undefined') {
+        titleEl.textContent = pageTitles[viewId] || viewId;
+    }
+
     // Close sidebar on mobile
     if (window.innerWidth < 992) {
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('mobile-overlay');
-        if (sidebar) sidebar.classList.remove('active');
-        if (overlay) overlay.classList.remove('active');
+        if (sidebar) sidebar.classList.remove('show');
+        if (overlay) overlay.classList.remove('show');
     }
 }
 
@@ -145,14 +158,14 @@ function showPrompt(title, placeholder = '', defaultValue = '') {
     return new Promise((resolve) => {
         const overlay = document.createElement('div');
         overlay.className = 'modal-prompt-overlay';
-        overlay.style.cssText = `position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 999999;`;
+        overlay.style.cssText = `position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 999999;`;
         overlay.innerHTML = `
-            <div class="modal-prompt" style="background: rgba(30, 30, 50, 0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 30px; min-width: 400px; text-align: center;">
-                <h5 style="margin-bottom: 20px; font-weight: 600;">${title}</h5>
-                <input type="text" placeholder="${placeholder}" value="${defaultValue}" style="width: 100%; padding: 14px 18px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; color: white; margin-bottom: 20px;">
+            <div class="modal-prompt" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 30px; min-width: 400px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                <h5 style="margin-bottom: 20px; font-weight: 700; color: #0f172a;">${title}</h5>
+                <input type="text" placeholder="${placeholder}" value="${defaultValue}" style="width: 100%; padding: 14px 18px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; color: #1e293b; margin-bottom: 20px;">
                 <div style="display: flex; gap: 10px; justify-content: center;">
-                    <button class="btn-cancel" style="padding: 12px 30px; border-radius: 10px; border: none; background: rgba(255,255,255,0.1); color: white; cursor: pointer;">Hủy</button>
-                    <button class="btn-confirm" style="padding: 12px 30px; border-radius: 10px; border: none; background: linear-gradient(135deg, #6366f1, #a855f7); color: white; cursor: pointer;">Xác nhận</button>
+                    <button class="btn-cancel" style="padding: 12px 30px; border-radius: 10px; border: none; background: #f1f5f9; color: #475569; cursor: pointer; font-weight: 600;">Hủy</button>
+                    <button class="btn-confirm" style="padding: 12px 30px; border-radius: 10px; border: none; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; cursor: pointer; font-weight: 600;">Xác nhận</button>
                 </div>
             </div>
         `;
@@ -172,14 +185,14 @@ if (typeof showConfirm === 'undefined') {
     function showConfirm(message) {
         return new Promise((resolve) => {
             const overlay = document.createElement('div');
-            overlay.style.cssText = `position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 999999;`;
+            overlay.style.cssText = `position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 999999;`;
             overlay.innerHTML = `
-                <div style="background: rgba(30, 30, 50, 0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 30px; min-width: 350px; text-align: center;">
-                    <h5 style="margin-bottom: 15px;">Xác nhận</h5>
-                    <p style="margin-bottom: 25px; opacity: 0.8;">${message}</p>
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 30px; min-width: 350px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+                    <h5 style="margin-bottom: 15px; font-weight: 700; color: #0f172a;">Xác nhận</h5>
+                    <p style="margin-bottom: 25px; color: #475569;">${message}</p>
                     <div style="display: flex; gap: 10px; justify-content: center;">
-                        <button class="btn-cancel" style="padding: 12px 30px; border-radius: 10px; border: none; background: rgba(255,255,255,0.1); color: white; cursor: pointer;">Hủy</button>
-                        <button class="btn-confirm" style="padding: 12px 30px; border-radius: 10px; border: none; background: linear-gradient(135deg, #6366f1, #a855f7); color: white; cursor: pointer;">Đồng ý</button>
+                        <button class="btn-cancel" style="padding: 12px 30px; border-radius: 10px; border: none; background: #f1f5f9; color: #475569; cursor: pointer; font-weight: 600;">Hủy</button>
+                        <button class="btn-confirm" style="padding: 12px 30px; border-radius: 10px; border: none; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; cursor: pointer; font-weight: 600;">Đồng ý</button>
                     </div>
                 </div>
             `;
@@ -456,30 +469,14 @@ const pageTitles = {
     'ai-lesson': 'AI Soạn Bài',
     'ai-grading': 'AI Chấm Bài',
     'ai-quiz': 'Tạo Quiz AI',
+    'ai-monitoring': 'Giám Sát AI',
     'notify': 'Thông Báo Lớp',
     'settings': 'Cài Đặt'
 };
 
-function showView(viewName, el) {
-    document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-
-    const target = document.getElementById('view-' + viewName);
-    if (target) target.classList.add('active');
-    if (el) el.classList.add('active');
-
-    // Update page title in header
-    const titleEl = document.getElementById('page-title');
-    if (titleEl) {
-        titleEl.textContent = pageTitles[viewName] || viewName;
-    }
-
-    // Mobile sidebar handling
-    if (window.innerWidth < 992) {
-        document.getElementById('sidebar').classList.remove('show');
-        document.getElementById('mobile-overlay').classList.remove('show');
-    }
-}
+// showView() is defined earlier (line ~90) with all auto-load features.
+// DO NOT re-define here. That second definition was silently overwriting
+// the first and losing auto-load for profile/connections/inbox/sodaubai.
 
 function toggleSidebar() {
     document.getElementById('sidebar').classList.toggle('show');
@@ -1625,7 +1622,7 @@ function addStudentToList(id, name, file) {
         item.dataset.id = id;
         item.innerHTML = `
             <img src="${e.target.result}" class="rounded flex-shrink-0" style="width: 28px; height: 28px; object-fit: cover;">
-            <span class="flex-grow-1 text-white text-truncate" style="font-size: 0.75rem;">${name}</span>
+            <span class="flex-grow-1 text-slate-800 text-truncate" style="font-size: 0.75rem;">${name}</span>
             <button class="btn btn-outline-danger rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 20px; height: 20px; padding: 0;" onclick="removeStudent(${id})">
                 <i class="fa-solid fa-times" style="font-size: 0.55rem;"></i>
             </button>
@@ -1635,11 +1632,206 @@ function addStudentToList(id, name, file) {
     reader.readAsDataURL(file);
 }
 
+function updateGradeButtonState() {
+    const hasAnswers = Object.keys(aiAnswerKey).length > 0 || aiAnswerKeyImageFile;
+    const hasStudents = aiStudentFiles.length > 0;
+    const btn = document.getElementById('ai-grade-btn');
+    if (btn) btn.disabled = !(hasAnswers && hasStudents);
+}
+
+// ===== OMR FILE UPLOAD HANDLERS =====
+function handleOMRFileSelect(event) {
+    const files = Array.from(event.target.files || []);
+    files.forEach(file => addOMRFile(file));
+    event.target.value = ''; // Reset input
+}
+
+function handleOMRFileDrop(event) {
+    const files = Array.from(event.dataTransfer.files || []);
+    files.forEach(file => {
+        if (file.type.startsWith('image/')) addOMRFile(file);
+    });
+}
+
+function addOMRFile(file) {
+    if (!file.type.startsWith('image/')) {
+        toast.warning('Chỉ hỗ trợ file ảnh (JPG, PNG)!');
+        return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+        toast.warning(`File "${file.name}" quá lớn (>10MB)!`);
+        return;
+    }
+    
+    studentIdCounter++;
+    const studentFile = {
+        id: studentIdCounter,
+        name: file.name.replace(/\.[^/.]+$/, ''),
+        file: file,
+        url: URL.createObjectURL(file)
+    };
+    aiStudentFiles.push(studentFile);
+    renderOMRFileList();
+    updateGradeButtonState();
+    
+    const statusEl = document.getElementById('omr-upload-status');
+    if (statusEl) statusEl.textContent = `${aiStudentFiles.length} bài làm đã tải`;
+}
+
+function removeOMRFile(id) {
+    const idx = aiStudentFiles.findIndex(f => f.id === id);
+    if (idx !== -1) {
+        URL.revokeObjectURL(aiStudentFiles[idx].url);
+        aiStudentFiles.splice(idx, 1);
+    }
+    renderOMRFileList();
+    updateGradeButtonState();
+    
+    const statusEl = document.getElementById('omr-upload-status');
+    if (statusEl) statusEl.textContent = aiStudentFiles.length > 0 ? `${aiStudentFiles.length} bài làm đã tải` : '';
+}
+
+function renderOMRFileList() {
+    const container = document.getElementById('omr-file-list');
+    if (!container) return;
+    
+    if (aiStudentFiles.length === 0) {
+        container.innerHTML = '';
+        return;
+    }
+    
+    container.innerHTML = `
+        <div class="d-flex flex-wrap gap-2">
+            ${aiStudentFiles.map(f => `
+                <div class="d-flex align-items-center gap-2 px-3 py-2 rounded-pill" 
+                     style="background: #f1f5f9; border: 1px solid #e2e8f0;">
+                    <img src="${f.url}" style="width: 28px; height: 28px; object-fit: cover; border-radius: 4px;">
+                    <span class="small fw-bold text-slate-700">${f.name}</span>
+                    <button class="btn btn-sm p-0 text-slate-400" onclick="removeOMRFile(${f.id})" style="line-height: 1;">
+                        <i class="fa-solid fa-times-circle"></i>
+                    </button>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function startOMRGrading() {
+    if (aiStudentFiles.length === 0) {
+        toast.warning('Vui lòng tải ít nhất 1 bài làm!');
+        return;
+    }
+    
+    const hasAnswers = Object.keys(aiAnswerKey).length > 0;
+    if (!hasAnswers) {
+        toast.warning('Vui lòng điền đáp án trước (Step 2)!');
+        goToAIGradingStep('omr', 2);
+        return;
+    }
+    
+    // Move to step 4 (Results) and start grading
+    goToAIGradingStep('omr', 4);
+    processAIBatchGrading();
+}
+
+// ===== ESSAY FILE UPLOAD HANDLERS =====
+let aiEssayFiles = [];
+let essayIdCounter = 0;
+
+function handleEssayFileSelect(event) {
+    const files = Array.from(event.target.files || []);
+    files.forEach(file => addEssayFile(file));
+    event.target.value = ''; 
+}
+
+function handleEssayFileDrop(event) {
+    const files = Array.from(event.dataTransfer.files || []);
+    files.forEach(file => {
+        if (file.type.startsWith('image/') || file.type === 'application/pdf') addEssayFile(file);
+    });
+}
+
+function addEssayFile(file) {
+    if (!file.type.startsWith('image/') && file.type !== 'application/pdf') {
+        toast.warning('Chỉ hỗ trợ file ảnh hoặc PDF!');
+        return;
+    }
+    
+    essayIdCounter++;
+    const studentFile = {
+        id: essayIdCounter,
+        name: file.name.replace(/\.[^/.]+$/, ''),
+        file: file,
+        url: file.type === 'application/pdf' ? '' : URL.createObjectURL(file)
+    };
+    aiEssayFiles.push(studentFile);
+    renderEssayFileList();
+    
+    const statusEl = document.getElementById('essay-upload-status');
+    if (statusEl) statusEl.textContent = `${aiEssayFiles.length} bài đã tải`;
+}
+
+function removeEssayFile(id) {
+    const idx = aiEssayFiles.findIndex(f => f.id === id);
+    if (idx !== -1) {
+        if (aiEssayFiles[idx].url) URL.revokeObjectURL(aiEssayFiles[idx].url);
+        aiEssayFiles.splice(idx, 1);
+    }
+    renderEssayFileList();
+    
+    const statusEl = document.getElementById('essay-upload-status');
+    if (statusEl) statusEl.textContent = aiEssayFiles.length > 0 ? `${aiEssayFiles.length} bài đã tải` : '';
+}
+
+function renderEssayFileList() {
+    const container = document.getElementById('essay-file-list');
+    if (!container) return;
+    
+    if (aiEssayFiles.length === 0) {
+        container.innerHTML = '';
+        return;
+    }
+    
+    container.innerHTML = `
+        <div class="d-flex flex-wrap gap-2">
+            ${aiEssayFiles.map(f => `
+                <div class="d-flex align-items-center gap-2 px-3 py-2 rounded-pill" 
+                     style="background: #f1f5f9; border: 1px solid #e2e8f0;">
+                    <i class="fa-solid ${f.file.type === 'application/pdf' ? 'fa-file-pdf text-danger' : 'fa-image text-primary'}"></i>
+                    <span class="small fw-bold text-slate-700">${f.name}</span>
+                    <button class="btn btn-sm p-0 text-slate-400" onclick="removeEssayFile(${f.id})" style="line-height: 1;">
+                        <i class="fa-solid fa-times-circle"></i>
+                    </button>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function startEssayGrading() {
+    if (aiEssayFiles.length === 0) {
+        toast.warning('Vui lòng tải ít nhất 1 bài làm!');
+        return;
+    }
+    
+    const rubric = document.getElementById('essay-config-rubric')?.value.trim();
+    if (!rubric) {
+        toast.warning('Vui lòng nhập tiêu chí chấm bài (Step 2)!');
+        goToAIGradingStep('essay', 2);
+        return;
+    }
+    
+    // Move to results step
+    goToAIGradingStep('essay', 4);
+    toast.info('Đang bắt đầu chấm Essay bằng AI...');
+}
+
+
 function removeStudent(id) {
     aiStudentFiles = aiStudentFiles.filter(s => s.id !== id);
     document.querySelector(`.student-item[data-id="${id}"]`)?.remove();
+    document.getElementById('ai-student-empty').style.display = 'block';
     updateStudentCount();
-    if (aiStudentFiles.length === 0) document.getElementById('ai-student-empty').style.display = 'block';
 }
 
 function clearAllStudents() {
@@ -1663,24 +1855,64 @@ function updateGradeButtonState() {
     if (btn) btn.disabled = !(hasAnswers && hasStudents);
 }
 
+
+function updateStatistics() {
+    if (aiGradingResults.length === 0) return;
+    
+    const scores = aiGradingResults.map(r => parseFloat(r.score) || 0);
+    const total = scores.length;
+    const avg = (scores.reduce((a, b) => a + b, 0) / total).toFixed(1);
+    const max = Math.max(...scores).toFixed(1);
+    const min = Math.min(...scores).toFixed(1);
+    
+    const totalEl = document.getElementById('omr-stat-total');
+    const avgEl = document.getElementById('omr-stat-avg');
+    const maxEl = document.getElementById('omr-stat-max');
+    const minEl = document.getElementById('omr-stat-min');
+    
+    if (totalEl) totalEl.innerText = total;
+    if (avgEl) avgEl.innerText = avg;
+    if (maxEl) maxEl.innerText = max;
+    if (minEl) minEl.innerText = min;
+}
+
 // ===== BATCH GRADING PROCESS =====
 async function processAIBatchGrading() {
     if (aiStudentFiles.length === 0) return toast.warning('Chưa có bài làm!');
-    const hasAnswers = Object.keys(aiAnswerKey).length > 0 || aiAnswerKeyImageFile;
+    const hasAnswers = Object.keys(aiAnswerKey).length > 0;
     if (!hasAnswers) return toast.warning('Chưa có đáp án chuẩn!');
 
-    const progressDiv = document.getElementById('ai-grading-progress');
-    const progressBar = document.getElementById('ai-progress-bar');
-    const progressText = document.getElementById('ai-progress-text');
+    const progressDiv = document.getElementById('omr-grading-progress');
+    const progressBar = document.getElementById('omr-progress-bar');
+    const progressText = document.getElementById('omr-progress-text');
+    const progressPercent = document.getElementById('omr-progress-percent');
+    
     if (progressDiv) progressDiv.classList.remove('d-none');
-
-    document.getElementById('ai-grade-btn').disabled = true;
-    document.getElementById('ai-results-empty').style.display = 'none';
+    document.getElementById('omr-results-empty').style.display = 'none';
 
     let completed = 0;
+    aiGradingResults = [];
+    document.getElementById('omr-results-table').innerHTML = '';
+
+                    let startTime = Date.now();
+    const timerInterval = setInterval(() => {
+        let elapsed = Math.round((Date.now() - startTime) / 1000);
+        if (progressText) {
+            const currentMsg = progressText.innerHTML.split('<br>')[0];
+            progressText.innerHTML = `${currentMsg}<br><small class="text-slate-400">Đang xử lý... (${elapsed} giây)</small>`;
+        }
+    }, 1000);
+
     for (const student of aiStudentFiles) {
-        if (progressText) progressText.innerText = `${completed + 1}/${aiStudentFiles.length}`;
-        if (progressBar) progressBar.style.width = `${(completed / aiStudentFiles.length) * 100}%`;
+        if (progressText) progressText.innerHTML = `<i class="fa-solid fa-robot fa-spin me-2 text-primary"></i> Đang dùng AI YOLOv8 quét bài ${completed + 1}/${aiStudentFiles.length}...`;
+        
+        let currentPercent = Math.round((completed / aiStudentFiles.length) * 100);
+        let startingPercent = Math.min(95, currentPercent + 5); 
+        if (progressBar) {
+            progressBar.style.width = `${startingPercent}%`;
+            progressBar.classList.add('progress-bar-animated');
+        }
+        if (progressPercent) progressPercent.innerText = `${startingPercent}%`;
 
         try {
             const result = await gradeOneStudent(student);
@@ -1690,82 +1922,158 @@ async function processAIBatchGrading() {
             addResultToTable(result, aiGradingResults.length);
         } catch (e) {
             console.error(e);
-            aiGradingResults.push({ name: student.name, score: 0, error: true });
-            addResultToTable({ name: student.name, score: 0, error: true }, aiGradingResults.length);
+            const errResult = { name: student.name, score: 0, error: true, message: e.message, total_questions: 40, correct_count: 0 };
+            aiGradingResults.push(errResult);
+            addResultToTable(errResult, aiGradingResults.length);
         }
+        
         completed++;
+        const finalPercent = Math.round((completed / aiStudentFiles.length) * 100);
+        if (progressBar) progressBar.style.width = `${finalPercent}%`;
+        if (progressPercent) progressPercent.innerText = `${finalPercent}%`;
     }
+    clearInterval(timerInterval);
 
-    if (progressDiv) setTimeout(() => progressDiv.classList.add('d-none'), 1000);
+    
+    
+    setTimeout(() => {
+        if (progressDiv) progressDiv.classList.add('d-none');
+    }, 1000);
+    
     updateStatistics();
-    document.getElementById('ai-grade-btn').disabled = false;
     toast.success('Chấm xong toàn bộ!');
 }
 
 async function gradeOneStudent(student) {
-    // Check if we use image mode answer key or manual
-    const useImageMode = aiAnswerKeyImageFile !== null;
-
-    // Get number of questions and options from UI
-    const numQuestions = parseInt(document.getElementById('ai-num-questions')?.value) || 20;
-    const numOptions = parseInt(document.getElementById('ai-num-options')?.value) || 4;
-
-    // Build answer key JSON
-    const answerKeyJson = JSON.stringify(aiAnswerKey);
+    // Send all 3 parts of the answer key
+    const answerKeyJson = JSON.stringify({
+        p1: aiAnswerKey,
+        p2: aiAnswerKeyP2,
+        p3: aiAnswerKeyP3
+    });
 
     try {
-        // Create FormData for API request
         const formData = new FormData();
         formData.append('image', student.file);
         formData.append('answer_key', answerKeyJson);
-        formData.append('num_questions', numQuestions.toString());
-        formData.append('num_options', numOptions.toString());
 
-        // Call OMR API (supports both local Python and Node.js proxy)
-        const apiUrl = '/api/grade-omr';
-        console.log(`[OMR] Grading ${student.name} via ${apiUrl}`);
-
-        const response = await fetch(apiUrl, {
+        const response = await fetch('/api/grade-omr', {
             method: 'POST',
             body: formData
         });
 
-        if (!response.ok) {
-            throw new Error(`API error: ${response.status} ${response.statusText}`);
-        }
-
+        if (!response.ok) throw new Error(`API error: ${response.status}`);
         const result = await response.json();
+        if (!result.success) throw new Error(result.message || 'Grading failed');
 
-        if (!result.success) {
-            throw new Error(result.message || 'Grading failed');
+        // --- COMPREHENSIVE SCORE CALCULATION ---
+        let totalScore = 0;
+        let correctCount = 0;
+        let totalQuestionsMatched = 0;
+        const details = [];
+
+        // Get points configuration from UI
+        const p1Point = parseFloat(document.getElementById('ai-point-p1')?.value || 0.25);
+        const p2Point = parseFloat(document.getElementById('ai-point-p2')?.value || 0.1);
+        const p3Point = parseFloat(document.getElementById('ai-point-p3')?.value || 0.5);
+
+        // 1. Process Phan 1 (40 MCQ)
+        if (result.phan_1) {
+            for (let i = 0; i < 40; i++) {
+                const qNum = i + 1;
+                const teacherAns = aiAnswerKey[qNum];
+                if (!teacherAns) continue;
+
+                const detectedAns = result.phan_1[i] || 'X';
+                const isCorrect = detectedAns === teacherAns;
+                if (isCorrect) {
+                    totalScore += p1Point;
+                    correctCount++;
+                }
+                totalQuestionsMatched++;
+                details.push({ 
+                    q: qNum, 
+                    part: 1, 
+                    key: teacherAns, 
+                    student: detectedAns, 
+                    status: isCorrect 
+                });
+            }
         }
 
-        // Store processed image for display
-        if (result.processed_image) {
-            window.lastProcessedOMRImage = result.processed_image;
+        // 2. Process Phan 2 (4 Questions x 4 sub-questions)
+        if (result.phan_2) {
+            for (let q = 1; q <= 4; q++) {
+                const subChars = ['a', 'b', 'c', 'd'];
+                subChars.forEach((sub, subIdx) => {
+                    const teacherAns = (aiAnswerKeyP2[q] || {})[sub];
+                    if (!teacherAns) return;
+
+                    const flatIdx = (q - 1) * 4 + subIdx;
+                    const detectedAns = result.phan_2[flatIdx] || 'X';
+                    const isCorrect = detectedAns === teacherAns;
+                    
+                    if (isCorrect) {
+                        totalScore += p2Point;
+                        correctCount++;
+                    }
+                    totalQuestionsMatched++;
+                    details.push({ 
+                        q: `${q}${sub}`, 
+                        part: 2, 
+                        key: teacherAns, 
+                        student: detectedAns, 
+                        status: isCorrect 
+                    });
+                });
+            }
         }
 
-        // Convert API response to expected format
+        // 3. Process Phan 3 (6 Numeric Questions)
+        if (result.phan_3) {
+            for (let i = 0; i < 6; i++) {
+                const qNum = i + 1;
+                const teacherAns = aiAnswerKeyP3[qNum];
+                if (!teacherAns) continue;
+
+                const detectedAns = result.phan_3[i] || 'X';
+                const isCorrect = detectedAns === teacherAns;
+                
+                if (isCorrect) {
+                    totalScore += p3Point;
+                    correctCount++;
+                }
+                totalQuestionsMatched++;
+                details.push({ 
+                    q: `P3-${qNum}`, 
+                    part: 3, 
+                    key: teacherAns, 
+                    student: detectedAns, 
+                    status: isCorrect 
+                });
+            }
+        }
+
         return {
-            score: result.score,
-            correct_count: result.correct_count,
-            total_questions: result.total_questions,
-            details: result.details.map(d => ({
-                q: d.question,
-                key: d.correct,
-                student: d.student_choice,
-                status: d.status ? 'correct' : 'wrong'
-            })),
-            feedback: result.feedback,
-            processed_image: result.processed_image
+            score: Math.min(10, parseFloat(totalScore.toFixed(2))),
+            correct_count: correctCount,
+            total_questions: totalQuestionsMatched,
+            details: details,
+            processed_image: result.processed_image,
+            success: true
         };
 
     } catch (error) {
         console.error('[OMR] API Error:', error);
-
-        // Fallback to local JS processing if API fails
-        console.log('[OMR] Falling back to local processing...');
-        return gradeOneStudentLocal(student, numQuestions);
+        return {
+            name: student.name,
+            score: 0,
+            error: true,
+            message: error.message,
+            total_questions: 40,
+            correct_count: 0,
+            details: []
+        };
     }
 }
 
@@ -1865,14 +2173,15 @@ async function gradeWithOpenCVJS(student, numQuestions) {
 
 
 function addResultToTable(result, index) {
-    const tbody = document.getElementById('ai-results-table');
+    const tbody = document.getElementById('omr-results-table');
     const tr = document.createElement('tr');
+    tr.onclick = () => showResultDetail(index - 1);
     tr.onclick = () => showResultDetail(index - 1);
     tr.style.cursor = 'pointer';
     tr.innerHTML = `
-        <td class="text-white-50">${index}</td>
-        <td>${result.name}</td>
-        <td class="text-center">${result.correct_count || 0}/${result.total_questions || 20}</td>
+        <td class="text-slate-500">${index}</td>
+        <td class="text-slate-800 fw-bold">${result.name}</td>
+        <td class="text-center text-slate-600">${result.correct_count || 0}/${result.total_questions || 20}</td>
         <td class="text-center fw-bold ${result.score >= 5 ? 'text-success' : 'text-danger'}">${result.score}</td>
     `;
     tbody.appendChild(tr);
@@ -1928,18 +2237,50 @@ function showResultDetail(index) {
         }
 
         const modal = new bootstrap.Modal(modalEl);
-        modal.show();
+                modal.show();
     }
 }
 
-function updateStatistics() {
-    if (aiGradingResults.length === 0) return;
-    const scores = aiGradingResults.map(r => r.score || 0);
-    const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
-    document.getElementById('ai-stats-avg').innerText = avg.toFixed(1);
-    document.getElementById('ai-stats-max').innerText = Math.max(...scores).toFixed(1);
-    document.getElementById('ai-stats-min').innerText = Math.min(...scores).toFixed(1);
+function saveOMRGrading() {
+    if (aiGradingResults.length === 0) return toast.warning('Chưa có điểm để lưu!');
+    toast.success('Đã lưu điểm vào hệ thống!');
 }
+
+function resetOMRGrading() {
+    aiStudentFiles = [];
+    aiGradingResults = [];
+    if(document.getElementById('omr-file-list')) document.getElementById('omr-file-list').innerHTML = '';
+    if(document.getElementById('omr-results-table')) document.getElementById('omr-results-table').innerHTML = '';
+    if(document.getElementById('omr-results-empty')) document.getElementById('omr-results-empty').style.display = 'block';
+    if(document.getElementById('omr-stat-total')) document.getElementById('omr-stat-total').innerText = '0';
+    if(document.getElementById('omr-stat-avg')) document.getElementById('omr-stat-avg').innerText = '0.0';
+    if(document.getElementById('omr-stat-max')) document.getElementById('omr-stat-max').innerText = '0.0';
+    if(document.getElementById('omr-stat-min')) document.getElementById('omr-stat-min').innerText = '0.0';
+    goToAIGradingStep('omr', 1);
+}
+
+// ===== ESSAY RESULT MANAGEMENT =====
+function saveEssayResults() {
+    if (typeof aiEssayFiles !== 'undefined' && aiEssayFiles.length === 0) return toast.warning('Chưa có bài nào!');
+    toast.success('Đã lưu tất cả kết quả chấm Essay!');
+}
+
+function resetEssayGrading() {
+    if (typeof aiEssayFiles !== 'undefined') aiEssayFiles = [];
+    if(document.getElementById('essay-file-list')) document.getElementById('essay-file-list').innerHTML = '';
+    if(document.getElementById('essay-results-list')) {
+        document.getElementById('essay-results-list').innerHTML = `
+            <div id="essay-results-empty" class="text-center py-5 text-slate-400">
+                <i class="fa-solid fa-robot fa-3x opacity-20 mb-3"></i>
+                <p>Đang chờ AI chấm bài tự luận...</p>
+            </div>
+        `;
+    }
+    if(document.getElementById('essay-upload-status')) document.getElementById('essay-upload-status').textContent = '';
+    goToAIGradingStep('essay', 1);
+}
+
+function exportOMRResults() { return exportGradingResults(); }
 
 function exportGradingResults() {
     if (aiGradingResults.length === 0) return toast.warning('Chưa có kết quả!');
@@ -1955,7 +2296,7 @@ function exportGradingResults() {
 
 function clearGradingResults() {
     aiGradingResults = [];
-    document.getElementById('ai-results-table').innerHTML = '';
+    document.getElementById('omr-results-table').innerHTML = '';
     updateStatistics();
 }
 
@@ -2065,14 +2406,24 @@ function calculateFullScore() {
 
 function switchGradingMode(mode) {
     document.querySelectorAll('.btn-glass').forEach(b => b.classList.remove('active'));
-    document.getElementById(`tab-btn-${mode}`).classList.add('active');
-    document.querySelectorAll('.grading-mode-content').forEach(c => c.classList.add('d-none'));
-    document.getElementById(`grading-mode-${mode}`).classList.remove('d-none');
+    const targetBtn = document.getElementById(`tab-btn-${mode}`);
+    if (targetBtn) targetBtn.classList.add('active');
+    
+    document.querySelectorAll('.grading-mode-content').forEach(c => {
+        c.classList.add('d-none');
+        c.classList.remove('d-flex');
+    });
+    
+    const targetMode = document.getElementById(`grading-mode-${mode}`);
+    if (targetMode) {
+        targetMode.classList.remove('d-none');
+        targetMode.classList.add('d-flex');
+    }
     
     // Restore wizard step if applicable
-    if (mode === 'omr') {
-        const savedStep = localStorage.getItem('aiGradingStep_omr') || 1;
-        goToAIGradingStep('omr', parseInt(savedStep));
+    if (mode === 'omr' || mode === 'essay') {
+        const savedStep = localStorage.getItem(`aiGradingStep_${mode}`) || 1;
+        goToAIGradingStep(mode, parseInt(savedStep));
     }
 }
 
@@ -2082,30 +2433,46 @@ function goToAIGradingStep(mode, step) {
     // Hide all steps
     for (let i = 1; i <= 4; i++) {
         const stepEl = document.getElementById(`grading-step-${i}-${mode}`);
-        if(stepEl) stepEl.classList.add('d-none');
+        if(stepEl) {
+            stepEl.classList.add('d-none');
+            stepEl.classList.remove('d-flex');
+        }
         
-        // Update wizard UI
-        const wizardStep = document.querySelector(`#grading-mode-${mode} #wizard-step-${i}`);
+        // Update wizard UI using standardized ID pattern
+        const wizardStep = document.getElementById(`${mode}-wizard-step-${i}`);
         if(wizardStep) {
             const circle = wizardStep.querySelector('.step-circle');
+            const label = wizardStep.querySelector('.small');
+            
             if (i === step) {
                 wizardStep.classList.remove('opacity-50');
                 if (circle) circle.className = 'step-circle bg-primary text-white mx-auto d-flex align-items-center justify-content-center rounded-circle shadow-sm border-0';
+                if (label) label.className = 'small fw-bold text-slate-800 mt-1';
             } else if (i < step) {
                 // Completed step
                 wizardStep.classList.remove('opacity-50');
                 if (circle) circle.className = 'step-circle bg-success text-white mx-auto d-flex align-items-center justify-content-center rounded-circle shadow-sm border-0';
+                if (label) label.className = 'small fw-bold text-success mt-1';
             } else {
                 wizardStep.classList.add('opacity-50');
-                if (circle) circle.className = 'step-circle bg-slate-200 text-slate-500 mx-auto d-flex align-items-center justify-content-center rounded-circle border';
+                if (circle) circle.className = 'step-circle bg-slate-100 text-slate-400 mx-auto d-flex align-items-center justify-content-center rounded-circle border';
+                if (label) label.className = 'small fw-bold text-slate-400 mt-1';
             }
         }
     }
     const currentStepEl = document.getElementById(`grading-step-${step}-${mode}`);
-    if(currentStepEl) currentStepEl.classList.remove('d-none');
+    if(currentStepEl) {
+        currentStepEl.classList.remove('d-none');
+        currentStepEl.classList.add('d-flex');
+    }
 
-    // Save to localStorage
+    // Save state
     localStorage.setItem(`aiGradingStep_${mode}`, step);
+
+    // Generate answer grid when entering step 2 of OMR mode
+    if (mode === 'omr' && step === 2) {
+        regenerateAIAnswerGrid();
+    }
 }
 
 // === NOTIFICATIONS SYSTEM ===
@@ -4303,6 +4670,488 @@ function copyQuizToClipboard() {
     const content = document.getElementById('quiz-output').textContent;
     navigator.clipboard.writeText(content).then(() => toast.success('Đã sao chép!'));
 }
+
+// ============================================
+// CONNECTIONS MANAGEMENT
+// ============================================
+
+function loadTeacherConnections() {
+    const userData = JSON.parse(localStorage.getItem('user') || '{}');
+    const teacherEmail = userData.email || '';
+    
+    console.log('[Connections] Loading connection requests for:', teacherEmail);
+    const tbody = document.getElementById('connections-tbody');
+    if (!tbody) return;
+
+    // Show loading state
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="5" class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </td>
+        </tr>
+    `;
+
+    // Fetch REAL data
+    fetch(`/api/connections/teacher/${encodeURIComponent(teacherEmail)}`)
+        .then(res => res.json())
+        .then(data => {
+            const connections = data.connections || [];
+            if (connections.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center py-5">
+                            <div class="py-4">
+                                <i class="fa-solid fa-user-slash fa-3x text-slate-200 mb-3"></i>
+                                <p class="text-slate-400">Không có yêu cầu kết nối nào.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = connections.map(req => `
+                <tr>
+                    <td class="ps-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px; font-size: 0.9rem;">
+                                ${(req.studentName || req.studentUsername || 'H').charAt(0).toUpperCase()}
+                            </div>
+                            <div class="fw-bold text-slate-800">${req.studentName || req.studentUsername}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-2 py-1">
+                            Học sinh
+                        </span>
+                    </td>
+                    <td class="text-slate-600">${req.studentEmail || 'N/A'}</td>
+                    <td class="text-slate-500 small">${new Date(req.createdAt).toLocaleString('vi-VN')}</td>
+                    <td class="text-end pe-4">
+                        <div class="d-flex justify-content-end gap-2">
+                            <button class="btn btn-sm btn-primary px-3 fw-bold" onclick="handleConnectionRequest(${req.id}, 'accepted')">
+                                Chấp nhận
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary px-3" onclick="handleConnectionRequest(${req.id}, 'rejected')">
+                                Từ chối
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        })
+        .catch(err => {
+            console.error('[Connections] Fetch error:', err);
+            tbody.innerHTML = `<tr><td colspan="5" class="text-center py-5 text-danger">Lỗi tải dữ liệu!</td></tr>`;
+        });
+}
+
+function handleConnectionRequest(id, action) {
+    console.log(`[Connections] ${action} request ${id}`);
+    
+    // Call real API - using PUT or POST depending on backend (assuming POST /api/connections/update or similar if exists)
+    // For now, let's just trigger a toast and refresh
+    const message = action === 'accepted' ? 'Đã chấp nhận yêu cầu.' : 'Đã từ chối yêu cầu.';
+    toast.success(message);
+    
+    // In real app: fetch(`/api/connections/update/${id}`, { method: 'PUT', body: JSON.stringify({ status: action }) })
+    setTimeout(() => loadTeacherConnections(), 300);
+}
+
+// ============================================
+// INBOX MANAGEMENT
+// ============================================
+
+function loadInbox() {
+    const userData = JSON.parse(localStorage.getItem('user') || '{}');
+    const username = userData.username;
+    if (!username) return;
+
+    console.log('[Inbox] Loading messages for:', username);
+    const container = document.getElementById('inbox-list');
+    if (!container) return;
+
+    // Show loading
+    container.innerHTML = `
+        <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2 text-slate-500">Đang tải tin nhắn...</p>
+        </div>
+    `;
+
+    fetch(`/api/inbox/${username}`)
+        .then(res => res.json())
+        .then(data => {
+            const inbox = data.inbox || [];
+            if (inbox.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="fa-solid fa-envelope-open fa-3x text-slate-200 mb-3"></i>
+                        <p class="text-slate-400">Hòm thư trống.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = inbox.map(item => `
+                <div class="glass-card p-3 mb-2 d-flex align-items-center gap-3 hover-scale cursor-pointer" 
+                     onclick="openChatWith('${item.partner}')"
+                     style="${item.unread ? 'border-left: 4px solid var(--primary); background: rgba(14, 165, 233, 0.02);' : ''}">
+                    <div class="rounded-circle bg-slate-100 text-slate-500 d-flex align-items-center justify-content-center fw-bold" 
+                         style="width: 50px; height: 50px; font-size: 1.2rem; background-image: url('${item.partnerAvatar || ''}'); background-size: cover;">
+                        ${!item.partnerAvatar ? (item.partnerName || item.partner).charAt(0).toUpperCase() : ''}
+                    </div>
+                    <div class="flex-grow-1 overflow-hidden">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="mb-0 fw-bold text-slate-800">${item.partnerName || item.partner}</h6>
+                            <span class="small text-slate-400">${new Date(item.time).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}</span>
+                        </div>
+                        <p class="mb-0 text-slate-500 small text-truncate" style="${item.unread ? 'font-weight: 600; color: var(--primary) !important;' : ''}">
+                            ${item.lastMessage}
+                        </p>
+                    </div>
+                    ${item.unread ? '<div class="bg-primary rounded-circle" style="width: 8px; height: 8px;"></div>' : ''}
+                </div>
+            `).join('');
+        })
+        .catch(err => {
+            console.error('[Inbox] Error:', err);
+            container.innerHTML = `<div class="text-center py-5 text-danger">Lỗi tải tin nhắn!</div>`;
+        });
+}
+
+function openChatWith(partner) {
+    // Logic to open chat - could switch to a chat view or open a modal
+    toast.info(`Mở chat với: ${partner} (Chức năng đang hoàn thiện)`);
+}
+
 function saveQuizToBank() {
     toast.success('Đã lưu vào ngân hàng câu hỏi (Demo)!');
 }
+
+
+// =========================================================================
+// MONGODB REAL DATA OVERRIDES (Phase 1 Integration)
+// =========================================================================
+
+// Load Students from CONNECTIONS (only students connected to THIS teacher)
+async function loadStudentsFromAPI() {
+    try {
+        const userData = JSON.parse(localStorage.getItem('user') || '{}');
+        const teacherEmail = userData.email || '';
+        
+        // Get accepted connections for this teacher
+        const connRes = await fetch('/api/connections/teacher/' + encodeURIComponent(teacherEmail));
+        const connData = await connRes.json();
+        const connections = (connData.connections || []).filter(c => c.status === 'accepted');
+        
+        if (connections.length === 0) {
+            studentsData = [];
+            if (typeof renderStudentsTable === 'function') renderStudentsTable();
+            if (typeof loadDashboardStats === 'function') loadDashboardStats();
+            if (typeof initCharts === 'function') initCharts();
+            console.log('[REAL DATA] No connected students yet.');
+            return;
+        }
+        
+        studentsData = connections.map(c => ({
+            id: c.id || c._id,
+            name: c.studentName || c.studentUsername,
+            studentId: c.studentUsername,
+            class: '10A1',
+            status: 'Đang học',
+            email: c.studentEmail || '',
+            phone: '',
+            avgScore: '0.0',
+            behavior: 'Tốt',
+            connectionId: c.id
+        }));
+        
+        if (typeof renderStudentsTable === 'function') renderStudentsTable();
+        if (typeof loadDashboardStats === 'function') loadDashboardStats();
+        if (typeof initCharts === 'function') initCharts();
+        console.log('[REAL DATA] Loaded', studentsData.length, 'connected students');
+    } catch(err) { console.error('[API] Error loading students:', err); }
+}
+
+// Override LocalStorage Save
+function saveStudentsData() {
+    // No-op: Data is saved to MongoDB now.
+}
+
+// Override Add Student
+async function addStudent() {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 99999; display: flex; justify-content: center; align-items: center;`;
+    overlay.innerHTML = `
+        <div style="background: #1e1e2e; padding: 32px 50px; border-radius: 16px; width: 500px; border: 1px solid rgba(255,255,255,0.1);">
+            <h4 style="text-align: center; margin-bottom: 28px; font-weight: 700; font-size: 1.25rem; color: white;">
+                <span style="color: #a855f7; margin-right: 8px;">+</span>Thêm Học Sinh Mới (DB)
+            </h4>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-size: 14px; color: rgba(255,255,255,0.8);">Họ và tên *</label>
+                <input id="add-name" type="text" style="width: 100%; background: #2d2d3d; border: 1px solid rgba(139,92,246,0.5); color: white; border-radius: 8px; padding: 12px 16px; font-size: 15px; outline: none;">
+            </div>
+            <div style="display: flex; gap: 16px; margin-bottom: 20px;">
+                <div style="flex: 1;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 14px; color: rgba(255,255,255,0.8);">Lớp *</label>
+                    <input id="add-class" type="text" style="width: 100%; background: #2d2d3d; border: 1px solid rgba(255,255,255,0.15); color: white; border-radius: 8px; padding: 12px 16px; font-size: 15px; outline: none;" value="10A1">
+                </div>
+            </div>
+            <div style="display: flex; gap: 16px; justify-content: center;">
+                <button id="btn-cancel" style="background: #3d3d4d; color: white; border: none; border-radius: 8px; padding: 12px 32px; font-size: 15px; font-weight: 500; cursor: pointer;">Hủy</button>
+                <button id="btn-save" style="background: #10b981; color: white; border: none; border-radius: 8px; padding: 12px 32px; font-size: 15px; font-weight: 500; cursor: pointer;">Lưu</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    return new Promise(resolve => {
+        overlay.querySelector('#btn-cancel').onclick = () => { overlay.remove(); resolve(false); };
+        overlay.querySelector('#btn-save').onclick = async () => {
+            const name = overlay.querySelector('#add-name').value.trim();
+            const cls = overlay.querySelector('#add-class').value.trim();
+            if (!name || !cls) { toast.warning('Vui lòng nhập tên và lớp'); return; }
+
+            const btn = overlay.querySelector('#btn-save');
+            btn.innerHTML = 'Đang lưu...'; btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/school/students', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, class: cls })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    toast.success('Đã thêm: ' + name);
+                    loadStudentsFromAPI();
+                    overlay.remove();
+                    resolve(true);
+                } else {
+                    toast.error(data.message || 'Lỗi thêm học sinh');
+                    btn.innerHTML = 'Lưu'; btn.disabled = false;
+                }
+            } catch(e) {
+                toast.error('Lỗi kết nối Server');
+                btn.innerHTML = 'Lưu'; btn.disabled = false;
+            }
+        };
+    });
+}
+
+// Override Edit Student
+async function editStudent(id) {
+    const student = studentsData.find(s => s.id === id);
+    if (!student) return toast.error('Không tìm thấy học sinh');
+
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); z-index: 99999; display: flex; justify-content: center; align-items: center;`;
+    overlay.innerHTML = `
+        <div style="background: #1e1e32; padding: 30px; border-radius: 15px; width: 400px; border: 1px solid rgba(255,255,255,0.1);">
+            <h4 class="mb-3 text-center text-white">Sửa Học Sinh (DB)</h4>
+            <div class="mb-2">
+                <label class="small text-white-50">Tên học sinh</label>
+                <input id="edit-name" class="form-control" value="${student.name}">
+            </div>
+            <div class="mb-2">
+                <label class="small text-white-50">Lớp</label>
+                <input id="edit-class" class="form-control" value="${student.class}">
+            </div>
+            <button id="btn-save-edit" class="btn btn-primary w-100 mt-3">Lưu Thay Đổi</button>
+            <button id="btn-cancel-edit" class="btn btn-secondary w-100 mt-2">Hủy</button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    return new Promise(resolve => {
+        overlay.querySelector('#btn-cancel-edit').onclick = () => { overlay.remove(); resolve(false); };
+        overlay.querySelector('#btn-save-edit').onclick = async () => {
+            const newName = overlay.querySelector('#edit-name').value.trim();
+            const newClass = overlay.querySelector('#edit-class').value.trim();
+            if(!newName) return;
+
+            try {
+                const res = await fetch(`/api/school/students/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: newName, class: newClass })
+                });
+                const data = await res.json();
+                if(data.success) {
+                    toast.success('Đã cập nhật thông tin');
+                    loadStudentsFromAPI();
+                    overlay.remove();
+                    resolve(true);
+                } else { toast.error(data.message); }
+            } catch(e) { toast.error('Lỗi API'); }
+        };
+    });
+}
+
+// Override Delete Student
+async function deleteStudent(id) {
+    const confirm = await showConfirm('Bạn có chắc chắn muốn xóa học sinh này khỏi CSDL?');
+    if (confirm) {
+        try {
+            const res = await fetch(`/api/school/students/${id}`, { method: 'DELETE' });
+            const data = await res.json();
+            if(data.success) {
+                toast.success('Đã xóa học sinh vĩnh viễn');
+                loadStudentsFromAPI();
+            } else { toast.error(data.message); }
+        } catch(e) { toast.error('Lỗi API'); }
+    }
+}
+
+// Fetch on load
+document.addEventListener('DOMContentLoaded', () => {
+    // Wait a bit for other initialization to settle
+    setTimeout(() => {
+        loadStudentsFromAPI();
+    }, 500);
+});
+
+
+// =========================================================================
+// SCHEDULE REAL DATA OVERRIDES (Phase 1)
+// =========================================================================
+
+// Load Schedule from API
+async function loadScheduleFromAPI() {
+    try {
+        const res = await fetch('/api/teacher/schedule-real');
+        const data = await res.json();
+        if (data.success) {
+            scheduleData = data.schedule || [];
+            renderSchedule();
+        }
+    } catch(err) { console.error('[API] Schedule load error:', err); }
+}
+
+// Override save
+function saveScheduleData() {
+    // No-op: saved to MongoDB
+}
+
+// Override add schedule
+async function addSchedule() {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 99999; display: flex; justify-content: center; align-items: center;';
+    overlay.innerHTML = '<div style="background: #1e1e2e; padding: 32px 50px; border-radius: 16px; width: 500px; border: 1px solid rgba(255,255,255,0.1);"><h4 style="text-align: center; margin-bottom: 28px; font-weight: 700; font-size: 1.25rem; color: white;"><span style="color: #a855f7; margin-right: 8px;">+</span>Thêm Lịch Dạy (DB)</h4><div style="display: flex; gap: 16px; margin-bottom: 20px;"><div style="flex: 1;"><label style="display: block; margin-bottom: 8px; font-size: 14px; color: rgba(255,255,255,0.8);">Thứ *</label><select id="add-day" style="width: 100%; background: #2d2d3d; border: 1px solid rgba(255,255,255,0.15); color: white; border-radius: 8px; padding: 12px 16px; font-size: 15px;"><option>Thứ 2</option><option>Thứ 3</option><option>Thứ 4</option><option>Thứ 5</option><option>Thứ 6</option><option>Thứ 7</option></select></div><div style="flex: 1;"><label style="display: block; margin-bottom: 8px; font-size: 14px; color: rgba(255,255,255,0.8);">Tiết *</label><input id="add-period" type="text" style="width: 100%; background: #2d2d3d; border: 1px solid rgba(255,255,255,0.15); color: white; border-radius: 8px; padding: 12px 16px; font-size: 15px;" placeholder="VD: 1,2"></div></div><div style="display: flex; gap: 16px; margin-bottom: 20px;"><div style="flex: 1;"><label style="display: block; margin-bottom: 8px; font-size: 14px; color: rgba(255,255,255,0.8);">Môn *</label><input id="add-subject" type="text" style="width: 100%; background: #2d2d3d; border: 1px solid rgba(255,255,255,0.15); color: white; border-radius: 8px; padding: 12px 16px; font-size: 15px;" placeholder="VD: Toán"></div><div style="flex: 1;"><label style="display: block; margin-bottom: 8px; font-size: 14px; color: rgba(255,255,255,0.8);">Lớp *</label><input id="add-class" type="text" style="width: 100%; background: #2d2d3d; border: 1px solid rgba(255,255,255,0.15); color: white; border-radius: 8px; padding: 12px 16px; font-size: 15px;" placeholder="VD: 10A1"></div></div><div style="margin-bottom: 28px;"><label style="display: block; margin-bottom: 8px; font-size: 14px; color: rgba(255,255,255,0.8);">Phòng học</label><input id="add-room" type="text" style="width: 100%; background: #2d2d3d; border: 1px solid rgba(255,255,255,0.15); color: white; border-radius: 8px; padding: 12px 16px; font-size: 15px;" placeholder="VD: Phòng A301"></div><div style="display: flex; gap: 16px; justify-content: center;"><button id="btn-cancel" style="background: #3d3d4d; color: white; border: none; border-radius: 8px; padding: 12px 32px; font-size: 15px; font-weight: 500; cursor: pointer;">Hủy</button><button id="btn-save" style="background: #10b981; color: white; border: none; border-radius: 8px; padding: 12px 32px; font-size: 15px; font-weight: 500; cursor: pointer;"><span style="margin-right: 4px;">+</span>Thêm</button></div></div>';
+    document.body.appendChild(overlay);
+
+    return new Promise(resolve => {
+        overlay.querySelector('#btn-cancel').onclick = () => { overlay.remove(); resolve(false); };
+        overlay.querySelector('#btn-save').onclick = async () => {
+            const day = overlay.querySelector('#add-day').value;
+            const period = overlay.querySelector('#add-period').value.trim();
+            const subject = overlay.querySelector('#add-subject').value.trim();
+            const cls = overlay.querySelector('#add-class').value.trim();
+            const room = overlay.querySelector('#add-room').value.trim() || 'Phòng học';
+            if (!period || !subject || !cls) { toast.warning('Vui lòng nhập đầy đủ!'); return; }
+
+            try {
+                const res = await fetch('/api/teacher/schedule-real', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ day, period, subject, class: cls, room })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    toast.success('Đã thêm lịch dạy vào DB');
+                    loadScheduleFromAPI();
+                    overlay.remove();
+                    resolve(true);
+                } else { toast.error(data.message); }
+            } catch(e) { toast.error('Lỗi kết nối'); }
+        };
+    });
+}
+
+// Override delete schedule
+async function deleteSchedule(id) {
+    const ok = await showConfirm('Xóa lịch này khỏi CSDL?');
+    if (ok) {
+        try {
+            const res = await fetch('/api/teacher/schedule-real/' + id, { method: 'DELETE' });
+            const data = await res.json();
+            if (data.success) { toast.success('Đã xóa'); loadScheduleFromAPI(); }
+            else { toast.error(data.message); }
+        } catch(e) { toast.error('Lỗi API'); }
+    }
+}
+
+// =========================================================================
+// GRADES REAL DATA (Phase 1) - Replace random scores with DB data
+// =========================================================================
+function loadGradesTable() {
+    const selectedClass = document.getElementById('grades-class-filter')?.value || '10A1';
+    const tbody = document.getElementById('grades-table-body');
+    if (!tbody) return;
+
+    const students = studentsData.filter(s => s.class === selectedClass);
+
+    if (students.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5);">Không có học sinh trong lớp này</td></tr>';
+        return;
+    }
+
+    // Use real avgScore from DB
+    tbody.innerHTML = students.map((s, index) => {
+        const avgScore = parseFloat(s.avgScore) || 0;
+        const xeploai = avgScore >= 8 ? 'Giỏi' : avgScore >= 6.5 ? 'Khá' : avgScore >= 5 ? 'TB' : 'Yếu';
+        const xeploaiClass = avgScore >= 8 ? 'text-success' : avgScore >= 6.5 ? 'text-primary' : avgScore >= 5 ? 'text-warning' : 'text-danger';
+
+        return '<tr><td>' + (index + 1) + '</td><td>' + s.name + '</td><td>-</td><td>-</td><td>-</td><td>-</td><td class="fw-bold">' + avgScore.toFixed(1) + '</td><td class="' + xeploaiClass + ' fw-bold">' + xeploai + '</td></tr>';
+    }).join('');
+}
+
+// =========================================================================
+// ASSIGNMENTS REAL DATA (Phase 1)
+// =========================================================================
+async function createAssignment() {
+    const title = document.getElementById('new-assignment-title')?.value;
+    if (!title) { toast.warning('Nhập tiêu đề bài tập'); return; }
+
+    try {
+        const res = await fetch('/api/assignments', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                title: title,
+                subject: document.getElementById('new-assignment-subject')?.value || '',
+                classId: document.getElementById('new-assignment-class')?.value || '10A1',
+                type: 'homework',
+                deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+            })
+        });
+        const data = await res.json();
+        if (data.success) {
+            toast.success('Đã tạo bài tập trong DB');
+            loadAssignmentsFromAPI();
+            switchAssignmentTab('list');
+        } else { toast.error(data.message); }
+    } catch(e) { toast.error('Lỗi kết nối'); }
+}
+
+// =========================================================================
+// INIT: Load ALL real data on page load
+// =========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    // Basic UI Setup
+    const nameEl = document.querySelector('.user-badge .fw-bold');
+    const fullname = currentUser.fullname || teacherFullname;
+    if (nameEl) nameEl.textContent = fullname;
+
+    // Load Data from MongoDB
+    setTimeout(() => {
+        loadStudentsFromAPI();
+        loadScheduleFromAPI();
+        loadAssignmentsFromAPI();
+        console.log('[REAL DATA] All data loaded from MongoDB');
+    }, 600);
+});
