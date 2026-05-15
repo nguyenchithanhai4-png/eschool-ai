@@ -121,10 +121,36 @@
         .btn-eye {
             -webkit-tap-highlight-color: transparent;
         }
+
+        /* ── MOBILE FIX: touch interactions ── */
+        @media (max-width: 1023px) {
+            body {
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                height: auto !important;
+                min-height: 100vh;
+                min-height: 100dvh;
+            }
+
+            /* Ensure inputs are tappable */
+            input, button, select, textarea, a {
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+                cursor: pointer;
+            }
+            input[type="text"],
+            input[type="email"],
+            input[type="password"] {
+                cursor: text;
+                font-size: 16px !important; /* Prevents iOS auto-zoom */
+                -webkit-appearance: none;
+                appearance: none;
+            }
+        }
     </style>
 </head>
 
-<body class="min-h-screen bg-white flex selection:bg-sky-100 selection:text-primary overflow-hidden">
+<body class="min-h-screen bg-white flex selection:bg-sky-100 selection:text-primary overflow-x-hidden">
 
     <!-- THÔNG BÁO CAO CẤP (TOAST CONTAINER) -->
     <div id="toast-container" class="fixed top-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
