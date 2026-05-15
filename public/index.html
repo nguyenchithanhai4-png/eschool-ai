@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="vi" class="scroll-smooth">
 
@@ -705,7 +705,170 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
-    </style>
+
+        /* ── MOBILE HAMBURGER MENU ── */
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 60;
+            flex-shrink: 0;
+        }
+        .mobile-menu-btn:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .mobile-menu-btn .material-symbols-rounded {
+            font-size: 22px;
+            color: #334155;
+            transition: transform 0.3s ease;
+        }
+        @media (max-width: 1023px) {
+            .mobile-menu-btn { display: flex; }
+        }
+
+        /* Mobile Drawer */
+        .mobile-drawer-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .mobile-drawer-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .mobile-drawer {
+            position: fixed;
+            top: 0; right: 0; bottom: 0;
+            width: 320px;
+            max-width: 85vw;
+            background: #ffffff;
+            z-index: 9999;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+        .mobile-drawer.open {
+            transform: translateX(0);
+        }
+        .mobile-drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .mobile-drawer-close {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .mobile-drawer-close:hover {
+            background: #e2e8f0;
+        }
+        .mobile-drawer-nav {
+            padding: 16px;
+            flex: 1;
+        }
+        .mobile-drawer-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            color: #475569;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+        .mobile-drawer-nav a:hover,
+        .mobile-drawer-nav a:active {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+        .mobile-drawer-nav a .material-symbols-rounded {
+            font-size: 20px;
+            color: #94a3b8;
+        }
+        .mobile-drawer-nav .nav-divider {
+            height: 1px;
+            background: #f1f5f9;
+            margin: 8px 16px;
+        }
+        .mobile-drawer-nav .nav-section-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #94a3b8;
+            padding: 12px 16px 4px;
+        }
+        .mobile-drawer-auth {
+            padding: 16px 24px 28px;
+            border-top: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .mobile-drawer-auth .btn-login {
+            display: block;
+            text-align: center;
+            padding: 13px;
+            border-radius: 14px;
+            border: 1.5px solid #e2e8f0;
+            background: #ffffff;
+            color: #334155;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .mobile-drawer-auth .btn-login:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+        .mobile-drawer-auth .btn-register {
+            display: block;
+            text-align: center;
+            padding: 13px;
+            border-radius: 14px;
+            border: none;
+            background: #0f172a;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+        }
+        .mobile-drawer-auth .btn-register:hover {
+            background: #1e293b;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2);
+        }
     </style>
 
 </head>
@@ -886,13 +1049,18 @@
 
 
 
-            <div class="hidden md:flex items-center gap-3 lg:gap-4" id="auth-buttons">
+            <div class="hidden lg:flex items-center gap-3 lg:gap-4" id="auth-buttons">
                 <a href="login.html" class="text-[14px] font-bold text-slate-600 hover:text-dark transition-colors">Đăng
                     nhập</a>
                 <a href="login.html?register=true"
                     class="btn-magic px-5 py-2.5 rounded-xl text-[14px] font-bold shadow-md shadow-slate-200">Bắt đầu
                     miễn phí</a>
             </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="openMobileDrawer()" aria-label="Mở menu">
+                <span class="material-symbols-rounded">menu</span>
+            </button>
 
             <div class="island-container ms-3" id="island-container" style="display: none;">
                 <div class="dynamic-island" id="dynamic-island" onclick="toggleIslandDropdown()">
@@ -1636,9 +1804,9 @@
 
                     <ul class="space-y-3 text-sm text-slate-500 font-medium">
 
-                        <li><a href="#" class="hover:text-primary">Bảng giá</a></li>
+                        <li><a href="features.html" class="hover:text-primary">Tính năng</a></li>
 
-                        <li><a href="#" class="hover:text-primary">Tải ứng dụng</a></li>
+                        <li><a href="login.html" class="hover:text-primary">Đăng nhập</a></li>
 
                     </ul>
 
@@ -1652,11 +1820,11 @@
 
                     <ul class="space-y-3 text-sm text-slate-500 font-medium">
 
-                        <li><a href="#" class="hover:text-primary">Học sinh</a></li>
+                        <li><a href="student-dashboard.html" class="hover:text-primary">Học sinh</a></li>
 
-                        <li><a href="#" class="hover:text-primary">Giáo viên</a></li>
+                        <li><a href="teacher-dashboard.html" class="hover:text-primary">Giáo viên</a></li>
 
-                        <li><a href="#" class="hover:text-primary">Nhà trường</a></li>
+                        <li><a href="school-dashboard.html" class="hover:text-primary">Nhà trường</a></li>
 
                     </ul>
 
@@ -1670,11 +1838,11 @@
 
                     <ul class="space-y-3 text-sm text-slate-500 font-medium">
 
-                        <li><a href="#" class="hover:text-primary">Trợ giúp</a></li>
+                        <li><a href="help-center.html" class="hover:text-primary">Trợ giúp</a></li>
 
-                        <li><a href="#" class="hover:text-primary">Bảo mật</a></li>
+                        <li><a href="privacy.html" class="hover:text-primary">Bảo mật</a></li>
 
-                        <li><a href="#" class="hover:text-primary">Điều khoản</a></li>
+                        <li><a href="terms.html" class="hover:text-primary">Điều khoản</a></li>
 
                     </ul>
 
@@ -1772,6 +1940,71 @@
         </div>
     </div>
 
+
+    <!-- MOBILE DRAWER -->
+    <div class="mobile-drawer-overlay" id="mobileDrawerOverlay" onclick="closeMobileDrawer()"></div>
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="mobile-drawer-header">
+            <a href="#" class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-dark rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-rounded text-white text-[16px]">school</span>
+                </div>
+                <span class="font-extrabold text-lg text-dark">E-School<span class="text-primary text-2xl leading-none">.</span></span>
+            </a>
+            <button class="mobile-drawer-close" onclick="closeMobileDrawer()" aria-label="Đóng menu">
+                <span class="material-symbols-rounded text-slate-500 text-[20px]">close</span>
+            </button>
+        </div>
+        <div class="mobile-drawer-nav">
+            <div class="nav-section-label">Điều hướng</div>
+            <a href="#solutions" onclick="closeMobileDrawer()">
+                <span class="material-symbols-rounded">auto_awesome</span> Giải pháp
+            </a>
+            <a href="#ecosystem" onclick="closeMobileDrawer()">
+                <span class="material-symbols-rounded">hub</span> Hệ sinh thái
+            </a>
+            <a href="#institutions" onclick="closeMobileDrawer()">
+                <span class="material-symbols-rounded">domain</span> Dành cho Nhà trường
+            </a>
+            <a href="features.html">
+                <span class="material-symbols-rounded">star</span> Tính năng
+            </a>
+            <div class="nav-divider"></div>
+            <div class="nav-section-label">Cho Học Sinh</div>
+            <a href="student-dashboard.html">
+                <span class="material-symbols-rounded">school</span> Dashboard Học Sinh
+            </a>
+            <a href="student-dashboard.html?view=tutor-view">
+                <span class="material-symbols-rounded">psychology</span> Gia Sư AI
+            </a>
+            <a href="student-dashboard.html?view=english-view">
+                <span class="material-symbols-rounded">forum</span> English Coach
+            </a>
+            <div class="nav-divider"></div>
+            <div class="nav-section-label">Cho Giáo Viên</div>
+            <a href="teacher-dashboard.html">
+                <span class="material-symbols-rounded">co_present</span> Dashboard Giáo Viên
+            </a>
+            <a href="teacher-dashboard.html?view=ai-grading">
+                <span class="material-symbols-rounded">document_scanner</span> Chấm Tự Động
+            </a>
+            <div class="nav-divider"></div>
+            <div class="nav-section-label">Hỗ trợ</div>
+            <a href="help-center.html">
+                <span class="material-symbols-rounded">help</span> Trung tâm trợ giúp
+            </a>
+            <a href="privacy.html">
+                <span class="material-symbols-rounded">shield</span> Bảo mật
+            </a>
+            <a href="terms.html">
+                <span class="material-symbols-rounded">gavel</span> Điều khoản
+            </a>
+        </div>
+        <div class="mobile-drawer-auth" id="mobile-drawer-auth">
+            <a href="login.html" class="btn-login">Đăng nhập</a>
+            <a href="login.html?register=true" class="btn-register">Bắt đầu miễn phí</a>
+        </div>
+    </div>
 
     <!-- SCRIPTS -->
     <script>
@@ -1917,8 +2150,43 @@
             else showPopup('Đang cài đặt PWA Web App...', 'info');
         }
 
+        // --- MOBILE DRAWER ---
+        function openMobileDrawer() {
+            document.getElementById('mobileDrawer').classList.add('open');
+            document.getElementById('mobileDrawerOverlay').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileDrawer() {
+            document.getElementById('mobileDrawer').classList.remove('open');
+            document.getElementById('mobileDrawerOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Update mobile drawer when logged in
+        function updateMobileDrawerAuth() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const mobileAuth = document.getElementById('mobile-drawer-auth');
+            if (isLoggedIn && mobileAuth) {
+                const user = JSON.parse(localStorage.getItem('user') || '{}');
+                const role = user.role || 'student';
+                const dashboardMap = { admin: 'system-admin.html', system_admin: 'system-admin.html', teacher: 'teacher-dashboard.html', staff: 'teacher-dashboard.html', student: 'student-dashboard.html' };
+                const dashLink = dashboardMap[role] || 'student-dashboard.html';
+                const name = user.fullname || user.username || 'User';
+                mobileAuth.innerHTML = `
+                    <a href="${dashLink}" class="btn-register" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span class="material-symbols-rounded" style="font-size: 18px;">speed</span>
+                        Vào Dashboard
+                    </a>
+                    <a href="#" class="btn-login" onclick="logout(); return false;" style="color: #ef4444; border-color: #fecaca;">
+                        Đăng xuất (${name})
+                    </a>
+                `;
+            }
+        }
+
         // --- INIT ---
         checkAuth();
+        updateMobileDrawerAuth();
     </script>
 
 </body>
