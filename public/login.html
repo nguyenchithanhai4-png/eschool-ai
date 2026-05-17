@@ -605,7 +605,13 @@
                     
                     showToast('Đăng nhập thành công!', 'success');
                     // Redirect faster - 300ms is enough for toast to show
-                    setTimeout(() => { window.location.href = 'index.html'; }, 300);
+                    setTimeout(() => { 
+                        let target = 'student-dashboard.html';
+                        if (data.user.role === 'teacher') target = 'teacher-dashboard.html';
+                        if (data.user.role === 'school') target = 'school-dashboard.html';
+                        if (data.user.role === 'admin' || data.user.role === 'system_admin') target = 'system-admin.html';
+                        window.location.href = target; 
+                    }, 300);
                 } else {
                     const errMsg = data.error || data.message || 'Tài khoản hoặc mật khẩu không đúng.';
                     showToast(errMsg, 'error');
@@ -677,7 +683,10 @@
                     showToast('Đăng ký thành công!', 'success');
                     // Redirect faster
                     setTimeout(() => {
-                        window.location.href = data.redirect || 'index.html';
+                        let target = 'student-dashboard.html';
+                        if (role === 'teacher') target = 'teacher-dashboard.html';
+                        if (role === 'school') target = 'school-dashboard.html';
+                        window.location.href = data.redirect || target;
                     }, 400);
                 } else {
                     const errMsg = data.error || data.message || 'Vui lòng kiểm tra lại thông tin.';
