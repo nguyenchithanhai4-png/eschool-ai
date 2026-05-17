@@ -5707,8 +5707,8 @@ console.log("Result: " + sum(10, 50));</textarea>
 
                         <!-- Row 1: Input -->
                         <div class="tutor-input-row">
-                            <input type="text" id="tutor-input" name="chat_query" class="input-chat" placeholder="Hỏi Gia sư AI"
-                                autocomplete="off" data-lpignore="true" spellcheck="false" 
+                            <input type="text" id="tutor-input" class="input-chat" placeholder="Hỏi Gia sư AI"
+                                autocomplete="new-password" role="presentation" data-1p-ignore="true" data-bwignore="true" data-lpignore="true" spellcheck="false" 
                                 onkeydown="handleTutorKeydown(event)" oninput="toggleSendButton()">
                         </div>
 
@@ -5844,6 +5844,7 @@ console.log("Result: " + sum(10, 50));</textarea>
                     </button>
                     <div class="flex-grow-1 position-relative">
                         <input type="text" id="eng-input" class="form-control rounded-pill ps-4 pe-5" disabled
+                            autocomplete="new-password" role="presentation" data-1p-ignore="true" data-bwignore="true" data-lpignore="true"
                             style="background: #f1f5f9; border: 1px solid #e2e8f0; color: #1e293b; height: 48px; opacity: 0.5; pointer-events: none;"
                             placeholder="Nói hoặc gõ tiếng Anh..." onkeypress="if(event.key==='Enter') sendEng()">
                         <button
