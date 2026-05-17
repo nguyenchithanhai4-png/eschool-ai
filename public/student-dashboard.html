@@ -13360,7 +13360,7 @@ Phong cách trả lời:
             const hasImage = tutorSelectedFiles.some(f => f.type.startsWith('image/'));
             const bubbleStyle = hasImage ? 'style="background:transparent !important; box-shadow:none !important; padding:0 !important;"' : '';
 
-            box.innerHTML += `<div class="msg user"><div class="bubble" ${bubbleStyle}>${msgContent}</div></div>`;
+            box.insertAdjacentHTML('beforeend', `<div class="msg user"><div class="bubble" ${bubbleStyle}>${msgContent}</div></div>`);
             box.scrollTop = box.scrollHeight;
 
             // Save to chat history (with first image if present)
@@ -13387,20 +13387,22 @@ Phong cách trả lời:
 
             // Create AI bubble holder - shows typing indicator until first text arrives
             const aiMsgId = 'ai-msg-' + Date.now();
-            box.innerHTML += `<div class="msg ai" id="${aiMsgId}">
+            box.insertAdjacentHTML('beforeend', `<div class="msg ai" id="${aiMsgId}">
                 <div class="msg-header">
                     <div class="avatar spinning"><i class="fa-solid fa-atom"></i></div>
                     <span class="msg-sender">E-School AI</span>
                 </div>
                 <div class="bubble ai-response">
-                    <span class="typing-indicator" style="display:inline-flex; align-items:center; gap:4px; font-size:0.9rem;">
-                        <span style="animation: blink 1.4s infinite;">●</span>
-                        <span style="animation: blink 1.4s infinite 0.2s;">●</span>
-                        <span style="animation: blink 1.4s infinite 0.4s;">●</span>
-                        <span style="margin-left:6px; color:rgba(255,255,255,0.5); font-size:0.85rem;">Đang phân tích...</span>
+                    <span class="typing-indicator" style="display:inline-flex; align-items:center; gap:6px; font-size:0.95rem; font-weight:500; opacity:0.8;">
+                        <span style="display:flex; gap:4px;">
+                            <span style="width:6px; height:6px; border-radius:50%; background-color:currentColor; animation: blink 1.4s infinite;"></span>
+                            <span style="width:6px; height:6px; border-radius:50%; background-color:currentColor; animation: blink 1.4s infinite 0.2s;"></span>
+                            <span style="width:6px; height:6px; border-radius:50%; background-color:currentColor; animation: blink 1.4s infinite 0.4s;"></span>
+                        </span>
+                        <span style="margin-left:4px; font-size:0.85rem; opacity:0.7;">Đang phân tích...</span>
                     </span>
                 </div>
-            </div>`;
+            </div>`);
             box.scrollTop = box.scrollHeight;
 
             const aiBubble = document.querySelector(`#${aiMsgId} .bubble`);
