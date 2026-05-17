@@ -557,12 +557,15 @@
         function setBtnLoading(btnId, isLoading, text = "Đang xử lý...") {
             const btn = document.getElementById(btnId);
             if (isLoading) {
-                btn.dataset.original = btn.innerHTML;
+                if (!btn.dataset.original) btn.dataset.original = btn.innerHTML;
                 btn.disabled = true;
                 btn.innerHTML = `<span class="material-symbols-rounded animate-spin">refresh</span> ${text}`;
             } else {
                 btn.disabled = false;
-                btn.innerHTML = btn.dataset.original;
+                if (btn.dataset.original) {
+                    btn.innerHTML = btn.dataset.original;
+                    delete btn.dataset.original;
+                }
             }
         }
 
@@ -576,9 +579,9 @@
                 return;
             }
 
-            // Timeout protection - 8s max
+            // Timeout protection - 60s max (Render Free Tier cold start support)
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 8000);
+            const timeoutId = setTimeout(() => controller.abort(), 60000);
 
             try {
                 const response = await fetch('/api/login', {
@@ -642,9 +645,9 @@
                 return;
             }
 
-            // Timeout protection - 8s max
+            // Timeout protection - 60s max (Render Free Tier cold start support)
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 8000);
+            const timeoutId = setTimeout(() => controller.abort(), 60000);
 
             try {
                 const response = await fetch('/api/register', {
