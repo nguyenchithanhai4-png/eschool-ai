@@ -318,7 +318,7 @@
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-1.5">Tài khoản / Email</label>
-                        <input type="text" placeholder="Nhập email của bạn..."
+                        <input type="text" id="login-email" placeholder="Nhập email của bạn..."
                             class="input-standard w-full rounded-xl px-4 py-3 text-sm text-slate-900" required>
                     </div>
                     <div>
@@ -380,7 +380,7 @@
 
                     <div class="mb-4">
                         <label class="block text-sm font-semibold text-slate-700 mb-1.5">Địa chỉ Email</label>
-                        <input type="email" placeholder="name@school.edu.vn"
+                        <input type="email" id="reg-email" placeholder="name@school.edu.vn"
                             class="input-standard w-full rounded-xl px-4 py-3 text-sm text-slate-900" required>
                     </div>
 
@@ -571,8 +571,8 @@
 
         async function executeLogin() {
             setBtnLoading('btn-login', true);
-            const emailInput = document.querySelector('#form-login input[type="text"]').value.trim();
-            const passwordInput = document.querySelector('#form-login input[type="password"]').value;
+            const emailInput = document.getElementById('login-email').value.trim();
+            const passwordInput = document.getElementById('login-pwd').value;
             if(!emailInput || !passwordInput) {
                 showToast('Vui lòng nhập tên đăng nhập và mật khẩu!', 'error');
                 setBtnLoading('btn-login', false);
@@ -635,8 +635,8 @@
             let fullname = document.getElementById('reg-name').value;
             if(role === 'school' && !fullname) fullname = "Trường Học Đối Tác";
             
-            const email = document.querySelector('#form-register input[type="email"]').value.trim();
-            const password = document.querySelector('#form-register input[type="password"]').value;
+            const email = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-pwd').value;
             const username = email ? email.split('@')[0] : 'user_' + Date.now();
             
             if (!email || !password) {
