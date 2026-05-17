@@ -1693,12 +1693,12 @@
             outline: none;
             padding: 8px 0;
             font-size: 1rem;
-            color: var(--text-light);
+            color: #1e293b; /* Dark text for light mode */
             min-width: 0;
         }
 
         .input-chat::placeholder {
-            color: rgba(255, 255, 255, 0.4);
+            color: #94a3b8; /* Slate-400 placeholder */
         }
 
         .input-chat:disabled {
@@ -5707,8 +5707,9 @@ console.log("Result: " + sum(10, 50));</textarea>
 
                         <!-- Row 1: Input -->
                         <div class="tutor-input-row">
-                            <input type="text" id="tutor-input" class="input-chat" placeholder="Hỏi Gia sư AI"
-                                autocomplete="off" onkeydown="handleTutorKeydown(event)" oninput="toggleSendButton()">
+                            <input type="text" id="tutor-input" name="chat_query" class="input-chat" placeholder="Hỏi Gia sư AI"
+                                autocomplete="off" data-lpignore="true" spellcheck="false" 
+                                onkeydown="handleTutorKeydown(event)" oninput="toggleSendButton()">
                         </div>
 
                         <!-- Row 2: Tools -->
